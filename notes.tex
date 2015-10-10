@@ -4,6 +4,9 @@
 \usepackage{amsthm}
 \usepackage{amscd}
 \usepackage{fullpage}
+\usepackage{braket}
+\usepackage{dsfont}
+\usepackage{mdframed}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -14,6 +17,29 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\newcommand{\FR}[2]{\frac{#1}{#2}}
+\newcommand{\PFR}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\SFR}[2]{\sqrt{\frac{#1}{#2}}}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\lam}{\lambda}
+\newcommand{\vphi}{\varphi}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\gam}{\gamma}
+\newcommand{\di}{\partial}
+\newcommand{\ddi}[2]{\FR{\partial {#1}}{\partial {#2}}}
+\newcommand{\hp}{\hat p}
+\newcommand{\ha} {\hat a}
+\newcommand{\had}{\hat a^\dagger}
+
+\newcommand{\elaborate}{{\color{blue} \textbf{ELABORATE}}}
+\newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
 
 \DeclareMathOperator{\bC}{\mathbb{C}}
 \DeclareMathOperator{\bR}{\mathbb{R}}
@@ -41,27 +67,268 @@
 \begin{document}
 
 \maketitle
+\chapter{Klein-Gordon Field}
+\section{Why Fields?}
+    
+    Volume 1 of Steven Weinberg's \emph{Quantum Theory of Fields} is
+    devoted to answering this question. A discussion of scattering
+    experiments lead him to the $S$-matrix, and then to the local behaviour
+    of experiments (which he calls the cluster decomposition principle),
+    and then using Lorentz invariance, fields just practically fall out.
+    Weinberg does a really good job of convincing us that QFT in some form
+    or another really must exist if we assume Lorentz invariance and
+    unitarity.
+%   First, he analyzes scattering
+%   experiments and introduces us to the arena of the multiparticle Hilbert
+%   space and the main player, the $S$-matrix. Next, using the cluster
+%   decomposition principle, he justifies why a Hamiltonian must be written
+%   as a sum of creation and annihilation operators. This cluster
+%   decomposition principle makes precise what we mean by ``experiments at
+%   large distances between one another are uncorrelated.'' Moreover, ``this
+%   cluster decomposition principle plays a crucial part in making field
+%   theory inevitable.'' (Weinberg Vol 1) This approach is very appealing
+%   for it justifies why fields are important without citing the
+%   ``problems'' of previous theories.
+%
+%   Miscelleanous remarks from the wisdom bank of Weinberg:
+%   \begin{itemize}
+%       \item {\color{red}``The structure and properties of any quantum field are
+%           dictated by the representations of the homogenous Lorentz group
+%       under which it transforms.''}
+%       \item Free fields $\leftrightarrow$ trivial
+%           representation, causal vector $\leftrightarrow$ 4-vector
+%           representation, Dirac fields $\leftrightarrow$ dirac
+%           representation, etc.
+%   \end{itemize}
 
-\chapter{Review}
+    Peskin and Schroeder give a slightly different motivation, one that is
+    closer to the historical reason of why fields were introduced:
+    \begin{itemize}
+        \item Single particle relativistic wave functions $\implies$
+            inconsistencies in theory (negative energy eigenstates)
+            \elaborate
+        \item $E=mc^2$ allows for particles to be created at high energies
+        \item $\Delta E\cdot \Delta t = \hbar$ allows for virtual
+            particles
+        \item Causality violation. Set $H = \FR{\hp^2}{2m}$
+            \begin{align*}
+                U(t) &= \braket{\vec x|e^{-iHt}|\vec x_0}\\
+                     &= \int \FR{d^3p}{(2\pi)^3} \braket{\vec
+                         x|e^{-i(p^2/2m)t}|p}\braket{p|x}\\
+ &= \int \FR{d^3p}{(2\pi)^3} e^{-i(p^2/2m)t}e^{i\vec p\cdot (\vec x-\vec x_0)}\\
+                     &= \PFR{m}{2\pi i t}^{3/2} e^{im(\vec x-\vec x_0)^2/2t}
+            \end{align*}
+            This last quantity is non-zero, even for arbitariry $x$ that
+            may by space-like separated.
+    \end{itemize}
+    QFT seems to solve all of these mysteries. One very good feature of the
+    theory is that it predicts a lot of experiments to very high accuracy.
+    QED is something we will see very soon that has been very well tested
+    and agrees very well with experiments.
+    
+\section{Elements of Classical Field Theory}
+\subsection{Lagrangian Field Theory}
+    \begin{itemize}
+        \item Fundamental quantity in Lagrangian field theory is the action $S$.
+In high school, the Lagrangian is a function of time,
+positions, and velocities of a system: $L(t,x(t),\dot x(t))$. The action
+is given by $S = \int dt\, L$.
+Fields can also be described in a Lagrangian formalism, for instance by
+considering every point in space-time as a ``particle'' that wiggles back
+and forth with the amplitude of wiggling characterizing the strength of the
+field.
 
-\section{Field Theory}
+Let $\vphi : M \to \bR$, define a Lagrangian \emph{density} $\mc
+L(t,\vphi,\di_\mu \vphi)$, the honest Lagrangian $L = \int d^3x \mc L$, and
+finally define the action: \[ S = \int dt\, L = \int d^4x \mc L \]
 
-\chapter{Free Field Theory}
+\begin{mdframed}
+    Four-vector notation:
+    \begin{itemize}
+        \item Greek letters $\mu,\nu,\ldots \in \{0,1,2,3\}$
+        \item Roman letters $i,g,\ldots \in \{1,2,3\}$.
+        \item $x^\mu = (x^0,x^1,x^2,x^3)$
+        \item Signature $(+---)$
+        \item $\eta_{\mu\nu} = \mathrm{diag}(1,-1,-1,-1)$
+        \item $\di_\mu f = \FR{\di f}{\di x^\mu} = (\di_0 f,\di_1 f,\di_2
+            f,\di_3 f)$.
+    \end{itemize}
+\end{mdframed}
 
-\section{Lorentz Invariance}
+\item Extremize the action. Let $\delta f = f(\vphi+\xi) - f(\vphi)$.
+    \begin{align*}
+        0 = \delta S &= \int d^4 x \left( \ddi{\mc L}{\vphi}\delta\vphi
+        +\ddi{\mc L}{(\di_\mu \vphi)}
+        \underbrace{\delta(\di_\mu}_{\text{commute}}\vphi)\right)\\
+        &= \int d^4 x \left[ \ddi{\mc L}{\vphi}\delta\vphi
+        + \di_\mu \left(  \ddi{\mc L}{\vphi}\delta\vphi \right)
+    - \di_\mu \left(\ddi{\mc L}{(\di_\mu\vphi)}\right)\delta\vphi \right]
+    \end{align*}
+    By Stokes' theorem, we can break this integral up into two parts, one
+    of which is called the boundary term. Taking a variation that is fixed
+    along the boundary means $\delta\vphi \equiv 0$ on the boundary which
+    means that the boundary term does not contribute to $\delta S$.
+    Moreover, if we take $\delta S = 0$ for every variation, then we obtain
+    the Euler Lagrange equations:
+    \[ \di_\mu \left( \ddi{\mc L}{(\di_\mu \vphi)} \right) - \ddi{\mc
+    L}{\vphi} = 0 \]
 
-\section{Canonical Quantization}
+    \begin{remark}
+        The Lagragian formalism is useful for relativistic dynamics because
+        all expressions are chosen to Lorentz invariant.
+    \end{remark}
+    \end{itemize}
+\subsection{Hamiltonian Field Theory}
+    \begin{itemize}
+\item Introducing this makes the transition to the quantum theory easier.
+\item High school Hamiltonian formalism: 
+    $p = \ddi{L}{\dot q},H=\sum p\dot q-L$.
+\item Pretend that $\vec x$ enumerates points on the lattice of space-time:
+    \begin{align*}
+        p(\vec x) = \ddi{\mc L}{\dot\vphi(\vec x)}
+        &= \ddi{}{\dot\vphi(\vec x)}\int d^3y\, \mc
+        L(\vphi(y),\dot\vphi(y))\\
+        &\sim \ddi{}{\dot\vphi(\vec x)}\sum \mc
+        L(\vphi(y),\dot\vphi(y)) d^3y\\
+        &= \ddi{\mc L}{\dot\vphi(\vec x)} d^3x\\
+        &\equiv \pi(\vec x)d^3 x
+    \end{align*}
+    since each point on the lattice represents a different variable, so the
+    derivative just picks out the one at $\vec x$. We call $\pi(\vec x)$
+    the momentum \emph{density}. Therefore the Hamiltonian looks like:
+    \[H = \int d^3x\, \left[\pi(\vec x)\dot\vphi(\vec x) - \mc L\right].\]
+    (See the stress-energy tensor part for another derivation of the
+    Hamiltonian which falls out of Noether's theorem for being the
+    conserved quantity under time translations.)
+\item \textbf{Important example:} Take $\mc L = \FR{1}{2}(\di_\mu\vphi)^2 -\FR{1}{2}
+    m^2\vphi^2$. Euler-Lagrange equations become $\di^\mu(\di_\mu
+    \vphi)+m^2\vphi=0$ which is the Klein Gordon equation. The Hamiltonian
+    becomes:
+    \[ H = \int d^3x \mc H
+= \int d^3x \left[ \underbrace{\FR{\pi^2}{2}}_{\text{moving in time}}
+    + \underbrace{\FR{(\nabla \vphi)^2}{2}}_{\text{shearing in space}}
++ \underbrace{\FR{m^2\vphi^2}{2}}_{\text{existing at all}}\right]\]
+    \end{itemize}
+\subsection{Noether's Theorem - How to Compute Conserved Quantities}
+To every continuous transformation of the field we can assign an infinitesmal
+transformation:
+\[ \vphi(x) \rightarrow \vphi'(x) = \vphi(x) +
+\alpha\underbrace{\Delta\vphi(x)}_{\text{deformation}}\]
+Transformations might also change the Lagrangians. The interplay between
+how the infinitesmal transformation changes the Lagrangian and the field is
+what gives rise to conserved quantities, or sometimes known as Noether charges.
+\begin{align*}
+    \text{Symmetry} &\iff \text{Equations of motion -- invariant}\\
+    &\iff \text{Action invariant (up to surface term)}\\
+    &\iff \mc L(x) \rightarrow \mc L(x) + \alpha\di_mu \mc J^\mu(x)
+\end{align*}
+Taylor expanding the perturbation:
+\begin{align*}
+    \Delta \mc L &= \ddi{\mc L}{\vphi} \cdot \Delta \vphi + \ddi{\mc
+    L}{(\di_\mu\vphi)}\di_\mu(\Delta\vphi)\\
+    &= \di_\mu\left( \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi \right) +
+    \left[ \ddi{\mc L}{\vphi} - \di_\mu \left( \ddi{\mc L}{(\di_\mu \vphi)}
+    \right) \right]\\
+    &= \di_\mu\left( \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi \right)\\
+\end{align*}
+Since we claimed that under the symmetry $\Delta\mc L = \di_\mu \mc J^\mu$
+we have the following relations:
+\begin{align*}
+    j^\mu(x) &= \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu\\
+    \di_\mu j^\mu &= 0\\
+    \ddi{}{t} j^0 &= \di_i j^i
+\end{align*}
+Define the charge $Q = \int d^3x\; j^0$. Then, if we assume that space does
+not have boundary, Stokes' theorem implies that $\di Q/\di t = 0$. Often,
+$j^0$ is called the charge density, and $j^\mu$ is called the current
+density.
 
-\section{Path Integral}
+\begin{mdframed}
+Therefore to compute a conserved quantity we compare the deformation of the
+Lagrangian due to the $\vphi$ changing with the deformation of the
+Lagrangian due to the symmetry transformation. 
+\end{mdframed}
 
-\chapter{Interacting Field Theory}
+\textbf{Examples:}
+\begin{enumerate}
+    \item $\mc L = \FR{1}{2}(\di_\mu \vphi)^2$ has the following field
+        symmetry, $\vphi \to \vphi+\alpha$, ie. $\Delta\vphi \equiv$ const.
+        There is no change to the Lagrangian, so $j^\mu = \di^\mu \vphi$.
+    \item Space-time transformation, $x^\mu \to x^\mu-a^\mu$, implies
+        \begin{align*}
+        \vphi(x) &\to \vphi(x+a) = \vphi(x) + a^\nu\di_\nu\vphi(x)\\
+        \mc L(x) &\to \mc L(x+a) = \mc L(x) + a^\mu\di_\mu \mc L\\
+                 &. \quad\qquad\qquad = \mc L(x) +
+                 a^\nu\di_\mu(\delta^\mu_\nu \mc L)
+        \end{align*}
+        Therefore we write 
+        \[T^\mu_\nu = \ddi{\mc L}{(\di_\mu\vphi)}\di_\nu\vphi -
+        \delta^\mu_\nu\mc L\]
+        we get four separately conserved quantities. \CHECK
 
-\chapter{Feynman Rules}
+        This is called the stress-energy tensor or the energy-momentum
+        tensor in various contexts.
+        The $T^{\bullet 0}$ quantity gives rise to the Hamiltonian:
+        \begin{align*}
+            \int d^3x T^{00} = \int d^3x \mc H \equiv H
+        \end{align*}
 
-\chapter{Renormalization Theory}
+\end{enumerate}
 
-\section{Renormalization Group}
+\subsection{Summary of Computing Noether Charges}
+Field or coordinate transformation $\leadsto$ $\{\Delta\phi,\Delta\mc L\}$
+$\leadsto j^\mu(x) = \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu$
+$\leadsto Q = \int j^0 d^3x$ conserved charge.
 
-\section{Effective Field Theories}
+\section{Quantizing Klein Gordon Field}
+Quantization of field theories involves two steps:
+\begin{enumerate}
+    \item Promote $\phi$ and $\pi$ to operators,
+    \item Specify commutation relations:
+        \begin{align*}
+            [\phi(\vec x),\pi(\vec y)] &= i\delta^{(3)}(\vec x-\vec y)\\
+            [\phi(\vec x),\phi(\vec y)] &= [\pi(\vec x),\pi(\vec y)] = 0
+        \end{align*}
+\end{enumerate}
+Note that here we are in the Schrodinger picture, so that $\phi,\pi$ are
+operators independent of time. Next, we are going to introduce a
+basis that will diagonalize the Hamiltonian, and we shall express $\phi$
+and $\pi$ in terms of these operators.
 
+\elaborate
+
+The exact form of the following is a little tricky to motivate (but this is
+done in Weinberg, chapter 5). One way to motivate this is to look at the
+Klein-Gordon equation in the Fourier representation. This is exactly the
+harmonic oscillator equation and so it is reasonable to assume that the
+operators $\phi,\pi$ can be manipulated in a similar way to obtain the
+following ansatz:
+
+\begin{align*}
+    \phi(\vec x) &= \\
+    \pi(\vec x) &=
+\end{align*}
+
+%   \chapter{Review}
+%
+%   \section{Field Theory}
+%
+%   \chapter{Free Field Theory}
+%
+%   \section{Lorentz Invariance}
+%
+%   \section{Canonical Quantization}
+%
+%   \section{Path Integral}
+%
+%   \chapter{Interacting Field Theory}
+%
+%   \chapter{Feynman Rules}
+%
+%   \chapter{Renormalization Theory}
+%
+%   \section{Renormalization Group}
+%
+%   \section{Effective Field Theories}
+%
 \end{document}
