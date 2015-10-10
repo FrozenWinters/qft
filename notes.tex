@@ -16,6 +16,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}{Axiom}
 \newtheorem{example}[theorem]{Example}
 
 \theoremstyle{remark}
@@ -43,12 +44,15 @@
 
 \DeclareMathOperator{\bC}{\mathbb{C}}
 \DeclareMathOperator{\bR}{\mathbb{R}}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\bN}{\mathbb{N}}
 \DeclareMathOperator{\bZ}{\mathbb{Z}}
 \DeclareMathOperator{\cA}{\mathcal{A}}
 \DeclareMathOperator{\cB}{\mathcal{B}}
 \DeclareMathOperator{\cC}{\mathcal{C}}
 \DeclareMathOperator{\cD}{\mathcal{D}}
 \DeclareMathOperator{\cF}{\mathcal{F}}
+\DeclareMathOperator{\cH}{\mathcal{H}}
 \DeclareMathOperator{\cI}{\mathcal{I}}
 \DeclareMathOperator{\cJ}{\mathcal{J}}
 \DeclareMathOperator{\cL}{\mathcal{L}}
@@ -57,8 +61,11 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\SO}{SO}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
+
+\setcounter{chapter}{-1}
 
 \title{Quantum Field Theory\\Fall 2015 Seminar Notes}
 \author{Anton Borissov, Henry Liu}
@@ -67,6 +74,167 @@
 \begin{document}
 
 \maketitle
+
+\tableofcontents
+
+\chapter{Review}
+
+Let's review some notation and concepts from quantum mechanics and
+special relativity. Note that not all these concepts carry over to
+quantum field theory. For example, in quantum mechanics, we are always
+working with states within some Hilbert space, but in quantum field
+theory, there is no suitable Hilbert space.
+
+\section{Quantum Mechanics}
+
+The fundamentals of quantum mechanics have had almost a century to be
+formalized, and indeed they have been! Here we give a somewhat
+axiomatic presentation of QM.
+
+\begin{axiom}[States]
+  Let $\cH$ be a (complex) Hilbert space. Its projectivization
+  $\bP\cH$ is the {\bf state space} of our system.
+  \begin{enumerate}
+  \item An element of $\cH$, i.e. a state, is called a {\bf ket}, and
+    is written $\ket{x}$.
+  \item An element of $\cH^*$, i.e. a functional, is called a {\bf
+      bra}. The bra associated to $\ket{x}$ (under the identification
+    $\cH \cong \cH^*$ given by the inner product) is denoted $\bra{x}$.
+  \end{enumerate}
+  Consequently, $\braket{x|x} = \|x\|^2$, which we usually want to
+  normalize to be $1$.
+
+  Note that the symbol inside the ket or bra is somewhat arbitrary.
+  For example, the states of a quantum harmonic oscillator are written
+  $\ket{n}$, for $n \in \bN$.
+\end{axiom}
+
+Given a space of states, we can look at the operators that act on the
+states. These operators must be unitary, so that normalized states go
+to normalized states. 
+
+\begin{axiom}[Operators]
+  To every classical observable (i.e. property of a system) is
+  associated a quantum operator, called an {\bf observable}.
+  Observables are (linear) self-adjoint operators whose (real!)
+  eigenvalues are possible values of the corresponding classical
+  property of the system. For example,
+  \begin{enumerate}
+  \item $\hat{H}$ is the {\bf Hamiltonian} of the system, which
+    classically represents the ``total energy'' (kinetic + potential)
+    in the system,
+  \item $\hat{x}$ is the {\bf position operator},
+  \item $\hat{p}$ is the {\bf momentum operator}.
+  \end{enumerate}
+  The convention in QM is that observables are denoted by symbols with
+  hats on them. The process of ``moving'' from a classical picture of
+  a system to a quantum picture by making classical observables into
+  operators is called {\bf quantization}, because the possible values
+  of the observables are quantized, i.e. made discrete, whereas
+  previously they formed a continuum.
+\end{axiom}
+
+A classical observable is simple: it is just a function $f$ defined on
+the classical phase space, so in order to make a measurement of the
+observable, we simply apply $f$ to the current stsate of the system.
+In QM it is not as simple, in most part due to its inherently
+probabilistic nature. But it is still straightforward.
+
+\begin{axiom}[Measurement]
+  If $\hat{A}$ is the observable and $\hat{A}\ket{k} = a_k\ket{k}$,
+  i.e. $\ket{k}$ is an eigenvector with eigenvalue $a_k \in \bR$, then
+  the probability of obtaining $a_k$ as the value of the measurement
+  on $\ket{\psi}$ is $|\braket{k|\psi}|^2$. But not only is the
+  outcome probabilistic, the state of the system after the measurement
+  is $\ket{k}$. In other words, {\bf measurement is projection}. This
+  is fundamental to QM and cannot be emphasized enough.
+\end{axiom}
+
+What about states that we don't measure? What are they doing as time
+passes? We need to specify the {\bf dynamics} of our system, and this
+is where the quantum analog of the Hamiltonian comes into play.
+
+\begin{axiom}[Dynamics]
+  The time-evolution of the state $\ket{\psi}$ is specified by the
+  Hamiltonian $\hat{H}$ of the system, and is given by the {\bf
+    Schr\"odinger equation}
+  $$ i\hbar \frac{d\ket{\psi}}{dt} = \hat{H}\ket{\psi}, $$
+  where $\hbar$ is Planck's constant (later we will be working in
+  units where $\hbar = 1$). Note that we can solve this first-order ODE:
+  $$ \ket{\psi(t)} = \exp(-i\hat{H}t)\ket{\psi(0)}. $$
+  The operator $U(t) = \exp(-i\hat{H}t)$ is known as the {\bf
+    time-evolution operator}.
+\end{axiom}
+
+That's it! There are some quick consequences of these axioms we should
+explore before moving on. First, although measurement is
+probabilistic, we often work with states whose observables tend to
+take on values clumped around a certain value, which corresponds to
+the classical value of that observable for the system. So given a
+state $\ket{\psi}$ and observable $\hat{A}$, it is reasonable to
+define the {\bf expectation value} and {\bf standard deviation}
+$$ \braket{\hat{A}} = \braket{\psi|\hat{A}|\psi}, \qquad \Delta \hat{A} = \sqrt{\braket{\hat{A}^2} - \braket{\hat{A}}^2}. $$
+
+\begin{proposition}[Heisenberg's uncertainty principle]
+  Let $\hat{A}$ and $\hat{B}$ be self-adjoint operators. Then
+  $$ \Delta \hat{A} \Delta \hat{B} \ge \frac{1}{2}\left|\braket{[\hat{A}, \hat{B}]}\right|. $$
+\end{proposition}
+
+\begin{proof}
+  Note that the variance can also be written 
+  $$ \Delta \hat{A} = \braket{\psi|(\hat{A} - \braket{A})^2|\psi}. $$
+  Without loss of generality, assume
+  $\braket{\hat{A}} = \braket{\hat{B}} = 0$, since we can shift
+  $\hat{A}$ and $\hat{B}$ by constants without affecting
+  $\Delta \hat{A}$ and $\Delta \hat{B}$. Then an application of
+  Cauchy-Schwarz (using braket notation) gives
+  $$ \Delta \hat{A} \Delta \hat{B} = \|\hat{A}\ket{\psi}\| \|\hat{B}\ket{\psi}\| \ge |\braket{\psi|\hat{A}\hat{B}|\psi}|. $$
+  Now note that if $z = \braket{\psi|\hat{A}\hat{B}|\psi}$, then
+  $|z| \ge |\im z| = |z - z^*|/2$. Hence
+  $$ |\braket{\psi|\hat{A}\hat{B}|\psi}| \ge \frac{1}{2}|\braket{\psi|\hat{A}\hat{B}|\psi} - \braket{\psi|\hat{A}\hat{B}|\psi}^*| = \frac{1}{2}|\braket{\psi|\hat{A}\hat{B} - (\hat{A}\hat{B})^\dagger|\psi}| = \frac{1}{2}\braket{\psi|[\hat{A}, \hat{B}]|\psi}, $$
+  where the last equality follows from the observables being
+  self-adjoint:
+  $(\hat{A}\hat{B})^\dagger = \hat{B}^\dagger\hat{A}^\dagger =
+  \hat{B}\hat{A}$.
+\end{proof}
+
+For example, if we have a particle in $\bR^n$, the Hilbert space
+underlying the state space is $\cH = L^2(\bR^n)$, and the position and
+momentum operators are given by
+$$ \hat{x}: \psi(x) \mapsto x\psi(x), \quad \hat{p}: \psi(x) \mapsto -i\hbar\nabla\psi(x). $$
+A short calculation gives the {\bf fundamental commutation relation}
+between $\hat{x}$ and $\hat{p}$:
+$$ [\hat{x}, \hat{p}] = i\hbar, $$
+which we interpret as saying that we cannot know both the exact
+position and exact momentum of a particle at the same time.
+
+\section{Special Relativity}
+
+\setcounter{axiom}{0}
+
+Special relativity describes the structure of spacetime. It says that
+spacetime is $\bR^{1+3}$, known as {\bf Minkowski space} (as opposed
+to $\bR^4$, Euclidean space) and equipped with the {\bf Minkowski
+  metric}
+$$ ds^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2 $$
+where $c$ is the speed of light (later we will work in units where
+$c = 1$). As with QM, there is a nice axiomatic presentation of SR,
+which is essentially just the following axiom.
+
+\begin{axiom}[Lorentz invariance]
+  The fundamental laws of physics must be invariant under isometries
+  of Minkowski space. These isometries form the {\bf Poincar\'e group}
+  $\bR^{1+3} \rtimes \SO(1,3)$. The subgroup $\SO(1,3)$ is known as
+  the {\bf Lorentz group}; its elements are called {\bf Lorentz
+    transformations}, and are precisely the isometries leaving the
+  origin fixed.
+\end{axiom}
+
+So any Hamiltonian, Lagrangian, or physical expression we write down
+from now on had better be Lorentz invariant (we will usually work
+locally with nicely-behaved objects that are automatically invariant
+under the full Poincar\'e group if they are Lorentz invariant).
+
 \chapter{Klein-Gordon Field}
 \section{Why Fields?}
     
