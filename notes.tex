@@ -60,10 +60,12 @@
 \DeclareMathOperator{\cL}{\mathcal{L}}
 \DeclareMathOperator{\fg}{\mathfrak{g}}
 \DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
 
@@ -633,8 +635,6 @@ Now we enter the QFT world. For now we will work in the Schr\"odinger
 picture, where $\phi(\vec x)$ and $\pi(\vec y)$ are time-independent.
 We will take the classical Klein-Gordon field and {\bf canonically
   quantize} it, which involves two steps:
-\section{Quantizing Klein Gordon Field}
-Quantization of field theories involves two steps: 
 \begin{enumerate}
 \item promote $\phi$ and $\pi$ to operators (i.e. $\phi(\vec{x})$ and
   $\phi(\vec{y})$ are now operators, not scalars), and
@@ -683,11 +683,132 @@ mechanics. In terms of creation and annihilation operators, the first years
 wrote $\hat q = \FR{1}{\sqrt{2\om}}(a+a^\dag)$, $\hat p =
 \SFR{\om}{2}(a-a^\dag)$. Therefore we conjecture our fields have the
 following form: \footnote{{\elaborate}}
-
 \newcommand{\vp}{{\vec p}}
 \newcommand{\vx}{{\vec x}}
 \begin{align*}
 \phi(\vx) &= \int \FR{d^3p}{(2\pi)^3} \FR{1}{\sqrt{2\om_p}} (a_\vp e^{i\vp\cdot\vx} + a_\vp^\dag e^{-i\vp\cdot\vx})\\
 \pi(\vx) &= \int \FR{d^3p}{(2\pi)^3}(-i)\SFR{\om_p}{\sqrt2} (a_\vp e^{i\vp\cdot\vx} - a_\vp^\dag e^{-i\vp\cdot\vx})
 \end{align*}
+
+\chapter{Path Integrals}
+
+So far, we have taken classical field theories and canonically
+quantized them to obtain the corresponding QFTs. In general, this
+canonical quantization process is difficult and tedious, but it
+motivates much of what we are about to do. The path integral approach
+to QFT will allow us to perform calculations more easily, and
+generalizes readily to other non-interacting theories. In particular,
+for the entirety of this chapter, we will mostly be concerned with
+calculating {\bf propagation amplitudes}.
+
+\section{Deriving the Path Integral}
+
+Suppose we have the Hamiltonian $\hat{H}$ for a quantum mechanical
+particle, and we want to compute the amplitude
+$\braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a}$, i.e. the amplitude for
+the particle to travel from the point $\vec{q}_a$ to $\vec{q}_b$ in a
+given time $t$. Using the superposition principle, let's compute this
+by splitting up the time interval $[0, t]$ into $n$ equal chunks of
+size $\delta t = t/n$:
+$$ \braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a} = \int \cdots \int d\vec{q}_1 \cdots d\vec{q}_{n-1} \braket{\vec{q}_b|e^{-i\hat{H}\delta t}|\vec{q}_{n-1}} \braket{\vec{q}_{n-1}|e^{-i\hat{H}\delta t}|\vec{q}_{n-2}} \cdots \braket{\vec{q}_1|e^{-i\hat{H}\delta t}|\vec{q}_a}. $$
+What have we done? We are saying that the amplitude for propagation
+from $\vec{q}_a$ to $\vec{q}_b$ is equal to the amplitude for
+propagation from $\vec{q}_a$ to $\vec{q}_1$, then to $\vec{q}_2$, and
+so on, until $\vec{q}_b$, integrated over all possible $\vec{q}_j$.
+(Recall the double slit experiment and consider the case $n = 2$ if
+you are still confused.)
+
+Now each of the terms needs to be evaluated. For convenience, let
+$\vec{q}_n$ denote $\vec{q}_b$. Let's do the simple case where
+$\hat{H} = \hat{p}^2/2m$, a free particle. A straightforward
+calculation shows:
+\begin{align*}
+  \braket{\vec{q}_{j+1}|e^{-i(\hat{p}^2/2m)\delta t}|\vec{q}_j}
+  &= \int \frac{d^3p}{(2\pi)^3} \, \braket{\vec{q}_{j+1}|e^{-i(\hat{p}^2/2m)\delta t}|p}\braket{p|\vec{q}_j} \\
+  &= \int \frac{d^3p}{(2\pi)^3} \, e^{-i(p^2/2m)\delta t} \braket{\vec{q}_{j+1}|p}\braket{p|\vec{q}_j} \\
+  &= \int \frac{d^3p}{(2\pi)^3} \, e^{-i(p^2/2m)\delta t} e^{ip(\vec{q}_{j+1} - \vec{q}_j)}.
+\end{align*}
+Ah, we know how to evaluate this integral: it's just a Gaussian! The
+final result, after some suggestive rearranging, is
+$$ \braket{\vec{q}_{j+1}|e^{-i(\hat{p}^2/2m)\delta t}|\vec{q}_j} = \left(\frac{m}{2\pi i\delta t}\right)^{3/2} \exp\left(i\delta t \frac{m}{2}\left(\frac{\vec{q}_{j+1} - \vec{q}_j}{\delta t}\right)^2\right). $$
+(The Gaussian integral itself is not trivial. \footnote{The relevant
+formula is as follows. For $A \in \GL(n, \bC)$ such that $A = A^T$
+and $\re A$ is positive semidefinite,
+$$ \int d^nx \, e^{-Ax \cdot x/2 + iy \cdot x} = \frac{(2\pi)^{n/2}}{\sqrt{\det A}} e^{-A^{-1} y^2/2}. $$ 
+One proves this by showing it first for $n = 1$ and $A = I$, in which
+case it suffices to solve the DE
+$$ \frac{d}{dy} \int dx \, e^{-x^2/2 + iyx} = -y \int dx \, e^{-x^2/2 + iyx}. $$
+Now suppose $A$ is real and hence PSD. If we plug $x = \sqrt{A}v$ into
+the LHS of the formula, the RHS splits as a product of one-dimensional
+integrals, which we just calculated. Finally, since both sides are
+analytic and agree for real PSD matrices, they agree in general.})
+Hence when we plug this back into our calculation for
+$\braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a}$, we get
+$$ \braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a} = \left(\frac{m}{2\pi i\delta t}\right)^{3n/2} \int d\vec{q}_1 \cdots d\vec{q}_{n-1} \exp\left(i\delta t \frac{m}{2}\sum_{j=1}^{n-1} \left(\frac{\vec{q}_{j+1} - \vec{q}_j}{\delta t}\right)^2\right). $$
+So far, everything we have done is rigorous. But now we make an
+intuitive leap: instead of approximating the propagation from
+$\vec{q}_a$ to $\vec{q}_b$ with a finite number of timesteps, we use
+infinitely many. In other words, we ``integrate over paths'' by
+letting $\delta t \to 0$ and $n \to \infty$, giving the formal
+expression
+$$ \braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a} = \int D\vec{q}(t) \, \exp\left(i \int_0^t dt \, \frac{1}{2} m \vec{q}'(t)^2\right) $$
+where the {\bf path integral} $\int D\vec{q}(t)$ is defined as
+$$ \int D\vec{q}(t) = \lim_{n \to \infty} \left(\frac{m}{2\pi i\delta t}\right)^{3n/2} \int \cdots \int d\vec{q}_1 \cdots d\vec{q}_{n-1}. $$
+
+\begin{exercise}
+  Perform the same derivation of the path integral, but now starting with the Hamiltonian $\hat{H} = \hat{p}^2/2m + V(\hat{q})$. You should get
+  $$ \braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a} = \int D\vec{q}(t) \, \exp\left(i \int_0^t dt \, \frac{1}{2} m \vec{q}'(t)^2 - V(\vec{q}(t))\right). $$
+\end{exercise}
+
+For now, let's not worry about the infinite constant in front of the
+path integral; it pales as an issue in comparison to the nonexistence
+of a Lebesgue measure on the space of paths. Actually, the constant
+will cancel out later.
+
+Note that the integrand looks suspiciously like the Lagrangian
+corresponding to the Hamiltonian in both cases. This is indeed true,
+and can be demonstrated by plugging in a general Hamiltonian
+$\hat{H}(\hat{q}, \hat{p})$ and seeing how combinations of $\hat{q}$
+and $\hat{p}$ act on the $\ket{\vec{q}_i}$.
+
+\begin{theorem}
+  Suppose $\hat{H}(\vec{q}, \vec{p})$ is a {\bf Weyl-ordered}
+  Hamiltonian, i.e. in a form where if there is a term
+  $\vec{p}^{i_1} \vec{q}^{i_2} \cdots \vec{p}^{i_n}$, then there is a
+  corresponding term
+  $\vec{p}^{i_n} \vec{q}^{i_{n-1}} \cdots \vec{p}^{i_1}$. Then
+  $$ \braket{\vec{q}_b|e^{-i\hat{H}t}|\vec{q}_a} = \int D\vec{q}(t) D\vec{p}(t) \, \exp\left(i \int_0^t dt \, \vec{p}(t) \cdot \vec{q}(t) - H(\vec{q}(t), \vec{p}(t))\right). $$
+  In particular, for Hamiltonians quadratic in $\vec{p}$, we can
+  integrate away the $\int D\vec{p}(t)$, leaving only the Lagrangian
+  in the integrand.
+\end{theorem}
+
+\begin{proof}
+  Details of the long calculation will not bring us much further
+  enlightenment, so we omit them. See Peskin \& Schroeder, pages
+  280-281 iff you like calculations and have some time to burn.
+\end{proof}
+
+Any Hamiltonian can be Weyl-ordered by commuting $\hat{p}$ and
+$\hat{q}$, so this theorem is very general. In fact, it is general
+enough that from now on, we will work directly with the Lagrangian and
+almost completely ignore the Hamiltonian formalism. There is one major
+advantage in doing so: the Lagrangian makes symmetries and
+conservation laws very clear. For example, when we write down a
+Lorentz-invariant Lagrangian, the path integral is automatically
+Lorentz-invariant.
+
+In fact, the quantum system we are considering is very general as
+well. In our entire derivation of the path integral, we did not use
+anything beyond the relationship between $\hat{q}$ and $\hat{p}$. So
+in particular, our derivation holds not only for quantum mechanical
+systems, but also for QFTs. For example, if we take the Lagrangian
+$\cL = \frac{1}{2} (\partial_\mu \phi)^2 - V(\phi)$ for a real scalar
+field, then
+$$ \braket{\phi_b(\vec{x}) | e^{-iHt} | \phi_a(\vec{x})} = \int D\phi \exp\left(i \int_0^t d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - V(\phi)\right). $$
+
+\section{Correlation Functions}
+
+
+
 \end{document}
