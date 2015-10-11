@@ -65,6 +65,19 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
 
+\begingroup
+    \makeatletter
+    \@for\theoremstyle:=definition,remark,plain\do{%
+        \expandafter\g@addto@macro\csname th@\theoremstyle\endcsname{%
+            \addtolength\thm@preskip\parskip
+            }%
+        }
+\endgroup
+
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
 \setcounter{chapter}{-1}
 
 \title{Quantum Field Theory\\Fall 2015 Seminar Notes}
@@ -113,7 +126,7 @@ Given a space of states, we can look at the operators that act on the
 states. These operators must be unitary, so that normalized states go
 to normalized states. 
 
-\begin{axiom}[Operators]
+\begin{axiom}[Observables]
   To every classical observable (i.e. property of a system) is
   associated a quantum operator, called an {\bf observable}.
   Observables are (linear) self-adjoint operators whose (real!)
@@ -130,24 +143,30 @@ to normalized states.
   hats on them. The process of ``moving'' from a classical picture of
   a system to a quantum picture by making classical observables into
   operators is called {\bf quantization}, because the possible values
-  of the observables are quantized, i.e. made discrete, whereas
+  of the observables are often quantized, i.e. made discrete, whereas
   previously they formed a continuum.
 \end{axiom}
 
 A classical observable is simple: it is just a function $f$ defined on
 the classical phase space, so in order to make a measurement of the
-observable, we simply apply $f$ to the current stsate of the system.
+observable, we simply apply $f$ to the current state of the system.
 In QM it is not as simple, in most part due to its inherently
 probabilistic nature. But it is still straightforward.
 
 \begin{axiom}[Measurement]
   If $\hat{A}$ is the observable and $\hat{A}\ket{k} = a_k\ket{k}$,
-  i.e. $\ket{k}$ is an eigenvector with eigenvalue $a_k \in \bR$, then
+  i.e. $\ket{k}$ is an eigenstate with eigenvalue $a_k \in \bR$, then
   the probability of obtaining $a_k$ as the value of the measurement
   on $\ket{\psi}$ is $|\braket{k|\psi}|^2$. But not only is the
   outcome probabilistic, the state of the system after the measurement
   is $\ket{k}$. In other words, {\bf measurement is projection}. This
   is fundamental to QM and cannot be emphasized enough.
+
+  There are some conventions for position and momentum eigenstates.
+  Since $\hat{x}$ and $\hat{p}$ are conventional symbols to use for
+  position and momentum respectively, the states $\ket{x}$ and
+  $\ket{p}$ are position and momentum eigenstates with eigenvalues $x$
+  and $p$ respectively.
 \end{axiom}
 
 What about states that we don't measure? What are they doing as time
@@ -188,10 +207,10 @@ $$ \braket{\hat{A}} = \braket{\psi|\hat{A}|\psi}, \qquad \Delta \hat{A} = \sqrt{
   $\hat{A}$ and $\hat{B}$ by constants without affecting
   $\Delta \hat{A}$ and $\Delta \hat{B}$. Then an application of
   Cauchy-Schwarz (using braket notation) gives
-  $$ \Delta \hat{A} \Delta \hat{B} = \|\hat{A}\ket{\psi}\| \|\hat{B}\ket{\psi}\| \ge |\braket{\psi|\hat{A}\hat{B}|\psi}|. $$
+  $$ \Delta \hat{A} \Delta \hat{B} = \|\hat{A}\ket{\psi}\| \|\hat{B}\ket{\psi}\| \ge \left|\braket{\psi|\hat{A}\hat{B}|\psi}\right|. $$
   Now note that if $z = \braket{\psi|\hat{A}\hat{B}|\psi}$, then
   $|z| \ge |\im z| = |z - z^*|/2$. Hence
-  $$ |\braket{\psi|\hat{A}\hat{B}|\psi}| \ge \frac{1}{2}|\braket{\psi|\hat{A}\hat{B}|\psi} - \braket{\psi|\hat{A}\hat{B}|\psi}^*| = \frac{1}{2}|\braket{\psi|\hat{A}\hat{B} - (\hat{A}\hat{B})^\dagger|\psi}| = \frac{1}{2}\braket{\psi|[\hat{A}, \hat{B}]|\psi}, $$
+  $$ \left|\braket{\psi|\hat{A}\hat{B}|\psi}\right| \ge \frac{1}{2}\left|\braket{\psi|\hat{A}\hat{B}|\psi} - \braket{\psi|\hat{A}\hat{B}|\psi}^*\right| = \frac{1}{2}\left|\braket{\psi|\hat{A}\hat{B} - (\hat{A}\hat{B})^\dagger|\psi}\right| = \frac{1}{2}\left|\braket{\psi|[\hat{A}, \hat{B}]|\psi}\right|, $$
   where the last equality follows from the observables being
   self-adjoint:
   $(\hat{A}\hat{B})^\dagger = \hat{B}^\dagger\hat{A}^\dagger =
@@ -235,6 +254,30 @@ from now on had better be Lorentz invariant (we will usually work
 locally with nicely-behaved objects that are automatically invariant
 under the full Poincar\'e group if they are Lorentz invariant).
 
+Along with special relativity, Einstein introduced his {\bf summation
+  notation} for tensors:
+\begin{enumerate}
+\item Components of (contravariant) vectors $\vec{v}$ are written with
+  superscripts, i.e. $\vec{v} = v^1 e_1 + \cdots + v^n e_n$, and those
+  of (covariant) covectors with subscripts;
+\item An index which appears both as a subscript and a superscript is
+  implicitly summed over, i.e. $\vec{v} = v^i e_i$;
+\item Unbound indices (the ones not summed over) must appear on both
+  sides of an equation.
+\end{enumerate}
+For example, $T^{\mu \alpha} = g^{\mu \nu} T^\alpha_\nu$ demonstrates
+contraction with the metric tensor. When there is superscript that
+should be a subscript, or vice versa, the metric tensor is implicitly
+being used to raise and lower indices.
+
+There are several conventions regarding Einstein's summation notation.
+Spacetime variables are indexed by Greek letters, e.g. $\mu$ or $\nu$,
+which run from $0$ to $3$, while space-only variables are indexed by
+Roman letters, e.g. $i$ or $j$, which run from $1$ to $3$. Given a
+$4$-vector $v = v^\nu e_\nu$, we let $\vec{v} = v^i e_i$ be the
+space-only component, and $v^2$ generally denotes $v^\mu v_\mu$
+whereas $\vec{v}^2$ generally denotes $v^i v_i$.
+
 \chapter{Klein-Gordon Field}
 \section{Why Fields?}
     
@@ -275,6 +318,43 @@ under the full Poincar\'e group if they are Lorentz invariant).
         \item Single particle relativistic wave functions $\implies$
             inconsistencies in theory (negative energy eigenstates)
             \elaborate
+
+            The Dirac equation comes from forcing the Schr\"odinger
+            equation $i(d\Psi/dt) = \hat{H}\Psi$ to be Lorentz
+            invariant. As it stands, it is first-order in time, but
+            second-order in space. Suppose instead that
+            $$ \hat{H} = \frac{1}{i} \alpha^j \partial_j + m\beta. $$
+            Since $E^2 = \vec{p}^2 + m^2$, we want $\hat{H}^2 =
+            -\nabla^2 + m^2$, which gives
+            $$ \alpha^j \alpha^k + \alpha^k \alpha^j = 2\delta^{jk},
+            \quad \alpha^j \beta + \beta \alpha^j = 0, \quad \beta^2 =
+            1. $$ Hence $\{\alpha^1, \alpha^2, \alpha^3, \beta\}$ are
+            not scalars, but instead are the generators of a Clifford
+            algebra; we take their simplest representation as
+            matrices, which is as $4 \times 4$ complex matrices
+            $$ \alpha^j = \begin{pmatrix} 0 & \sigma_j \\ \sigma_j &
+              0 \end{pmatrix}, \quad \beta = \begin{pmatrix} I & 0
+              \\ 0 & -I \end{pmatrix}, $$ where $\sigma_j$ are the
+            Pauli matrices. Now compute in momentum-space that
+            $$ \widehat{H\psi}(\vec{p}) = (-i \vec{p} \cdot
+            \vec{\alpha} + m\beta) \hat{\psi}(\vec{p})
+            = \begin{pmatrix} mI & \vec{p} \cdot \vec{\sigma}
+              \\ \vec{p} \cdot \vec{\sigma} & -mI \end{pmatrix}
+            \hat{\psi}(\vec{p}), $$ and a straightforward calculation
+            shows that $\hat{H}$ has eigenvalues $\pm \sqrt{\vec{p}^2
+              + m^2}$. In particular, the energy can be negative!
+
+            Dirac attempted to resolve this issue by appealing to the
+            Pauli exclusion principle and positing that there existed
+            a whole ``sea of negative-energy states'' that were
+            already occupied. Consequently, the holes in this sea
+            would be antiparticles. This makes sense until we realize
+            that that a particle falling into a negative-energy state
+            would represent particle-antiparticle annihilation, but
+            the Dirac equation is supposed to be modeling a single
+            particle (an electron, actually). So philosophical issues
+            aside, there are technical issues here.
+            
         \item $E=mc^2$ allows for particles to be created at high energies
         \item $\Delta E\cdot \Delta t = \hbar$ allows for virtual
             particles
