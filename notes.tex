@@ -18,6 +18,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{axiom}{Axiom}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
@@ -107,13 +108,13 @@ axiomatic presentation of QM.
 \begin{axiom}[States]
   Let $\cH$ be a (complex) Hilbert space. Its projectivization
   $\bP\cH$ is the {\bf state space} of our system.
-  \begin{enumerate}
+  \begin{itemize}
   \item An element of $\cH$, i.e. a state, is called a {\bf ket}, and
     is written $\ket{x}$.
   \item An element of $\cH^*$, i.e. a functional, is called a {\bf
       bra}. The bra associated to $\ket{x}$ (under the identification
     $\cH \cong \cH^*$ given by the inner product) is denoted $\bra{x}$.
-  \end{enumerate}
+  \end{itemize}
   Consequently, $\braket{x|x} = \|x\|^2$, which we usually want to
   normalize to be $1$.
 
@@ -132,13 +133,13 @@ to normalized states.
   Observables are (linear) self-adjoint operators whose (real!)
   eigenvalues are possible values of the corresponding classical
   property of the system. For example,
-  \begin{enumerate}
+  \begin{itemize}
   \item $\hat{H}$ is the {\bf Hamiltonian} of the system, which
     classically represents the ``total energy'' (kinetic + potential)
     in the system,
   \item $\hat{x}$ is the {\bf position operator},
   \item $\hat{p}$ is the {\bf momentum operator}.
-  \end{enumerate}
+  \end{itemize}
   The convention in QM is that observables are denoted by symbols with
   hats on them. The process of ``moving'' from a classical picture of
   a system to a quantum picture by making classical observables into
@@ -256,7 +257,7 @@ under the full Poincar\'e group if they are Lorentz invariant).
 
 Along with special relativity, Einstein introduced his {\bf summation
   notation} for tensors:
-\begin{enumerate}
+\begin{itemize}
 \item Components of (contravariant) vectors $\vec{v}$ are written with
   superscripts, i.e. $\vec{v} = v^1 e_1 + \cdots + v^n e_n$, and those
   of (covariant) covectors with subscripts;
@@ -264,7 +265,7 @@ Along with special relativity, Einstein introduced his {\bf summation
   implicitly summed over, i.e. $\vec{v} = v^i e_i$;
 \item Unbound indices (the ones not summed over) must appear on both
   sides of an equation.
-\end{enumerate}
+\end{itemize}
 For example, $T^{\mu \alpha} = g^{\mu \nu} T^\alpha_\nu$ demonstrates
 contraction with the metric tensor. When there is superscript that
 should be a subscript, or vice versa, the metric tensor is implicitly
@@ -279,16 +280,36 @@ space-only component, and $v^2$ generally denotes $v^\mu v_\mu$
 whereas $\vec{v}^2$ generally denotes $v^i v_i$.
 
 \chapter{Klein-Gordon Field}
+
+In this chapter, we will look at our first quantum field, called the
+Klein-Gordon field. This field arises from the Klein-Gordon equation
+$$ (\partial^2 + m^2)\phi = 0, $$ which came about as an attempt to
+make the Schr\"odinger equation compatible with special relativity,
+where time and space coordinates can be mixed by Lorentz
+transformations. Klein and Gordon first proposed it to describe
+wavefunctions of relativistic electrons, but that interpretation
+turned out to have some serious problems; nowadays we know it instead
+describes a quantum field. Although it is meaningless classically
+(i.e. it does not describe any classical system worth investigating),
+we will begin by examining Klein-Gordon fields classically, and then
+putting them through a process called canonical quantization to obtain
+the quantum Klein-Gordon field.
+
 \section{Why Fields?}
-    
-    Volume 1 of Steven Weinberg's \emph{Quantum Theory of Fields} is
-    devoted to answering this question. A discussion of scattering
-    experiments lead him to the $S$-matrix, and then to the local behaviour
-    of experiments (which he calls the cluster decomposition principle),
-    and then using Lorentz invariance, fields just practically fall out.
-    Weinberg does a really good job of convincing us that QFT in some form
-    or another really must exist if we assume Lorentz invariance and
-    unitarity.
+
+Before we begin, let's motivate why we want to look at fields instead
+of wavefunctions. Why complicate things if we can do relativistic QM
+with wavefunctions, instead of QFT with quantum fields?
+
+Volume 1 of Steven Weinberg's \emph{Quantum Theory of Fields} is
+devoted to answering this question. A discussion of scattering
+experiments lead him to the $S$-matrix, and then to the local behaviour
+of experiments (which he calls the cluster decomposition principle),
+and then using Lorentz invariance, fields just practically fall out.
+Weinberg does a really good job of convincing us that QFT in some form
+or another really must exist if we assume Lorentz invariance and
+unitarity.
+
 %   First, he analyzes scattering
 %   experiments and introduces us to the arena of the multiparticle Hilbert
 %   space and the main player, the $S$-matrix. Next, using the cluster
@@ -312,72 +333,112 @@ whereas $\vec{v}^2$ generally denotes $v^i v_i$.
 %           representation, etc.
 %   \end{itemize}
 
-    Peskin and Schroeder give a slightly different motivation, one that is
-    closer to the historical reason of why fields were introduced:
-    \begin{itemize}
-        \item Single particle relativistic wave functions $\implies$
-            inconsistencies in theory (negative energy eigenstates)
-            \elaborate
+Peskin and Schroeder give a slightly different motivation, one that is
+closer to the historical reason of why fields were introduced. There
+are three main factors at play here.
+\begin{itemize}
+\item
+  Single particle relativistic wave functions have unavoidable
+  negative energy eigenstates. As an example, we can look at the Dirac
+  equation. The Dirac equation comes from forcing the Schr\"odinger
+  equation $i(d\Psi/dt) = \hat{H}\Psi$ to be Lorentz invariant. As it
+  stands, it is first-order in time, but second-order in space.
+  Suppose instead that
+  $$ \hat{H} = \frac{1}{i} \alpha^j \partial_j + m\beta. $$
+  Since $E^2 = \vec{p}^2 + m^2$, we want $\hat{H}^2 = -\nabla^2 + m^2$,
+  which gives
+  $$ \alpha^j \alpha^k + \alpha^k \alpha^j = 2\delta^{jk}, \quad
+  \alpha^j \beta + \beta \alpha^j = 0, \quad \beta^2 = 1. $$
+  Hence $\{\alpha^1, \alpha^2, \alpha^3, \beta\}$ are not scalars, but
+  instead are the generators of a Clifford algebra; we take their
+  simplest representation as matrices, which is as $4 \times 4$
+  complex matrices
+  $$ \alpha^j = \begin{pmatrix} 0 & \sigma_j \\ \sigma_j &
+    0 \end{pmatrix}, \quad \beta = \begin{pmatrix} I & 0 \\ 0 &
+    -I \end{pmatrix}, $$
+  where $\sigma_j$ are the Pauli matrices. Now compute in momentum-
+  space that
+  $$ \widehat{H\psi}(\vec{p}) = (-i \vec{p} \cdot \vec{\alpha} +
+  m\beta) \hat{\psi}(\vec{p}) = \begin{pmatrix} mI & \vec{p} \cdot
+    \vec{\sigma} \\ \vec{p} \cdot \vec{\sigma} & -mI \end{pmatrix}
+  \hat{\psi}(\vec{p}), $$
+  and a straightforward calculation shows that $\hat{H}$ has
+  eigenvalues $\pm \sqrt{\vec{p}^2 + m^2}$. In particular, the energy
+  can be negative!
 
-            The Dirac equation comes from forcing the Schr\"odinger
-            equation $i(d\Psi/dt) = \hat{H}\Psi$ to be Lorentz
-            invariant. As it stands, it is first-order in time, but
-            second-order in space. Suppose instead that
-            $$ \hat{H} = \frac{1}{i} \alpha^j \partial_j + m\beta. $$
-            Since $E^2 = \vec{p}^2 + m^2$, we want $\hat{H}^2 =
-            -\nabla^2 + m^2$, which gives
-            $$ \alpha^j \alpha^k + \alpha^k \alpha^j = 2\delta^{jk},
-            \quad \alpha^j \beta + \beta \alpha^j = 0, \quad \beta^2 =
-            1. $$ Hence $\{\alpha^1, \alpha^2, \alpha^3, \beta\}$ are
-            not scalars, but instead are the generators of a Clifford
-            algebra; we take their simplest representation as
-            matrices, which is as $4 \times 4$ complex matrices
-            $$ \alpha^j = \begin{pmatrix} 0 & \sigma_j \\ \sigma_j &
-              0 \end{pmatrix}, \quad \beta = \begin{pmatrix} I & 0
-              \\ 0 & -I \end{pmatrix}, $$ where $\sigma_j$ are the
-            Pauli matrices. Now compute in momentum-space that
-            $$ \widehat{H\psi}(\vec{p}) = (-i \vec{p} \cdot
-            \vec{\alpha} + m\beta) \hat{\psi}(\vec{p})
-            = \begin{pmatrix} mI & \vec{p} \cdot \vec{\sigma}
-              \\ \vec{p} \cdot \vec{\sigma} & -mI \end{pmatrix}
-            \hat{\psi}(\vec{p}), $$ and a straightforward calculation
-            shows that $\hat{H}$ has eigenvalues $\pm \sqrt{\vec{p}^2
-              + m^2}$. In particular, the energy can be negative!
+  Dirac attempted to resolve this issue by appealing to the Pauli
+  exclusion principle and positing that there existed a whole ``sea of
+  negative-energy states'' that were already occupied. Consequently,
+  the holes in this sea would be antiparticles. This makes sense until
+  we realize that that a particle falling into a negative-energy state
+  would represent particle-antiparticle annihilation, but the Dirac
+  equation is supposed to be modeling a single particle (an electron,
+  actually). So philosophical issues aside, there are technical issues
+  here. The field viewpoint will allow us to view particles as
+  excitations of some field, and antiparticles of different types of
+  excitations of the same field, but the key here is that these
+  excitations all have positive energy, regardless of whether they
+  represent particles or antiparticles. We will investigate this later
+  on, when we see the Dirac field (which will contain the first
+  non-trivial example of antiparticles).
 
-            Dirac attempted to resolve this issue by appealing to the
-            Pauli exclusion principle and positing that there existed
-            a whole ``sea of negative-energy states'' that were
-            already occupied. Consequently, the holes in this sea
-            would be antiparticles. This makes sense until we realize
-            that that a particle falling into a negative-energy state
-            would represent particle-antiparticle annihilation, but
-            the Dirac equation is supposed to be modeling a single
-            particle (an electron, actually). So philosophical issues
-            aside, there are technical issues here.
-            
-        \item $E=mc^2$ allows for particles to be created at high energies
-        \item $\Delta E\cdot \Delta t = \hbar$ allows for virtual
-            particles
-        \item Causality violation. Set $H = \FR{\hp^2}{2m}$
-            \begin{align*}
-                U(t) &= \braket{\vec x|e^{-iHt}|\vec x_0}\\
-                     &= \int \FR{d^3p}{(2\pi)^3} \braket{\vec
-                         x|e^{-i(p^2/2m)t}|p}\braket{p|x}\\
- &= \int \FR{d^3p}{(2\pi)^3} e^{-i(p^2/2m)t}e^{i\vec p\cdot (\vec x-\vec x_0)}\\
-                     &= \PFR{m}{2\pi i t}^{3/2} e^{im(\vec x-\vec x_0)^2/2t}
-            \end{align*}
-            This last quantity is non-zero, even for arbitariry $x$ that
-            may by space-like separated.
-    \end{itemize}
-    QFT seems to solve all of these mysteries. One very good feature of the
-    theory is that it predicts a lot of experiments to very high accuracy.
-    QED is something we will see very soon that has been very well tested
-    and agrees very well with experiments.
+\item
+  $E=mc^2$ allows for particles to be created at high energies, and
+  $\Delta E \Delta t = \hbar$ allows for virtual particles. This
+  indicates we should really be looking at multi-particle instead of
+  single-particle theories. While we can obtain multi-particle
+  theories simply by looking at the tensor product of single-particle
+  state spaces, the quantum mechanics arising from this construction
+  do not permit the creation and annihilation of particles. We can't
+  ``destroy'' or ``create'' a wavefunction; it exists for all time and
+  space. Instead, the field viewpoint allows us to view particles as
+  excitations of a field, which we can easily create or destroy.
+  
+\item
+  Wavefunctions and quantum mechanics don't care about special
+  relativity. In particular, there is obvious causality violation in
+  quantum mechanics! Set $H = \FR{\hp^2}{2m}$ to be the free
+  Hamiltonian, and let's compute the probability amplitude for
+  propagation between two points $x_0$ and $x$ in spacetime:
+  \begin{align*}
+    U(t) &= \braket{\vec x|e^{-iHt}|\vec x_0}\\ &= \int
+    \FR{d^3p}{(2\pi)^3} \braket{\vec
+      x|e^{-i(p^2/2m)t}|p}\braket{p|x}\\ &= \int \FR{d^3p}{(2\pi)^3}
+    e^{-i(p^2/2m)t}e^{i\vec p\cdot (\vec x-\vec x_0)}\\ &=
+    \PFR{m}{2\pi i t}^{3/2} e^{im(\vec x-\vec x_0)^2/2t}
+  \end{align*}
+  This last quantity is non-zero, even for $x$ and $x_0$ that may be
+  space-like separated, e.g. $x$ inside the light cone, and $x_0$
+  outside it, which, in principle, allows faster-than-light transfer
+  of information.
+
+  It is not clear immediately how field theory will help us here. But
+  we will see that by rigorously enforcing Lorentz invariance when we
+  write down field dynamics, the causality violation problem magically
+  disappears.
+\end{itemize}
+
+Another important reason we want to do QFT is because, well, the
+theory predicts the outcome of numerous experiments to very high
+accuracy. In the end, physics is about constructing models: the fact
+that your model is giving good predictions is very strong evidence
+that it should be adopted, or at least seriously considered as a
+foundational theory. In particular, quantum electrodynamics (QED),
+which describes electromagnetism, is something we will see very soon
+that has been very well tested and agrees very well with experiments,
+up to the limits of what we can experimentally measure.
     
 \section{Elements of Classical Field Theory}
+
+Before we embark on the long journey through QFT, we need to review
+some tools from classical field theory first. This serves not only as
+a review, but as motivation for many calculations and objects we will
+be examining in the QFT world.
+
 \subsection{Lagrangian Field Theory}
-    \begin{itemize}
-        \item Fundamental quantity in Lagrangian field theory is the action $S$.
+
+\begin{itemize}
+\item Fundamental quantity in Lagrangian field theory is the action $S$.
 In high school, the Lagrangian is a function of time,
 positions, and velocities of a system: $L(t,x(t),\dot x(t))$. The action
 is given by $S = \int dt\, L$.
@@ -409,7 +470,7 @@ finally define the action: \[ S = \int dt\, L = \int d^4x \mc L \]
         +\ddi{\mc L}{(\di_\mu \vphi)}
         \underbrace{\delta(\di_\mu}_{\text{commute}}\vphi)\right)\\
         &= \int d^4 x \left[ \ddi{\mc L}{\vphi}\delta\vphi
-        + \di_\mu \left(  \ddi{\mc L}{\vphi}\delta\vphi \right)
+        + \di_\mu \left(  \ddi{\mc L}{(\di_\mu\vphi)}\delta\vphi \right)
     - \di_\mu \left(\ddi{\mc L}{(\di_\mu\vphi)}\right)\delta\vphi \right]
     \end{align*}
     By Stokes' theorem, we can break this integral up into two parts, one
@@ -448,6 +509,19 @@ finally define the action: \[ S = \int dt\, L = \int d^4x \mc L \]
     (See the stress-energy tensor part for another derivation of the
     Hamiltonian which falls out of Noether's theorem for being the
     conserved quantity under time translations.)
+    
+    One might ask why we are still singling out the time-parameter in
+    the Hamiltonian formalism when we write $p(\vec{x}) = \partial \mc
+    L/\partial \dot\vphi(\vec x)$ instead of making it seem more
+    Lorentz invariant by considering $\partial \mc
+    L/\partial(\partial_\mu \vphi(\vec x))$ instead. This is because
+    although special relativity dictates that time transforms with
+    space, we still cannot treat them equally as coordinates. The
+    Hamiltonian is, by definition, the infinitesimal generator of time
+    translations, and hence is intrinsically associated with only the
+    time coordinate. In fact, it is not true that the Hamiltonian
+    density is always Lorentz invariant.
+    
 \item \textbf{Important example:} Take $\mc L = \FR{1}{2}(\di_\mu\vphi)^2 -\FR{1}{2}
     m^2\vphi^2$. Euler-Lagrange equations become $\di^\mu(\di_\mu
     \vphi)+m^2\vphi=0$ which is the Klein Gordon equation. The Hamiltonian
@@ -457,6 +531,7 @@ finally define the action: \[ S = \int dt\, L = \int d^4x \mc L \]
     + \underbrace{\FR{(\nabla \vphi)^2}{2}}_{\text{shearing in space}}
 + \underbrace{\FR{m^2\vphi^2}{2}}_{\text{existing at all}}\right]\]
     \end{itemize}
+    
 \subsection{Noether's Theorem - How to Compute Conserved Quantities}
 To every continuous transformation of the field we can assign an infinitesmal
 transformation:
@@ -512,11 +587,11 @@ Lagrangian due to the symmetry transformation.
         Therefore we write 
         \[T^\mu_\nu = \ddi{\mc L}{(\di_\mu\vphi)}\di_\nu\vphi -
         \delta^\mu_\nu\mc L\]
-        we get four separately conserved quantities. \CHECK
+        we get four separately conserved quantities.
 
-        This is called the stress-energy tensor or the energy-momentum
-        tensor in various contexts.
-        The $T^{\bullet 0}$ quantity gives rise to the Hamiltonian:
+        This is called the {\bf stress-energy tensor} or the {\bf
+          energy-momentum tensor} in various contexts. The $T^{\bullet
+          0}$ quantity gives rise to the Hamiltonian:
         \begin{align*}
             \int d^3x T^{00} = \int d^3x \mc H \equiv H
         \end{align*}
@@ -528,20 +603,59 @@ Field or coordinate transformation $\leadsto$ $\{\Delta\phi,\Delta\mc L\}$
 $\leadsto j^\mu(x) = \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu$
 $\leadsto Q = \int j^0 d^3x$ conserved charge.
 
-\section{Quantizing Klein Gordon Field}
-Quantization of field theories involves two steps:
+\section{Quantizing the Klein-Gordon Field}
+
+Before we quantize, let's apply the classical theory to the classical
+Klein-Gordon field, which is defined by the Lagrangian
+$$ \cL = \frac{1}{2} \dot\phi^2 - \frac{1}{2} (\nabla \phi)^2 -
+\frac{1}{2} m^2 \phi^2 = \frac{1}{2} (\partial_\mu \phi)^2 -
+\frac{1}{2} m^2 \phi^2, $$ where $\phi(\vec{x})$ is the real-valued
+     {\bf classical Klein-Gordon field}. We will interpret $m$ as a
+     mass later on, but for now it is just a parameter.
+
+\begin{exercise}
+  By applying Euler-Lagrange, confirm that this Lagrangian for the
+  classical Klein-Gordon field indeed gives the Klein-Gordon equation
+  $(\partial^\mu \partial_\mu + m^2)\phi = 0$, and compute the
+  Hamiltonian
+  $$ H = \int d^3x \, \cH = \int d^3x \, \left(\frac{1}{2} \pi^2 +
+  \frac{1}{2}(\nabla \phi)^2 + \frac{1}{2} m^2\phi^2\right). $$ (You
+  should get that $\pi = \dot \phi$).
+\end{exercise}
+
+Now we enter the QFT world. For now we will work in the Schr\"odinger
+picture, where $\phi(\vec x)$ and $\pi(\vec y)$ are time-independent.
+We will take the classical Klein-Gordon field and {\bf canonically
+  quantize} it, which involves two steps:
 \begin{enumerate}
-    \item Promote $\phi$ and $\pi$ to operators,
-    \item Specify commutation relations:
-        \begin{align*}
-            [\phi(\vec x),\pi(\vec y)] &= i\delta^{(3)}(\vec x-\vec y)\\
-            [\phi(\vec x),\phi(\vec y)] &= [\pi(\vec x),\pi(\vec y)] = 0
-        \end{align*}
+\item promote $\phi$ and $\pi$ to operators (i.e. $\phi(\vec{x})$ and
+  $\phi(\vec{y})$ are now operators, not scalars), and
+\item specify the commutation relations
+  \begin{align*}
+    [\phi(\vec x),\pi(\vec y)] &= i\delta^{(3)}(\vec x-\vec y)\\
+    [\phi(\vec x),\phi(\vec y)] &= [\pi(\vec x),\pi(\vec y)] = 0.
+  \end{align*}
+  This is in analogy with the QM of a multiparticle system, where if
+  $q_i$ and $p_i$ are the momentum and position operators of the
+  $i$-th particle, then
+  \begin{align*}
+    [q_i, p_j] &= i\delta_{ij}\\
+    [q_i, q_j] &= [p_i, p_j] = 0,
+  \end{align*}
+  except now we have a continuum of particles, indexed by the
+  continuous variable $\vec{x}$ instead of a discrete variable $i$.
 \end{enumerate}
-Note that here we are in the Schrodinger picture, so that $\phi,\pi$ are
-operators independent of time. Next, we are going to introduce a
-basis that will diagonalize the Hamiltonian, and we shall express $\phi$
-and $\pi$ in terms of these operators.
+Note that these commutation relations are taken to be {\bf axioms}. At
+this point one may wonder why we treat $\phi$ and $\pi$ as different
+operators when $\pi = \dot\phi$ for Klein-Gordon. This is for the same
+reason that $x$ and $\dot x$ are treated independently in classical
+field theory: we abuse notation and write $(x, \dot x)$ as coordinates
+on phase space, when really we should be writing $(x, p)$. But we
+write $\dot x$ because we will always be evaluating objects on phase
+space at $(x, \dot x)$.
+
+But of course, imposing these axioms is easier said than done. What do
+$\phi$ and $\pi$ look like?
 
 \elaborate
 
@@ -557,26 +671,4 @@ following ansatz:
     \pi(\vec x) &=
 \end{align*}
 
-%   \chapter{Review}
-%
-%   \section{Field Theory}
-%
-%   \chapter{Free Field Theory}
-%
-%   \section{Lorentz Invariance}
-%
-%   \section{Canonical Quantization}
-%
-%   \section{Path Integral}
-%
-%   \chapter{Interacting Field Theory}
-%
-%   \chapter{Feynman Rules}
-%
-%   \chapter{Renormalization Theory}
-%
-%   \section{Renormalization Group}
-%
-%   \section{Effective Field Theories}
-%
 \end{document}
