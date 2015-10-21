@@ -1,3 +1,4 @@
+%
 \documentclass{report}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -40,7 +41,7 @@
 \newcommand{\ha} {\hat a}
 \newcommand{\had}{\hat a^\dagger}
 
-\newcommand{\elaborate}{{\color{blue} \textbf{ELABORATE}}}
+\newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
 
 \DeclareMathOperator{\bC}{\mathbb{C}}
@@ -279,6 +280,7 @@ $4$-vector $v = v^\nu e_\nu$, we let $\vec{v} = v^i e_i$ be the
 space-only component, and $v^2$ generally denotes $v^\mu v_\mu$
 whereas $\vec{v}^2$ generally denotes $v^i v_i$.
 
+
 \chapter{Klein-Gordon Field}
 
 In this chapter, we will look at our first quantum field, called the
@@ -301,15 +303,19 @@ Before we begin, let's motivate why we want to look at fields instead
 of wavefunctions. Why complicate things if we can do relativistic QM
 with wavefunctions, instead of QFT with quantum fields?
 
-Volume 1 of Steven Weinberg's \emph{Quantum Theory of Fields} is
-devoted to answering this question. A discussion of scattering
-experiments lead him to the $S$-matrix, and then to the local behaviour
-of experiments (which he calls the cluster decomposition principle),
-and then using Lorentz invariance, fields just practically fall out.
-Weinberg does a really good job of convincing us that QFT in some form
-or another really must exist if we assume Lorentz invariance and
-unitarity.
+%   Words of wisdom from Landau and Lifshitz: uncertainty principle implies
+%   impossibility of wavefunction (see IV~\S~1, Landau Peierls~1931);
+%   second quantization -- pick complete basis, count the number of
+%   particles in each state..
 
+    Volume 1 of Steven Weinberg's \emph{Quantum Theory of Fields} is
+    devoted to answering this question. A discussion of scattering
+    experiments lead him to the $S$-matrix, and then to the local behaviour
+    of experiments (which he calls the cluster decomposition principle),
+    and then using Lorentz invariance, fields just practically fall out.
+    Weinberg does a really good job of convincing us that QFT in some form
+    or another really must exist if we assume Lorentz invariance and
+    unitarity.
 %   First, he analyzes scattering
 %   experiments and introduces us to the arena of the multiparticle Hilbert
 %   space and the main player, the $S$-matrix. Next, using the cluster
@@ -566,11 +572,11 @@ not have boundary, Stokes' theorem implies that $\di Q/\di t = 0$. Often,
 $j^0$ is called the charge density, and $j^\mu$ is called the current
 density.
 
-\begin{mdframed}
-Therefore to compute a conserved quantity we compare the deformation of the
-Lagrangian due to the $\vphi$ changing with the deformation of the
-Lagrangian due to the symmetry transformation. 
-\end{mdframed}
+%   \begin{mdframed}
+%   Therefore to compute a conserved quantity we compare the deformation of the
+%   Lagrangian due to the $\vphi$ changing with the deformation of the
+%   Lagrangian due to the symmetry transformation. 
+%   \end{mdframed}
 
 \textbf{Examples:}
 \begin{enumerate}
@@ -598,10 +604,10 @@ Lagrangian due to the symmetry transformation.
 
 \end{enumerate}
 
-\subsection{Summary of Computing Noether Charges}
-Field or coordinate transformation $\leadsto$ $\{\Delta\phi,\Delta\mc L\}$
-$\leadsto j^\mu(x) = \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu$
-$\leadsto Q = \int j^0 d^3x$ conserved charge.
+%   \subsection{Summary of Computing Noether Charges}
+%   Field or coordinate transformation $\leadsto$ $\{\Delta\phi,\Delta\mc L\}$
+%   $\leadsto j^\mu(x) = \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu$
+%   $\leadsto Q = \int j^0 d^3x$ conserved charge.
 
 \section{Quantizing the Klein-Gordon Field}
 
@@ -627,6 +633,8 @@ Now we enter the QFT world. For now we will work in the Schr\"odinger
 picture, where $\phi(\vec x)$ and $\pi(\vec y)$ are time-independent.
 We will take the classical Klein-Gordon field and {\bf canonically
   quantize} it, which involves two steps:
+\section{Quantizing Klein Gordon Field}
+Quantization of field theories involves two steps: 
 \begin{enumerate}
 \item promote $\phi$ and $\pi$ to operators (i.e. $\phi(\vec{x})$ and
   $\phi(\vec{y})$ are now operators, not scalars), and
@@ -657,18 +665,29 @@ space at $(x, \dot x)$.
 But of course, imposing these axioms is easier said than done. What do
 $\phi$ and $\pi$ look like?
 
-\elaborate
+Let us try to motivate the form of the expression for $\phi$ and its
+conjugate $\pi$ in terms of creation and annihilation operators.
+\footnote{Quibble: I don't like how it is done in Peskin. Why promote the
+coefficients in the Fourier transform, and why do \emph{they} give rise to
+the creation and annihilation operators. I think there might be a good
+explanation out there already; Landau\& Lifshitz, and Weinberg (Chapter 5) seem to take
+a good wack at the physics of this choice. Actually, in LL, the exposition
+seems to have avoided some of the integral manipulations that happened in
+Peskin and Schroeder.}
 
-The exact form of the following is a little tricky to motivate (but this is
-done in Weinberg, chapter 5). One way to motivate this is to look at the
-Klein-Gordon equation in the Fourier representation. This is exactly the
-harmonic oscillator equation and so it is reasonable to assume that the
-operators $\phi,\pi$ can be manipulated in a similar way to obtain the
-following ansatz:
+If we expand a solution to the Klein Gordon equation in a Fourier basis of
+plane waves, then we see that we naturally have some variables that we can
+quantize. What's more interesting is that the Klein Gordon equation gives
+rise to precisely the harmonic oscillator example from first year quantum
+mechanics. In terms of creation and annihilation operators, the first years
+wrote $\hat q = \FR{1}{\sqrt{2\om}}(a+a^\dag)$, $\hat p =
+\SFR{\om}{2}(a-a^\dag)$. Therefore we conjecture our fields have the
+following form: \footnote{{\elaborate}}
 
+\newcommand{\vp}{{\vec p}}
+\newcommand{\vx}{{\vec x}}
 \begin{align*}
-    \phi(\vec x) &= \\
-    \pi(\vec x) &=
+\phi(\vx) &= \int \FR{d^3p}{(2\pi)^3} \FR{1}{\sqrt{2\om_p}} (a_\vp e^{i\vp\cdot\vx} + a_\vp^\dag e^{-i\vp\cdot\vx})\\
+\pi(\vx) &= \int \FR{d^3p}{(2\pi)^3}(-i)\SFR{\om_p}{\sqrt2} (a_\vp e^{i\vp\cdot\vx} - a_\vp^\dag e^{-i\vp\cdot\vx})
 \end{align*}
-
 \end{document}
