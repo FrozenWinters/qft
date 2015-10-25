@@ -35,11 +35,15 @@
 \newcommand{\om}{\omega}
 \newcommand{\Om}{\Omega}
 \newcommand{\gam}{\gamma}
+\newcommand{\sg}{\sigma}
 \newcommand{\di}{\partial}
 \newcommand{\ddi}[2]{\FR{\partial {#1}}{\partial {#2}}}
 \newcommand{\hp}{\hat p}
-\newcommand{\ha} {\hat a}
-\newcommand{\had}{\hat a^\dagger}
+\newcommand{\ha} { a}
+\newcommand{\hb} { b}
+\newcommand{\hbd} { b^\dagger}
+\newcommand{\had}{ a^\dagger}
+\newcommand{\iden}{\mathds{1}}
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -68,6 +72,7 @@
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\so}{so}
 
 \begingroup
     \makeatletter
@@ -689,6 +694,81 @@ following form: \footnote{{\elaborate}}
 \phi(\vx) &= \int \FR{d^3p}{(2\pi)^3} \FR{1}{\sqrt{2\om_p}} (a_\vp e^{i\vp\cdot\vx} + a_\vp^\dag e^{-i\vp\cdot\vx})\\
 \pi(\vx) &= \int \FR{d^3p}{(2\pi)^3}(-i)\SFR{\om_p}{\sqrt2} (a_\vp e^{i\vp\cdot\vx} - a_\vp^\dag e^{-i\vp\cdot\vx})
 \end{align*}
+
+\chapter{Dirac Field}
+The formalism that we have built up so far tells that everything starts
+from a Lagrangian. In the theory of elementary particles and high energy
+physics there is one very special condition that we require of a
+Lagrangian: Lorentz invariance. To check whether a given expression of
+$\phi$'s and $\di_\mu\phi$'s is Lorentz invariant we must understand how
+arbitrary field transform under the Lorentz group. Suppose a field has
+components $\phi_a$, then a general transformation is given by
+\[ \phi_a'(x) = M(\Lambda)_{ab}\phi_b(\Lambda^{-1}x). \]
+Thus, to solve the problem of constructing all Lagrangians we must first
+understand the representations of the Lorentz group, or at least of the
+Lorentz algebra. Taking a cue from the $\so(3)$ generators given by
+$J^{ij}=-i(x^i\di^j-x^j\di^i)$ it turns out that the generators for the
+Lorentz algebra are:
+\[ J^{\mu\nu} = i(x^\mu\di^\nu-x^\nu\di^\mu).\]
+This gives commutation relations
+\[ [J^{\mu\nu},J^{\rho\sg}] = \dots .\]
+The defining representation is given by the following$(\mc
+J^{\mu\nu})_{ab} = -i\delta^\mu_{[a}\delta^\nu_{b]}
+=-i(\delta^\mu_{a}\delta^\nu_{b} -\delta^\mu_{b}\delta^\nu_{a})$
+Dirac came up with another representation by taking 4 $n\times n$ matrices
+$\gam^\mu$ satisfying ${\gam^\mu,\gam^\nu} = 2g^{\mu\nu}\times
+\iden_{n\times n}$ and defining:
+\[ S^{\mu\nu} = \FR{i}{4}[\gam^\mu,\gam^\nu].\]
+If we define $\sg = (\iden,\vec\sigma)$ and $\bar\sg = (\iden,-\vec\sg)$
+then \[\gam^\mu = \begin{pmatrix}0&\sg^\mu\\\bar\sg^\mu&0 \end{pmatrix}\] satisfies
+the commutation relations and gives rise to the \textbf{Dirac
+representation}. Objects that transform under that transform under this
+representation are called $4$-component Dirac spinors, or just \textbf{Dirac
+spinors} for short. 
+
+Taking $\bar\psi = \gam^0\psi^\dag$, the Dirac equation, Lagrangian are
+given by:
+\begin{align*}
+    (i\gam^\mu\di_\mu - m)\psi &= 0\\
+    \mc L_{\text{Dirac}} &= \bar\psi(i\gam^\mu\di_\mu-m)\psi
+\end{align*}
+The conjugate variable to $\psi$ is $i\psi^\dag$. Before quantizing we
+solve the Dirac equation in plane waves, $u(p)e^{i\vec p\cdot
+\vec x}$ and $v(p)e^{-i\vec p\cdot \vec x}$. After rewriting the Dirac
+equation into a matrix equation it is not hard to see that arbitrary
+solutions $u(p)$ and $v(p)$ are given by the following expressions:
+\begin{align*}
+    u^s(p) &= \sqrt{m}\begin{pmatrix} \sqrt{p\cdot \sg} \xi^s\\
+                      \sqrt{p\cdot \sg} \xi^s\end{pmatrix}\\
+    v^s(p) &= \sqrt{m}\begin{pmatrix} \sqrt{p\cdot \sg} \eta^s\\
+                      -\sqrt{p\cdot \sg} \eta^s\end{pmatrix}
+\end{align*}
+where, for $s=1,2$, $\{\xi^s\}$ and $\{\eta^s\}$ are a basis for $\bC^2$
+and $\sqrt{p\cdot \sg}$ is the square root of the positive eigenvalue of
+the associated matrix. (Phew, what a mouthful!)
+
+
+Finally, we quantize this theory by introducing the \textbf{anticommutation
+relations} and rewriting $\psi$ and $\bar\psi$ using raising and lowering
+operators
+\begin{align*} 
+\{\psi(x),\bar\psi(y)\} &= \delta^{(3)}(\vec x-\vec y)\\
+\psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
+\ha^{s\dag}_\vp u^s(\vp) e^{-i\vp\cdot\vx} -
+\hb^{s\dag}_\vp v^s(\vp) e^{i\vp\cdot\vx} \\
+\bar\psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
+\hb^{s\dag}_\vp \bar v^s(\vp) e^{-i\vp\cdot\vx} -
+\ha^{s\dag}_\vp \bar u^s(\vp) e^{i\vp\cdot\vx}
+\end{align*}
+Using these cleverly chosen expressions we may write the Hamiltonian as
+\begin{align*}
+    H &= \int \FR{d^3p}{(2\pi)^3}  \sum_s
+    E_\vp(\ha^{s\dag}_\vp\ha^{s}_\vp+ \hb^{s\dag}_\vp\hb^{s\dag}_\vp)\\
+    Q &= \int \FR{d^3p}{(2\pi)^3}  \sum_s
+    (\ha^{s\dag}_\vp\ha^{s\dag}_\vp - \hb^{s\dag}_\vp\hb^{s}_\vp)
+\end{align*}
+where $Q$ is the conserved quantity coming from gauge invariance,
+$\psi'(x)=e^{\alpha(x)}\psi(x)$, of $\mc L_{\text{Dirac}}$.
 
 \chapter{Path Integrals}
 
