@@ -885,20 +885,109 @@ in particular, our derivation holds not only for quantum mechanical
 systems, but also for QFTs. For example, if we take the Lagrangian
 $\cL = \frac{1}{2} (\partial_\mu \phi)^2 - V(\phi)$ for a real scalar
 field, then
-$$ \braket{\phi_b(\vec{x}) | e^{-iHt} | \phi_a(\vec{x})} = \int D\phi \exp\left(i \int_0^t d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - V(\phi)\right). $$
+$$ \braket{\phi_b(\vec{x}) | e^{-i\hat{H}t} | \phi_a(\vec{x})} = \int D\phi(x) \, \exp\left(i \int_0^t d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - V(\phi)\right), $$
+where here $D\phi(x)$ indicates that we are integrating over a path
+taking values in fields. In particular, $\phi(0, \vec{x})$ is
+constrained to be $\phi_a(\vec{x})$, and $\phi(t, \vec{x})$ is
+constrained to be $\phi_b(\vec{x})$.
+
+\section{Correlation Functions}
+
+Okay, what good is the path integral? The answer is they are useful
+when we apply perturbations to free field theory. Most of the QFT we
+will be looking at is perturbative, so path integrals will give us a
+good deal of physics. 
+
+Suppose we have the Hamiltonian $\hat{H} = \hat{H}_0 + \hat{H}_{int}$,
+where $\hat{H}_0$ is a Hamiltonian we are supposed to have understood
+well already, and $\hat{H}_{int}$ is a perturbation known as the {\bf
+  interaction Hamiltonian}. Let $\ket{\Omega}$ be the ground state of
+$\hat{H}$. We are interested in computing the probability amplitude of
+a propagation from $\vec{x}$ to $\vec{y}$, i.e.
+$$ \braket{\Omega| \phi(x) \phi(y) | \Omega}. $$
+How do we compute this quantity? Let's start with a
+seemingly-unrelated quantity:
+$$ \int D\phi(x) \, \phi(x_1) \phi(x_2) \exp\left(i \int_{-t}^t d^4x \, \cL(\phi)\right), $$
+where the path $\phi(x)$ starts at some $\phi_a(\vec{x})$ at time $-t$
+and ends at some $\phi_b(\vec{x})$ at time $t$. Suppose
+$x_1^0 < x_2^0$. Then we are going to divide up this path integral
+into three components:
+\begin{enumerate}
+\item from $\phi_a(\vec{x})$ at time $-t$ to $\phi_1(\vec{x})$ at time $x_1^0$, 
+\item from $\phi_1(\vec{x})$ at time $x_1^0$ to $\phi_2(\vec{x})$ at time $x_2^0$,
+\item from $\phi_2(\vec{x})$ at time $x_2^0$ to $\phi_b(\vec{x})$ at time $t$.
+\end{enumerate}
+Note that here, $-t < x_1^0 < x_2^0 < t$, and since the intermediate
+field configurations $\phi_1(\vec{x})$ and $\phi_2(\vec{x})$ are
+arbitrary, we must integrate over them as well. Hence the integral
+becomes
+$$ \int D\phi_1(\vec{x}) \int D\phi_2(\vec{x}) \, \phi_1(\vec{x}_1) \phi_2(\vec{x}_2) \braket{\phi_b | e^{-i\hat{H}(t - x_2^0)} | \phi_2}\braket{\phi_2 | e^{-i\hat{H}(x_2^0 - x_1^0)} | \phi_1}\braket{\phi_1 | e^{-i\hat{H}(x_1^0 - (-t))} | \phi_a}. $$
+Now we use completeness:
+$\int D\phi_1 \, \ket{\phi_1}\bra{\phi_1} = 1$, and similarly for
+$\phi_2$, so the integrals disappear, and some rearrangement gives
+$$ \bra{\phi_b(\vec{x})} e^{-i\hat{H}(t - x_2^0)} \phi(\vec{x}_2) e^{-i\hat{H}(x_2^0 - x_1^0)} \phi(\vec{x}_1) e^{-i\hat{H}(x_1^0 - (-t))} \ket{\phi_a(\vec{x})}. $$
+Aha, but
+$\phi(x_2) = e^{i\hat{H}x_2^0}\phi(\vec{x}_2)e^{-i\hat{H}x_2^0}$ in
+the Heisenberg picture, so this simplifies further to
+$$ \bra{\phi_b(\vec{x})} e^{-i\hat{H}t} \phi(x_2)\phi(x_1) e^{-i\hat{H}t} \ket{\phi_a(\vec{x})}. $$
+We're not done yet! During this calculation, we had to assume $x_1$
+came before $x_2$ in time, so that the path integral split well. If
+$x_1$ actually came after $x_2$, then we simply exchange $x_1$ and
+$x_2$ in the final result. This motivates the following definition.
+
+\begin{definition}
+  Given two operators $\phi(x_1)$ and $\phi(x_2)$, the {\bf
+    time-ordering operator} $T$ applies them in the correct temporal
+  order, i.e.
+  $$ T\{\phi(x_1)\phi(x_2)\} = \begin{cases} \phi(x_1)\phi(x_2) & x_1^0 > x_2^0 \\ \phi(x_2)\phi(x_1) & x_2^0 > x_1^0. \end{cases} $$
+\end{definition}
+
+Hence we should really be looking to calculate
+$\braket{\Omega|T\phi(x_1)\phi(x_2)|\Omega}$, while right now we have
+the quantity
+$\bra{\phi_b(\vec{x})} e^{-i\hat{H}t} T\phi(x_2)\phi(x_1)
+e^{-i\hat{H}t} \ket{\phi_a(\vec{x})}$.
+In other words, our problem is to obtain $\ket{\Omega}$ from
+$e^{-i\hat{H}t} \ket{\phi_a(\vec{x})}$. Physicists have a hilarious
+trick for doing so. First expand $\ket{\phi_a}$ in the eigenbasis
+$\{\ket{\Omega}, \ket{1}, \ldots\}$ of $\hat{H}$:
+$$ e^{-i\hat{H}t} \ket{\phi_a} = e^{-iE_{\Omega}t} \ket{\Omega} \braket{\Omega|\phi_a} + \sum_{n>0} e^{-iE_nt} \ket{n} \braket{n|\phi_a}. $$
+Now remember that the ground state energy is the lowest energy, i.e.
+$E_\Omega < E_n$ for all $n > 0$. So here's what we do to keep the
+$\ket{\Omega}$ term while getting rid of everything else: we take the
+limit $t \to \infty(1 - i\epsilon)$. Since
+$e^{-iE_n T(1 - i\epsilon)}$ will decay faster than
+$e^{-iE_\Omega T(1 - i\epsilon)}$, because $e^{-E_n t}$ decays faster
+than $e^{-E_\Omega t}$, it follows that when $T \to \infty$, every
+other term except the $\ket{\Omega}$ term vanishes.
+$$ \lim_{t \to \infty(1 - i\epsilon)} e^{-i\hat{H}t} \ket{\phi_a} = \braket{\Omega|\phi_a} e^{-E_\Omega \infty (1 - i\epsilon)} \ket{\Omega}. $$
+It remains to get rid of the extraneous factors in the final expression. Well that's easy, we just divide out by
+$$ \bra{\phi_b} e^{-i\hat{H}t} e^{-i\hat{H}t} \ket{\phi_a} = \int D\phi(x) \, \exp\left(i \int_{-t}^t d^4x \, \cL(\phi)\right). $$
+
+\begin{theorem}
+  The amplitude for a propagation between spacetime points $x_1$ and $x_2$ is
+  $$ \bra{\Omega} T\phi(x_1)\phi(x_2) \ket{\Omega} = \lim_{t \to \infty(1 - i\epsilon)} \frac{\int D\phi(x) \, \phi(x_1) \phi(x_2) \exp\left(i \int_{-t}^t d^4x \, \cL\right)}{\int D\phi(x) \, \exp\left(i \int_{-t}^t d^4x \, \cL\right)}. $$
+\end{theorem}
+
+This quantity is important enough to have a name: it is called the {\bf two-point correlation function}. It is usually denoted $\braket{\phi(x_1)\phi(x_2)}$ for convenience. Analogously, we have {\bf $n$-point correlation functions} $\braket{\phi(x_1) \cdots \phi(x_n)}$.
 
 \section{The Generating Functional}
 
-If we take
-$\cL = \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2$, we
-get a the path integral corresponding to the Klein-Gordon field, which
-we are already familiar with. So let's add a general perturbation
-term:
+This formula for the propagation amplitude may not seem like much of
+an improvement. But it is, and it will be obvious by the end of this
+section how. Let's begin with the {\bf free-field Lagrangian}
+$$ \cL = \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2. $$
+(Later on we will see why this is called the free field Lagrangian.)
+If we plug this Lagrangian into the path integral, the integral is
+directly computable; the end result is a Klein-Gordon field, which we
+are already familiar with. So let's add a general perturbation term:
 $$ \cL = \frac{1}{2} (\partial_\mu\phi)^2 - \frac{1}{2} m^2\phi^2 + J\phi, $$
 where here $J(x)$ is a function of $x$, representing an {\bf
   excitation}, and usually called a {\bf source function}. The
 resulting path integral is written
-$$ Z[J] = \int D\phi \exp\left(i \int_0^t d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2}m^2\phi^2 + J\phi\right). $$
+$$ Z[J] = \int D\phi \exp\left(i \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2}m^2\phi^2 + J\phi\right), $$
+and called the {\bf generating functional}. In this notation, we want
+to find $Z[J]/Z[0]$.
 
 {\bf Note}: adding a source function is not the same thing as adding
 an interaction. Source functions merely allow us to create sources and
@@ -908,7 +997,7 @@ working within a free Klein-Gordon theory.
 
 We can write $Z[J]$ in a very explicit form. First, let's rewrite the
 Lagrangian a little via integration by parts:
-$$ \int_0^t d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2 + J\phi = \int_0^t d^4x \, \frac{1}{2} \phi(-\partial^2 - m^2)\phi + J\phi. $$
+$$ \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2 + J\phi = \int_0^t d^4x \, \frac{1}{2} \phi(-\partial^2 - m^2)\phi + J\phi. $$
 We will evaluate this a little informally, but the entire argument can
 be made formal once we introduce the Green's function (the definition
 of which will be motivated by this argument). Imagine that the
@@ -952,18 +1041,18 @@ Now the poles are displaced above and below the real $p^0$ axis, at $p^0 = \pm (
 \begin{exercise}
   Let $\theta(x - y)$ be the {\bf Heaviside step function}, i.e. it is $1$ when $x > y$, and $0$ otherwise. Compute that
   $$ D_F(x - y) = \theta(x^0 - y^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = E_{\vec p}} + \theta(y^0 - x^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = E_{-\vec p}} $$
-  by analytic continuation into the complex $p^0$ plane, and by closing the contour either in the upper half plane when $x^0 > y^0$, or in the lower half plane when $x^0 < y^0$:
+  by analytic continuation into the complex $p^0$ plane, and by closing the contour either in the upper half plane when $x^0 > y^0$, or in the lower half plane when $x^0 < y^0$.
 \end{exercise}
 
 Why is the Green's function $D_F(x - y)$ called a propagator? The answer lies in computing the amplitude $\braket{0|\phi(\vec x)\phi(\vec y)|0}$ for a particle to propagate from a point $\vec{x}$ in space to another point $\vec{y}$ in space:
 \begin{align*}
-  \braket{0|\phi(x)\phi(y)|0} 
+  \braket{0|\phi(\vec x)\phi(\vec y)|0} 
   &= \int \frac{d^3\vec{p}_1}{(2\pi)^3 \sqrt{2E_{\vec{p}_1}}} \int \frac{d^3\vec{p}_2}{(2\pi)^3 \sqrt{2E_{\vec{p}}}} e^{-i\vec{p}_1\vec{x}} e^{i\vec{p}_2\vec{y}} \braket{0|[a_{\vec{p}_1}, a^\dagger_{\vec{p}_2}]|0} \\
-  &= \int \frac{d^3\vec{p}}{(2\pi)^3 (2E_{\vec p})} e^{-i\vec{p}(\vec{x} - \vec{y})}\bigg|_{p^0 = E_{\vec p}}.
+  &= \int \frac{d^3\vec{p}}{(2\pi)^3 (2E_{\vec p})} e^{-ip(x - y)}\bigg|_{p^0 = E_{\vec p}}.
 \end{align*}
 Hence we have
 $$ D_F(x - y) = \theta(x^0 - y^0)\braket{0|\phi(\vec x)\phi(\vec y)|0} + \theta(y^0 - x^0)\braket{0|\phi(\vec y)\phi(\vec x)|0}. $$
-The physical interpretation is that the Green's function $D_F(x - y)$ is the amplitude for a particle to propagate from $x$ to $y$ or $y$ to $x$, depending on which of $x$ and $y$ came first in time. This interpretation will allow us to prescribe some physical meaning to the Feynman diagrams we are about to draw.
+The physical interpretation is that the Green's function $D_F(x - y)$ is the amplitude for a particle to propagate from $x$ to $y$ or $y$ to $x$, depending on which of $x$ and $y$ came first in time. This interpretation will allow us to prescribe some physical meaning to the Feynman diagrams we are going to draw soon.
 
 \subsection{Computing and Using the Generating Functional}
 
@@ -971,20 +1060,28 @@ Now that we know about Green's functions, let's return to computing the generati
 $$ \int d\phi_1 \cdots \int d\phi_n \, \exp\left(\frac{i}{2} \phi^T A \phi + iJ\phi\right) = \left(\frac{(2\pi i)^n}{\det A}\right)^{\frac{1}{2}} \exp\left(-\frac{i}{2} JA^{-1}J\right). $$
 Now we know what to replace $A^{-1}$ with: the Green's function $-iD_F(x - y)$. Hence
 $$ Z[J] = C \exp\left(-\frac{1}{2} \int d^4x \, d^4y \, J(x) D_F(x - y) J(y)\right) $$
-for some constant $C$. What is $C$? We don't care about its exact value, but clearly it is $Z[0]$. We have proved the following result.
+for some constant $C$. What is $C$? It is $Z[0]$. We have proved the following result.
 
 \begin{proposition}
   Let
-  $$ D_F(x - y) = \int \frac{d^4p}{(2\pi)^4} \frac{e^{ik(x-y)}}{k^2 - m^2 + i\epsilon}. $$
-  Then
+  $$ D_F(x - y) = \int \frac{d^4p}{(2\pi)^4} \frac{e^{ik(x-y)}}{k^2 - m^2 + i\epsilon} $$
+  be the Feynman propagator. Then
   $$ Z[J] = Z[0] \exp\left(-\frac{1}{2} \int d^4x \, d^4y \, J(x) D_F(x - y) J(y)\right). $$
 \end{proposition}
 
-A few comments are appropriate at this point.
-\begin{enumerate}
-\item Remember how earlier we claimed that the infinite constant in the path integral would cancel? We will be looking at the quantity $Z[J]/Z[0]$, so indeed, the constant disappears!
-\item One may wonder why $Z[J]$ is called the generating functional. What is it a generating function of?
-\end{enumerate}
+Here comes the magic. 
+
+\subsection{Propagation Creates Force}
+
+Let's compute some of the terms in $Z[J]$. Write
+$$ W(J) = -\frac{1}{2} \int \int d^4x \, d^4y \, J(x) D_F(x - y) J(y), $$
+so that 
+$$ Z[J] = Z[0] \exp(i W(J)) = Z[0] \sum_{n=0}^\infty \frac{(iW(j))^n}{n!}. $$
+The $n = 2$ term therefore looks like
+$$ \frac{1}{2!} \left(-\frac{i}{2}\right)^2 \int\int\int\int d^4x_1 \, d^4x_2 \, d^4x_3 \, d^4x_4 \, D_F(x_1 - x_2) D_F(x_3 - x_4) J(x_1) J(x_2) J(x_3) J(x_4). $$
+How can we interpret this term physically? Well, recall that $D_F(x - y)$ is the propagation amplitude from $x$ to $y$ (assuming, without loss of generality, that $x$ occurs after $y$). So this integral is, up to a constant, the amplitude for an excitation at $x_2$ to propagate to $x_1$, and an excitation at $x_4$ to propagate to $x_3$, where $x_1, x_2, x_3, x_4$ can range over all space. The point is that the propagation from $x_2$ to $x_1$ does not affect the propagation from $x_4$ to $x_3$ whatsoever: we can completely separate the integrals. 
+
+
 
 
 \end{document}
