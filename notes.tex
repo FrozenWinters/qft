@@ -1,4 +1,3 @@
-%
 \documentclass{report}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -8,6 +7,8 @@
 \usepackage{braket}
 \usepackage{dsfont}
 \usepackage{mdframed}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -86,6 +87,13 @@
 \edef\restoreparindent{\parindent=\the\parindent\relax}
 \usepackage{parskip}
 \restoreparindent
+
+\tikzset{
+  particle/.style={thick,draw=black},
+  gluon/.style={decorate,draw=black,decoration={coil,aspect=0}},
+  vertex/.style={shape=circle,scale=0.3,fill=black,draw=black},
+  every loop/.style={thick,draw=black}
+}
 
 \setcounter{chapter}{-1}
 
@@ -926,8 +934,11 @@ arbitrary, we must integrate over them as well. Hence the integral
 becomes
 $$ \int D\phi_1(\vec{x}) \int D\phi_2(\vec{x}) \, \phi_1(\vec{x}_1) \phi_2(\vec{x}_2) \braket{\phi_b | e^{-i\hat{H}(t - x_2^0)} | \phi_2}\braket{\phi_2 | e^{-i\hat{H}(x_2^0 - x_1^0)} | \phi_1}\braket{\phi_1 | e^{-i\hat{H}(x_1^0 - (-t))} | \phi_a}. $$
 Now we use completeness:
-$\int D\phi_1 \, \ket{\phi_1}\bra{\phi_1} = 1$, and similarly for
-$\phi_2$, so the integrals disappear, and some rearrangement gives
+$\int D\phi_1 \, \phi_1(\vec{x}_1) \ket{\phi_1}\bra{\phi_1} =
+\phi_1(\vec{x}_1)$,
+where the $\phi_1$ on the LHS is a scalar field, and on the RHS is an
+operator. Doing the same for for $\phi_2$, the integrals disappear,
+and some rearrangement gives
 $$ \bra{\phi_b(\vec{x})} e^{-i\hat{H}(t - x_2^0)} \phi(\vec{x}_2) e^{-i\hat{H}(x_2^0 - x_1^0)} \phi(\vec{x}_1) e^{-i\hat{H}(x_1^0 - (-t))} \ket{\phi_a(\vec{x})}. $$
 Aha, but
 $\phi(x_2) = e^{i\hat{H}x_2^0}\phi(\vec{x}_2)e^{-i\hat{H}x_2^0}$ in
@@ -1113,8 +1124,8 @@ Write
 $$ W[J] = -\frac{1}{2} \int \int d^4x \, d^4y \, J(x) D_F(x - y) J(y), $$
 so that 
 $$ Z[J]/Z[0] = \exp(i W[J]) = \sum_{n=0}^\infty \frac{(iW[j])^n}{n!}. $$
-The $n = 2$ term therefore looks like
-$$ \frac{1}{2!} \left(-\frac{i}{2}\right)^2 \int\int\int\int d^4x_1 \, d^4x_2 \, d^4x_3 \, d^4x_4 \, D_F(x_1 - x_2) D_F(x_3 - x_4) J(x_1) J(x_2) J(x_3) J(x_4). $$
+The $n = 2$ term is therefore proportional to
+$$ \int\int\int\int d^4x_1 \, d^4x_2 \, d^4x_3 \, d^4x_4 \, D_F(x_1 - x_2) D_F(x_3 - x_4) J(x_1) J(x_2) J(x_3) J(x_4). $$
 How can we interpret this term physically? Well, recall that
 $D_F(x - y)$ is the propagation amplitude between $x$ and $y$. So this
 integral is, up to a constant, the amplitude for an excitation at
@@ -1146,7 +1157,7 @@ Now we can do three things. First, isolate the $\int dx_1^0$; this
 evaluates to $t$, the time over which we do our path integral. Second,
 get rid of the $i\epsilon$ in the denominator; $\vec{p}^2 + m^2$ is
 always positive, so there are no poles. Third, remember that $Z[J]$
-for the free, {\bf un-perturbed} theory is just
+for the free, {\bf unperturbed} theory is just
 $$ Z[J] = \braket{0|e^{-i\hat{H}_0t}|0} = e^{-iE_0 t}, $$
 so up to the constant $Z[0]$, we can equate $e^{-iE_0t}$ with
 $e^{iW[J]}$. We already have a factor of $t$ in $W[J]$, so that
@@ -1158,8 +1169,8 @@ force between the two excitations!
 
 \begin{exercise}
   We didn't finish the computation of $E_0$: do the integral to obtain
-  $E_0 = O(e^{-mr})$ where $r$ is the distance between $\vec{x}_1$ and
-  $\vec{x}_2$.
+  $E_0 = -e^{-mr}/4\pi r$ where $r$ is the distance between
+  $\vec{x}_1$ and $\vec{x}_2$.
 \end{exercise}
 
 {\bf Note}: it may be confusing that earlier, we said the free-field
@@ -1184,31 +1195,128 @@ $$ \cL = \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2 - \frac{\lamb
 The $\lambda$ is a {\bf coupling constant}, and dictates how strongly
 the $\phi^4$ term impacts the free field theory. The generating
 functional is now
-$$ Z[J] = \int D\phi \exp\left(i \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2}m^2\phi^2 - \frac{\lambda}{4!}\phi^4 + J\phi\right). $$
-How shall we compute $Z[J]$? We have no idea whether it can be written
-in closed form. So the physicists do it perturbatively. How?
+$$ Z[J, \lambda] = \int D\phi \exp\left(i \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2}m^2\phi^2 - \frac{\lambda}{4!}\phi^4 + J\phi\right). $$
+How shall we compute $Z[J, \lambda]$? We have no idea whether it can
+be written in closed form. So the physicists do it perturbatively.
 
-Let's consider a much easier problem to gain some insight: let $q$ be a one-dimensional variable, and evaluate
+Let's consider a much easier problem to gain some insight: let $q$ be
+a one-dimensional variable, and evaluate
 $$ Z = \int_{-\infty}^\infty dq \, \exp\left(-\frac{1}{2} q^2 + \lambda q^4 + Jq\right). $$
-We know how to do this integral for $\lambda = 0$: it would just be a Gaussian. So expand it as a series
+We know how to do this integral for $\lambda = 0$: it would just be a
+Gaussian. So expand it as a series
 $$ Z = \int_{-\infty}^\infty dq \, e^{-q^2/2 + Jq} \left(1 + \lambda q^4 + \lambda^2 q^8 + \cdots\right). $$
 How do we evaluate each individual term? Here's a trick:
 $$ \int_{-\infty}^\infty dq \, e^{-q^2/2 + Jq} q^{4n} = \left(\frac{d}{dJ}\right)^{4n} \int_{-\infty}^\infty dq \, e^{-q^2/2 + Jq}, $$
 and we know how to evaluate the remaining Gaussian integral! So
 $$ Z = \left(1 + \lambda \left(\frac{d}{dJ}\right)^4 + \lambda^2 \left(\frac{d}{dJ}\right)^8 + \cdots\right) \int_{-\infty}^\infty dq \, e^{-q^2/2 + Jq}. $$
 
-We can do the original path integral for $Z[J]$ using this trick, but first we need to make sense of what $d/dJ$ means when $J(x)$ is a function. Fortunately, mathematicians have done this for us already.
+We can do the original path integral for $Z[J]$ using this trick, but
+first we need to make sense of what $d/dJ$ means when $J(x)$ is a
+function. Fortunately, mathematicians have done this for us already.
 
 \begin{definition}
   Let $X$ be a space of functions, and $\Phi: X \to \bC$ a functional
   (not necessarily linear). The {\bf functional derivative}
   $\delta \Phi(f)/\delta f(x)$ is formally defined as
   $$ \frac{\delta\Phi(f)}{\delta f(x)} = \lim_{\epsilon \to 0} \frac{\Phi(f + \epsilon \delta_x) - \Phi(f)}{\epsilon}, $$
-  where $\delta_x$ is a delta function with its pole at $x$. It
-  basically works like $d/df$ when $f$ is a formal variable.
+  where $\delta_x$ is a delta function with its pole at $x$. An
+  important property is that
+  $\delta f(x)/\delta f(y) = \delta^{(4)}(x - y)$.
 \end{definition}
 
-So we can go right ahead and evaluate $Z[J]$:
+\begin{exercise}
+  Show that
+  $$ Z[J, \lambda] = Z[0, 0] \exp\left(-\frac{i}{4!}\lambda \int d^4w \, \left(\frac{\delta}{\delta J(w)}\right)^4\right) \exp\left(-\frac{1}{2} \int d^4x \, d^4y \, J(x) D_F(x - y) J(y)\right) $$
+  by first extending the solution to the easier problem to multiple
+  dimensions, and then ``infinite dimensions''. Then use the previous
+  theorem, where we computed $Z[J, 0]$.
+\end{exercise}
+
+At last, we arrive at the reason for which we have been doing all
+these calculations. Let's expand $Z[J, \lambda]$ in another way:
+\begin{align*}
+  Z[J, \lambda]
+  &= \int D\phi \, e^{i \int d^4x \, \cL} \sum_{n=0}^\infty \frac{\left(i \int d^4x \, J(x)\phi(x) \right)^n}{n!} \\
+  &= \sum_{n=0}^\infty \frac{1}{n!} \left(\int dx_1 \cdots dx_n \, J(x_1) \cdots J(x_n) \right) \left(\int D\phi \, \phi(x_1) \cdots \phi(x_n) e^{i \int d^4x \, \cL}\right).
+\end{align*}
+The second term looks oddly familiar. Indeed, it is (up to
+normalization), the {\bf $n$-point correlation function}
+$\braket{\phi(x_1)\cdots \phi(x_n)}$ that we wanted to compute from a
+long time ago! So what the path integral has really given us is an
+extremely easy way to perturbatively compute the $n$-point correlation
+functions: we simply need to compute the coefficient of $J^n$, which
+is a series in $\lambda$. Taking the first few terms
+$\lambda^0, \lambda^1, \cdots$ will give an approximation to the
+correlation function.
+
+For example, the $\lambda^1 J^4$ term comes from
+a $J^8$ term in $\exp(-(1/2)W[J])$ being differentiated by a
+$\lambda^1$ term in the other exponential:
+$$ \left(-\frac{i}{4!} \lambda \int d^4w \, \left(\frac{\delta}{\delta J(w)}\right)^4 \right)\left(\frac{1}{4! 2^4} \int d^4x_1 \cdots d^4x_8 \, J_1 J_2 J_3 J_4 J_5 J_6 J_7 J_8 D_{12} D_{34} D_{56} D_{78}\right), $$
+where $J_n$ stands for $J(x_n)$, and $D_{ij}$ stands for
+$D_F(x_i - x_j)$.
+
+\begin{exercise}
+  Do this computation. It is really not as bad as it looks: think of
+  the action of $\partial/\partial J(w)$ as selecting one of the
+  $J_i$'s, and setting its variable, i.e. $x_i$, to $w$. So applying
+  $(\partial/\partial J(w))^4$ really just picks four different
+  $x_i$'s and sets them to $w$. For example, we can pick
+  $x_2, x_4, x_6, x_8$ to get a term proportional to
+  $$ \lambda \int dw \, \int d^4x_1 \, d^4x_3 \, d^4x_5 \, d^4x_7 \, J_1J_3J_5J_7 D_{1w} D_{3w} D_{5w} D_{7w}. $$
+  Note, however, there are many ways to get a term of this form. We
+  could have picked any of the $4!$ permutations of
+  $x_2, x_4, x_6, x_8$. Or any of the $4!$ permutations of
+  $x_1, x_3, x_5, x_7$. Or we can substitute $1$ for $2$, or $3$ for
+  $4$, etc. in any such choice. There are {\bf symmetry factors} for
+  each term. Compute these carefully. You should get the result
+  $$ \int_w \int\int\int\int J_1 J_2 J_3 J_4 \left(-i\lambda D_{1w} D_{2w} D_{3w} D_{4w} - \frac{i\lambda}{2} D_{12}D_{3w}D_{4w}D_{ww} - \frac{i\lambda}{8} D_{12} D_{34} D_{ww} D_{ww}\right). $$
+\end{exercise}
+
+As with the free field case, we can physically interpret each of these terms. For example, in the first term, excitations from $x_1, x_2, x_3, x_4$ are propagating from/to an interaction point $w$. In the second term, there is a {\bf self-interaction} from $w$ to $w$, and interactions between $x_1$ and $w$, $x_2$ and $w$, and $x_3$ and $x_4$. We can similarly interpret the third term. The point is that to each term we can associate a little pictorial diagram of what is physically happening:
+\begin{center}
+\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
+\coordinate[label=left:$J_1$] (J1);
+\coordinate[vertex,below right=of J1] (w);
+\coordinate[above right=of w,label=right:$J_2$] (J2);
+\coordinate[below left=of w,label=left:$J_3$] (J3);
+\coordinate[below right=of w,label=right:$J_4$] (J4);
+\begin{scope}[every node/.style={scale=.85}]
+\draw[particle] (J1) -- node[label=left:$D_{1w}$] {} (w);
+\draw[particle] (J2) -- node[label=right:$D_{2w}$] {} (w);
+\draw[particle] (J3) -- node[label=left:$D_{3w}$] {} (w);
+\draw[particle] (J4) -- node[label=right:$D_{4w}$] {} (w);  
+\end{scope}
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
+\coordinate[label=left:$J_1$] (J1);
+\coordinate[right=3cm of J1,label=right:$J_2$] (J2);
+\coordinate[below=3cm of J1,label=left:$J_3$] (J3);
+\coordinate[vertex,right=of J3] (w);
+\coordinate[right=of w,label=right:$J_4$] (J4);
+\begin{scope}[every node/.style={scale=.85}]
+\draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
+\draw[particle] (J3) -- node[label=above:$D_{3w}$] {} (w);
+\draw[particle] (J4) -- node[label=above:$D_{4w}$] {} (w);
+\draw[particle] (w) edge[loop above,in=60,out=120,min distance=7.5cm] node[label=right:$D_{ww}$] {} (w);
+\end{scope}
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
+\coordinate[label=left:$J_1$] (J1);
+\coordinate[right=3cm of J1,label=right:$J_2$] (J2);
+\coordinate[below=3cm of J1,label=left:$J_3$] (J3);
+\coordinate[right=3cm of J3,label=right:$J_4$] (J4);
+\coordinate[vertex,below right=of J1] (w);
+\begin{scope}[every node/.style={scale=.85}]
+\draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
+\draw[particle] (J3) -- node[label=above:$D_{34}$] {} (J4);
+\draw[particle] (w) edge[loop,in=140,out=220,min distance=5cm] node[label=left:$D_{ww}$] {} (w);
+\draw[particle] (w) edge[loop,in=-40,out=40,min distance=5cm] node[label=right:$D_{ww}$] {} (w);
+\end{scope}
+\end{tikzpicture}
+\end{center}
 
 
 \end{document}
