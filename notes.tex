@@ -92,7 +92,11 @@
   particle/.style={thick,draw=black},
   gluon/.style={decorate,draw=black,decoration={coil,aspect=0}},
   vertex/.style={shape=circle,scale=0.3,fill=black,draw=black},
-  every loop/.style={thick,draw=black}
+  every loop/.style={thick,draw=black},
+  loop left/.style={in=140,out=220,min distance=2cm},
+  loop right/.style={in=-40,out=40,min distance=2cm},
+  loop above/.style={in=60,out=120,min distance=2.4cm},
+  loop below/.style={in=-120,out=-60,min distance=2.4cm}
 }
 
 \setcounter{chapter}{-1}
@@ -1249,9 +1253,19 @@ is a series in $\lambda$. Taking the first few terms
 $\lambda^0, \lambda^1, \cdots$ will give an approximation to the
 correlation function.
 
-For example, the $\lambda^1 J^4$ term comes from
-a $J^8$ term in $\exp(-(1/2)W[J])$ being differentiated by a
-$\lambda^1$ term in the other exponential:
+\begin{theorem}
+  The generating functional gives the following formula for $n$-point
+  correlation functions:
+  $$ \braket{\phi(x_1)\cdots \phi(x_n)} = (-i)^n \frac{\delta^n}{\delta J(x_1) \cdots \delta J(x_n)} \frac{Z[J,\lambda]}{Z[0,\lambda]}\bigg|_{J=0}. $$
+\end{theorem}
+
+For example, let's compute the $\lambda^1$ (first-order) terms in the
+$4$-point correlation function. This is equivalent to computing the
+$\lambda^1 J^4$ term in $Z[J, \lambda]$. ({\bf Note}: $J^4$ here
+really stands for $\left(\int dx \, J(x)\right)^4$, but we will abuse
+notation a little.) The $\lambda^1 J^4$ term comes from a $J^8$ term
+in $\exp(-(1/2)W[J])$ being differentiated by a $\lambda^1$ term in
+the other exponential:
 $$ \left(-\frac{i}{4!} \lambda \int d^4w \, \left(\frac{\delta}{\delta J(w)}\right)^4 \right)\left(\frac{1}{4! 2^4} \int d^4x_1 \cdots d^4x_8 \, J_1 J_2 J_3 J_4 J_5 J_6 J_7 J_8 D_{12} D_{34} D_{56} D_{78}\right), $$
 where $J_n$ stands for $J(x_n)$, and $D_{ij}$ stands for
 $D_F(x_i - x_j)$.
@@ -1270,53 +1284,190 @@ $D_F(x_i - x_j)$.
   $x_1, x_3, x_5, x_7$. Or we can substitute $1$ for $2$, or $3$ for
   $4$, etc. in any such choice. There are {\bf symmetry factors} for
   each term. Compute these carefully. You should get the result
-  $$ \int_w \int\int\int\int J_1 J_2 J_3 J_4 \left(-i\lambda D_{1w} D_{2w} D_{3w} D_{4w} - \frac{i\lambda}{2} D_{12}D_{3w}D_{4w}D_{ww} - \frac{i\lambda}{8} D_{12} D_{34} D_{ww} D_{ww}\right). $$
+  $$ \int_w \int\int\int\int J_1 J_2 J_3 J_4 \left(-i\lambda D_{1w} D_{2w} D_{3w} D_{4w} - \frac{i\lambda}{2} D_{12}D_{3w}D_{4w}D_{ww} - \frac{i\lambda}{8} D_{12} D_{34} D_{ww} D_{ww}\right), $$
+  from which you can conclude that the first-order term in
+  $\braket{\phi(x_1)\cdots \phi(x_4)}$ is
+  $$ -i\lambda \int \, dw \, \left(D_{1w} D_{2w} D_{3w} D_{4w} + \frac{1}{2} D_{12}D_{3w}D_{4w}D_{ww} + \frac{1}{8} D_{12} D_{34} D_{ww} D_{ww}\right). $$
 \end{exercise}
 
 As with the free field case, we can physically interpret each of these terms. For example, in the first term, excitations from $x_1, x_2, x_3, x_4$ are propagating from/to an interaction point $w$. In the second term, there is a {\bf self-interaction} from $w$ to $w$, and interactions between $x_1$ and $w$, $x_2$ and $w$, and $x_3$ and $x_4$. We can similarly interpret the third term. The point is that to each term we can associate a little pictorial diagram of what is physically happening:
 \begin{center}
-\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
-\coordinate[label=left:$J_1$] (J1);
-\coordinate[vertex,below right=of J1] (w);
-\coordinate[above right=of w,label=right:$J_2$] (J2);
-\coordinate[below left=of w,label=left:$J_3$] (J3);
-\coordinate[below right=of w,label=right:$J_4$] (J4);
-\begin{scope}[every node/.style={scale=.85}]
-\draw[particle] (J1) -- node[label=left:$D_{1w}$] {} (w);
-\draw[particle] (J2) -- node[label=right:$D_{2w}$] {} (w);
-\draw[particle] (J3) -- node[label=left:$D_{3w}$] {} (w);
-\draw[particle] (J4) -- node[label=right:$D_{4w}$] {} (w);  
-\end{scope}
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
-\coordinate[label=left:$J_1$] (J1);
-\coordinate[right=3cm of J1,label=right:$J_2$] (J2);
-\coordinate[below=3cm of J1,label=left:$J_3$] (J3);
-\coordinate[vertex,right=of J3] (w);
-\coordinate[right=of w,label=right:$J_4$] (J4);
-\begin{scope}[every node/.style={scale=.85}]
-\draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
-\draw[particle] (J3) -- node[label=above:$D_{3w}$] {} (w);
-\draw[particle] (J4) -- node[label=above:$D_{4w}$] {} (w);
-\draw[particle] (w) edge[loop above,in=60,out=120,min distance=7.5cm] node[label=right:$D_{ww}$] {} (w);
-\end{scope}
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[node distance=1.5cm and 1.5cm,scale=0.33]
-\coordinate[label=left:$J_1$] (J1);
-\coordinate[right=3cm of J1,label=right:$J_2$] (J2);
-\coordinate[below=3cm of J1,label=left:$J_3$] (J3);
-\coordinate[right=3cm of J3,label=right:$J_4$] (J4);
-\coordinate[vertex,below right=of J1] (w);
-\begin{scope}[every node/.style={scale=.85}]
-\draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
-\draw[particle] (J3) -- node[label=above:$D_{34}$] {} (J4);
-\draw[particle] (w) edge[loop,in=140,out=220,min distance=5cm] node[label=left:$D_{ww}$] {} (w);
-\draw[particle] (w) edge[loop,in=-40,out=40,min distance=5cm] node[label=right:$D_{ww}$] {} (w);
-\end{scope}
-\end{tikzpicture}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[label=left:$J_1$] (J1);
+      \coordinate[vertex,below right=of J1] (w);
+      \coordinate[above right=of w,label=right:$J_2$] (J2);
+      \coordinate[below left=of w,label=left:$J_3$] (J3);
+      \coordinate[below right=of w,label=right:$J_4$] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (J1) -- node[label=left:$D_{1w}$] {} (w);
+        \draw[particle] (J2) -- node[label=right:$D_{2w}$] {} (w);
+        \draw[particle] (J3) -- node[label=left:$D_{3w}$] {} (w);
+        \draw[particle] (J4) -- node[label=right:$D_{4w}$] {} (w);  
+      \end{scope}
+  \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[label=left:$J_1$] (J1);
+      \coordinate[right=3cm of J1,label=right:$J_2$] (J2);
+      \coordinate[below=3cm of J1,label=left:$J_3$] (J3);
+      \coordinate[vertex,right=of J3] (w);
+      \coordinate[right=of w,label=right:$J_4$] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
+        \draw[particle] (J3) -- node[label=above:$D_{3w}$] {} (w);
+        \draw[particle] (J4) -- node[label=above:$D_{4w}$] {} (w);
+        \draw[particle] (w) edge[loop above] node[label=above:$D_{ww}$] {} (w);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[label=left:$J_1$] (J1);
+      \coordinate[right=3cm of J1,label=right:$J_2$] (J2);
+      \coordinate[below=3cm of J1,label=left:$J_3$] (J3);
+      \coordinate[right=3cm of J3,label=right:$J_4$] (J4);
+      \coordinate[vertex,below right=of J1] (w);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
+        \draw[particle] (J3) -- node[label=above:$D_{34}$] {} (J4);
+        \draw[particle] (w) edge[loop left] node[label=left:$D_{ww}$] {} (w);
+        \draw[particle] (w) edge[loop right] node[label=right:$D_{ww}$] {} (w);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
 \end{center}
+These diagrams both represent what is physically happening, in
+position space, and the terms in the integral. They are also known as
+{\bf Feynman diagrams}!
+
+When one does more of these types of calculations for other
+$\lambda^k J^n$ terms, one can see many patterns. In each of the three
+Feynman diagrams above, there are:
+\begin{itemize}
+\item one {\bf internal vertex} (the black dot), corresponding to the
+  comes from the variable $w$ introduced by the $\lambda^1$ term (if
+  we were to compute a $\lambda^k$ term, there would be $k$ internal
+  vertices);
+\item four {\bf external vertices} coming from the four $J$'s (if we
+  were to compute a $J^n$ term, there would be $n$ external vertices);
+\item four {\bf propagators} coming from the four $D_F$'s (if we were
+  to compute a $J^n$ term, there would be $n$ external vertices).
+\end{itemize}
+
+\begin{exercise}
+  There are also rules for what possible diagrams can arise in the
+  $\phi^4$ theory. Convince yourself that any diagram has:
+  \begin{itemize}
+  \item four propagator ends at each internal vertex;
+  \item an even number of external vertices;
+  \item ((number of internal propagators) - (number of internal
+    vertices) + 1) loops.
+  \end{itemize}
+\end{exercise}
+
+So we see that Feynman diagrams are good, intuitive,
+easy-to-manipulate representations of the terms of $Z[J, \lambda]$. In
+fact, instead of going from a term in $Z[J, \lambda]$ to a Feynman
+diagram, we can go the other way: given a Feynman diagram that can
+arise from the $\phi^4$ theory, we can directly write down the term
+associated to it. This greatly simplifies the calculation of the
+terms, since now we can just draw pictures instead of taking $4k$
+derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
+
+\begin{theorem}
+  Given a Feynman diagram, one can write down its corresponding value
+  using the {\bf position-space Feynman rules for $\phi^4$ theory}:
+  \begin{itemize}
+  \item for each propagator between vertices $x$ and $y$, add a $D_F(x - y)$ term;
+  \item for each internal vertex, add a $(-i\lambda) \int d^4z$ term;
+  \item for each external vertex, add a factor of $1$;
+  \item divide by the {\bf symmetry factor}.
+  \end{itemize}
+  The symmetry factor is the number of ways of interchanging internal
+  components of the diagram without changing the diagram itself.
+\end{theorem}
+
+\begin{exercise}
+  Symmetry factors take some getting used to. Compute the symmetry factors of the following three diagrams:
+  \begin{center}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[label=left:$J$] (J1);
+      \coordinate[below=of J1,label=left:$J$] (J2);
+      \coordinate[below=of J2,label=left:$J$] (J3);
+      \coordinate[vertex,right=of J2] (w1);
+      \coordinate[vertex,right=of w1] (w2);
+      \coordinate[above right=of w2,label=right:$J$] (J4);
+      \coordinate[below=of J4,label=right:$J$] (J5);
+      \coordinate[below=of J5,label=right:$J$] (J6);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (J1) -- (w1);
+        \draw[particle] (J2) -- (w1);
+        \draw[particle] (J3) -- (w1);
+        \draw[particle] (w1) -- (w2);
+        \draw[particle] (w2) -- (J4);
+        \draw[particle] (w2) -- (J5);
+        \draw[particle] (w2) -- (J6);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[vertex] (w);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (w) edge[loop above] (w);
+        \draw[particle] (w) edge[loop below] (w);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate[label=left:$J$] (J1);
+      \coordinate[vertex,right=of J1] (w1);
+      \coordinate[vertex,right=of w1] (w2);
+      \coordinate[right=of w2,label=right:$J$] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[particle] (J1) -- (w1);
+        \draw[particle] (w1) edge[in=90,out=90] (w2);
+        \draw[particle] (w1) -- (w2);
+        \draw[particle] (w1) edge[in=-90,out=-90] (w2);
+        \draw[particle] (w2) -- (J2);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \end{center}
+  You should get $1$ and $2 \cdot 2 \cdot 2 = 8$ and $3! = 6$
+  respectively.
+\end{exercise}
+
+\begin{exercise}
+  Rewrite the position-space Feynman rules in momentum-space, to
+  obtain the {\bf momentum-space Feynman rules for $\phi^4$ theory}:
+  \begin{itemize}
+  \item for each propagator, label it with a momentum $p$ and add a
+    $i/(p^2 - m^2 + i\epsilon)$ term;
+  \item for each internal vertex, add a $-i\lambda$ term;
+  \item for each external vertex with a propagator of momentum $p$
+    attached, add a $e^{-ipx}$ term;
+  \item for each vertex, impose momentum conservation by adding a
+    $\delta^{(4)}(p_1 + p_2 - p_3 - p_4)$ term, where
+    $p_1, p_2, p_3, p_4$ are the four propagators entering/leaving the
+    vertex;
+  \item integrate over every undetermined momentum;
+  \item divide by the symmetry factor.
+  \end{itemize}
+  Note that in momentum space, we must orient each propagator. The
+  orientation is arbitrary, since $D_F(x - y) = D_F(y - x)$, but
+  necessary for imposing momentum conservation.
+\end{exercise}
 
 
 \end{document}
