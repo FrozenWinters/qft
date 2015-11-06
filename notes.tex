@@ -790,7 +790,7 @@ canonical quantization process is difficult and tedious, but it
 motivates much of what we are about to do. The path integral approach
 to QFT will allow us to perform perturbative calculations more easily,
 and generalizes readily to other non-interacting theories. In
-particular, for the entirety of this chapter, we will mostly be
+for the entirety of this chapter, we will mostly be
 concerned with calculating {\bf propagation amplitudes} for a
 perturbed theory.
 
@@ -1241,7 +1241,7 @@ these calculations. Let's expand $Z[J, \lambda]$ in another way:
 \begin{align*}
   Z[J, \lambda]
   &= \int D\phi \, e^{i \int d^4x \, \cL} \sum_{n=0}^\infty \frac{\left(i \int d^4x \, J(x)\phi(x) \right)^n}{n!} \\
-  &= \sum_{n=0}^\infty \frac{1}{n!} \left(\int dx_1 \cdots dx_n \, J(x_1) \cdots J(x_n) \right) \left(\int D\phi \, \phi(x_1) \cdots \phi(x_n) e^{i \int d^4x \, \cL}\right).
+  &= \sum_{n=0}^\infty \frac{i^n}{n!} \left(\int dx_1 \cdots dx_n \, J(x_1) \cdots J(x_n) \right) \left(\int D\phi \, \phi(x_1) \cdots \phi(x_n) e^{i \int d^4x \, \cL}\right).
 \end{align*}
 The second term looks oddly familiar. Indeed, it is (up to
 normalization), the {\bf $n$-point correlation function}
@@ -1393,7 +1393,12 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
 \end{theorem}
 
 \begin{exercise}
-  Symmetry factors take some getting used to. Compute the symmetry factors of the following three diagrams:
+  Symmetry factors take some getting used to. They arise from the
+  combinatorics of how the derivatives $\delta/\delta J$ can hit
+  different $J$, and the symmetry $D_F(x - y) = D_F(y - x)$. For
+  example, when a diagram has a loop in it, we naively overcount by a
+  factor of two because of the symmetry in $D_F$. Compute the symmetry
+  factors of the following three diagrams using similar reasoning:
   \begin{center}
   \begin{minipage}{0.3\textwidth}
     \centering
@@ -1452,10 +1457,11 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
   Rewrite the position-space Feynman rules in momentum-space, to
   obtain the {\bf momentum-space Feynman rules for $\phi^4$ theory}:
   \begin{itemize}
-  \item for each propagator, label it with a momentum $p$ and add a
-    $i/(p^2 - m^2 + i\epsilon)$ term;
+  \item for each internal propagator, label it with a momentum $p$ and
+    add a $i/(p^2 - m^2 + i\epsilon)$ term;
+  \item for each external propagator (i.e. source), label it with a
+    momentum $p$ and add a $e^{-ipx}$ term;
   \item for each internal vertex, add a $-i\lambda$ term;
-  \item for each external vertex with a propagator of momentum $p$
     attached, add a $e^{-ipx}$ term;
   \item for each vertex, impose momentum conservation by adding a
     $\delta^{(4)}(p_1 + p_2 - p_3 - p_4)$ term, where
@@ -1469,5 +1475,70 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
   necessary for imposing momentum conservation.
 \end{exercise}
 
+\chapter{Quantum Electrodynamics}
+
+
+
+\chapter{Renormalization}
+
+There is a problem with the machinery we have been developing that we
+have been sweeping under the rug. This problem is best illustrated by
+explicitly computing the following Feynman diagram for $\phi^4$
+theory:
+\begin{center}
+  \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+    \coordinate[label=left:$J$] (J1);
+    \coordinate[vertex,below right=of J1] (w1);
+    \coordinate[below left=of w1,label=left:$J$] (J2);
+    \coordinate[vertex,right=of w1] (w2);
+    \coordinate[above right=of w2,label=right:$J$] (J3);
+    \coordinate[below right=of w2,label=right:$J$] (J4);
+    \begin{scope}[every node/.style={scale=.85}]
+      \draw[particle] (J1) -- node[label=left:$p_1$] {} (w1);
+      \draw[particle] (J2) -- node[label=left:$p_2$] {} (w1);
+      \draw[particle] (w1) edge[in=90,out=90] node[label=above:$p$] {} (w2);
+      \draw[particle] (w1) edge[in=-90,out=-90] node[label=below:$p_1+p_2-k$] {} (w2);
+      \draw[particle] (w2) -- node[label=right:$p_3$] {} (J3);
+      \draw[particle] (w2) -- node[label=right:$p_4$] {} (J4);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+Here we've labeled each source and propagator with its momentum, where
+since $p$ is an internal momentum, we must integrate over it. The
+value of the diagram is
+$$ \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2 - m^2 + i\epsilon} \frac{i}{(p_1 + p_2 - p)^2 - m^2 + i\epsilon}. $$
+As $|p| \to \infty$, the integrand is $O(1/p^4)$, which diverges
+logarithmically when integrated over! This divergence cannot simply be
+ignored, since it does not get absorbed into the $Z[0,0]$ constant
+that we can ignore; it is part of a $J^4$ term. In fact, there are
+many such divergences. An easy observation is that any diagram with
+this diagram as a sub-diagram will have the same divergence. So we
+must develop a way to remove these divergences, or, rather, explain
+why they come about in our naive theory, and how to avoid them in a
+more sophisticated theory. In this chapter, we will develop such a
+theory and systematically remove these divergences using {\bf
+  renormalization theory}.
+
+\section{Counting Divergences}
+
+The first step to getting rid of divergences is to understand what
+kind of divergences occur, and this we will do by analyzing the
+divergent Feynman diagrams. For this section, we will work in $d$
+dimensions (instead of $4$) to make the general structure of the
+results clearer.
+
+Why did the above diagram diverge? The obvious answer is that there
+weren't enough powers of $p$ in the denominator.
+
+\begin{definition}
+  The {\bf superficial degree of divergence} $D$ is the difference
+  $$ D = \text{(power of } p \text{ in numerator)} - \text{(power of } p \text{ in denominator)}. $$
+  Every integration $dp$ counts as a power of $p$ in the numerator.
+\end{definition}
+
+If $D \ge 0$ then surely the integral is divergent. However, this is
+not an if and only if. For example, take
+$\iint dx \, dy \, 1/(1 + x^2)^2$ in $\bR^2$, for which $D = -2$, but
+the integral still diverges because it does not decay in $y$.
 
 \end{document}
