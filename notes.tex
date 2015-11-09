@@ -1,3 +1,4 @@
+%
 \documentclass{report}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -7,6 +8,9 @@
 \usepackage{braket}
 \usepackage{dsfont}
 \usepackage{mdframed}
+\usepackage{slashed}
+\usepackage{comment}
+\usepackage{color}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
@@ -38,6 +42,7 @@
 \newcommand{\gam}{\gamma}
 \newcommand{\sg}{\sigma}
 \newcommand{\di}{\partial}
+\newcommand{\sdi}{\slashed\partial}
 \newcommand{\ddi}[2]{\FR{\partial {#1}}{\partial {#2}}}
 \newcommand{\hp}{\hat p}
 \newcommand{\ha} { a}
@@ -300,7 +305,8 @@ space-only component, and $v^2$ generally denotes $v^\mu v_\mu$
 whereas $\vec{v}^2$ generally denotes $v^i v_i$.
 
 
-\chapter{Klein-Gordon Field}
+\chapter{Introduction: Klein Gordon and Dirac Fields}
+\section{Klein Gordon Field}
 
 In this chapter, we will look at our first quantum field, called the
 Klein-Gordon field. This field arises from the Klein-Gordon equation
@@ -316,7 +322,7 @@ we will begin by examining Klein-Gordon fields classically, and then
 putting them through a process called canonical quantization to obtain
 the quantum Klein-Gordon field.
 
-\section{Why Fields?}
+\subsection{Why Fields?}
 
 Before we begin, let's motivate why we want to look at fields instead
 of wavefunctions. Why complicate things if we can do relativistic QM
@@ -453,7 +459,7 @@ which describes electromagnetism, is something we will see very soon
 that has been very well tested and agrees very well with experiments,
 up to the limits of what we can experimentally measure.
     
-\section{Elements of Classical Field Theory}
+\subsection{Elements of Classical Field Theory}
 
 Before we embark on the long journey through QFT, we need to review
 some tools from classical field theory first. This serves not only as
@@ -628,7 +634,7 @@ density.
 %   $\leadsto j^\mu(x) = \ddi{\mc L}{(\di_\mu\vphi)}\Delta\vphi - \mc J^\mu$
 %   $\leadsto Q = \int j^0 d^3x$ conserved charge.
 
-\section{Quantizing the Klein-Gordon Field}
+\subsection{Quantizing the Klein-Gordon Field}
 
 Before we quantize, let's apply the classical theory to the classical
 Klein-Gordon field, which is defined by the Lagrangian
@@ -707,7 +713,7 @@ following form: \footnote{{\elaborate}}
 \pi(\vx) &= \int \FR{d^3p}{(2\pi)^3}(-i)\SFR{\om_p}{\sqrt2} (a_\vp e^{i\vp\cdot\vx} - a_\vp^\dag e^{-i\vp\cdot\vx})
 \end{align*}
 
-\chapter{Dirac Field}
+\section{Dirac Field}
 The formalism that we have built up so far tells that everything starts
 from a Lagrangian. In the theory of elementary particles and high energy
 physics there is one very special condition that we require of a
@@ -1476,8 +1482,134 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
 \end{exercise}
 
 \chapter{Quantum Electrodynamics}
+\section{Functional Quantization of Spinor Fields}
+Now that we have understood the essentials of the path integral formulation
+we would now like to apply this formalism to understand how fermions
+interact in an electromagnetic field. Before we can get anywhere let us
+revisit the Dirac field and attempt to quantize it using the path integral
+formalism. 
 
+Recall that in our discussion of the Dirac field we realized that fermionic
+quantization required anticommutation relations. This suggests that the
+eigenfunctions of these operators also need to anticommute. These sorts of
+variables are called Grassmann numbers: $\theta\eta = -\eta\theta$. To
+proceed, we first need to understand how to integrate over such variables.
+It will turn out that integration over these variables is much easier than
+regular integration! Consider the Taylor expansion $f(\theta) = A +
+B\theta+C\theta^2+D\theta^3 + \cdots$. If $\theta$ is a Grassmann variable
+then $\theta^2=0$ and so $f(\theta) = A + B\theta$. The two properties that
+we would like of integration is that it is linear and invariant under a
+translation of variables, $\theta\to \theta+\eta_0$. Thus:
+\begin{align*}
+    \int d\theta\, f(\theta) &= \int d\theta\,A+B\theta
+    = \int d(\theta+\eta_0)\, A+B(\theta+\eta_0)\\
+    &= \int d\theta\, (A+B\eta_0) + B\theta
+\end{align*}
+By linearity, we expect that this integral be a linear function of the
+constant term, $A$, and the linear term, $B$. The last equality implies that 
+The integral does not depend on the constant term. Therefore, we may assume
+that the integral evaluates to:\footnote{Integration by differentiation!}
+\begin{align*}
+    \int d\theta\, A+B\theta = B
+\end{align*}
+If we integrate more than one Grassmann number we need the following
+convention that $\int d\eta\int d\theta\,\theta\eta = 1$.
+This definition makes some integrals very easy to evaluate. We compile a
+few that will be useful for us later on:
+\begin{align}
+    \int d\theta^* d\theta e^{-\theta^* b\theta} &= b^{-1}, &
+    \left(\prod_i\int d\theta_i^*d\theta_i\right)
+    e^{-\theta_i^*B_{ij}\theta_j} = \prod_i b_i &= \det B, &
+    \left(\prod_i\int d\theta_i^*d\theta_i\right)
+{\color{red}\theta_k\theta_l^*e^{-\theta_i^*B_{ij}\theta_j}} &= (\det
+B)(B^{-1})_{kl}
+    \label{fermionic-integrals}
+\end{align}
 
+Recall that the Lagrangian for the Dirac field is given by $\mc L_{Dirac} =
+\bar\psi (i\slashed\di - m) \psi$ where $\slashed\di = \gam^\mu\di_\mu$.
+Using the integrals given in \eqref{fermionic-integrals} it is possible to
+immediately calculate the correlation functions for the free field theory
+directly. Instead, we will get some more practice with our generating
+functional method.
+
+\begin{comment}
+%   {\color{blue} (Blue colour means skip during the lecture, and possibly skip
+%   in these notes.
+%
+%   Using the integrals given in \eqref{fermionic-integrals} we may calculate
+%   the two-point correlation function immediately:
+%   \begin{align*}
+%       \braket{0|T\psi(x_1)\bar\psi(x_2)|0}
+%   &=\FR{\int D\bar\psi D\psi\,\psi(x_1)\bar\psi(x_2)e^{i\int d^4x\bar\psi(i\slashed\di-m)\psi}}
+%        {\int D\bar\psi D\psi\,e^{i\int d^4x\bar\psi(i\slashed\di-m)\psi}}\\
+%        &=\FR{\det (i\slashed\di-m)\cdot
+%            \braket{\bar\psi(x_2)|\bigl\{-i(i\slashed\di-m)\bigr\}^{-1}|\psi(x_1)}}
+%            {\det (i\slashed\di-m)}
+%   \end{align*}
+%   The inverse operator is the Green's function for the Dirac equation, which
+%   can be computed by Fourier transforming.
+%   \begin{align*}
+%   \delta^{(4)}(x-y) &= -i(i\sdi-m)\cdot G(x-y)\\
+%   &= -i(i\sdi-m)\int\FR{d^4p}{(2\pi)^4} e^{-ip(x-y)}\tilde G(p)\\
+%   &= \int \FR{d^4p}{(2\pi)^4} (-i\slashed{p}+im)\tilde G(p)e^{-ip(x-y)}\\
+%   1 &= (-i\slashed{p}+im)\tilde G(p)\implies G(x-y) = \int\FR{d^4p}{(2\pi)^4}
+%   \FR{ie^{-ip(x-y)}}{\slashed p - m+i\epsilon}
+%   \end{align*}
+%   Therefore,
+%   \begin{align*}
+%   \braket{0|T\psi(x_1)\bar\psi(x_2)|0} &= \int\FR{d^4p}{(2\pi)^4} 
+%   \FR{ie^{-ip(x_1-x_2)}}{\slashed{p}-m+i\epsilon}= S_F(x_1-x_2)
+%   \end{align*}
+%   where the pesky $i\epsilon$ came in because of {\color{red}convergence
+%   issues}.}
+\end{comment}
+Take the generating functional,
+\begin{align*}
+Z[\bar\eta,\eta] = \int D\bar\psi D\psi 
+\exp\left[ i\int d^4x\,\bar\psi(i\sdi-m)\psi + \bar\eta\psi+\bar\psi\eta
+\right]
+\end{align*}
+So that if you make the substitution $\psi \to \psi+(i\sdi-m)^{-1}\bar\eta$
+then we can evaluate $Z$ explicitly:
+\begin{align*}
+Z[\bar\eta,\eta] =  Z_0\cdot \exp\left[ -\int d^4xd^4y
+\bar\eta(x)S_F(x-y)\eta(y) \right]
+\end{align*}
+Therefore we are in position to evaluate arbitrary $n$-point correlation
+functions. This is where the generating functional method shines, on the
+one hand it is easy to compute explicitly, and on the other hand by
+differentiating it in a special way it gives rise to the correlation
+functions! In the free field case, here is an example of such a correlation
+function calculation:
+\begin{align*}
+    \braket{0|T\psi(x_1)\psi(x_2)|0} = 
+    Z_0^{-1} \cdot \left(
+    \FR{-i\delta}{\delta\bar\eta(x_1)}
+    \right)\left( \FR{+i\delta}{\delta\eta(x_2)}\right) Z[\bar\eta,\eta] 
+        =
+    \left(
+    \FR{-i\delta}{\delta\bar\eta(x_1)}
+    \right)\left( \FR{+i\delta}{\delta\eta(x_2)} \right)
+\exp\left[ -\int d^4xd^4y
+\bar\eta(x)S_F(x-y)\eta(y) \right]
+\end{align*}
+What are possible interactions that we can add to the Dirac field? Since
+we've already discussed the scalar field, we may start by coupling the
+Dirac field to the scalar field and trying to compute the correlation
+functions.
+
+% Yukawa and Coulomb potential will be discussed at the end.
+
+To talk about QED we need the quantized version of the electromagnetic
+field. Here we go!
+\section{Functional Quantization of Electromagnetic Field}
+The electromagnetic field is described by a 4-vector, $A_\mu = (\phi,\vec
+A)$, which packages the information about the electric field into $\phi$
+and the magnetic field into $\vec A$. By taking the Lagrangian: $\mc L_{EM}
+=-\FR{1}{4}F_{\mu\nu}F^{\mu\nu}$, where $F_{\mu\nu} = \di_\mu A_\nu
+-\di_\nu A_\mu$, we recover Maxwell's equations (exercise!). We may write
+the Lagrangian explicitly in terms of the $A_\mu$:
 
 \chapter{Renormalization}
 
