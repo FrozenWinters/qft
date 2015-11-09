@@ -1089,7 +1089,7 @@ Green's function is called the {\bf Feynman propagator}.
 \begin{exercise}
   Let $\theta(x - y)$ be the {\bf Heaviside step function}, i.e. it is
   $1$ when $x > y$, and $0$ otherwise. Compute that
-  $$ D_F(x - y) = \theta(x^0 - y^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = E_{\vec p}} + \theta(y^0 - x^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = E_{-\vec p}} $$
+  $$ D_F(x - y) = \theta(x^0 - y^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = E_{\vec p}} + \theta(y^0 - x^0) \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec p}} e^{-ip(x-y)}\bigg|_{p^0 = -E_{\vec p}} $$
   by analytic continuation into the complex $p^0$ plane, and by
   closing the contour either in the upper half plane when $x^0 > y^0$,
   or in the lower half plane when $x^0 < y^0$.
@@ -1468,12 +1468,12 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
   \item for each external propagator (i.e. source), label it with a
     momentum $p$ and add a $e^{-ipx}$ term;
   \item for each internal vertex, add a $-i\lambda$ term;
-    attached, add a $e^{-ipx}$ term;
   \item for each vertex, impose momentum conservation by adding a
     $\delta^{(4)}(p_1 + p_2 - p_3 - p_4)$ term, where
     $p_1, p_2, p_3, p_4$ are the four propagators entering/leaving the
     vertex;
-  \item integrate over every undetermined momentum;
+  \item integrate over every undetermined momentum $p$ with
+    $\int d^4p/(2\pi)^4$;
   \item divide by the symmetry factor.
   \end{itemize}
   Note that in momentum space, we must orient each propagator. The
@@ -1665,12 +1665,59 @@ weren't enough powers of $p$ in the denominator.
 \begin{definition}
   The {\bf superficial degree of divergence} $D$ is the difference
   $$ D = \text{(power of } p \text{ in numerator)} - \text{(power of } p \text{ in denominator)}. $$
-  Every integration $dp$ counts as a power of $p$ in the numerator.
+  Every integration $dp$ counts as a power of $p$ in the numerator. If
+  $D \ge 0$, we say the integral is {\bf superficially divergent}.
 \end{definition}
 
 If $D \ge 0$ then surely the integral is divergent. However, this is
 not an if and only if. For example, take
-$\iint dx \, dy \, 1/(1 + x^2)^2$ in $\bR^2$, for which $D = -2$, but
-the integral still diverges because it does not decay in $y$.
+$\iint dx \, dy \, 1/(1 + x^2)^2$ in $\bR^2$, for which $D = -2$, yet
+the integral still diverges because it does not decay in $y$. The good
+news is that this is the only sort of pathological divergence we will
+get.
+
+\begin{theorem}[Weinberg-Dyson]
+  
+\end{theorem}
+
+Suppose now that we are given a Feynman diagram for some process in
+$\phi^4$ theory, with $V$ internal vertices, $E$ external propagators
+(from sources $J$ to internal vertices), and $I$ internal propagators.
+Using the momentum-space Feynman rules, each internal propagator
+decreases $D$ by $2$, and every momentum being integrated over
+increases $D$ by $4$. How many such momenta are there? Well, each
+internal propagator is associated to one, but every internal vertex
+adds a single linear constraint on them. So there are $I - V + 1$
+independent momenta (\elaborate{} where does the $+1$ come from?), and
+$$ D = -2I + d(I - V + 1) = (d - 2)I - dV + d. $$
+Now note that every external propagator connects to one internal
+vertex, every internal propagator to two, and every vertex connects
+four propagators, so $2I + E = 4V$. Then
+$$ D = \frac{1}{2}(d - 2)(4V - E) - dV + d = (d - 4)V - \frac{1}{2}(d - 2)E + d. $$
+The behavior of $D$ depends on the dimensionality $d$.
+\begin{itemize}
+\item If $d = 2$ or $d = 3$, as the number of vertices increases, $D$
+  decreases. Hence there can only be a finite number of superficially
+  divergent diagrams. QFTs with this property are {\bf
+    super-renormalizable}.
+\item If $d = 4$ (the case we care about), $D = 4 - E$. Hence the only
+  superficially divergent diagrams are those with at most four
+  sources, but there are infinitely many of them, and $D \le d$. QFTs
+  with this sort of property are {\bf renormalizable}.
+\item If $d \ge 5$, there are diagrams of all orders that are
+  superficially divergent (due to the differing signs of $V$ and $E$).
+  QFTs with this property are {\bf non-renormalizable}.
+\end{itemize}
+
+\begin{exercise}
+  Consider QED. Let $V$ be the number of internal vertices,
+  $E_e, E_\gamma$ be the number of external electron and photon
+  propagators, respectively, and $I_e, I_\gamma$ the number of
+  internal ones, respectively. Compute that
+  $$ D = \frac{d-4}{2}V - \frac{d-2}{2}E_\gamma - \frac{d-1}{2} E_e, $$
+  and thus conclude that QED is renormalizable in $d = 4$.
+\end{exercise}
+
+
 
 \end{document}
