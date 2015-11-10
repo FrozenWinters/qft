@@ -1677,7 +1677,8 @@ news is that this is the only sort of pathological divergence we will
 get.
 
 \begin{theorem}[Weinberg-Dyson]
-  
+  A connected Feynman diagram is convergent if and only if the it and
+  all of its connected subdiagrams are not superficially divergent.
 \end{theorem}
 
 Suppose now that we are given a Feynman diagram for some process in
@@ -1688,7 +1689,8 @@ decreases $D$ by $2$, and every momentum being integrated over
 increases $D$ by $4$. How many such momenta are there? Well, each
 internal propagator is associated to one, but every internal vertex
 adds a single linear constraint on them. So there are $I - V + 1$
-independent momenta (\elaborate{} where does the $+1$ come from?), and
+independent momenta (since global momentum conservation frees one
+constraint), and
 $$ D = -2I + d(I - V + 1) = (d - 2)I - dV + d. $$
 Now note that every external propagator connects to one internal
 vertex, every internal propagator to two, and every vertex connects
@@ -1717,6 +1719,89 @@ The behavior of $D$ depends on the dimensionality $d$.
   $$ D = \frac{d-4}{2}V - \frac{d-2}{2}E_\gamma - \frac{d-1}{2} E_e, $$
   and thus conclude that QED is renormalizable in $d = 4$.
 \end{exercise}
+
+\begin{exercise}
+  In general, show that a QFT in $d$ dimensions with several different
+  fields $f$ and several different interactions $i$ has
+  $$ D = d - \sum_f a_f E_f - \sum_i b_i V_i, $$
+  where
+  \begin{itemize}
+  \item $E_f$ is the number of external propagators of field type $f$,
+  \item $V_i$ is the number of internal vertices of interaction type $i$,
+  \item $-d + 2a_f$ is the degree of the propagator for field type $f$,
+  \item $[m^{b_i}]$ is the dimension (in natural units, where
+    $[l] = [t] = [m^{-1}]$) on the coupling constant for interaction
+    type $i$.
+  \end{itemize}
+\end{exercise}
+
+\begin{exercise}[Optional, for those who know general relativity or
+  Riemannian geometry]
+  The {\bf Einstein-Hilbert action} in general relativity is
+  $$ S = \int d^4x \, \left(\frac{R}{16\pi} + \frac{\Lambda}{8\pi}\right) \sqrt{-g} $$
+  where $R$ is the Ricci curvature, $\Lambda$ is the cosmological
+  constant, and $g$ the metric. Compute the dimension of $R$ and
+  therefore conclude that gravity is non-renormalizable.
+\end{exercise}
+
+\section{Regularization}
+
+Obviously, we want to call a QFT renormalizable only if we can really
+make the divergences vanish in a systematic way. Of course, it turns
+out we can. There are two distinct steps in doing so: {\bf
+  regularization}, and {\bf renormalization}. We first tackle
+regularization.
+
+The idea behind regularization is simple: if we have a physical
+theory, there are limitations when it is valid. For example, classical
+mechanics applied to particles is a good approximation to quantum
+mechanics in low energy regimes, where we can pretend $\hbar = 0$, but
+it is by no means valid at, say, energies where mass-energy
+equivalence allows for the creation of new particles. (In fact, we
+need QFT for those regimes.) At those energies, we must incorporate
+more subtle corrections to the dynamics that come from QM, or QFT.
+Here's an example of regularization in action, alongside some cool
+physics.
+
+\begin{example}[Casimir effect]
+  Take a large $L \times L \times L$ vacuum cavity and insert another
+  $L \times L$ plate parallel to one of the walls at a distance
+  $d \ll L$. The plate disturbs the electromagnetic field in the
+  vacuum cavity, and create some energy $E$ relative to the ground
+  state energy $0$. Then we expect to detect a force
+  $F = -\partial E/\partial d$ on the plate. Since this is just an
+  example of regularization, let's simplify a bit. Instead of the EM
+  field, which is a spinor field, we work with a massless scalar
+  field, and in $1+1$ dimensions. From EM/QM, we know the EM modes in
+  the cavity are quantized, with wave vector $k = n\pi/d$, i.e. modes
+  $\sin(n\pi x/d)$. Naively, then, $E = f(d) + f(L-d)$ where
+  $$ f(d) = \frac{1}{2} \sum_{n=1}^\infty \omega_n = \frac{\pi}{2d} \sum_{n=1}^\infty n \to \infty. $$
+  But we are neglecting the physics: high-frequency waves are not
+  ``seen'' by the plates, whose electrons move at a finite speed. So
+  introduce a parameter $s$ and a factor $e^{-sn/d}$ to dampen the
+  energy contribution of higher-frequency modes:
+  $$ f(d) = \frac{1}{2d} \sum_{n=1}^\infty ne^{-sn/d} = -\frac{\pi}{2} \frac{\partial}{\partial s} \sum_{n=1}^\infty e^{-sn/d} = -\frac{\pi}{2} \frac{\partial}{\partial s} \frac{1}{1 - e^{-s/d}} = \frac{\pi}{2d} \frac{e^{s/d}}{(e^{s/d} - 1)^2}. $$
+  As a series,
+  $$ f(d) = \frac{\pi d}{2s^2} - \frac{\pi}{24d} + \frac{\pi s^2}{480d^3} + O(s^4). $$
+  It remains to compute
+  $$ F = -\frac{\partial E}{\partial d} = -(f'(d) - f'(L - d)) \xrightarrow{s \to 0} -\frac{\pi}{24} \left(\frac{1}{d^2} - \frac{1}{(L-d)^2}\right). $$
+  For $d \ll L$, this is approximately $F = -\pi/24d^2$, the
+  attractive {\bf Casimir force}. In particular, it is finite. In
+  addition, there are other things to note here.
+  \begin{itemize}
+  \item The general technique used here is known as {\bf zeta function
+      regularization}.
+  \item One may object to this calculation, because it depended on a
+    choice of {\bf regularization} term $e^{-sn/d}$. However, it can
+    be shown that $F$ is independent of the choice of regularization.
+  \item This calculation, which is often repeated in a different
+    context in string theory, is the source of all the silliness
+    surrounding $\sum_{n=1}^\infty n = -1/12$: the ``equality'' arises
+    from matching the $\pi/2d$ terms in the unregularized and
+    regularized $f(d)$ (since other terms cancel or vanish as
+    $s \to 0$ in $F$).
+  \end{itemize}
+\end{example}
 
 
 
