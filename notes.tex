@@ -68,6 +68,7 @@
 \DeclareMathOperator{\cI}{\mathcal{I}}
 \DeclareMathOperator{\cJ}{\mathcal{J}}
 \DeclareMathOperator{\cL}{\mathcal{L}}
+\DeclareMathOperator{\cM}{\mathcal{M}}
 \DeclareMathOperator{\fg}{\mathfrak{g}}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\im}{Im}
@@ -1481,6 +1482,10 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
   necessary for imposing momentum conservation.
 \end{exercise}
 
+\section{Connected vs Disconnected}
+
+
+
 \chapter{Quantum Electrodynamics}
 \section{Functional Quantization of Spinor Fields}
 Now that we have understood the essentials of the path integral formulation
@@ -1629,7 +1634,7 @@ theory:
       \draw[particle] (J1) -- node[label=left:$p_1$] {} (w1);
       \draw[particle] (J2) -- node[label=left:$p_2$] {} (w1);
       \draw[particle] (w1) edge[in=90,out=90] node[label=above:$p$] {} (w2);
-      \draw[particle] (w1) edge[in=-90,out=-90] node[label=below:$p_1+p_2-k$] {} (w2);
+      \draw[particle] (w1) edge[in=-90,out=-90] node[label=below:$p_1+p_2-p$] {} (w2);
       \draw[particle] (w2) -- node[label=right:$p_3$] {} (J3);
       \draw[particle] (w2) -- node[label=right:$p_4$] {} (J4);
     \end{scope}
@@ -1638,7 +1643,7 @@ theory:
 Here we've labeled each source and propagator with its momentum, where
 since $p$ is an internal momentum, we must integrate over it. The
 value of the diagram is
-$$ \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2 - m^2 + i\epsilon} \frac{i}{(p_1 + p_2 - p)^2 - m^2 + i\epsilon}. $$
+$$ \cM = \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2 - m^2 + i\epsilon} \frac{i}{(p_1 + p_2 - p)^2 - m^2 + i\epsilon}. $$
 As $|p| \to \infty$, the integrand is $O(1/p^4)$, which diverges
 logarithmically when integrated over! This divergence cannot simply be
 ignored, since it does not get absorbed into the $Z[0,0]$ constant
@@ -1803,6 +1808,22 @@ physics.
   \end{itemize}
 \end{example}
 
+Let's look at the divergent diagram at the beginning of this chapter.
+The integral is over the momentum $p$. As $p \to \infty$, the energy
+of the internal propagator also goes to infinity. But we don't expect
+QFT to be valid up to arbitrarily high energies! The solution, as with
+the Casimir effect, is to impose a cutoff: instead of integrating to
+infinity, we integrate up to some value $\Lambda$. To do the resulting
+integral, we introduce {\bf Mandelstam variables} $s = (p_1 + p_2)^2$,
+$t = (p_1 - p_3)^2$, and $u = (p_1 - p_4)^2$. Then it turns out the
+amplitude is
+$$ \cM = -i\lambda + \frac{i}{32\pi^2}\left[\log\frac{\Lambda^2}{s} + \log\frac{\Lambda^2}{t} + \log\frac{\Lambda^2}{u}\right] + O(\lambda^3). $$
+This method is essentially {\bf Pauli-Villars regularization}. But we
+are not going to regularize this way, because it is not gauge
+covariant: later on, when we have a non-abelian gauge group, this kind
+of regularization is going to upset our choice of gauge. Instead, we
+are going to use {\bf dimensional regularization}.
 
+Dimensional regularization is exactly what it sounds like.
 
 \end{document}
