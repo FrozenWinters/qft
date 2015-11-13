@@ -1817,13 +1817,100 @@ infinity, we integrate up to some value $\Lambda$. To do the resulting
 integral, we introduce {\bf Mandelstam variables} $s = (p_1 + p_2)^2$,
 $t = (p_1 - p_3)^2$, and $u = (p_1 - p_4)^2$. Then it turns out the
 amplitude is
-$$ \cM = -i\lambda + \frac{i}{32\pi^2}\left[\log\frac{\Lambda^2}{s} + \log\frac{\Lambda^2}{t} + \log\frac{\Lambda^2}{u}\right] + O(\lambda^3). $$
+$$ \cM = -i\lambda + \frac{i\lambda^2}{32\pi^2}\left[\log\frac{\Lambda^2}{s} + \log\frac{\Lambda^2}{t} + \log\frac{\Lambda^2}{u}\right] + O(\lambda^3). $$
 This method is essentially {\bf Pauli-Villars regularization}. But we
 are not going to regularize this way, because it is not gauge
 covariant: later on, when we have a non-abelian gauge group, this kind
 of regularization is going to upset our choice of gauge. Instead, we
 are going to use {\bf dimensional regularization}.
 
-Dimensional regularization is exactly what it sounds like.
+Dimensional regularization is exactly what it sounds like. We notice
+that some integrals are divergent at $d = 4$, but not necessarily
+divergent at lower dimensions. So we perform analytic continuation in
+the number of dimensions! This is really not as stupid as it sounds.
+To save some time, we'll do an example, and along the way, introduce
+the necessary machinery.
+
+\subsection{Basic One-Loop Diagram in $\phi^4$}
+
+At the beginning of this chapter, we considered the basic one-loop
+diagram in $\phi^4$ theory, whose amplitude (rewritten a little) is
+given by
+$$ \cM = \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2 - m^2 + i\epsilon} \frac{i}{(p+q)^2 - m^2 + i\epsilon}. $$
+Here $q$ is some combination of external momenta. This integral is has
+superficial degree of divergence $0$; we are going to regularize it
+and get the same result as we would have gotten using Pauli-Villars
+regularization.
+
+We begin by doing a {\bf Wick rotation}. This is where we change from
+integrating in Minkowski space to Euclidean space, by substituting
+$q^0$ with $iq^0$, and $p^0$ with $ip^0$:
+$$ \cM = \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \frac{-i}{(|p|^2 + m^2)(|p + q|^2 + m^2)}, $$
+where here $|p|^2$ denotes the Euclidean (as opposed to Minkowski)
+norm. Note that we can remove the $i\epsilon$ now that there are no
+poles. 
+
+The next step is to apply the following trick, called {\bf Feynman's
+  formula} to turn the product of quadratics in the denominator into a
+power of a single quadratic.
+
+\begin{proposition}[Feynman's formula]
+  Suppose $c_1, \ldots, c_n \in \bC$ such that their convex hull does
+  not contain the origin. Then
+  $$ \frac{1}{c_1 \cdots c_n} = (n-1)! \int_{[0,1]^n} d^nx \, \frac{\delta(1 - \sum x_j)}{\left(\sum c_j x_j\right)^n}. $$
+\end{proposition}
+
+\begin{exercise}
+  Prove Feynman's formula by induction on $n$ using the following
+  steps. First prove the base case $n = 2$:
+  $$ \int_0^1 \frac{dx}{(c_1x + c_2(1 - x))^2} = \frac{1}{c_1c_2}. $$
+  Then differentiate both sides $n-1$ times with respect to $c_1$ to
+  get a formula for $1/c_1^nc_2$. Finally, do the inductive step using
+  this formula.
+\end{exercise}
+
+To apply Feynman's formula to our Wick-rotated integral, we let $c_j$
+be the $j$-th quadratic term in the denominator, to get
+$$ \cM = \frac{(-i\lambda)^2}{2} \int \frac{d^4p}{(2\pi)^4} \int_0^1 dx \, \frac{i}{(|p|^2 + 2x p \cdot q + x|q|^2 + m^2)^2}. $$
+
+The third step is to do a {\bf linear change of variables} so that the
+denominator looks like $(|p|^2 + c(q, x))^{I+1}$ for some positive
+quadratic function $c$. In our case, the substitution $k = p + xq$
+suffices:
+$$ \cM = \frac{(-i\lambda)^2}{2} \int_0^1 dx \, \int \frac{d^4p}{(2\pi)^4} \frac{i}{(|k|^2 + x(1 - x)|q|^2 + m^2)^2}. $$
+
+The final step is to {\bf evaluate the inner integral over $d$
+  dimensions}, instead of $4$, and Wick-rotate back to Minkowski
+space. This is not hard to do, since now the inner integral is
+guaranteed to be a radial function, so we can work in polar
+coordinates. The key to evaluating the polar integral is the following
+formula.
+
+\begin{proposition}
+  Let $k \in \bZ$ and $0 < d < 2n-k$. Then
+  $$ \int_0^\infty dr \,  \frac{r^{2k+d-1}}{(r^2 + c^2)^n} = \frac{c^{2k+d-2n}}{2} \frac{\Gamma(k+d/2) \Gamma(n-k-d/2)}{\Gamma(n)}. $$
+\end{proposition}
+
+\begin{proof}
+  Substitute $t = (r/c)^2$ and evaluate the integral in terms of the
+  beta function $B(x, y)$. Then recall that
+  $B(x, y) = \Gamma(x)\Gamma(y)/\Gamma(x+y)$.
+\end{proof}
+
+Let's carry through with the calculation:
+\begin{align*}
+  \int \frac{d^dp}{(2\pi)^d} \frac{1}{(|k|^2 + x(1 - x)|q|^2 + m^2)^2}
+  &= \frac{2\pi^{d/2}}{\Gamma(d/2)(2\pi)^d} \int_0^\infty \frac{r^{d-1} \, dr}{(r^2 + x(1-x)|q|^2 + m^2)^2} \\
+  &= \frac{2}{\Gamma(d/2) (4\pi)^{d/2}} \frac{1}{2(x(1-x)|q|^2 + m^2)^{(4-d)/2}} \frac{\Gamma(d/2) \Gamma(2 - d/2)}{\Gamma(2)} \\
+  &= \frac{\Gamma(2-d/2)}{(4\pi)^{d/2} (x(1-x)|q|^2 + m^2)^{(4-d)/2}}.
+\end{align*}
+Wick-rotating back and plugging this result back into the outer
+integral for $\cM$, which we call $I_d(q)$,
+$$ \cM = I_d(q) = -i\frac{(-i\lambda)^2}{2} \frac{\Gamma(2 - d/2)}{(4\pi)^{d/2}} \int_0^1 \frac{dx}{(m^2 - x(1-x)q^2)^{(4-d)/2}}. $$
+If we carefully keep track of convergence issues, we will discover
+that as long as $d \in (3, 4)$, we are okay in this case. For later
+convenience, define a new function $J_d(s)$ such that
+$I_d(q) = (-i\lambda)^2 J_d(q^2)$.
+
 
 \end{document}
