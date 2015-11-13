@@ -10,6 +10,7 @@
 \usepackage{mdframed}
 \usepackage{slashed}
 \usepackage{comment}
+\usepackage{feynmf}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -50,6 +51,9 @@
 \newcommand{\hbd} { b^\dagger}
 \newcommand{\had}{ a^\dagger}
 \newcommand{\iden}{\mathds{1}}
+\newcommand{\colr}[1]{ {\color{red} #1 } }
+\newcommand{\colb}[1]{ {\color{blue} #1 } }
+\newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -855,15 +859,15 @@ the associated matrix. (Phew, what a mouthful!)
 Finally, we quantize this theory by introducing the \textbf{anticommutation
 relations} and rewriting $\psi$ and $\bar\psi$ using raising and lowering
 operators
-\begin{align*} 
+\begin{align} 
 \{\psi(x),\bar\psi(y)\} &= \delta^{(3)}(\vec x-\vec y)\\
 \psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
-\ha^{s\dag}_\vp u^s(\vp) e^{-i\vp\cdot\vx} -
-\hb^{s\dag}_\vp v^s(\vp) e^{i\vp\cdot\vx} \\
+\ha^{s}_\vp u^s(\vp) e^{-i\vp\cdot\vx} +
+\hb^{s\dag}_\vp v^s(\vp) e^{i\vp\cdot\vx}\label{ferm1} \\
 \bar\psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
-\hb^{s\dag}_\vp \bar v^s(\vp) e^{-i\vp\cdot\vx} -
-\ha^{s\dag}_\vp \bar u^s(\vp) e^{i\vp\cdot\vx}
-\end{align*}
+\hb^{s}_\vp \bar v^s(\vp) e^{-i\vp\cdot\vx} +
+\ha^{s\dag}_\vp \bar u^s(\vp) e^{i\vp\cdot\vx}\label{ferm2}
+\end{align}
 Using these cleverly chosen expressions we may write the Hamiltonian as
 \begin{align*}
     H &= \int \FR{d^3p}{(2\pi)^3}  \sum_s
@@ -1697,15 +1701,140 @@ functions.
 To talk about QED we need the quantized version of the electromagnetic
 field. Here we go!
 \section{Functional Quantization of Electromagnetic Field}
+\colr{sketch}
+
 The electromagnetic field is described by a 4-vector, $A_\mu = (\phi,\vec
 A)$, which packages the information about the electric field into $\phi$
 and the magnetic field into $\vec A$. By taking the Lagrangian: $\mc L_{EM}
 =-\FR{1}{4}F_{\mu\nu}F^{\mu\nu}$, where $F_{\mu\nu} = \di_\mu A_\nu
 -\di_\nu A_\mu$, we recover Maxwell's equations (exercise!). We may write
-the Lagrangian explicitly in terms of the $A_\mu$:
+the action explicitly in terms of the $A_\mu$:
+\begin{align*}
+    \int d^4x \mc L_{EM} &= \int d^4x\, -\FR{1}{4}F_{\mu\nu}F^{\mu\nu}\\
+    &= -\FR{1}{4} \int d^4x\, \left( \di_\mu A_\nu - \di_\nu A_\mu \right)
+    \left( \di^\mu A^\nu - \di^\nu A^\mu \right)\\
+    &= \FR{1}{2}\int d^4x\, A_\mu(\di^2g^{\mu\nu} -\di^\mu\di^\nu) A_\nu
+\end{align*}
+Fourier transforming the variables, $A_\mu$, would get:
+\[ 
+    \int d^4x \mc L_{EM} =
+    \FR{1}{2}\int \FR{d^4k}{(2\pi)^4}\, A_\mu(k^2g^{\mu\nu} -k^\mu k^\nu) A_\nu
+\]
+The $4\times 4$ matrix $(k^2g^{\mu\nu} -k^\mu k^\nu)$ is not invertible and
+so
+
+
+Change of variables
+\[ \int_{\bR^n} dx\, \delta(g(x))|g'(x)|f(g(x)) = \int_{g(\bR^n)} du
+\delta(u)f(u) \]
+which means that we can interpret $\int_{\bR^n} dx\, \delta(g(x))|g'(x)|$
+as taking a constant function and returning the constant function back. So 
+\begin{align*}
+1 &= \int_{\bR^n} dx\, \delta(g(x))|g'(x)|\\
+1 &= \int \mc D\alpha(X) \delta(G(A^\alpha))
+\det\PFR{\delta G(A^\alpha)}{\delta\alpha}
+\end{align*}
+Note $\det\PFR{\delta G(A^\alpha)}{\delta\alpha} = \det(\partial^2/e)$
+Then \begin{align*}
+    \int \mc DA e^{iS[A]}
+&= \det\PFR{\delta G(A^\alpha)}{\delta\alpha}
+\int \mc D\alpha\int \mc D A e^{iS[A]}\delta(G(A^\alpha))\\
+&= 
+\det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A^\alpha e^{iS[A^\alpha]}\delta(G(A^\alpha))
+\end{align*}
+Take a general gauge-fixing condition, $G(A) = \di^\mu A_\mu(x) -
+\omega(x)$ for scalar function $\omega$. The above holds for any linear
+combination of $\omega$'s so that we may take a very big linear
+combination, weigted by a Gaussian:
+\begin{align*}
+    \int \mc DA e^{iS[A]}
+    &= \underbrace{N(\xi) \int D\omega \exp \left[ -i\int d^4x
+    \FR{\omega^2}{2\xi} \right]}_{=1}
+\det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A e^{iS[A]}\delta(\di^\mu A_\mu - \omega(x))\\
+&= N(\xi) \det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A e^{iS[A]} \exp \left[ -i\int d^4x \FR{(\di_\mu A^\mu)^2}{2\xi}\right]\\
+&= N(\xi) \det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A \exp \left[ \FR{i}{2}\int d^4x\, A_\mu(\di^2g^{\mu\nu}- \di^\mu\di^\nu)A_\nu\colr{-\FR{(\di_\mu A^\mu)^2}{\xi}}\right]\\
+&= N(\xi) \det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A \exp \left[ \FR{i}{2}\int d^4x\, A_\mu(\di^2g^{\mu\nu}-\di^\mu\di^\nu)A_\nu\colr{+\FR{A_\mu\di^\mu\di^\nu A_\nu}{\xi}}\right]\\
+&= N(\xi) \det(\partial^2/e) \left( \int\mc D\alpha \right)
+\int \mc D A \exp \left[ \FR{i}{2}\int d^4x\, A_\mu(\di^2g^{\mu\nu}
+-\left(1-\FR{1}{\xi}\right)\di^\mu\di^\nu)A_\nu\right]\\
+&\propto
+\int \mc D A \exp \left[ \FR{i}{2}\int \FR{d^4k}{(2\pi)^4}\,
+A_\mu(k^2g^{\mu\nu}-\left(1-\FR{1}{\xi}\right)k^\mu k^\nu)A_\nu\right]\\
+\end{align*}
+
+Inverting,
+\[D^\gam_F(k)=\FR{-i}{k^2+i\epsilon}(g^{\mu\nu}-(1-\xi)\FR{k^\mu k^\nu}{k^2}\]
+The full free field QED Lagragian will then be of the form:
+\[ Z[J_\mu,\bar\eta,\eta] = \exp\left[ \FR{-1}{2}\int d^4x d^4y\, \bar\eta
+S_F(x-y) \eta + J_\mu (D^\gam_F)^{\mu\nu} J_\nu \right] \]
+\subsection{Interaction term: Fermions and Photons}
+Let's guess the interaction term:
+\begin{itemize}
+    \item $\psi$ is a column vector, $\bar\psi$ is a row vector.
+    \item $A_\mu$ is a column vector.
+    \item $\gam^\nu$ are four matrices
+\end{itemize}
+After a bit of fiddling there are a few simple choices, up to prefactors,
+\[\bar\psi\psi\slashed A, \bar\psi\psi A^2, \bar\psi\gam^\mu\psi A_\mu.\]
+But there are many higher order terms. How do we exclude these terms
+theoretically? I mean, we don't have to: we can guess one model, realize
+that it agrees well with experiment and be done. However, it's possible to
+theoretically justify why the simplest theory ought to be the correct one.
+This is the argument of \textbf{renormalizability}.
+
+\subsubsection{Introduction to Renormalizable Theories}
+Higher order terms in perturbation theory can be computed using integrals
+over $4$-momenta. These integrals are seemingly divergent, so we 
+\begin{enumerate}
+    \item Introduce a large cutoff $\Lambda$.
+    \item Evaluate integral.
+    \item Take $\Lambda\to\infty$, hope answer is independent of $\Lambda$.
+\end{enumerate}
+A theory in which this procedure works are called renormalizable. Whether a
+theory is or is not renormalizable can be heuristically checked by a
+dimensional analysis.
+
+Using $E = 2\pi\hbar \nu = pc = p = mv = m$ and $L/T = c = 1$ we list two
+relations that are useful for us:
+\begin{align*}
+    L &= T\\
+    T^{-1} &= [p] = M
+\end{align*}
+The momentum cutoff has units, $[\Lambda]=[p]=M$. Moreover the Lagrangian
+has units of $M^4$ since
+\begin{itemize}
+    \item Action dimensionless, $S = e^{i\int d^4x \mc L}$
+    \item so $1 = [Length]^4\cdot [\mc L] = [M]^{-4}[\mc L]$.
+\end{itemize}
+Examples of dimensions. 
+\begin{itemize}
+    \item 
+$\mc L = \FR{1}{2}\di^2\phi - \FR{1}{2}m^2\phi^2 \implies [\phi] = M$.
+    \item 
+$\mc L = \bar\psi(i\slashed\partial-m)\psi \implies [\bar\psi m \psi] =
+M^4, [\psi] = M^{3/2}$.
+    \item
+$\mc L = F^2 = A_\nu\di^2g^{\mu\nu}A_\mu + \dots \implies
+[A^2\di^2] = [A^2m^2] = M^4 \implies [A_\mu]=M$
+\end{itemize}
+Scattering amplitudes.
+\[\colr{[\textrm{Coupling const.}] \sim \FR{1}{M^k}\implies [Sc. Ampl] \sim \FR{1}{M^k}\cdot
+\Lambda^k\to\infty.}\]
+
+To combine $\psi$ and $A_\mu$ we need: 
+
+\[\colr{[\textrm{Coupling const.}]}\cdot [\psi]^k [A_\mu]^\ell =
+M^cM^{3k/2} M^\ell=1\]
+so
+\[ 3k/2+\ell \le 4 \iff (k,\ell)\in\{ (1,1), (2,1) \}.\]
+
 
 \section{Aside: Scattering Amplitudes}
-% discuss cross section informally
 Let us briefly try to understand the big picture -- or, in fact, I guess it's the
 small picture! A \textbf{cross section} is the fundamental physical
 quantity that an experimental particle physicist is interested in, here's
@@ -1749,7 +1878,7 @@ back to the cross section, in the case that there are four identical
 particles (two incoming and two outgoing) then the cross section will be
 (PS 4.85)
 \[ \PFR{d\sigma}{d\Omega}_{CM} = \FR{|\mc M|^2}{64\pi^2E_{cm}^2}.\]
-\subsubsection{Computing scattering amplitude using cross sections}
+\subsection{Scattering amplitudes via Feynman diagrams}
 Now we interpret the scattering amplitude as something very similar to a
 correlation function. Recall a correlation function for us was
 \begin{align}
@@ -1801,13 +1930,15 @@ Now we may interpret the scattering amplitude as the following:
 \vec p_A\vec p_B} { }_0 \right)_\text{connected, amputated}
 \label{Smatrix}
 \end{align}
-The zeros on the end of the bracket refer to idealistic wavepackets. Our
-next goal will be to interpret this amplitude as a sum of Feynman diagrams.
+The zeros on the end of the bracket refer to idealistic wavepackets. 
+
+
+\subsection{Wick's Theorem}
+Our next goal will be to interpret this amplitude as a sum of Feynman diagrams.
 We will now introduce \textbf{Wick's theorem}, and thus \textbf{Wick
 contractions}, using which we'll be able to write down the Feynman diagrams
 very easily.
 
-\subsubsection{Wick's Theorem}
 In canonical quantization there are raising and lowering operators. 
 We introduce a particular order for expressions involving operators:
 raising on the left and lowering on the right -- \textbf{Normal Order}.
@@ -1831,9 +1962,6 @@ Let's go through an example from Peskin and Schroeder:
     +\FR{(-i\lam}{4!}\braket{0|T\{\phi(x)\phi(y)\phi(z)\phi(z)\phi(z)\phi(z)|0}\\
 \end{align*}
 Apply Wick's Theorem:
-\newcommand{\colr}[1]{ {\color{red} #1 } }
-\newcommand{\colb}[1]{ {\color{blue} #1 } }
-\newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
 \begin{align*}
     &{\ } \braket{0|N\{\phi(x)\phi(y) +
         \colf{\begC1{\phi(x)}\endC1{\phi}(y)}\}|0}\\
@@ -1891,23 +2019,92 @@ But we also had,
 %   $$
 
 
+\section{Amplitudes from QED}
+How do we handle any other theory? We have developed two procedures: first
+we wrote down the scattering amplitude; second we drew a Feynman diagram
+associated to it. Ideally, we'd like to go the other way because drawing
+diagrams is easier. But in order to do this we need to know the (Feynman)
+rules, of what we need to replace each arrow or vertex in the propogator
+by. 
 
+In the spin-0 theory, I defined the Wick contraction to be $D_F(x-y)$,
+but for other particles, we replace this with the associated propogator.
+The vertex terms can be read off the interaction Hamiltonian. All of the
+subtle points, always go back to the expression for the scattering
+amplitude and computed directly; the passage to the combinatorial Feynman
+diagrams is for now just a convenient representation. Without further ado,
+let's begin QED. 
 
+Let's quickly recall that all solutions to the Dirac equation can be spin
+up or down and the general Dirac field can be written as in \eqref{ferm1}
+and \eqref{ferm2}, which we remind ourselves here:
+\begin{align*} 
+\psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
+\ha^{s}_\vp u^s(\vp) e^{-i\vp\cdot\vx} +
+\hb^{s\dag}_\vp v^s(\vp) e^{i\vp\cdot\vx}, &
+\bar\psi(x) &= \int \FR{d^3p}{(2\pi)^3} 
+\hb^{s}_\vp \bar v^s(\vp) e^{-i\vp\cdot\vx} +
+\ha^{s\dag}_\vp \bar u^s(\vp) e^{i\vp\cdot\vx}, & \text{where}\ s&=1,2
+\end{align*}
 
-To be continued\dots
-\begin{itemize}
-    \item (4.96-4.103)
-    \item Trick: exponentiation of vacuum bubbles $\equiv$ to finding the
-        phase factor for $\ket\Omega \propto \ket0$.
-        Similarly the amputations on external legs comes from the $0$ in
-        the formular for the $S$-matrix, \eqref{Smatrix}.
-    \item Write down Feynman rules for Bosons, Fermions, EM.
-    \item Compute one example, if running out of time, end off with:
-    \item Do Coulomb potential (4.133-4.136)
-\end{itemize}
-
-
-
+\subsubsection{Feynman Rules for QED}
+\begin{enumerate}
+        \color{blue}
+    \item Propogators:
+        \begin{align*}
+            \begC1{\psi}\conC{(x)}\endC1{\bar\psi}(y) &= \FR{i}{\slashed
+            p-m+i\epsilon}\\
+            \begC1{A_\mu}\conC{(x)}\endC1{A_\nu}(y) &=
+            \FR{-ig_\mu\nu}{q^2+i\epsilon}
+        \end{align*}
+    \item Vertex: $-ie$.
+    \item External legs contractions (for more details and Feynman diagrams
+        see Peskin and Schroeder pg 118, 123):
+\begin{align*}
+\begC1{\psi(x)}\endC1{\underbrace{\ket{p,s}}_{\text{fermion}}} &= u^s(p)\ket 0 &
+\begC1{\underbrace{\bra{p,s}}_{\text{fermion}}}\endC1{\bar\psi(x)} &= \bar u^s(p)\ket 0\\
+\begC1{\bar\psi(x)}\endC1{\underbrace{\ket{k,s}}_{\text{antifermion}}}&=v^s(k)\ket 0 &
+\begC1{\underbrace{\bra{k,s}}_{\text{antifermion}}}\endC1{\psi(x)}&=v^s(p)\ket 0\\
+\begC1{A_\mu}\endC1{\ket{p}}&= \epsilon_\mu(p) &
+\begC1{\bra{p}}\endC1{A_\mu}&= \epsilon_\mu^*(p)
+\end{align*}
+\item Impose momentum conservation at each vertex.
+\item Integrate over each undetermined loop momentum.
+%\item Figure out the overall sign of the diagram.
+\end{enumerate}
+Thus, a typical matrix element is given by
+\begin{align*}
+    \braket{\begC2{p_1}\begC1{p_2|}\conC{\int{d^3x}}\endC1{\bar\psi}\conC{\gam^\mu}\begC1{\psi}\begC3{A_\mu}\conC{\cdot}\endC2{\bar\psi}\conC{\gam^\nu}
+    \begC2{\psi}\endC3{A_\nu}\conC{|}\endC1{p_A}\endC2{p_B}}
+    &= (\int\colb{d^4q}) \cdot (-ie)^2
+    \bar u(p_2)\gam^\mu u(p_A)
+    \PFR{-ig_{\mu\nu}}{q^2+i\epsilon}
+    \bar u(p_1)\gam^\nu u(p_B)\\
+    &.\qquad\qquad\times
+    (2\pi)^8
+    \delta^{(4)}(p_A+q-p_1)
+    \delta^{(4)}(p_B+q-p_2)\\
+    &= i\mc M\times (2\pi)^4\delta^{(4)}(p_A+p_B-p_1-p_2)
+\end{align*}
+where the diagram corresponding to this choice of contractions is given by:
+%   \begin{center}
+%   \begin{fmffile}{diagram}
+%       \begin{fmfgraph}(100,160)
+%           \fmfleft{i1,i2}
+%           \fmfright{o1,o2}
+%           \fmf{fermion}{i1,v1,i2}
+%           \fmf{fermion}{o1,v2}
+%           \fmf{photon}{v1,v2}
+%       \end{fmfgraph}
+%   \end{fmffile}
+%   \end{center}
+\vspace{4cm}
+\subsubsection{Born Approximation}
+In the nonrelativistic regime, one has the following identity:
+\[ \braket{\vec p|iT|\vec q} =-i V(\vec p-\vec q)\delta(E_p-E_q) \]
+In the case of the $e^-e^- \to e^-e^-$ vertex that we computed above we get 
+\[ V(x) = -\FR{e^2}{4\pi r} \]
+which is the Coulomb repulsion that we are familiar.
 
 \chapter{Renormalization}
 
