@@ -10,7 +10,7 @@
 \usepackage{mdframed}
 \usepackage{slashed}
 \usepackage{comment}
-\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
@@ -104,6 +104,91 @@
   loop above/.style={in=60,out=120,min distance=2.4cm},
   loop below/.style={in=-120,out=-60,min distance=2.4cm}
 }
+
+% Macros for "contractions", by Dan Schroeder
+% These are a total kludge--use at your own risk!
+
+\newif\ifContLineOne
+\newif\ifContLineTwo
+\newif\ifContLineThree
+
+% Macro to draw horizontal lines, continuing all contractions in progress.
+% Parameter is the symbols to go underneath.  Lines have width .4pt and 
+% are separated by 3.2pt of space.  Bottom of lowest line is 14pt above baseline.
+\def\conC#1{\vbox{\ialign{##\crcr
+  \ifContLineThree\hrulefill\else\vphantom{\hrulefill}\fi\crcr
+  \noalign{\kern3.2pt\nointerlineskip}
+  \ifContLineTwo\hrulefill\else\vphantom{\hrulefill}\fi\crcr
+  \noalign{\kern3.2pt\nointerlineskip}
+  \ifContLineOne\hrulefill\else\vphantom{\hrulefill}\fi\crcr
+  \noalign{\nointerlineskip}
+  $\hfil\textstyle{\vbox to 14pt{}#1}\hfil$\crcr}}}
+
+% Internal macro to draw vertical legs.  dimen2 is height of
+% bottom of leg.  The initial value of dimen3+(#2*dimen4) is height
+% of top of leg, and must be adjusted if these macros are used under
+% different vertical spacing conditions.
+\def\DrawLeg#1#2{
+  \kern-.2pt              % back up half width of leg
+  \dimen2 =#1             % =height of whatever is underneath leg
+  \advance\dimen2 by 2pt  % 2pt space below bottom of leg
+  \dimen3 = 10.6pt        % base value of height of top of leg
+  \dimen4 =3.6pt          % add this much time 1 2 or 3 to base value
+  \advance\dimen3 by -\dimen2 
+  \multiply\dimen4 by #2
+  \advance\dimen3 by \dimen4
+  \raise\dimen2 \hbox{\vrule height\dimen3 width .4pt} % draw it
+  \kern-.2pt}             % and back up half width of line
+
+% Macro to begin a new contraction.  First parameter is height or level
+% (1, 2, or 3); second parameter is the symbol(s) to go underneath
+\def\begC#1#2{\setbox0 =\hbox{$\textstyle{#2}$}
+  \dimen0=.5\wd0 \dimen1=\ht0
+  \conC{\hskip\dimen0}
+  \count255=#1
+  \ifnum\count255 =1 \ContLineOnetrue\else
+  \ifnum\count255 =2 \ContLineTwotrue\else
+  \ifnum\count255 =3 \ContLineThreetrue\fi\fi\fi
+  \DrawLeg{\dimen1}{\count255}
+  \conC{\hskip\dimen0}
+  \kern-\dimen0\kern-\dimen0 \box0}
+
+% Macro to end a contraction; same parameters as \begC.
+\def\endC#1#2{\setbox0 =\hbox{$\textstyle{#2}$}
+  \dimen0=.5\wd0 \dimen1=\ht0
+  \conC{\hskip\dimen0}
+  \count255=#1
+  \ifnum\count255 =1 \ContLineOnefalse\else
+  \ifnum\count255 =2 \ContLineTwofalse\else
+  \ifnum\count255 =3 \ContLineThreefalse\fi\fi\fi
+  \DrawLeg{\dimen1}{\count255}
+  \conC{\hskip\dimen0}
+  \kern-\dimen0\kern-\dimen0 \box0}
+
+\def\backskip{\vskip -3.6pt}  % useful for eating up extra space
+% when an equation has only first- or second-level contractions
+\def\bbackskip{\vskip -7.2pt}
+
+
+%   Here's a simple contraction using only the first (lowest) level:
+%   \bbackskip
+%   $$
+%   \begC1{\phi_1}\conC{\phi_2\phi_3}\endC1{\phi_4}
+%   $$
+%
+%   And here's a complicated example using all three levels:
+%   $$
+%   \langle0|\, \begC2{\phi(x)}\begC3{\phi(y)}\conC{\,{1\over3!}
+%     \bigl({-i\lambda\over4!}\bigr)^3\int\!d^4z\,}\endC2{\phi}\begC1{\phi}
+%     \endC1\phi\begC1\phi\conC{\,\int\!d^4w\,}\endC1\phi\begC2\phi
+%     \begC1\phi\endC3\phi\conC{\,\int\!d^4u\,}\endC1\phi\endC2\phi
+%     \begC1\phi\endC1\phi\,|0\rangle
+%   $$
+
+
+
+
+
 
 \setcounter{chapter}{-1}
 
@@ -950,7 +1035,10 @@ $\int D\phi_1 \, \phi_1(\vec{x}_1) \ket{\phi_1}\bra{\phi_1} =
 where the $\phi_1$ on the LHS is a scalar field, and on the RHS is an
 operator. Doing the same for for $\phi_2$, the integrals disappear,
 and some rearrangement gives
-$$ \bra{\phi_b(\vec{x})} e^{-i\hat{H}(t - x_2^0)} \phi(\vec{x}_2) e^{-i\hat{H}(x_2^0 - x_1^0)} \phi(\vec{x}_1) e^{-i\hat{H}(x_1^0 - (-t))} \ket{\phi_a(\vec{x})}. $$
+\begin{align} \bra{\phi_b(\vec{x})} e^{-i\hat{H}(t - x_2^0)} \phi(\vec{x}_2)
+    e^{-i\hat{H}(x_2^0 - x_1^0)} \phi(\vec{x}_1) e^{-i\hat{H}(x_1^0 -
+(-t))} \ket{\phi_a(\vec{x})}.\label{tricky}
+\end{align}
 Aha, but
 $\phi(x_2) = e^{i\hat{H}x_2^0}\phi(\vec{x}_2)e^{-i\hat{H}x_2^0}$ in
 the Heisenberg picture, so this simplifies further to
@@ -1615,6 +1703,211 @@ and the magnetic field into $\vec A$. By taking the Lagrangian: $\mc L_{EM}
 =-\FR{1}{4}F_{\mu\nu}F^{\mu\nu}$, where $F_{\mu\nu} = \di_\mu A_\nu
 -\di_\nu A_\mu$, we recover Maxwell's equations (exercise!). We may write
 the Lagrangian explicitly in terms of the $A_\mu$:
+
+\section{Aside: Scattering Amplitudes}
+% discuss cross section informally
+Let us briefly try to understand the big picture -- or, in fact, I guess it's the
+small picture! A \textbf{cross section} is the fundamental physical
+quantity that an experimental particle physicist is interested in, here's
+roughly what it is. Suppose you want to understand the inner workings of
+protons. You will devise an experiment to smash some number of protons
+together and try to investigate the result. In fact, your theorist friends
+suggest to you some possible types of particles that can come out.
+Ideally, if we're not in one already, we will consider two protons
+colliding to produce other species: $pp \to abc\ldots$.
+
+Your detectors cover only a portion of $4\pi$, as the experimentalists call
+it, that is, the sphere surrounding the collision point. Therefore, we
+would like to compute the amount of scattering events in the direction of
+the detector. This is given the symbol:
+\[ \PFR{d\sigma}{d\Omega} \]
+This is a very technical object and it depends on a lot of parameters.
+Qualitatively, we may simplify this object by considering just the
+\textbf{scattering events} which are partly characterized by momenta
+(particle type, spin, etc. are also valid quantum numbers). The scattering
+events can be analyzed by looking at the \textbf{S-matrix}:
+\begin{align*}
+\braket{\vec p_1\cdots|S|k_Ak_B}&:=
+{}_{\text{out}}\braket{\vec p_1\vec p_2\cdots|\vec k_A\vec k_B}_{\text{in}}\\
+&= \lim_{T\to\infty} \braket{\vec p_1\cdots|e^{iH(2T)}|\vec k_A\vec k_B}
+\end{align*}
+In words, this means that we assume that our particles are idealized
+momentum eigenstates and long after they interact they again will be
+idealized momentum eigenstates. We apply a trick, that sometimes particles
+don't interact at all, and we can take that out of the $S$ matrix:
+\[ S = \iden + i T \]
+Assuming unitarity of $S$ (which is a big assumption!) $T$ is a Hermitian
+operator (think of $e^{i\theta}$) and it contains all of the interesting
+dynamics. By also considering energy conservation can be written as:
+\[
+\braket{p_1\dots| iT |k_Ak_B} 
+=(2\pi)^4\delta^{(4)}(k_A+k_B-\sum p_f) \mc M(k_A,k_B\to\{p_f\})
+\]
+What this means is that the scattering amplitude is really a distribution
+and the density is given by the expression $\mc M$. To briefly connect this
+back to the cross section, in the case that there are four identical
+particles (two incoming and two outgoing) then the cross section will be
+(PS 4.85)
+\[ \PFR{d\sigma}{d\Omega}_{CM} = \FR{|\mc M|^2}{64\pi^2E_{cm}^2}.\]
+\subsubsection{Computing scattering amplitude using cross sections}
+Now we interpret the scattering amplitude as something very similar to a
+correlation function. Recall a correlation function for us was
+\begin{align}
+\braket{\Omega|T\{\phi(x_1)\phi(x_2)\}|\Omega}
+&= \lim_{T\to\infty(1-i\epsilon)}
+\FR{ \int D\phi\, \phi(x_1)\phi(x_2) \exp[i\int_{-T}^T \mc L] }
+{ \int D\phi\, \exp[i\int_{-T}^T \mc L] } \label{fcnintcorfcn}\\
+&= 
+\lim_{T\to\infty(1-i\epsilon)}
+\FR{\braket{0|T\{\phi(x_1)\phi(x_2)\exp[-i\int_{-T}^Tdt\,H_I(t)]\}|0}}
+{\braket{0|T\{\exp[-i\int_{-T}^Tdt\,H_I(t)]\}|0}}
+\label{canqntcorfcn}
+\end{align}
+Although we haven't explicitly mentioned this in our lectures, the formula
+in line \eqref{canqntcorfcn} has appeared in the derivation of
+\eqref{fcnintcorfcn} (see \eqref{tricky} to compare). 
+
+Here's a quick review of how we derived a path integral representation for
+the correlation functions:
+\begin{itemize}
+    \item Using a leap of intuition we define (or is it prove?)
+        \[ \braket{\phi(a)|e^{-iHt}|\phi(b)} = \int \mc D\phi
+            \exp \left[ i\int d^4x \mc L \right] \]
+    \item Investigate the expression
+        \[ \int \mc D\phi\, \phi(x_1)\phi(x_2) \exp \left[ i\int d^4x \mc
+        L\right] \]
+        by splitting up the path into three sections.
+    \item Simplify this to get 
+\begin{align} \bra{\phi_b(\vec{x})} e^{-i\hat{H}(t - x_2^0)} \phi(\vec{x}_2)
+    e^{-i\hat{H}(x_2^0 - x_1^0)} \phi(\vec{x}_1) e^{-i\hat{H}(x_1^0 -
+(-t))} \ket{\phi_a(\vec{x})}
+\end{align}
+    \item The Canonical Quantizers prefer to rewrite this expression up to
+        prefactors (which come from approximating $\phi_{a,b}(\vec x)$ with
+        $\ket\Omega$):
+\[
+\braket{0|T\left\{\phi_I(x_1)\phi_I(x_2)\exp[-i\int_{-T}^Tdt\,H_I(t)]\right\}|0}
+\]
+        The extra $I$'s on the $\phi$'s absorb the free evolution into the
+        original $\phi$'s. 
+\end{itemize}
+
+Now we may interpret the scattering amplitude as the following:
+\begin{align}\braket{\vec p_1\ldots\vec p_n|iT|\vec p_A\vec p_B}
+&=\lim_{T\to\infty(1-i\epsilon)} {}_0\braket{\vec p_1\ldots\vec p_n
+|e^{-iH(2T)}|\vec p_A\vec p_B} { }_0\\
+&\propto\lim_{T\to\infty(1-i\epsilon)} \left( {}_0\braket{\vec p_1\ldots\vec p_n
+|T\exp\left[ -i\int_{-T}^T dt\, H_I(t) \right]|
+\vec p_A\vec p_B} { }_0 \right)_\text{connected, amputated}
+\label{Smatrix}
+\end{align}
+The zeros on the end of the bracket refer to idealistic wavepackets. Our
+next goal will be to interpret this amplitude as a sum of Feynman diagrams.
+We will now introduce \textbf{Wick's theorem}, and thus \textbf{Wick
+contractions}, using which we'll be able to write down the Feynman diagrams
+very easily.
+
+\subsubsection{Wick's Theorem}
+In canonical quantization there are raising and lowering operators. 
+We introduce a particular order for expressions involving operators:
+raising on the left and lowering on the right -- \textbf{Normal Order}.
+A Wick contraction is defined by:
+\[ \begC1{\phi(x)}\conC{}\endC1{\phi(y)} = D_F(x-y) \]
+Finally Wick's theorem states the following:
+\begin{theorem}
+    \[T\{ \phi(x_1)\phi(x_2)\cdots\phi(x_n) \}
+    =N\{ \phi(x_1)\phi(x_2)\cdots\phi(x_n) + \text{all possible
+    contractions}\}\]
+\end{theorem}
+This is a theorem with very major \emph{computational} consequences for
+physics. In particular, this makes the Feynman diagrams immediate!
+Let's go through an example from Peskin and Schroeder:
+\begin{align*}
+    &{\ }\braket{0|T\left\{ \phi(x)\phi(y) + \phi(x)\phi(y)
+        \left[ -i\int dt \int d^3z \FR{\lam}{4!} \phi(z)^4 \right]
+        +\cdots
+    \right\}|0}\\
+    &= \braket{0|T\{\phi(x)\phi(y)\}|0}
+    +\FR{(-i\lam}{4!}\braket{0|T\{\phi(x)\phi(y)\phi(z)\phi(z)\phi(z)\phi(z)|0}\\
+\end{align*}
+Apply Wick's Theorem:
+\newcommand{\colr}[1]{ {\color{red} #1 } }
+\newcommand{\colb}[1]{ {\color{blue} #1 } }
+\newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
+\begin{align*}
+    &{\ } \braket{0|N\{\phi(x)\phi(y) +
+        \colf{\begC1{\phi(x)}\endC1{\phi}(y)}\}|0}\\
+        &+\FR{(-i\lam)}{4!}\braket{0|N\{\phi(x)\phi(y)\phi(z)\phi(z)\phi(z)\phi(z)\}|0}\\
+        &+\FR{(-i\lam)}{4!}\braket{0|N\{\begC1{\phi(x)}\endC1{\phi(y)}\phi(z)\phi(z)\phi(z)\phi(z)\}|0}\\
+        &+\FR{(-i\lam)}{4!}\braket{0|N\{\begC1{\phi(x)}\conC{\phi(y)}\endC1{\phi(z)}\phi(z)\phi(z)\phi(z)\}|0}+\cdots \\
+        &+\FR{(-i\lam)}{4!}\braket{0|N\{\begC1{\phi(x)}\endC1{\phi(y)}\begC1{\phi(z)}\endC1{\phi(z)}\phi(z)\phi(z)\}|0}+\cdots\\
+        &+\colf{\FR{(-i\lam)}{4!}\braket{0|N\{\begC1{\phi(x)}\begC2{\phi(y)}\endC1{\phi(z)}\endC2{\phi(z)}\begC1{\phi(z)}\endC1{\phi(z)}\}|0}}+\cdots\\
+\end{align*}
+Now you can probably see where the Feynman Diagrams will be appearing! They
+In fact, using this approach I would hazard that it's even easier to see
+where the Feynman diagrams are coming from! Because of the normal ordering
+most of these are zero, in fact only the Fuchsia coloured terms are
+non-zero.
+
+Let's apply these rules to calculate the scattering amplitude (finally!).
+One last rule before we do this, since $\ket{\vec p} \propto a^\dag_{\vec
+p}\ket0$, it makes sense to define:
+\[
+    \begC1{\phi(x)}\endC1{\ket{p}} = e^{-ip\cdot x}
+    \qquad\qquad
+    \begC1{\bra{p}}\endC1{\phi(x)} = e^{+ip\cdot x}
+\]
+Now, we compute a few examples. NOTE: the first amplitude does \textbf{not}
+have a time ordering so we compute it directly.
+\begin{align*}
+    \braket{p_1p_2|p_Ap_B} &= \sqrt{2E_12E_2 2E_A
+    2E_B}\braket{0|a_1a_2a_A^\dag a_B^\dag|0} = (diagram) \\
+    \braket{p_1p_2|\mc T \left\{  \FR{(-i\lam)}{4!}\int d^4x
+\phi_x\phi_x\phi_x\phi_x\right\}|p_Ap_B} 
+&=  \FR{(-i\lam)}{4!}\int d^4x\biggl(
+\colb{(\ )\times \braket{p_1p_2|\begC1{\phi_x}\endC1{\phi_x}\begC1{\phi_x}\endC1{\phi_x}|p_Ap_B}}\\ 
+&\colb{+(\ )\times \braket{p_1\begC1{p_2|}\endC1{\phi_x}\begC1{\phi_x}\endC1{\phi_x}\begC1{\phi_x|}\endC1{p_A}p_B}}\\
+&\colf{+(4!)\times\braket{\begC2{p_1}\begC1{p_2|}\endC1{\phi_x}\endC2{\phi_x}\begC2{\phi_x}\begC1{\phi_x|}\endC1{p_A}\endC2{p_B}}}\\
+\end{align*}
+The blue terms are not interesting. The very first term is just zero
+because they contribute to the $\iden$ in $S = \iden + iT$; the second blue
+term is also not interesting because it also contributes to the $\iden$.
+The fuchsia term is very interesting because by applying the rules that
+we've expressed above we get:
+\[\braket{p_1p_2|iT|p_Ap_B} 
+\approx\FR{-i\lam}{4!}\int d^4x\, (4!)\times e^{i(p_1+p_2-p_A-p_B)\cdot x}
+= \colb{(-i\lam)}\cdot (2\pi)^4\delta^{(4)}(p_1+p_2-p_A-p_B) \]
+But we also had,
+\[\braket{p_1p_2|iT|p_Ap_B} 
+= \colb{i\mc M(p_1p_2\to p_Ap_B)} \cdot (2\pi)^4\delta^{(4)}(p_1+p_2-p_A-p_B) \]
+
+%   And here's a complicated example using all three levels:
+%   $$
+%   \langle0|\, \begC2{\phi(x)}\begC3{\phi(y)}\conC{\,{1\over3!}
+%     \bigl({-i\lambda\over4!}\bigr)^3\int\!d^4z\,}\endC2{\phi}\begC1{\phi}
+%     \endC1\phi\begC1\phi\conC{\,\int\!d^4w\,}\endC1\phi\begC2\phi
+%     \begC1\phi\endC3\phi\conC{\,\int\!d^4u\,}\endC1\phi\endC2\phi
+%     \begC1\phi\endC1\phi\,|0\rangle
+%   $$
+
+
+
+
+
+To be continued\dots
+\begin{itemize}
+    \item (4.96-4.103)
+    \item Trick: exponentiation of vacuum bubbles $\equiv$ to finding the
+        phase factor for $\ket\Omega \propto \ket0$.
+        Similarly the amputations on external legs comes from the $0$ in
+        the formular for the $S$-matrix, \eqref{Smatrix}.
+    \item Write down Feynman rules for Bosons, Fermions, EM.
+    \item Compute one example, if running out of time, end off with:
+    \item Do Coulomb potential (4.133-4.136)
+\end{itemize}
+
+
+
 
 \chapter{Renormalization}
 
