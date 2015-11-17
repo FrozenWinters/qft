@@ -14,6 +14,10 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes.misc,fit}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -99,9 +103,15 @@
 \restoreparindent
 
 \tikzset{
-  particle/.style={thick,draw=black},
-  gluon/.style={decorate,draw=black,decoration={coil,aspect=0}},
+  directed/.style={postaction=decorate,
+    decoration={markings,mark=at position .5 with {\arrow{>}}}},
+  fermion/.style={thick,draw=black},
+  photon/.style={draw=black,decorate,decoration=snake},
+  gluon/.style={draw=black,decorate,decoration={coil,aspect=0}},
   vertex/.style={shape=circle,scale=0.3,fill=black,draw=black},
+  counterterm/.style={shape=circle,draw=black,
+    append after command={node[draw=black,fit=(\tikzlastnode),
+      inner sep=-7\pgflinewidth,cross out] {}}},
   every loop/.style={thick,draw=black},
   loop left/.style={in=140,out=220,min distance=2cm},
   loop right/.style={in=-40,out=40,min distance=2cm},
@@ -173,7 +183,6 @@
 % when an equation has only first- or second-level contractions
 \def\bbackskip{\vskip -7.2pt}
 
-
 %   Here's a simple contraction using only the first (lowest) level:
 %   \bbackskip
 %   $$
@@ -188,11 +197,6 @@
 %     \begC1\phi\endC3\phi\conC{\,\int\!d^4u\,}\endC1\phi\endC2\phi
 %     \begC1\phi\endC1\phi\,|0\rangle
 %   $$
-
-
-
-
-
 
 \setcounter{chapter}{-1}
 
@@ -1400,10 +1404,10 @@ As with the free field case, we can physically interpret each of these terms. Fo
       \coordinate[below left=of w,label=left:$J_3$] (J3);
       \coordinate[below right=of w,label=right:$J_4$] (J4);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (J1) -- node[label=left:$D_{1w}$] {} (w);
-        \draw[particle] (J2) -- node[label=right:$D_{2w}$] {} (w);
-        \draw[particle] (J3) -- node[label=left:$D_{3w}$] {} (w);
-        \draw[particle] (J4) -- node[label=right:$D_{4w}$] {} (w);  
+        \draw[fermion,directed] (J1) -- node[label=left:$D_{1w}$] {} (w);
+        \draw[fermion,directed] (J2) -- node[label=right:$D_{2w}$] {} (w);
+        \draw[fermion,directed] (J3) -- node[label=left:$D_{3w}$] {} (w);
+        \draw[fermion,directed] (J4) -- node[label=right:$D_{4w}$] {} (w);  
       \end{scope}
   \end{tikzpicture}
   \end{minipage}
@@ -1416,10 +1420,10 @@ As with the free field case, we can physically interpret each of these terms. Fo
       \coordinate[vertex,right=of J3] (w);
       \coordinate[right=of w,label=right:$J_4$] (J4);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
-        \draw[particle] (J3) -- node[label=above:$D_{3w}$] {} (w);
-        \draw[particle] (J4) -- node[label=above:$D_{4w}$] {} (w);
-        \draw[particle] (w) edge[loop above] node[label=above:$D_{ww}$] {} (w);
+        \draw[fermion] (J1) -- node[label=above:$D_{12}$] {} (J2);
+        \draw[fermion] (J3) -- node[label=above:$D_{3w}$] {} (w);
+        \draw[fermion] (J4) -- node[label=above:$D_{4w}$] {} (w);
+        \draw[fermion] (w) edge[loop above] node[label=above:$D_{ww}$] {} (w);
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
@@ -1432,10 +1436,10 @@ As with the free field case, we can physically interpret each of these terms. Fo
       \coordinate[right=3cm of J3,label=right:$J_4$] (J4);
       \coordinate[vertex,below right=of J1] (w);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (J1) -- node[label=above:$D_{12}$] {} (J2);
-        \draw[particle] (J3) -- node[label=above:$D_{34}$] {} (J4);
-        \draw[particle] (w) edge[loop left] node[label=left:$D_{ww}$] {} (w);
-        \draw[particle] (w) edge[loop right] node[label=right:$D_{ww}$] {} (w);
+        \draw[fermion] (J1) -- node[label=above:$D_{12}$] {} (J2);
+        \draw[fermion] (J3) -- node[label=above:$D_{34}$] {} (J4);
+        \draw[fermion] (w) edge[loop left] node[label=left:$D_{ww}$] {} (w);
+        \draw[fermion] (w) edge[loop right] node[label=right:$D_{ww}$] {} (w);
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
@@ -1511,13 +1515,13 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
       \coordinate[below=of J4,label=right:$J$] (J5);
       \coordinate[below=of J5,label=right:$J$] (J6);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (J1) -- (w1);
-        \draw[particle] (J2) -- (w1);
-        \draw[particle] (J3) -- (w1);
-        \draw[particle] (w1) -- (w2);
-        \draw[particle] (w2) -- (J4);
-        \draw[particle] (w2) -- (J5);
-        \draw[particle] (w2) -- (J6);
+        \draw[fermion] (J1) -- (w1);
+        \draw[fermion] (J2) -- (w1);
+        \draw[fermion] (J3) -- (w1);
+        \draw[fermion] (w1) -- (w2);
+        \draw[fermion] (w2) -- (J4);
+        \draw[fermion] (w2) -- (J5);
+        \draw[fermion] (w2) -- (J6);
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
@@ -1526,8 +1530,8 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
     \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
       \coordinate[vertex] (w);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (w) edge[loop above] (w);
-        \draw[particle] (w) edge[loop below] (w);
+        \draw[fermion] (w) edge[loop above] (w);
+        \draw[fermion] (w) edge[loop below] (w);
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
@@ -1539,11 +1543,11 @@ derivatives $\delta/\delta J(w)$ acting on $2n$ terms $J(x)$.
       \coordinate[vertex,right=of w1] (w2);
       \coordinate[right=of w2,label=right:$J$] (J2);
       \begin{scope}[every node/.style={scale=.85}]
-        \draw[particle] (J1) -- (w1);
-        \draw[particle] (w1) edge[in=90,out=90] (w2);
-        \draw[particle] (w1) -- (w2);
-        \draw[particle] (w1) edge[in=-90,out=-90] (w2);
-        \draw[particle] (w2) -- (J2);
+        \draw[fermion] (J1) -- (w1);
+        \draw[fermion] (w1) edge[in=90,out=90] (w2);
+        \draw[fermion] (w1) -- (w2);
+        \draw[fermion] (w1) edge[in=-90,out=-90] (w2);
+        \draw[fermion] (w2) -- (J2);
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
@@ -2087,19 +2091,26 @@ Thus, a typical matrix element is given by
     &= i\mc M\times (2\pi)^4\delta^{(4)}(p_A+p_B-p_1-p_2)
 \end{align*}
 where the diagram corresponding to this choice of contractions is given by:
-%   \begin{center}
-%   \begin{fmffile}{diagram}
-%       \begin{fmfgraph}(100,160)
-%           \fmfleft{i1,i2}
-%           \fmfright{o1,o2}
-%           \fmf{fermion}{i1,v1,i2}
-%           \fmf{fermion}{o1,v2}
-%           \fmf{photon}{v1,v2}
-%       \end{fmfgraph}
-%   \end{fmffile}
-%   \end{center}
-\vspace{4cm}
+\begin{center}
+  \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+    \coordinate (p1);
+    \coordinate[vertex,below right=of J1] (w1);
+    \coordinate[below left=of w1] (pA);
+    \coordinate[vertex,right=of w1] (w2);
+    \coordinate[above right=of w2] (p2);
+    \coordinate[below right=of w2] (pB);
+    \begin{scope}[every node/.style={scale=.85}]
+      \draw[fermion,directed] (pA) -- node[label=left:$p_A$] {} (w1);
+      \draw[fermion,directed] (w1) -- node[label=left:$p_1$] {} (p1);
+      \draw[photon] (w1) -- node[label=above:$q$] {} (w2);
+      \draw[fermion,directed] (pB) -- node[label=right:$p_B$] {} (w2);
+      \draw[fermion,directed] (w2) -- node[label=right:$p_2$] {} (p2);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+
 \subsubsection{Born Approximation}
+
 In the nonrelativistic regime, one has the following identity:
 \[ \braket{\vec p|iT|\vec q} =-i V(\vec p-\vec q)\delta(E_p-E_q) \]
 In the case of the $e^-e^- \to e^-e^-$ vertex that we computed above we get 
@@ -2122,12 +2133,12 @@ computing $4$-particle scattering amplitudes):
     \coordinate[above right=of w2,label=right:$J$] (J3);
     \coordinate[below right=of w2,label=right:$J$] (J4);
     \begin{scope}[every node/.style={scale=.85}]
-      \draw[particle] (J1) -- node[label=left:$p_1$] {} (w1);
-      \draw[particle] (J2) -- node[label=left:$p_2$] {} (w1);
-      \draw[particle] (w1) edge[in=90,out=90] node[label=above:$p$] {} (w2);
-      \draw[particle] (w1) edge[in=-90,out=-90] node[label=below:$p_1+p_2-p$] {} (w2);
-      \draw[particle] (w2) -- node[label=right:$p_3$] {} (J3);
-      \draw[particle] (w2) -- node[label=right:$p_4$] {} (J4);
+      \draw[fermion,directed] (J1) -- node[label=left:$p_1$] {} (w1);
+      \draw[fermion,directed] (J2) -- node[label=left:$p_2$] {} (w1);
+      \draw[fermion,directed] (w1) to[in=90,out=90] node[label=above:$p$] {} (w2);
+      \draw[fermion,directed] (w1) to[in=-90,out=-90] node[label=below:$p_1+p_2-p$] {} (w2);
+      \draw[fermion,directed] (w2) -- node[label=right:$p_3$] {} (J3);
+      \draw[fermion,directed] (w2) -- node[label=right:$p_4$] {} (J4);
     \end{scope}
   \end{tikzpicture}
 \end{center}
@@ -2477,6 +2488,95 @@ introducing the physical coupling constant is called {\bf
   $s$, $t$, and $u$ in the formula for the scattering amplitude.
   Convince yourself that the scattering amplitude is unchanged.
 \end{exercise}
+
+Let's summarize what has happened so far in our exploration of QFT.
+First we write down a Lagrangian whose parameters are bare masses and
+bare coupling constants, and we compute Feynman diagrams using it.
+Then we relate the bare parameters to the physical ones, and rewrite
+the value of the diagrams in terms of the physical parameters, thus
+canceling the divergences. This entire procedure is known as {\bf bare
+  perturbation theory}.
+
+But this seems rather roundabout. Why not start at the beginning with
+the physical parameters, and avoid all the fussing around? The answer
+is yes, that is exactly what we should do, and this alternative
+process is simply known as {\bf renormalized perturbation theory}. Let
+$\cL = \cL_{free} + \cL_{int}$ be the bare Lagrangian, and
+$\cL' = \cL_{free}' + \cL_{int}'$ be the physical Lagrangian. Then
+$$ \cL = \cL' + \cL_{ct} = \cL_{free}' + \cL_{int}' + \cL_{ct}, $$
+where $\cL_{ct}$ contains terms of the same form as the ones in
+$\cL'$, but with undetermined coefficients that are determined
+iteratively as we go to higher and higher order in perturbation
+theory. These terms are known as {\bf counterterms}. The idea now is
+to plug-and-chug through the usual Feynman diagram machinery, except
+using $\cL_{int}' + \cL_{ct}$ as the interaction term.
+
+\begin{exercise}
+  Convince yourself, by looking at how we derived the Feynman rules,
+  that the diagrams arising from the interaction term
+  $\cL_{int}' + \cL_{ct}$ are precisely those arising from
+  $\cL_{int}'$ and $\cL_{ct}$ individually. In particular, the ones
+  arising from $\cL_{int}'$ are precisely the ``bare'' Feynman
+  diagrams we already know how to compute, except with bare masses and
+  coupling constants replaced with their physical equivalents. 
+\end{exercise}
+
+Let's use $\phi^4$ theory (as usual) as an example. Write
+$$ \cL = \frac{1}{2} (\partial \phi_B)^2 - \frac{1}{2} m_B^2 \phi_B^2 - \frac{\lambda_B}{4!} \phi_B^4, $$
+where $m_B$, $\lambda_B$, and $\phi_B$ are the bare mass, coupling
+constant, and field. Let $m$ and $\lambda$ be the physical mass and
+coupling constant, and $\phi = Z^{-1/2}\phi_B$ be the renormalized
+field. (We do this to the field in order to get rid of the infinite
+vacuum energy, so that we don't even have to worry about vacuum
+bubbles after renormalization.) We therefore have that
+$$ \cL_{ct} = \frac{1}{2} (Z-1) (\partial\phi)^2 - \frac{1}{2}(Zm_B^2 - m^2) \phi^2 - \frac{1}{4!} (Z^2 \lambda_B - \lambda) \phi^4. $$
+For convenience, write
+$$ \delta Z = Z - 1, \quad \delta m^2 = Zm_B^2 - m^2, \quad \delta \lambda = Z^2 \lambda_B - \lambda, $$
+so that
+$\cL_{ct} = (\delta Z/2)(\partial\phi)^2 - (\delta m^2/2) \phi^2 -
+(\delta\lambda/4!)\phi^4$.
+The counterterms in $\cL_{ct}$ contribute two new diagrams to the
+momentum-space Feynman rules:
+\begin{center}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate (J1);
+      \coordinate[counterterm,below right=of J1] (w);
+      \coordinate[below left=of w] (J2);
+      \coordinate[above right=of w] (J3);
+      \coordinate[below right=of w] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w);
+        \draw[fermion] (J2) -- (w);
+        \draw[fermion] (J3) -- (w);
+        \draw[fermion] (J4) -- (w);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+      \coordinate (J1);
+      \coordinate[counterterm,right=of J1] (w);
+      \coordinate[right=of w] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w);
+        \draw[fermion] (J2) -- (w);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+\end{center}
+We denote the counterterm vertices by a crossed circle to distinguish
+them from regular vertices arising from $\cL'$. The first diagram
+corresponds to the $(\delta\lambda/4!)\phi^4$ term, and contributes a
+factor of $-i\delta\lambda$, just as the $(\lambda/4!)\phi^4$ term
+contributes a factor of $-i\lambda$. The second diagram corresponds to
+the sum $(1/2)((\delta Z)(\partial\phi)^2 - (\partial m^2)\phi^2)$
+considered as a single unit, and contributes a factor of
+$-i(-(\delta Z)p^2 + \delta m^2)$, where $p$ is the momentum of the
+incoming/outgoing line. This factor is not trivial to calculate, and
+is the content of the upcoming subsection.
 
 
 
