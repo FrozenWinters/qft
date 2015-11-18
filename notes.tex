@@ -108,7 +108,7 @@
   fermion/.style={thick,draw=black},
   photon/.style={draw=black,decorate,decoration=snake},
   gluon/.style={draw=black,decorate,decoration={coil,aspect=0}},
-  vertex/.style={shape=circle,scale=0.3,fill=black,draw=black},
+  vertex/.style={shape=circle,scale=0.5,fill=black,draw=black},
   counterterm/.style={shape=circle,draw=black,
     append after command={node[draw=black,fit=(\tikzlastnode),
       inner sep=-7\pgflinewidth,cross out] {}}},
@@ -2122,8 +2122,8 @@ which is the Coulomb repulsion that we are familiar.
 There is a problem with the machinery we have been developing that we
 have been sweeping under the rug. This problem is best illustrated by
 explicitly computing the following Feynman diagram for $\phi^4$ theory
-(it is the only second-order interaction we are interested in when
-computing $4$-particle scattering amplitudes):
+(it is the only type of second-order interaction we are interested in
+when computing $4$-particle scattering amplitudes):
 \begin{center}
   \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
     \coordinate[label=left:$J$] (J1);
@@ -2426,7 +2426,7 @@ Now since $q$ depends on which momenta are entering and leaving the
 internal vertices, there are actually three different ways we can draw
 the one-loop diagram. Introducing the Mandelstam variables
 $s = (p_1 + p_2)^2$, $t = (p_1 - p_3)^2$, and $u = (p_1 - p_4)^2$
-again, we get that the total amplitude is
+again, we get that the amplitude is
 $$ \lim_{d \to 4} (-i\lambda)^2(J_d(s) + J_d(t) + J_d(u)). $$
 This agrees with the result we ``got'' from Pauli-Villars.
 
@@ -2446,12 +2446,12 @@ $\lambda$ by saying that, perhaps, the actual value of $\lambda$,
 which we call $\lambda_{phys}$, should be $\cM$ in the limit where the
 particles are stationary, i.e.
 $$ -i\lambda_{phys} = i\cM|_{p_1=p_2=p_3=p_4=(m,\vec{0})}. $$
+This is called the {\bf renormalization condition}.
 
 \begin{definition}
   The {\bf bare coupling constant} is the parameter $\lambda$ we have
   been using all along. The $\lambda_{phys}$ arising from physically
-  measuring $\cM$ for very slow particles is called the {\bf physical
-    coupling constant}.
+  measuring $\cM$ is called the {\bf physical coupling constant}.
 \end{definition}
 
 So now we have two ``unphysical'' quantities. Instead of writing the
@@ -2462,7 +2462,7 @@ expression for the scattering amplitude up to the second order
 diagrams. In principle it can be done up to any order.
 
 Up to second order in $\lambda$, 
-$$ \lambda_{phys} = -M|_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lambda\left(1 - i\lambda(J_d(4m^2) + J_d(0) + J_d(0))\right), $$
+$$ \lambda_{phys} = -\cM|_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lambda\left(1 - i\lambda(J_d(4m^2) + J_d(0) + J_d(0))\right), $$
 where we substituted $s = (p_1 + p_2)^2 = 4m^2$ and so on. Using this
 formula, we can write $\lambda$ in terms of $\lambda_{phys}$, up to
 second order. Since $\lambda_{phys}$ and $\lambda$ agree at first
@@ -2471,7 +2471,7 @@ $$ \lambda_{phys} = \lambda\left(1 - i\lambda_{phys}(J_d(4m^2) + 2J_d(0))\right)
 Solving for $\lambda$ in this equation, we get
 $$ \lambda = \lambda_{phys} + i\lambda_{phys}^2(J_d(4m^2) + 2J_d(0)) + O(\lambda^3). $$
 Substituting this into our expression for $\cM$, we get
-$$ iM = \lim_{d \to 4} \left(-i\lambda_{phys} + (-i\lambda_{phys})^2(J_d(s) + J_d(t) + J_d(u) - J_d(4m^2) - 2J_d(0)) + O(\lambda^3) \right). $$
+$$ i\cM = \lim_{d \to 4} \left(-i\lambda_{phys} + (-i\lambda_{phys})^2(J_d(s) + J_d(t) + J_d(u) - J_d(4m^2) - 2J_d(0)) + O(\lambda^3) \right). $$
 Aha! The term responsible for the divergences, $2/(4-d)$, is cancelled
 by the additional $J_d$'s. This process to remove the divergences by
 introducing the physical coupling constant is called {\bf
@@ -2479,7 +2479,7 @@ introducing the physical coupling constant is called {\bf
 
 \begin{exercise}
   We began this derivation by defining
-  $-i\lambda_{phys} = iM|_{p_1=p_2=p_3=p_4=(m,\vec{0})}$, which may
+  $-i\lambda_{phys} = i\cM|_{p_1=p_2=p_3=p_4=(m,\vec{0})}$, which may
   seem rather arbitrary. Convince yourself that we could have picked
   any values at all for $p_1, p_2, p_3, p_4$ to define
   $\lambda_{phys}$, and the divergences would still have been removed.
@@ -2538,9 +2538,9 @@ $\cL_{ct} = (\delta Z/2)(\partial\phi)^2 - (\delta m^2/2) \phi^2 -
 The counterterms in $\cL_{ct}$ contribute two new diagrams to the
 momentum-space Feynman rules:
 \begin{center}
-  \begin{minipage}{0.45\textwidth}
+  \begin{minipage}{0.3\textwidth}
     \centering
-    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+    \begin{tikzpicture}[node distance=1cm and 1cm]
       \coordinate (J1);
       \coordinate[counterterm,below right=of J1] (w);
       \coordinate[below left=of w] (J2);
@@ -2554,9 +2554,9 @@ momentum-space Feynman rules:
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
-  \begin{minipage}{0.45\textwidth}
+  \begin{minipage}{0.3\textwidth}
     \centering
-    \begin{tikzpicture}[node distance=1.5cm and 1.5cm]
+    \begin{tikzpicture}[node distance=1cm and 1cm]
       \coordinate (J1);
       \coordinate[counterterm,right=of J1] (w);
       \coordinate[right=of w] (J2);
@@ -2567,16 +2567,236 @@ momentum-space Feynman rules:
     \end{tikzpicture}
   \end{minipage}
 \end{center}
-We denote the counterterm vertices by a crossed circle to distinguish
-them from regular vertices arising from $\cL'$. The first diagram
-corresponds to the $(\delta\lambda/4!)\phi^4$ term, and contributes a
-factor of $-i\delta\lambda$, just as the $(\lambda/4!)\phi^4$ term
-contributes a factor of $-i\lambda$. The second diagram corresponds to
-the sum $(1/2)((\delta Z)(\partial\phi)^2 - (\partial m^2)\phi^2)$
-considered as a single unit, and contributes a factor of
+We denote the {\bf counterterm vertices} by a crossed circle to
+distinguish them from regular vertices arising from $\cL'$. The first
+diagram corresponds to the $(\delta\lambda/4!)\phi^4$ term, and
+contributes a factor of $-i\delta\lambda$, just as the
+$(\lambda/4!)\phi^4$ term contributes a factor of $-i\lambda$. The
+second diagram corresponds to the sum
+$(1/2)((\delta Z)(\partial\phi)^2 - (\delta m^2)\phi^2)$ considered
+as a single unit, and contributes a factor of
 $-i(-(\delta Z)p^2 + \delta m^2)$, where $p$ is the momentum of the
 incoming/outgoing line. This factor is not trivial to calculate, and
-is the content of the upcoming subsection.
+is the content of the upcoming subsection. The second diagram is
+actually very special: it is responsible for counteracting the
+divergences arising from any loops occuring along a propagator.
+
+Ignoring the second diagram for now, let's repeat the calculation of
+the $4$-particle scattering amplitude up to first order using
+renormalized perturbation theory. We have
+$$ i\cM =
+\begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+  \coordinate (J1);
+  \coordinate[vertex,below right=of J1] (w);
+  \coordinate[below left=of w] (J2);
+  \coordinate[above right=of w] (J3);
+  \coordinate[below right=of w] (J4);
+  \begin{scope}[every node/.style={scale=.85}]
+    \draw[fermion] (J1) -- (w);
+    \draw[fermion] (J2) -- (w);
+    \draw[fermion] (J3) -- (w);
+    \draw[fermion] (J4) -- (w);
+  \end{scope}
+\end{tikzpicture} + \left(
+\begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+  \coordinate (J1);
+  \coordinate[vertex,below right=of J1] (w1);
+  \coordinate[below left=of w1] (J2);
+  \coordinate[vertex,right=of w1] (w2);
+  \coordinate[above right=of w2] (J3);
+  \coordinate[below right=of w2] (J4);
+  \begin{scope}[every node/.style={scale=.85}]
+    \draw[fermion] (J1) -- (w1);
+    \draw[fermion] (J2) -- (w1);
+    \draw[fermion] (w1) to[in=90,out=90] (w2);
+    \draw[fermion] (w1) to[in=-90,out=-90] (w2);
+    \draw[fermion] (w2) -- (J3);
+    \draw[fermion] (w2) -- (J4);
+  \end{scope}
+\end{tikzpicture} + \text{ permutations}\right) +
+\begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+  \coordinate (J1);
+  \coordinate[counterterm,below right=of J1] (w);
+  \coordinate[below left=of w] (J2);
+  \coordinate[above right=of w] (J3);
+  \coordinate[below right=of w] (J4);
+  \begin{scope}[every node/.style={scale=.85}]
+    \draw[fermion] (J1) -- (w);
+    \draw[fermion] (J2) -- (w);
+    \draw[fermion] (J3) -- (w);
+    \draw[fermion] (J4) -- (w);
+  \end{scope}
+\end{tikzpicture} + O(\lambda^3). $$
+Why does this suffice for $O(\lambda^3)$? Aren't there more diagrams
+with two counterterm vertices, such as the following?
+\begin{center}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[vertex,below right=of J1] (w1);
+      \coordinate[counterterm,right=of w1] (w2);
+      \coordinate[below left=of w1] (J2);
+      \coordinate[above right=of w2] (J3);
+      \coordinate[below right=of w2] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w1);
+        \draw[fermion] (J2) -- (w1);
+        \draw[fermion] (w1) to[in=90,out=90] (w2);
+        \draw[fermion] (w1) to[in=-90,out=-90] (w2);
+        \draw[fermion] (w2) -- (J3);
+        \draw[fermion] (w2) -- (J4);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[vertex,below right=of J1] (w1);
+      \coordinate[counterterm,right=of w1] (w2);
+      \coordinate[below left=of w1] (J2);
+      \coordinate[below right=of w1] (J3);
+      \coordinate[right=of w2] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w1);
+        \draw[fermion] (J2) -- (w1);
+        \draw[fermion] (w1) -- (w2);
+        \draw[fermion] (w1) -- (J3);
+        \draw[fermion] (w2) -- (J4);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[counterterm,below right=of J1] (w1);
+      \coordinate[counterterm,right=of w1] (w2);
+      \coordinate[below left=of w1] (J2);
+      \coordinate[above right=of w2] (J3);
+      \coordinate[below right=of w2] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w1);
+        \draw[fermion] (J2) -- (w1);
+        \draw[fermion] (w1) to[in=90,out=90] (w2);
+        \draw[fermion] (w1) to[in=-90,out=-90] (w2);
+        \draw[fermion] (w2) -- (J3);
+        \draw[fermion] (w2) -- (J4);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+\end{center}
+The answer is no. A counterterm vertex turns out to contribute a
+factor of $\lambda^2$, instead of just $\lambda$. This comes from
+considering how we obtained $\delta \lambda$: it was defined to be
+such that $\lambda_B = \lambda + \delta \lambda$, where $\lambda_B$ is
+the bare coupling constant, and $\lambda$ the physical coupling
+constant. So the first and second diagrams above are $\lambda^3$ terms
+(the second should not even be considered; we will tackle this in the
+upcoming subsection), and the third is a $\lambda^4$ term.
+
+This might be more obvious upon doing a calculation. Using the sum
+above,
+$$ i\cM = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(s) + J_d(t) + J_d(u)] - i\delta\lambda). $$
+On the other hand, recall that earlier, we posited the {\bf
+  renormalization condition}
+$$ -i\lambda = i\cM_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(4m^2) + 2J_d(0)] - i\delta\lambda), $$
+so it follows that up to order $\lambda^2$,
+$$ \delta\lambda = i\lambda^2[J_d(4m^2) + J_d(0)]. $$
+Hence the counterterm vertices are indeed $\lambda^2$ terms. In
+general, to compute the scattering amplitude $\cM$ up to a certain
+order, one writes down all the Feynman diagrams (including both
+vertices and counterterms) up to that order, computes them, and then
+adjusts $\delta Z$, $\delta m$, and $\delta\lambda$ until the
+renormalization condition is satisfied. So, really, $\delta Z$,
+$\delta m^2$, and $\delta\lambda$ are variables whose values are
+iteratively computed.
+
+\subsection{Renormalizing the Propagator}
+
+There are two remaining tasks. One is to specify how $\delta Z$ and
+$\delta m^2$ are computed. The other is to specify how to deal with
+the two-point counterterm vertex in Feynman diagrams: since it does
+not contribute a $\lambda$ factor and therefore can be inserted
+anywhere, in any quantity. It turns out these two issues are related.
+
+We wish for the propagator to express the amplitude of propagation
+between two points $x$ and $y$. But the problem is that as a particle
+propagates between two points, it can go on all sorts of crazy
+adventures. Here are some examples.
+\begin{center}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[vertex,right=of J1] (w1);
+      \coordinate[vertex,right=of w1] (w2);
+      \coordinate[right=of w2] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion,directed] (J1) -- (w1);
+        \draw[fermion,directed] (w1) to[in=90,out=90] (w2);
+        \draw[fermion,directed] (w1) -- (w2);
+        \draw[fermion,directed] (w1) to[in=-90,out=-90] (w2);
+        \draw[fermion,directed] (w2) -- (J2);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[vertex,right=of J1] (w1);
+      \coordinate[vertex,below=of w1] (w2);
+      \coordinate[vertex,right=of w1] (w3);
+      \coordinate[vertex,right=of w3] (w5);
+      \coordinate[vertex,below=of w5] (w4);
+      \coordinate[right=of w5] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion,directed] (J1) -- (w1);
+        \draw[fermion,directed] (w1) -- (w2);
+        \draw[fermion,directed] (w1) -- (w3);
+        \draw[fermion,directed] (w1) to[in=90,out=90] (w5);
+        \draw[fermion,directed] (w2) to[in=-90,out=-90] (w4);
+        \draw[fermion,directed] (w2) -- (w3);
+        \draw[fermion,directed] (w2) -- (w4);
+        \draw[fermion,directed] (w3) -- (w4);
+        \draw[fermion,directed] (w4) -- (w5);
+        \draw[fermion,directed] (w3) -- (w5);
+        \draw[fermion,directed] (w5) -- (J2);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[node distance=1cm and 1cm]
+      \coordinate (J1);
+      \coordinate[counterterm,right=of J1] (w1);
+      \coordinate[vertex,right=of w1] (w2);
+      \coordinate[counterterm,right=of w2] (w3);
+      \coordinate[right=of w3] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion,directed] (J1) -- (w1);
+        \draw[fermion,directed] (w1) -- (w2);
+        \draw[fermion,directed] (w2) to[loop above] (w2);
+        \draw[fermion,directed] (w2) -- (w3);
+        \draw[fermion,directed] (w3) to[loop above] (w3);
+        \draw[fermion,directed] (w3) -- (J2);
+      \end{scope}
+    \end{tikzpicture}
+  \end{minipage}
+\end{center}
+The idea is that we should sum all of these possible adventures to
+form a renormalized propagator $\Delta_{dressed}$, so that when we
+draw Feynman diagrams using this renormalized propagator, we don't
+need to consider self-loops, or the two-point counterterm vertex. So
+let's compute the renormalized propagator. First we simplify the sum a
+little.
+
+\begin{definition}
+  A {\bf one-particle irreducible} diagram is one that cannot be
+  disconnected by removing just one propagator.
+\end{definition}
 
 
 
