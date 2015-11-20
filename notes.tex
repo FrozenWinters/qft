@@ -112,6 +112,7 @@
   counterterm/.style={shape=circle,draw=black,
     append after command={node[draw=black,fit=(\tikzlastnode),
       inner sep=-7\pgflinewidth,cross out] {}}},
+  interaction/.style={shape=circle,scale=2,fill=gray,draw=black},
   every loop/.style={thick,draw=black},
   loop left/.style={in=140,out=220,min distance=2cm},
   loop right/.style={in=-40,out=40,min distance=2cm},
@@ -2457,21 +2458,29 @@ This is called the {\bf renormalization condition}.
 So now we have two ``unphysical'' quantities. Instead of writing the
 scattering amplitude $\cM$ in terms of $\lambda$, then, let's write it
 in terms of $\lambda_{phys}$. We first do this up to second order in
-$\lambda$, both for simplicity and because we only computed the
+$\hbar$, both for simplicity and because we only computed the
 expression for the scattering amplitude up to the second order
 diagrams. In principle it can be done up to any order.
 
-Up to second order in $\lambda$, 
+{\bf Note that we are expanding in $\hbar$ now, not $\lambda$}. This
+generalizes everything we have been doing up until now, because
+$\lambda$ secretly contains a factor of $\hbar$ (do the dimensional
+analysis to figure this out). The reason for doing this will become
+clear later on, when we introduce renormalized perturbation theory.
+For now, check that the $\hbar$-dimensions of the various quantities
+are $[\phi] = [\lambda] = [m] = \hbar$.
+
+Up to second order in $\hbar$, then,
 $$ \lambda_{phys} = -\cM|_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lambda\left(1 - i\lambda(J_d(4m^2) + J_d(0) + J_d(0))\right), $$
 where we substituted $s = (p_1 + p_2)^2 = 4m^2$ and so on. Using this
 formula, we can write $\lambda$ in terms of $\lambda_{phys}$, up to
 second order. Since $\lambda_{phys}$ and $\lambda$ agree at first
-order, $\lambda_{phys} = \lambda + O(\lambda^2)$, so
-$$ \lambda_{phys} = \lambda\left(1 - i\lambda_{phys}(J_d(4m^2) + 2J_d(0))\right) + O(\lambda^3). $$
+order, $\lambda_{phys} = \lambda + O(\hbar^2)$, so
+$$ \lambda_{phys} = \lambda\left(1 - i\lambda_{phys}(J_d(4m^2) + 2J_d(0))\right) + O(\hbar^3). $$
 Solving for $\lambda$ in this equation, we get
-$$ \lambda = \lambda_{phys} + i\lambda_{phys}^2(J_d(4m^2) + 2J_d(0)) + O(\lambda^3). $$
+$$ \lambda = \lambda_{phys} + i\lambda_{phys}^2(J_d(4m^2) + 2J_d(0)) + O(\hbar^3). $$
 Substituting this into our expression for $\cM$, we get
-$$ i\cM = \lim_{d \to 4} \left(-i\lambda_{phys} + (-i\lambda_{phys})^2(J_d(s) + J_d(t) + J_d(u) - J_d(4m^2) - 2J_d(0)) + O(\lambda^3) \right). $$
+$$ i\cM = \lim_{d \to 4} \left(-i\lambda_{phys} + (-i\lambda_{phys})^2(J_d(s) + J_d(t) + J_d(u) - J_d(4m^2) - 2J_d(0)) + O(\hbar^3) \right). $$
 Aha! The term responsible for the divergences, $2/(4-d)$, is cancelled
 by the additional $J_d$'s. This process to remove the divergences by
 introducing the physical coupling constant is called {\bf
@@ -2535,6 +2544,11 @@ $$ \delta Z = Z - 1, \quad \delta m^2 = Zm_B^2 - m^2, \quad \delta \lambda = Z^2
 so that
 $\cL_{ct} = (\delta Z/2)(\partial\phi)^2 - (\delta m^2/2) \phi^2 -
 (\delta\lambda/4!)\phi^4$.
+Note that $[\delta Z] = \hbar^0$, and $[\delta m^2] = \hbar^2$, and
+$[\delta \lambda] = \hbar^2$, not $\hbar$. The reason for this is that
+$\delta \lambda = Z^2 \lambda_B - \lambda$ will turn out to be of
+order $\lambda^2$ because the first-order $\lambda$ terms cancel out.
+
 The counterterms in $\cL_{ct}$ contribute two new diagrams to the
 momentum-space Feynman rules:
 \begin{center}
@@ -2575,7 +2589,7 @@ $(\lambda/4!)\phi^4$ term contributes a factor of $-i\lambda$. The
 second diagram corresponds to the sum
 $(1/2)((\delta Z)(\partial\phi)^2 - (\delta m^2)\phi^2)$ considered
 as a single unit, and contributes a factor of
-$-i(-(\delta Z)p^2 + \delta m^2)$, where $p$ is the momentum of the
+$i((\delta Z)p^2 - \delta m^2)$, where $p$ is the momentum of the
 incoming/outgoing line. This factor is not trivial to calculate, and
 is the content of the upcoming subsection. The second diagram is
 actually very special: it is responsible for counteracting the
@@ -2626,8 +2640,8 @@ $$ i\cM =
     \draw[fermion] (J3) -- (w);
     \draw[fermion] (J4) -- (w);
   \end{scope}
-\end{tikzpicture} + O(\lambda^3). $$
-Why does this suffice for $O(\lambda^3)$? Aren't there more diagrams
+\end{tikzpicture} + O(\hbar^3). $$
+Why does this suffice for $O(\hbar^3)$? Aren't there more diagrams
 with two counterterm vertices, such as the following?
 \begin{center}
   \begin{minipage}{0.3\textwidth}
@@ -2687,24 +2701,21 @@ with two counterterm vertices, such as the following?
     \end{tikzpicture}
   \end{minipage}
 \end{center}
-The answer is no. A counterterm vertex turns out to contribute a
-factor of $\lambda^2$, instead of just $\lambda$. This comes from
-considering how we obtained $\delta \lambda$: it was defined to be
-such that $\lambda_B = \lambda + \delta \lambda$, where $\lambda_B$ is
-the bare coupling constant, and $\lambda$ the physical coupling
-constant. So the first and second diagrams above are $\lambda^3$ terms
-(the second should not even be considered; we will tackle this in the
-upcoming subsection), and the third is a $\lambda^4$ term.
+The answer is no. Remember that a counterterm vertex turns out to
+contribute a factor of $\hbar^2$, instead of just $\hbar$. So the
+first and second diagrams above are $\hbar^3$ terms (the second
+should not even be considered; we will tackle this in the upcoming
+subsection), and the third is a $\hbar^4$ term.
 
 This might be more obvious upon doing a calculation. Using the sum
 above,
-$$ i\cM = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(s) + J_d(t) + J_d(u)] - i\delta\lambda). $$
+$$ i\cM = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(s) + J_d(t) + J_d(u)] - i\delta\lambda + O(\hbar^3)). $$
 On the other hand, recall that earlier, we posited the {\bf
   renormalization condition}
-$$ -i\lambda = i\cM_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(4m^2) + 2J_d(0)] - i\delta\lambda), $$
-so it follows that up to order $\lambda^2$,
+$$ -i\lambda = i\cM_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(4m^2) + 2J_d(0)] - i\delta\lambda + O(\hbar^3)), $$
+so it follows that up to order $\hbar^2$,
 $$ \delta\lambda = i\lambda^2[J_d(4m^2) + J_d(0)]. $$
-Hence the counterterm vertices are indeed $\lambda^2$ terms. In
+Hence the four-point counterterm vertex is indeed a $\hbar^2$ term. In
 general, to compute the scattering amplitude $\cM$ up to a certain
 order, one writes down all the Feynman diagrams (including both
 vertices and counterterms) up to that order, computes them, and then
@@ -2713,13 +2724,17 @@ renormalization condition is satisfied. So, really, $\delta Z$,
 $\delta m^2$, and $\delta\lambda$ are variables whose values are
 iteratively computed.
 
-\subsection{Renormalizing the Propagator}
+\subsection{Two-Point Counterterm Vertex}
 
-There are two remaining tasks. One is to specify how $\delta Z$ and
-$\delta m^2$ are computed. The other is to specify how to deal with
-the two-point counterterm vertex in Feynman diagrams: since it does
-not contribute a $\lambda$ factor and therefore can be inserted
-anywhere, in any quantity. It turns out these two issues are related.
+There are two remaining issues. First, we must compute the value of
+the two-point counterterm vertex (we only stated it earlier, without
+justification). We must also specify more renormalization conditions:
+we only have one renormalization condition so far, and three free
+parameters $\delta Z$, $\delta m^2$, and $\delta \lambda$, so we are
+missing two more renormalization conditions. Let's talk about some
+physics to justify how we get the remaining two renormalization
+conditions, and along the way, compute the two-point counterterm
+vertex.
 
 We wish for the propagator to express the amplitude of propagation
 between two points $x$ and $y$. But the problem is that as a particle
@@ -2787,17 +2802,181 @@ adventures. Here are some examples.
   \end{minipage}
 \end{center}
 The idea is that we should sum all of these possible adventures to
-form a renormalized propagator $\Delta_{dressed}$, so that when we
-draw Feynman diagrams using this renormalized propagator, we don't
-need to consider self-loops, or the two-point counterterm vertex. So
-let's compute the renormalized propagator. First we simplify the sum a
-little.
+form a {\bf renormalized propagator} $\Delta$. So let's compute the
+renormalized propagator. First we simplify the sum a little.
 
 \begin{definition}
-  A {\bf one-particle irreducible} diagram is one that cannot be
-  disconnected by removing just one propagator.
+  A {\bf one-particle irreducible} (1P1) diagram is one that cannot be
+  disconnected by removing just one propagator. For example, the first
+  two diagrams above are 1P1, but the last one is not.
 \end{definition}
 
+Hence if $\Pi(p^2)$ denotes the sum of all possible non-trivial 1P1
+diagrams with initial and final momentum $p$ and external lines
+amputated (we write $p^2$ because $\Pi$ must be a function of $p^2$ by
+Lorentz invariance),
+$$ \widehat{\Delta}(p) = \widehat{D}_F(p) + \widehat{D}_F(p)\Pi(p^2)\widehat{D}_F(p) + \cdots = \widehat{D}_F(p) \sum_{n=0}^\infty (\Pi(p^2)\widehat{D}_F(p))^n = [\widehat{D}_F(p)^{-1} - \Pi(p^2)]^{-1}. $$
+Perturbatively, i.e. up to a finite order, this is valid;
+non-perturbatively, there are convergence issues, which we
+conveniently ignore. Here $\widehat{\Delta}(p)$ is the free propagator
+with physical mass and coupling constant. Using this idea, we can
+compute the value of the two-point counterterm vertex $\Pi_0(p^2)$.
 
+\begin{proposition}
+  The two-point counterterm vertex contributes a factor
+  $i((\delta Z)p^2 - \delta m^2)$.
+\end{proposition}
+
+\begin{proof}
+  Suppose in the expression for $\widehat{\Delta}(p)$ above, we only
+  inserted the mass renormalization, i.e. the two-point counterterm
+  vertices, and not the normal 1P1 terms, giving the {\bf counterterm
+    propagator}. In other words, if $\Pi_0(p^2)$ is the factor given by
+  the counterterm vertex, then
+  $$ \widehat{\Delta}_{ct}(p) = \frac{i}{p^2 - m^2 + i\epsilon} \sum_{n=0}^\infty \left(\frac{i \Pi_0(p^2)}{p^2 - m^2 + i\epsilon}\right)^n. $$
+  But we can compute this in another way: start with
+  $\widehat{D}_F(p) = i/(p^2 - m_B^2 + i\epsilon)$, and renormalize
+  the field and its mass. The counterterm propagator thus picks up a
+  factor of $Z^{-1}$, coming from
+  $\phi(x)\phi(y) = Z^{-1}\phi_B(x)\phi_B(y)$. Hence, ignoring the
+  $i\epsilon$ term for simplicity,
+  $\widehat{\Delta}_{ct}(p) = Z^{-1}\widehat{D}_F(p)$. Write
+  $Z = 1 + \delta Z$ and $Zm_B^2 = m^2 + \delta m^2$ to get
+  \begin{align*}
+    \widehat{\Delta}_{ct}(p) 
+    &= \frac{i}{Zp^2 - Zm_B^2} = \frac{i}{(1 + \delta Z)p^2 - m^2 - \delta m^2} \\
+    &= \frac{i}{p^2 - m^2} \sum_{n=0}^\infty \left(-\frac{(\delta Z)p^2 - \delta m^2}{p^2 - m^2}\right)^n.
+  \end{align*}
+  Matching this with our previous expression for
+  $\widehat{\Delta}_{ct}(p)$, it follows that the two-point
+  counterterm vertex has value
+  $\Pi_0(p^2) = i((\delta Z)p^2 - \delta m^2)$.
+\end{proof}
+
+Now it's time to get the remaining renormalization conditions. Recall
+that we got a renormalization condition for $\delta \lambda$ by
+considering the physical meaning of what we wrote down. Now we will
+get a renormalization condition for $\delta m^2$ and $\delta Z$ by
+thinking about the physical meaning of the renormalized propagator.
+Suppose $p^2 \to m^2$ in $\Delta$. Then $\Delta$ should represent a
+real particle. In particular, it's not going on any adventures with
+its virtual buddies, so we expect the singularity structure of
+$\widehat{\Delta}(p)$ and $\widehat{D}_F(p)$ to be the same at
+$p^2 = m^2$:
+$$ \widehat{\Delta}(p) = \widehat{D}_F(p)|_m + (\text{terms regular at } p^2 = m^2). $$
+We insist that this indeed does hold; it is another {\bf
+  renormalization condition}. Rephrased, we insist that
+$\widehat{\Delta}(p)$ has a simple pole of residue $i$ at $p^2 = m^2$.
+Note that really, this specifies two conditions: that there is a
+simple pole at $p^2 = m^2$, and that the residue is $i$. Hence this
+suffices to determine $\delta m^2$ and $\delta Z$.
+
+\subsection{The Renormalization Algorithm}
+
+In short, we now have a systematic algorithm for renormalizing
+$\phi^4$ theory. Underlying the entire algorithm are the following two
+{\bf renormalization conditions}, which arose from imposing physical
+considerations on our perturbative calculations.
+
+\begin{definition}[Renormalization conditions for $\phi^4$ theory]
+  The two-point scattering amplitude, i.e. the renormalized
+  propagator, and the amputated four-point correlation function, i.e.
+  the four-point scattering amplitude, satisfy, respectively,
+  \begin{align*}
+    \begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+      \coordinate (J1);
+      \coordinate[interaction,right=of J1] (w);
+      \coordinate[right=of w] (J2);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w);
+        \draw[fermion] (J2) -- (w);
+      \end{scope}
+    \end{tikzpicture}
+    &= \frac{i}{p^2 - m^2} + (\text{terms regular at } p^2 = m^2). \\
+    \left(\begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+        \coordinate (J1);
+        \coordinate[interaction,below right=of J1] (w);
+        \coordinate[below left=of w] (J2);
+        \coordinate[above right=of w] (J3);
+        \coordinate[below right=of w] (J4);
+        \begin{scope}[every node/.style={scale=.85}]
+          \draw[fermion] (J1) -- (w);
+          \draw[fermion] (J2) -- (w);
+          \draw[fermion] (J3) -- (w);
+          \draw[fermion] (J4) -- (w);
+        \end{scope}
+      \end{tikzpicture}\right)_{\text{amputated}}
+    &= -i\lambda \quad \text{at } s = 4m^2, \; t = u = 0.
+  \end{align*}
+  The big gray circles represent the sum over valid interactions.
+\end{definition}
+
+\begin{definition}[Algorithm for renormalized perturbation theory]
+  The following algorithm renormalizes $\phi^4$ theory (and can be
+  suitably generated to renormalize any renormalizable theory). Let
+  $m$ be the physical mass and $\lambda$ be the physical coupling
+  constant.
+  \begin{itemize}
+  \item Pick an order $O(\hbar^n)$ to which everything is to be
+    computed.
+  \item Use the Feynman rules
+    \begin{align*}
+      \begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+        \coordinate (J1);
+        \coordinate[vertex,right=of J1] (w);
+        \coordinate[right=of w] (J2);
+        \begin{scope}[every node/.style={scale=.85}]
+          \draw[fermion] (J1) -- (w);
+          \draw[fermion] (J2) -- (w);
+        \end{scope}
+      \end{tikzpicture} &= \frac{i}{p^2 - m^2 + i\epsilon} \\
+      \begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+        \coordinate (J1);
+        \coordinate[vertex,below right=of J1] (w);
+        \coordinate[below left=of w] (J2);
+        \coordinate[above right=of w] (J3);
+        \coordinate[below right=of w] (J4);
+        \begin{scope}[every node/.style={scale=.85}]
+          \draw[fermion] (J1) -- (w);
+          \draw[fermion] (J2) -- (w);
+          \draw[fermion] (J3) -- (w);
+          \draw[fermion] (J4) -- (w);
+        \end{scope}
+      \end{tikzpicture} &= -i\lambda \\
+      \begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+        \coordinate (J1);
+        \coordinate[counterterm,right=of J1] (w);
+        \coordinate[right=of w] (J2);
+        \begin{scope}[every node/.style={scale=.85}]
+          \draw[fermion] (J1) -- (w);
+          \draw[fermion] (J2) -- (w);
+        \end{scope}
+      \end{tikzpicture} &= i((\delta Z)p^2 - \delta m^2) \\
+      \begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+        \coordinate (J1);
+        \coordinate[counterterm,below right=of J1] (w);
+        \coordinate[below left=of w] (J2);
+        \coordinate[above right=of w] (J3);
+        \coordinate[below right=of w] (J4);
+        \begin{scope}[every node/.style={scale=.85}]
+          \draw[fermion] (J1) -- (w);
+          \draw[fermion] (J2) -- (w);
+          \draw[fermion] (J3) -- (w);
+          \draw[fermion] (J4) -- (w);
+        \end{scope}
+      \end{tikzpicture} &= -i\delta\lambda.
+    \end{align*}
+    to compute the value of the desired diagram(s), up to
+    $O(\hbar^n)$. Write down the resulting value as a function of $d$,
+    the dimensionality.
+  \item Compute the two-point and four-point scattering amplitudes up
+    to $O(\hbar^n)$, and adjust $\delta Z$, $\delta \lambda$, and
+    $\delta m^2$ such that these scattering amplitudes satisfy the two
+    renormalization conditions up to $O(\hbar^n)$.
+  \item The resulting value of the desired diagram(s), up to
+    $O(\hbar^n)$, should now be finite and independent of the
+    dimension $d$. Take the limit $d \to 4$ to get the final result.
+  \end{itemize}
+\end{definition}
 
 \end{document}
