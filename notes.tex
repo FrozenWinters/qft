@@ -1,4 +1,3 @@
-%
 \documentclass{report}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -10,7 +9,6 @@
 \usepackage{mdframed}
 \usepackage{slashed}
 \usepackage{comment}
-\usepackage{feynmf}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -1130,7 +1128,7 @@ working within a free Klein-Gordon theory.
 
 We can write $Z[J]$ in a very explicit form. First, let's rewrite the
 Lagrangian a little via integration by parts:
-$$ \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2 + J\phi = \int_0^t d^4x \, \frac{1}{2} \phi(-\partial^2 - m^2)\phi + J\phi. $$
+$$ \int d^4x \, \frac{1}{2} (\partial_\mu \phi)^2 - \frac{1}{2} m^2\phi^2 + J\phi = \int d^4x \, \frac{1}{2} \phi(-\partial^2 - m^2)\phi + J\phi. $$
 We will evaluate this a little informally, but the entire argument can
 be made formal once we introduce the Green's function (the definition
 of which will be motivated by this argument). Imagine that the
@@ -2185,8 +2183,8 @@ news is that this is the only sort of pathological divergence we will
 get.
 
 \begin{theorem}[Weinberg-Dyson]
-  A connected Feynman diagram is convergent if and only if the it and
-  all of its connected subdiagrams are not superficially divergent.
+  A connected Feynman diagram is convergent if and only if it and all
+  of its connected subdiagrams are not superficially divergent.
 \end{theorem}
 
 Suppose now that we are given a Feynman diagram for some process in
@@ -2913,7 +2911,7 @@ considerations on our perturbative calculations.
 
 \begin{definition}[Algorithm for renormalized perturbation theory]
   The following algorithm renormalizes $\phi^4$ theory (and can be
-  suitably generated to renormalize any renormalizable theory). Let
+  suitably generalized to renormalize any renormalizable theory). Let
   $m$ be the physical mass and $\lambda$ be the physical coupling
   constant.
   \begin{itemize}
@@ -2978,5 +2976,75 @@ considerations on our perturbative calculations.
     dimension $d$. Take the limit $d \to 4$ to get the final result.
   \end{itemize}
 \end{definition}
+
+\section{Renormalization Group}
+
+So far, we have focused on the practicalities of removing divergences,
+and how to compute the actual (renormalized) values of Feynman
+diagrams. There is a slightly more abstract way of viewing
+renormalization that is less practical in terms of calculations, but
+more revealing in terms of what renormalization is really doing. To
+demonstrate this new perspective, for this section, we drop the
+technique of dimensional regularization and stick with imposing a
+momentum cutoff, purely for simplicity. But whereas previously we
+imposed a cutoff when evaluating Feynman diagrams, now we impose a
+cutoff in the path integral itself.
+
+To impose such a cutoff, we look at the momentum representation of the
+path integral:
+$$ Z[J] = \int D\phi \, e^{i\int(\cL + J\phi)} = \left(\prod_k \int d\phi(k)\right) e^{i\int(\cL + J\phi)}. $$
+It is tempting to integrate over $k^2 \le \Lambda^2$ for a momentum
+cutoff $\Lambda$, but this choice is inappropriate in Minkowski space.
+Instead, we need to impose $|k|^2 \le \Lambda^2$ to completely rule
+out large momenta, which means we must also Wick rotate the path
+integral. The result is (taking $J = 0$ for simplicity)
+$$ Z = \left(\prod_{|k| < \Lambda} \int d\phi(k)\right) \exp\left(-\int d^dx \, \left(\frac{1}{2}(\partial_\mu\phi)^2 + \frac{1}{2}m^2\phi^2 + \frac{\lambda}{4!} \phi^4\right)\right). $$
+For convenience, write the integration measure
+$\prod_{|k| < \Lambda} d\phi(k)$ as $[D\phi]_\Lambda$.
+
+The insight that becomes relevant now is that if we are imposing a
+momentum cutoff $\Lambda$, we are free to choose $\Lambda$. In
+particular, if we pick $\Lambda_1 < \Lambda_2$, the theory we obtain
+by using $\Lambda_1$ had better be fully described by the theory we
+obtain by using the higher $\Lambda_2$ cutoff. In fact, we expect that
+imposing the $\Lambda_2$ cutoff and then imposing the $\Lambda_1$
+cutoff gives the exact same result as directly imposing the
+$\Lambda_1$ cutoff.
+
+Pick some real number $b < 1$, and split $\phi$ into two pieces
+$\phi_s + \phi_b$:
+$$ \phi_s(k) = \begin{cases} \phi(k) & |k| \in [0, b\Lambda) \\ 0 & \text{otherwise}, \end{cases} \qquad \phi_s(k) = \begin{cases} \phi(k) & |k| \in [b\Lambda, \Lambda) \\ 0 & \text{otherwise}. \end{cases} $$
+(Here the subscript $s$ stands for ``small'' (momentum), and $b$ for
+``big''). The idea is that by plugging $\phi = \phi_s + \phi_b$ into
+the path integral $Z$ and then integrating over $\phi_b$, we are left
+the {\bf effective path integral}
+$$ Z = \int [D\phi]_{b\Lambda} e^{-\int d^dx \, \cL_{eff}} $$
+such that $\cL_{eff}$ involves only field components $\phi(k)$ with
+$k \in [0, b\Lambda)$.
+
+\begin{exercise}
+  Plug $\phi = \phi_s + \phi_b$ into $Z$ and expand everything, noting
+  that quadratic terms of the form $\phi_s\phi_b$ vanish since Fourier
+  components of different wavelengths are orthogonal. You should obtain
+  $$ Z = \int D\phi_s e^{-\int \cL(\phi_s)} \int D\phi_b e^{-\int L'(\phi_s, \phi_b)}, $$
+  $$ L'(\phi_s, \phi_b) = \frac{1}{2} (\partial_\mu \phi_b)^2 + \frac{1}{2} m^2 \phi_b^2 + \lambda\left(\frac{1}{6} \phi_s^3\phi_b + \frac{1}{4} \phi_s^2\phi_b^2 + \frac{1}{6} \phi_s\phi_b^3 + \frac{1}{4!} \phi_b^4\right). $$
+  We treat the $(1/2)m^2\phi_b^2$ as a perturbation as well, since we
+  are mainly interested in the regime $m^2 \ll \Lambda^2$. Hence
+  compute the propgator $(1/p^2)(2\pi)^d \Theta(|p|)$ where $\Theta$
+  is the indicator function for $[b\Lambda, \Lambda)$. Now convince
+  yourself that in principle, one can
+  \begin{itemize}
+  \item derive the Feynman rules for the ``Lagrangian''
+    $L'(\phi_s, \phi_b)$, where each vertex term now contains factors
+    of $\phi_s$ in addition to numerical factors and $\lambda$,
+  \item note that the total amplitude, i.e. the path integral, is the
+    sum of all possible such Feynman diagrams, and
+  \item note that that the sum factors as an exponential of the sum of
+    connected diagrams.
+  \end{itemize}
+  Conclude that
+  $$ \cL_{eff}(\phi) = \frac{1}{2}(\partial_\mu\phi)^2 + \frac{1}{2}m^2\phi^2 + \frac{\lambda}{4!}\phi^4 + (\text{sum of connected diagrams}). $$
+\end{exercise}
+
 
 \end{document}
