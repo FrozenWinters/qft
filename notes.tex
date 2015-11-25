@@ -3046,5 +3046,103 @@ $k \in [0, b\Lambda)$.
   $$ \cL_{eff}(\phi) = \frac{1}{2}(\partial_\mu\phi)^2 + \frac{1}{2}m^2\phi^2 + \frac{\lambda}{4!}\phi^4 + (\text{sum of connected diagrams}). $$
 \end{exercise}
 
+But there is a much easier way to express the relationship between the
+two integrals
+$$ \int [D\phi]_\Lambda \exp(i\int \cL(\phi)) \qquad \text{and} \qquad \int [D\phi]_{b\Lambda} \exp(i\int \cL_{eff}(\phi)). $$
+Namely, in the effective path integral, let's write the variables
+$k' = k/b$ and $x' = xb$, so that now the integration limit is
+$|k'| < \Lambda$. Note that the effective path integral must be of the
+form
+$$ \int d^dx \, \cL_{eff} = \int d^dx \, \left(\frac{1}{2} (1 + \Delta Z)(\partial_\mu \phi)^2 + \frac{1}{2}(m^2 + \Delta m^2)\phi^2 + \frac{1}{4}(\lambda + \Delta \lambda)\phi^4 + \Delta C(\partial_\mu \phi)^4 + \Delta D \phi^6 + \cdots\right), $$
+
+\begin{exercise}
+  Perform the substitution $k' = k/b$ and $x' = xb$ to get a new
+  Lagrangian
+  $$ \int d^dx \, \cL_{eff} = \int d^dx' b^{-d} \left(\frac{1}{2}(1 + \Delta Z)b^2 (\partial'_\mu \phi)^2 + \frac{1}{2} (m^2 + \Delta m^2)\phi^2 + \frac{1}{4} (\lambda + \Delta \lambda) \phi^4 + \Delta C b^4(\partial_\mu' \phi)^4 + \cdots\right). $$
+  Show that this new Lagrangian will give the same propagator as the
+  original Lagrangian $\cL$ (with cutoff $\Lambda$) when
+  $\phi' = (b^{2-d}(1 + \Delta Z))^{1/2}\phi$, and that we can write
+  $$ \int d^dx \, \cL_{eff} = \int d^dx' \left(\frac{1}{2}(\partial'_\mu \phi')^2 + \frac{1}{2} m'^2 \phi'^2 + \frac{1}{4} \lambda' \phi'^4 + C'(\partial_\mu' \phi')^4 + D' \phi'^6 + \cdots\right). $$
+  where
+  $$ m'^2 = (m^2 + \Delta m^2)(1 + \Delta Z)^{-1}b^{-2}, \quad \lambda' = (\lambda + \Delta \lambda)(1 + \Delta Z)^{-2} b^{d-4}, \quad C' = (C + \Delta C)(1 + \Delta Z)^{-2} b^d, \quad \ldots. $$
+\end{exercise}
+
+So given a momentum cutoff $b\Lambda$, we can integrate out the higher
+momentums, and then apply this rescaling procedure. The end result is
+that we obtain a path integral over the same momentum range
+$[0, \Lambda]$, but with a transformed Lagrangian, whose coefficients
+transformed in accordance to the rules for $m'$ and $\lambda'$ (and,
+in principle, $C'$, $D'$, and so on) above. We can iterate this
+procedure, taking $b$ very close to $1$ each time. The limit, as $b$
+is infinitesimally close to $1$, is a continuous transformation of the
+Lagrangian, i.e. a flow in the space of all possible Lagrangians.
+
+\begin{definition}
+  The {\bf renormalization group} is $\bR_{\ge 0}$, which acts on the
+  original Lagrangian to produce the Lagrangians in this flow, which
+  is more appropriately called the {\bf renormalization group flow}.
+  Note that the renormalization group {\bf is not a group}, since the
+  action of integrating out higher momentums is not invertible.
+\end{definition}
+
+Now let's do a thought experiment. Suppose that we have found a
+Lagrangian for a QFT that is valid up to extremely high energies. But
+all the phenomena we can currently measure are at a much smaller
+energy scale, so we act on the original Lagrangian with the
+renormalization group until the effective energy cutoff is small
+enough. The resulting effective Lagrangian has finite parameters,
+obviously, but as we act on the original Lagrangian, its coefficients
+blow up. It turns out that the parameters of the original Lagrangian
+are the bare parameters, and those of the effective Lagrangian are the
+physical parameters. If we computed amplitudes directly using the
+original Lagrangian, we get mysterious divergences popping up when we
+integrate over momentum, hence invalidating the use of perturbation
+theory. But if we computed amplitudes from the effective Lagrangian,
+these high-momentum contributions have already been absorbed into the
+parameters of the effective Lagrangian, so when we compute amplitudes
+order-by-order, perturbative techniques are still valid.
+
+Hence the renormalization group gives us a very intuitive and
+conceptually straightforward picture of renormalization, and we can
+use it to gain some insight into renormalizability. For example, the
+free-field Lagrangian $\cL_0 = (1/2)(\partial_\mu\phi)^2$ is a fixed
+point of the renormalization group, and around $\cL_0$ we can ignore
+$\Delta m^2$, $\Delta \lambda$, etc. and keep only the linear
+perturbations:
+$$ m'^2 = m^2 b^{-2}, \quad \lambda' = \lambda b^{d-4}, \quad C' = C b^d, \quad D' = D b^{2d-6}, \quad \ldots. $$
+
+\begin{definition}
+  Parameters which grow during the action of the renormalization group
+  are {\bf relevant}, those which die away are {\bf irrelevant}, and
+  those which are unaffected by $b$ are {\bf marginal} (we must look
+  at higher-order corrections to determine the effect of marginal
+  parameters).
+\end{definition}
+
+In general, this kind of analysis shows that a term in the Lagrangian
+involving $N$ powers of $\phi$ and $M$ derivatives has a coefficient
+that transforms as $C'_{N,M} = b^{N(d/2-1) + M - d}C_{N,M}$.
+
+\begin{exercise}
+  Using the definition of renormalizability and the exercises
+  immediately after the definition, show that $N(d/2-1) + M - d$ is
+  precisely the mass dimension of the coefficient, and therefore
+  superrenormalizable terms correspond to relevant terms, and
+  renormalizable terms correspond to marginal terms.
+\end{exercise}
+
+The terms ``relevant'', ``irrelevant'', and ``marginal'' are
+misnomers: they came from condensed matter physicists, who are
+interested in the low-energy (and therefore long-distance) limit
+instead of the high-energy (and therefore short-distance) limit. So to
+them, irrelevant terms are irrelevant, but to us, the irrelevant terms
+are the most relevant ones, since as energy goes up, they become
+dominant. And now we see why terms with negative mass dimension are
+bad: as we move from lower energies to higher energies, more and more
+terms of higher and higher order become non-negligible, and the
+coefficients of all of these terms must be determined by experiment.
+In effect, a non-renormalizable theory has infinite degrees of
+freedom, requiring infinite experiments to specify the theory, and
+therefore has no predictive power at all.
 
 \end{document}
