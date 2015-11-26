@@ -2910,10 +2910,10 @@ considerations on our perturbative calculations.
 \end{definition}
 
 \begin{definition}[Algorithm for renormalized perturbation theory]
-  The following algorithm renormalizes $\phi^4$ theory (and can be
-  suitably generalized to renormalize any renormalizable theory). Let
-  $m$ be the physical mass and $\lambda$ be the physical coupling
-  constant.
+  The following algorithm implements the {\bf on-shell scheme for
+    renormalizing $\phi^4$ theory} (and can be suitably generalized to
+  renormalize any renormalizable theory). Let $m$ be the physical mass
+  and $\lambda$ be the physical coupling constant.
   \begin{itemize}
   \item Pick an order $O(\hbar^n)$ to which everything is to be
     computed.
@@ -2991,7 +2991,7 @@ imposed a cutoff when evaluating Feynman diagrams, now we impose a
 cutoff in the path integral itself.
 
 To impose such a cutoff, we look at the momentum representation of the
-path integral:
+path integral for $\phi^4$ theory:
 $$ Z[J] = \int D\phi \, e^{i\int(\cL + J\phi)} = \left(\prod_k \int d\phi(k)\right) e^{i\int(\cL + J\phi)}. $$
 It is tempting to integrate over $k^2 \le \Lambda^2$ for a momentum
 cutoff $\Lambda$, but this choice is inappropriate in Minkowski space.
@@ -3144,5 +3144,93 @@ coefficients of all of these terms must be determined by experiment.
 In effect, a non-renormalizable theory has infinite degrees of
 freedom, requiring infinite experiments to specify the theory, and
 therefore has no predictive power at all.
+
+\section{The Callan-Symanzik Equation}
+
+Our rudimentary analysis of the renormalization group flow for
+$\phi^4$ theory led to formulas for the evolution of Lagrangians close
+enough to the free-field Lagrangian. Now we want to work out how other
+quantities evolve under the renormalization group flow. To do so, we
+first recast the physically intuitive but technically complex content
+of the previous section in terms of renormalized perturbation theory.
+For simplicity, we continue to consider $\phi^4$ theory, but we are
+going to set $m = 0$. This requires us to rewrite the our
+renormalization conditions for $\phi^4$ theory, which, if $m = 0$,
+give singularities in the counterterms. Instead of specifying
+renormalization conditions at $p^2 = m^2$, then, we specify them at
+$p^2 = -M^2$ for some parameter $M$, called the {\bf renormalization
+  scale}. As its name suggests, this parameter roughly specifies the
+energy scale at which we want to work. Our new renormalization
+conditions are
+\begin{align*}
+  \begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+    \coordinate (J1);
+    \coordinate[interaction,right=of J1] (w);
+    \coordinate[right=of w] (J2);
+    \begin{scope}[every node/.style={scale=.85}]
+      \draw[fermion] (J1) -- (w);
+      \draw[fermion] (J2) -- (w);
+    \end{scope}
+  \end{tikzpicture}
+  &= \frac{i}{p^2 + M^2} + (\text{terms regular at } p^2 = -M^2). \\
+  \left(\begin{tikzpicture}[node distance=0.4cm and 0.4cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+      \coordinate (J1);
+      \coordinate[interaction,below right=of J1] (w);
+      \coordinate[below left=of w] (J2);
+      \coordinate[above right=of w] (J3);
+      \coordinate[below right=of w] (J4);
+      \begin{scope}[every node/.style={scale=.85}]
+        \draw[fermion] (J1) -- (w);
+        \draw[fermion] (J2) -- (w);
+        \draw[fermion] (J3) -- (w);
+        \draw[fermion] (J4) -- (w);
+      \end{scope}
+    \end{tikzpicture}\right)_{\text{amputated}}
+  &= -i\lambda \quad \text{at } s = t = u = -M^2.
+\end{align*}
+Hence our theory now depends on two parameters: the coupling constant
+$\lambda$, and the renormalization scale $M$. In particular, the
+$n$-point (renormalized) scattering amplitude
+$$ G^{(n)}(x_1, \ldots, x_n; \lambda, M) = \braket{\Omega|T\phi(x_1)\cdots \phi(x_n)|\Omega}_{\text{connected}} $$
+depend on both $\lambda$ and $M$. (Remember here $\phi$ is the
+renormalized field.)
+
+But the renormalization scale is arbitrary! We can look at the same
+theory at any renormalization scale $M$, where by ``the same theory''
+we mean the theory whose bare $n$-point scattering amplitudes are the
+same; this is a reasonable definition since the bare $n$-point
+scattering amplitudes, prior to renormalization, do not care about $M$
+at all. So let's consider the perturbation $M \mapsto M + \delta M$.
+With this perturbation, $\lambda$ and $Z$ change:
+$$ M \mapsto M + \delta M, \quad \lambda \mapsto \lambda + \delta \lambda, \quad Z^{1/2} \mapsto Z^{1/2} (1 + \delta \eta). $$
+How does this affect the $n$-point scattering amplitudes? We compute
+\begin{align*}
+  0
+  &= \delta \braket{\Omega|T\phi_B(x_1)\cdots \phi_B(x_n)|\Omega} \\
+  &= \delta (Z^{n/2}G^{(n)}) = \delta Z^{n/2} G^{(n)} + Z^{n/2} \frac{\partial G^{(n)}}{\partial M} \delta M + Z^{n/2} \frac{\partial G}{\partial \lambda} \delta \lambda.
+\end{align*}
+Note that $\delta Z^{n/2} = -nZ^{n/2}\delta \eta$ by expanding
+$Z^{n/2}(1 - \delta \eta)^n$. Substitute this in and multiply both
+sides by $M/\delta M$ to get
+$$ Z^{n/2} \left(-n \frac{M}{\delta M} \delta \eta + \frac{\partial}{\partial M} M + \frac{\partial}{\partial \lambda} \delta \lambda \frac{M}{\delta M}\right) G^{(n)} = 0. $$
+For mysterious reasons that will become clear soon, we rewrite this
+equation in the dimensionless parameters
+$\beta = (M/\delta M)\delta \lambda$ and
+$\gamma = -(M/\delta M)\delta \eta$ to arrive at the {\bf
+  Callan-Symanzik equation}:
+$$ \left(M\frac{\partial}{\partial M} + \beta \frac{\partial}{\partial \lambda} + n\gamma\right)G^{(n)} = 0. $$
+This equation describes how $G^{(n)}$ changes as $M$ changes.
+
+But there is more! Let's look at what $\beta$ and $\gamma$, as
+functions, depend on. Well, clearly this equation holds for every $n$,
+and $\beta$ and $\gamma$ does not depend on $n$; nor do they depend on
+the $x_i$. Also, since $\lambda$ and $Z$ are renormalized, $\beta$ and
+$\gamma$ do not depend on the momentum cutoff $\Lambda$. By
+dimensional analysis, they also cannot depend on $M$, which is
+dimensionful. Hence $\beta = \beta(\lambda)$ and
+$\gamma = \gamma(\lambda)$ are functions of only $\lambda$. This is
+not obvious at all from their definition!
+
+
 
 \end{document}
