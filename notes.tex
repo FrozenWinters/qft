@@ -70,12 +70,14 @@
 \DeclareMathOperator{\cC}{\mathcal{C}}
 \DeclareMathOperator{\cD}{\mathcal{D}}
 \DeclareMathOperator{\cF}{\mathcal{F}}
+\DeclareMathOperator{\cG}{\mathcal{G}}
 \DeclareMathOperator{\cH}{\mathcal{H}}
 \DeclareMathOperator{\cI}{\mathcal{I}}
 \DeclareMathOperator{\cJ}{\mathcal{J}}
 \DeclareMathOperator{\cL}{\mathcal{L}}
 \DeclareMathOperator{\cM}{\mathcal{M}}
 \DeclareMathOperator{\fg}{\mathfrak{g}}
+\DeclareMathOperator{\fso}{\mathfrak{so}}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
@@ -85,7 +87,7 @@
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\so}{so}
+\DeclareMathOperator{\eff}{eff}
 
 \begingroup
     \makeatletter
@@ -791,35 +793,36 @@ a good wack at the physics of this choice. Actually, in LL, the exposition
 seems to have avoided some of the integral manipulations that happened in
 Peskin and Schroeder.}
 
-If we expand a solution to the Klein Gordon equation in a Fourier basis of
-plane waves, then we see that we naturally have some variables that we can
-quantize. What's more interesting is that the Klein Gordon equation gives
-rise to precisely the harmonic oscillator example from first year quantum
-mechanics. In terms of creation and annihilation operators, the first years
-wrote $\hat q = \FR{1}{\sqrt{2\om}}(a+a^\dag)$, $\hat p =
-\SFR{\om}{2}(a-a^\dag)$. Therefore we conjecture our fields have the
-following form: \footnote{{\elaborate}}
-\newcommand{\vp}{{\vec p}}
-\newcommand{\vx}{{\vec x}}
+If we expand a solution to the Klein Gordon equation in a Fourier
+basis of plane waves, then we see that we naturally have some
+variables that we can quantize. What's more interesting is that the
+Klein Gordon equation gives rise to precisely the harmonic oscillator
+example from first year quantum mechanics. In terms of creation and
+annihilation operators, the first years wrote
+$\hat q = \FR{1}{\sqrt{2\om}}(a+a^\dag)$,
+$\hat p = \SFR{\om}{2}(a-a^\dag)$. Therefore we conjecture our fields
+have the following form: \footnote{{\elaborate}}
+\newcommand{\vp}{{\vec p}} \newcommand{\vx}{{\vec x}}
 \begin{align*}
 \phi(\vx) &= \int \FR{d^3p}{(2\pi)^3} \FR{1}{\sqrt{2\om_p}} (a_\vp e^{i\vp\cdot\vx} + a_\vp^\dag e^{-i\vp\cdot\vx})\\
 \pi(\vx) &= \int \FR{d^3p}{(2\pi)^3}(-i)\SFR{\om_p}{\sqrt2} (a_\vp e^{i\vp\cdot\vx} - a_\vp^\dag e^{-i\vp\cdot\vx})
 \end{align*}
 
 \section{Dirac Field}
-The formalism that we have built up so far tells that everything starts
-from a Lagrangian. In the theory of elementary particles and high energy
-physics there is one very special condition that we require of a
-Lagrangian: Lorentz invariance. To check whether a given expression of
-$\phi$'s and $\di_\mu\phi$'s is Lorentz invariant we must understand how
-arbitrary field transform under the Lorentz group. Suppose a field has
-components $\phi_a$, then a general transformation is given by
+The formalism that we have built up so far tells that everything
+starts from a Lagrangian. In the theory of elementary particles and
+high energy physics there is one very special condition that we
+require of a Lagrangian: Lorentz invariance. To check whether a given
+expression of $\phi$'s and $\di_\mu\phi$'s is Lorentz invariant we
+must understand how arbitrary field transform under the Lorentz group.
+Suppose a field has components $\phi_a$, then a general transformation
+is given by
 \[ \phi_a'(x) = M(\Lambda)_{ab}\phi_b(\Lambda^{-1}x). \]
-Thus, to solve the problem of constructing all Lagrangians we must first
-understand the representations of the Lorentz group, or at least of the
-Lorentz algebra. Taking a cue from the $\so(3)$ generators given by
-$J^{ij}=-i(x^i\di^j-x^j\di^i)$ it turns out that the generators for the
-Lorentz algebra are:
+Thus, to solve the problem of constructing all Lagrangians we must
+first understand the representations of the Lorentz group, or at least
+of the Lorentz algebra. Taking a cue from the $\fso(3)$ generators
+given by $J^{ij}=-i(x^i\di^j-x^j\di^i)$ it turns out that the
+generators for the Lorentz algebra are:
 \[ J^{\mu\nu} = i(x^\mu\di^\nu-x^\nu\di^\mu).\]
 This gives commutation relations
 \[ [J^{\mu\nu},J^{\rho\sg}] = \dots .\]
@@ -830,12 +833,13 @@ Dirac came up with another representation by taking 4 $n\times n$ matrices
 $\gam^\mu$ satisfying ${\gam^\mu,\gam^\nu} = 2g^{\mu\nu}\times
 \iden_{n\times n}$ and defining:
 \[ S^{\mu\nu} = \FR{i}{4}[\gam^\mu,\gam^\nu].\]
-If we define $\sg = (\iden,\vec\sigma)$ and $\bar\sg = (\iden,-\vec\sg)$
-then \[\gam^\mu = \begin{pmatrix}0&\sg^\mu\\\bar\sg^\mu&0 \end{pmatrix}\] satisfies
-the commutation relations and gives rise to the \textbf{Dirac
-representation}. Objects that transform under that transform under this
-representation are called $4$-component Dirac spinors, or just \textbf{Dirac
-spinors} for short. 
+If we define $\sg = (\iden,\vec\sigma)$ and
+$\bar\sg = (\iden,-\vec\sg)$ then
+\[\gam^\mu = \begin{pmatrix}0&\sg^\mu\\\bar\sg^\mu&0 \end{pmatrix}\]
+satisfies the commutation relations and gives rise to the
+\textbf{Dirac representation}. Objects that transform under that
+transform under this representation are called $4$-component Dirac
+spinors, or just \textbf{Dirac spinors} for short.
 
 Taking $\bar\psi = \gam^0\psi^\dag$, the Dirac equation, Lagrangian are
 given by:
@@ -844,10 +848,10 @@ given by:
     \mc L_{\text{Dirac}} &= \bar\psi(i\gam^\mu\di_\mu-m)\psi
 \end{align*}
 The conjugate variable to $\psi$ is $i\psi^\dag$. Before quantizing we
-solve the Dirac equation in plane waves, $u(p)e^{i\vec p\cdot
-\vec x}$ and $v(p)e^{-i\vec p\cdot \vec x}$. After rewriting the Dirac
-equation into a matrix equation it is not hard to see that arbitrary
-solutions $u(p)$ and $v(p)$ are given by the following expressions:
+solve the Dirac equation in plane waves, $u(p)e^{i\vec p\cdot \vec x}$
+and $v(p)e^{-i\vec p\cdot \vec x}$. After rewriting the Dirac equation
+into a matrix equation it is not hard to see that arbitrary solutions
+$u(p)$ and $v(p)$ are given by the following expressions:
 \begin{align*}
     u^s(p) &= \sqrt{m}\begin{pmatrix} \sqrt{p\cdot \sg} \xi^s\\
                       \sqrt{p\cdot \sg} \xi^s\end{pmatrix}\\
@@ -2712,7 +2716,7 @@ On the other hand, recall that earlier, we posited the {\bf
   renormalization condition}
 $$ -i\lambda = i\cM_{p_1=p_2=p_3=p_4=(m,\vec{0})} = \lim_{d \to 4} (-i\lambda + (-i\lambda)^2[J_d(4m^2) + 2J_d(0)] - i\delta\lambda + O(\hbar^3)), $$
 so it follows that up to order $\hbar^2$,
-$$ \delta\lambda = i\lambda^2[J_d(4m^2) + J_d(0)]. $$
+$$ \delta\lambda = \lim_{d \to 4} i\lambda^2[J_d(4m^2) + J_d(0)]. $$
 Hence the four-point counterterm vertex is indeed a $\hbar^2$ term. In
 general, to compute the scattering amplitude $\cM$ up to a certain
 order, one writes down all the Feynman diagrams (including both
@@ -2804,12 +2808,12 @@ form a {\bf renormalized propagator} $\Delta$. So let's compute the
 renormalized propagator. First we simplify the sum a little.
 
 \begin{definition}
-  A {\bf one-particle irreducible} (1P1) diagram is one that cannot be
+  A {\bf one-particle irreducible} (1PI) diagram is one that cannot be
   disconnected by removing just one propagator. For example, the first
-  two diagrams above are 1P1, but the last one is not.
+  two diagrams above are 1PI, but the last one is not.
 \end{definition}
 
-Hence if $\Pi(p^2)$ denotes the sum of all possible non-trivial 1P1
+Hence if $\Pi(p^2)$ denotes the sum of all possible non-trivial 1PI
 diagrams with initial and final momentum $p$ and external lines
 amputated (we write $p^2$ because $\Pi$ must be a function of $p^2$ by
 Lorentz invariance),
@@ -2828,7 +2832,7 @@ compute the value of the two-point counterterm vertex $\Pi_0(p^2)$.
 \begin{proof}
   Suppose in the expression for $\widehat{\Delta}(p)$ above, we only
   inserted the mass renormalization, i.e. the two-point counterterm
-  vertices, and not the normal 1P1 terms, giving the {\bf counterterm
+  vertices, and not the normal 1PI terms, giving the {\bf counterterm
     propagator}. In other words, if $\Pi_0(p^2)$ is the factor given by
   the counterterm vertex, then
   $$ \widehat{\Delta}_{ct}(p) = \frac{i}{p^2 - m^2 + i\epsilon} \sum_{n=0}^\infty \left(\frac{i \Pi_0(p^2)}{p^2 - m^2 + i\epsilon}\right)^n. $$
@@ -3018,8 +3022,8 @@ $$ \phi_s(k) = \begin{cases} \phi(k) & |k| \in [0, b\Lambda) \\ 0 & \text{otherw
 ``big''). The idea is that by plugging $\phi = \phi_s + \phi_b$ into
 the path integral $Z$ and then integrating over $\phi_b$, we are left
 the {\bf effective path integral}
-$$ Z = \int [D\phi]_{b\Lambda} e^{-\int d^dx \, \cL_{eff}} $$
-such that $\cL_{eff}$ involves only field components $\phi(k)$ with
+$$ Z = \int [D\phi]_{b\Lambda} e^{-\int d^dx \, \cL_{\eff}} $$
+such that $\cL_{\eff}$ involves only field components $\phi(k)$ with
 $k \in [0, b\Lambda)$.
 
 \begin{exercise}
@@ -3043,26 +3047,26 @@ $k \in [0, b\Lambda)$.
     connected diagrams.
   \end{itemize}
   Conclude that
-  $$ \cL_{eff}(\phi) = \frac{1}{2}(\partial_\mu\phi)^2 + \frac{1}{2}m^2\phi^2 + \frac{\lambda}{4!}\phi^4 + (\text{sum of connected diagrams}). $$
+  $$ \cL_{\eff}(\phi) = \frac{1}{2}(\partial_\mu\phi)^2 + \frac{1}{2}m^2\phi^2 + \frac{\lambda}{4!}\phi^4 + (\text{sum of connected diagrams}). $$
 \end{exercise}
 
 But there is a much easier way to express the relationship between the
 two integrals
-$$ \int [D\phi]_\Lambda \exp(i\int \cL(\phi)) \qquad \text{and} \qquad \int [D\phi]_{b\Lambda} \exp(i\int \cL_{eff}(\phi)). $$
+$$ \int [D\phi]_\Lambda \exp(i\int \cL(\phi)) \qquad \text{and} \qquad \int [D\phi]_{b\Lambda} \exp(i\int \cL_{\eff}(\phi)). $$
 Namely, in the effective path integral, let's write the variables
 $k' = k/b$ and $x' = xb$, so that now the integration limit is
 $|k'| < \Lambda$. Note that the effective path integral must be of the
 form
-$$ \int d^dx \, \cL_{eff} = \int d^dx \, \left(\frac{1}{2} (1 + \Delta Z)(\partial_\mu \phi)^2 + \frac{1}{2}(m^2 + \Delta m^2)\phi^2 + \frac{1}{4}(\lambda + \Delta \lambda)\phi^4 + \Delta C(\partial_\mu \phi)^4 + \Delta D \phi^6 + \cdots\right), $$
+$$ \int d^dx \, \cL_{\eff} = \int d^dx \, \left(\frac{1}{2} (1 + \Delta Z)(\partial_\mu \phi)^2 + \frac{1}{2}(m^2 + \Delta m^2)\phi^2 + \frac{1}{4}(\lambda + \Delta \lambda)\phi^4 + \Delta C(\partial_\mu \phi)^4 + \Delta D \phi^6 + \cdots\right), $$
 
 \begin{exercise}
   Perform the substitution $k' = k/b$ and $x' = xb$ to get a new
   Lagrangian
-  $$ \int d^dx \, \cL_{eff} = \int d^dx' b^{-d} \left(\frac{1}{2}(1 + \Delta Z)b^2 (\partial'_\mu \phi)^2 + \frac{1}{2} (m^2 + \Delta m^2)\phi^2 + \frac{1}{4} (\lambda + \Delta \lambda) \phi^4 + \Delta C b^4(\partial_\mu' \phi)^4 + \cdots\right). $$
+  $$ \int d^dx \, \cL_{\eff} = \int d^dx' b^{-d} \left(\frac{1}{2}(1 + \Delta Z)b^2 (\partial'_\mu \phi)^2 + \frac{1}{2} (m^2 + \Delta m^2)\phi^2 + \frac{1}{4} (\lambda + \Delta \lambda) \phi^4 + \Delta C b^4(\partial_\mu' \phi)^4 + \cdots\right). $$
   Show that this new Lagrangian will give the same propagator as the
   original Lagrangian $\cL$ (with cutoff $\Lambda$) when
   $\phi' = (b^{2-d}(1 + \Delta Z))^{1/2}\phi$, and that we can write
-  $$ \int d^dx \, \cL_{eff} = \int d^dx' \left(\frac{1}{2}(\partial'_\mu \phi')^2 + \frac{1}{2} m'^2 \phi'^2 + \frac{1}{4} \lambda' \phi'^4 + C'(\partial_\mu' \phi')^4 + D' \phi'^6 + \cdots\right). $$
+  $$ \int d^dx \, \cL_{\eff} = \int d^dx' \left(\frac{1}{2}(\partial'_\mu \phi')^2 + \frac{1}{2} m'^2 \phi'^2 + \frac{1}{4} \lambda' \phi'^4 + C'(\partial_\mu' \phi')^4 + D' \phi'^6 + \cdots\right). $$
   where
   $$ m'^2 = (m^2 + \Delta m^2)(1 + \Delta Z)^{-1}b^{-2}, \quad \lambda' = (\lambda + \Delta \lambda)(1 + \Delta Z)^{-2} b^{d-4}, \quad C' = (C + \Delta C)(1 + \Delta Z)^{-2} b^d, \quad \ldots. $$
 \end{exercise}
@@ -3091,10 +3095,10 @@ all the phenomena we can currently measure are at a much smaller
 energy scale, so we act on the original Lagrangian with the
 renormalization group until the effective energy cutoff is small
 enough. The resulting effective Lagrangian has finite parameters,
-obviously, but as we act on the original Lagrangian, its coefficients
-blow up. It turns out that the parameters of the original Lagrangian
-are the bare parameters, and those of the effective Lagrangian are the
-physical parameters. If we computed amplitudes directly using the
+obviously, but as we act on the original Lagrangian, the original
+coefficients blow up. The parameters of the original Lagrangian are
+the bare parameters, and those of the effective Lagrangian are the
+physical parameters! If we computed amplitudes directly using the
 original Lagrangian, we get mysterious divergences popping up when we
 integrate over momentum, hence invalidating the use of perturbation
 theory. But if we computed amplitudes from the effective Lagrangian,
@@ -3202,7 +3206,7 @@ same; this is a reasonable definition since the bare $n$-point
 scattering amplitudes, prior to renormalization, do not care about $M$
 at all. So let's consider the perturbation $M \mapsto M + \delta M$.
 With this perturbation, $\lambda$ and $Z$ change:
-$$ M \mapsto M + \delta M, \quad \lambda \mapsto \lambda + \delta \lambda, \quad Z^{1/2} \mapsto Z^{1/2} (1 + \delta \eta). $$
+$$ M \mapsto M + \delta M, \quad \lambda \mapsto \lambda + \delta \lambda, \quad Z^{-1/2} \mapsto Z^{-1/2} (1 + \delta \eta). $$
 How does this affect the $n$-point scattering amplitudes? We compute
 \begin{align*}
   0
@@ -3210,8 +3214,8 @@ How does this affect the $n$-point scattering amplitudes? We compute
   &= \delta (Z^{n/2}G^{(n)}) = \delta Z^{n/2} G^{(n)} + Z^{n/2} \frac{\partial G^{(n)}}{\partial M} \delta M + Z^{n/2} \frac{\partial G}{\partial \lambda} \delta \lambda.
 \end{align*}
 Note that $\delta Z^{n/2} = -nZ^{n/2}\delta \eta$ by expanding
-$Z^{n/2}(1 - \delta \eta)^n$. Substitute this in and multiply both
-sides by $M/\delta M$ to get
+$Z^{n/2} \mapsto Z^{n/2}(1 - \delta \eta)^n$. Substitute this in and
+multiply both sides by $M/\delta M$ to get
 $$ Z^{n/2} \left(-n \frac{M}{\delta M} \delta \eta + \frac{\partial}{\partial M} M + \frac{\partial}{\partial \lambda} \delta \lambda \frac{M}{\delta M}\right) G^{(n)} = 0. $$
 For mysterious reasons that will become clear soon, we rewrite this
 equation in the dimensionless parameters
@@ -3229,7 +3233,62 @@ $\gamma$ do not depend on the momentum cutoff $\Lambda$. By
 dimensional analysis, they also cannot depend on $M$, which is
 dimensionful. Hence $\beta = \beta(\lambda)$ and
 $\gamma = \gamma(\lambda)$ are functions of only $\lambda$. This is
-not obvious at all from their definition!
+not obvious at all from their definition, and is why we rewrote the
+original equation using $\beta$ and $\gamma$.
+
+\begin{exercise}
+  Compute $\beta(\lambda)$ up to $O(\hbar^3)$ using $G^{(4)}$ and
+  $G^{(2)}$, by first computing the appropriate counterterms, and then
+  computing $M(\partial G^{(2)}/\partial M)$. Argue that
+  $\gamma = 0 + O(\hbar^2)$, and by re-inserting this into the
+  Callan-Symanzik equation for $G^{(4)}$, compute that
+  $\beta = 3\lambda^2/16\pi^2 + O(\hbar^3)$. In principle, one can
+  continue this computation to obtain $\beta$ and $\gamma$ to higher
+  and higher orders.
+\end{exercise}
+
+What good is the Callan-Symanzik equation? Very briefly, let's try to
+solve it for the two-point scattering amplitude (in momentum-space)
+$G^{(2)}(p)$. By dimensional analysis,
+$G^{(2)}(p) = (i/p^2)f(-p^2/M^2)$ for some function $f$. Hence
+$$ M\frac{\partial G^{(2)}}{\partial M} = \frac{i}{p^2} f'\left(\frac{-p^2}{M^2}\right) \frac{2p^2}{M^2}, \qquad p\frac{\partial G^{(2)}}{\partial p} = -2G^{(2)}(p) - \frac{i}{p^2} f'\left(\frac{-p^2}{M^2}\right) \frac{2p^2}{M^2}, $$
+which, when plugged into the Callan-Symanzik equation, gives
+$$ \left(p\frac{\partial}{\partial p} - \beta \frac{\partial}{\partial \lambda} + 2 - 2\gamma\right)G^{(2)}(p; \lambda, M) = 0. $$
+This equation is a PDE we know how to solve; its solutions are
+$$ G^{(2)}(p; \lambda, M) = \frac{i}{p^2} \cG(\bar{\lambda}(p; \lambda, M)) \exp\left(2\int_{p'=M}^{p'=p} d\log(p'/M) \, 2(1 - \gamma(\bar{\lambda}(p';\lambda,M)))\right), $$
+where $\cG(\bar{\lambda})$ is a function we must determine by
+expanding $G^{(2)}$ out as a series in $\lambda$ and then matching
+coefficients, and
+$$ \frac{d}{d \log(p/M)} \bar{\lambda}(p; \lambda,M) = \beta(\bar{\lambda}), \qquad \bar{\lambda}(M; \lambda,M) = \lambda. $$
+
+\begin{definition}
+  The function $\bar{\lambda}(p)$ is the {\bf running coupling
+    constant}, and its equation above is the {\bf renormalization
+    group equation}.
+\end{definition}
+
+Physically, $\bar{\lambda}$ describes how the coupling constant
+$\lambda$ changes as we vary the renormalization scale. For example,
+for $\phi^4$ theory, we know from earlier that
+$$ \frac{d}{d\log(p/M)}\bar{\lambda}(p; \lambda,M) = \beta(\bar{\lambda}) = \frac{3\bar{\lambda}^2}{16\pi^2} + O(\bar{\lambda}^3). $$
+Hence, solving the renormalization group equation for $\bar{\lambda}$,
+we get, up to second order in $\bar{\lambda}$,
+$$ \bar{\lambda}(p) = \frac{\lambda}{1 - (3\lambda / 16\pi^2) \ln(p/M)}. $$
+There are several interesting pieces of physics we can read off from
+this solution. First is that as $p \to 0$, i.e. in the low-energy,
+long-distance limit, $\phi^4$ theory becomes free-field theory, since
+$\bar{\lambda} \to 0$. Second is that as $p \to \infty$, i.e. in the
+high-energy, short-distance limit, we run into the {\bf Landau pole}
+at $p = M\exp(16\pi^2/3\lambda)$, which is where $\phi^4$ theory
+announces its own potential failure: the coupling constant, however
+renormalized, goes off to infinity. However, one must take into
+account that our expression above for $\bar{\lambda}(p)$ is not exact,
+since there are higher-order corrections to $\bar{\lambda}(p)$. It
+actually turns out that $\phi^4$ theory has no Landau pole. This is a
+good sign, because QFTs containing a Landau pole are generally
+considered problematic and incomplete. For example, QED contains a
+Landau pole on its own, unless it is combined with the weak force in
+electroweak theory, which does not have a Landau pole.
 
 
 
