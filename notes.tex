@@ -1,3 +1,4 @@
+
 \documentclass{report}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -2914,6 +2915,7 @@ considerations on our perturbative calculations.
 \end{definition}
 
 \begin{definition}[Algorithm for renormalized perturbation theory]
+    \label{renormalizationalgorithm}
   The following algorithm implements the {\bf on-shell scheme for
     renormalizing $\phi^4$ theory} (and can be suitably generalized to
   renormalize any renormalizable theory). Let $m$ be the physical mass
@@ -3291,5 +3293,79 @@ Landau pole on its own, unless it is combined with the weak force in
 electroweak theory, which does not have a Landau pole.
 
 
+
+\chapter{Spontaneous Symmetry Breaking}
+In this chapter our goal will be to discuss the role of spontaneous
+symmetry breaking in quantum field theory. One of the reasons for
+introducing symmetry breaking is to see how to get new theories from old
+ones. From a more practical standpoint, however, it has been very
+successful at describing many phenomena in physics: for instance,
+superfluidity and the Higgs mechanism. 
+
+There are at least two ways one can think about the process of spontaneous
+symmetry breaking. The first way is to imagine embedding a given theory
+within one with more symmetry. Then the mechanism that takes the symmetric
+to the symmetry-broken theory may produce some insight into the
+symmetry-broken theory. 
+
+The second way, which is often used by textbooks, is to guess a symmetric
+Lagrangian and attempt to break the symmetry by shifting the Lagrangian.
+Although this is perhaps not the most conceptually friendly way to think
+about it, this does perhaps correspond to how one would go about working
+with spontaneous symmetry breaking.
+
+\section{Introduction: Linear Sigma Model}
+
+\subsection{Linear Sigma Model}
+We start with an ``imaginary mass'' $\phi^4$-Lagrangian with $N$ fields:
+\[ \cL = \FR{1}{2}(\di_\mu \vec\phi)^2 + \FR{1}{2}\mu^2 (\vec\phi)^2 -
+\FR{\lam}{4!}(\vec \phi^2)^2 \]
+We notice that there is a symmetry
+
+Shift the fields, $\phi \to \phi_0 + \sg$ so that we are centred around
+one of the troughs of the potential. Here $\phi_0$ is the minimum
+of the potential $V(\phi) = -\FR{1}{2}\mu^2\vec \phi^2
++\FR{\lam}{4!}\vec \phi^4$. 
+\[ \cL = \FR{1}{2}(\di_\mu \sg)^2 - \FR{1}{2} (2\mu^2)\sg^2
+-\SFR{\lam}{6} \mu\sg^3 - \FR{\lam}{4!}\sg^4 \]
+The physical reason for this is that the system picks one of the minima and so
+locally it is centred around this minima; it does not know about
+the global symmetry in some other reference frame. 
+
+Ah! $\sg \to -\sg$ is not a symmetry anymore. Physically, this is not a
+local symmetry anymore -- local, in the sense of being centred around the
+minima. The field still permeates all of space, and so it still sees that
+there is another minima elsewhere, but the field is not symmetric about the
+system's ``natural'' centre.
+
+After we shift the field, we get a ``new'' theory. At first
+glance, however, one shouldn't expect any new physics. After all,
+we only did a change of variables in the Lagrangian and so the
+physics of this Lagrangian should still be the same! However,
+symbolically we get a new Lagrangian with potentially many more
+interaction terms and yet the same number of coupling constants.
+This is a little worrisome because this may mean, following our
+renormalization algorithm (\ref{renormalizationalgorithm}) we have
+the same number of counterterms but potentially more divergent
+diagrams to deal with.
+
+There is a hack that one can do by adding more coupling terms to the
+Lagrangian and then setting the physical values of those to zero.
+Fortunately for the linear sigma model a miracle happens. The
+renormalization conditions (there are three of them one for each of
+$\delta_\mu, \delta_\lam, \delta_Z$) are enough to guarantee
+convergence of the path integral.
+
+\textbf{Exercise:} Go through the steps of the renormalization
+algorithm with this linear sigma model to understand what needs to
+be done to find the renormalization conditions and compute the
+counter-couplings ($\delta_\mu, \delta_\lam, \delta_Z$).
+
+%\subsection{Goldstone's Theorem Part 1}
+%We now show that generally if a \emph{continuous} symmetry of the
+%lagrangian which is not a symmetry of the vacuum state then there is an
+%additional excitation in the theory when we translate our theory.
+%
+%Let $V(\phi)$ be the potential and suppose that 
 
 \end{document}
