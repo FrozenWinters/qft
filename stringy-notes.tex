@@ -1,0 +1,114 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{fullpage}
+\usepackage{braket}
+\usepackage{dsfont}
+\usepackage{slashed}
+\usepackage{comment}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}{Axiom}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\newcommand{\FR}[2]{\frac{#1}{#2}}
+\newcommand{\PFR}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\SFR}[2]{\sqrt{\frac{#1}{#2}}}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\lam}{\lambda}
+\newcommand{\vphi}{\varphi}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand{\gam}{\gamma}
+\newcommand{\sg}{\sigma}
+\newcommand{\di}{\partial}
+\newcommand{\sdi}{\slashed\partial}
+\newcommand{\ddi}[2]{\FR{\partial {#1}}{\partial {#2}}}
+\newcommand{\hp}{\hat p}
+\newcommand{\ha} { a}
+\newcommand{\hb} { b}
+\newcommand{\hbd} { b^\dagger}
+\newcommand{\had}{ a^\dagger}
+\newcommand{\iden}{\mathds{1}}
+\newcommand{\colr}[1]{ {\color{red} #1 } }
+\newcommand{\colb}[1]{ {\color{blue} #1 } }
+\newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
+
+\newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
+\newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
+
+\DeclareMathOperator{\bC}{\mathbb{C}}
+\DeclareMathOperator{\bR}{\mathbb{R}}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\bN}{\mathbb{N}}
+\DeclareMathOperator{\bZ}{\mathbb{Z}}
+\DeclareMathOperator{\cA}{\mathcal{A}}
+\DeclareMathOperator{\cB}{\mathcal{B}}
+\DeclareMathOperator{\cC}{\mathcal{C}}
+\DeclareMathOperator{\cD}{\mathcal{D}}
+\DeclareMathOperator{\cF}{\mathcal{F}}
+\DeclareMathOperator{\cG}{\mathcal{G}}
+\DeclareMathOperator{\cH}{\mathcal{H}}
+\DeclareMathOperator{\cI}{\mathcal{I}}
+\DeclareMathOperator{\cJ}{\mathcal{J}}
+\DeclareMathOperator{\cL}{\mathcal{L}}
+\DeclareMathOperator{\cM}{\mathcal{M}}
+\DeclareMathOperator{\fg}{\mathfrak{g}}
+\DeclareMathOperator{\fso}{\mathfrak{so}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\eff}{eff}
+
+\begingroup
+    \makeatletter
+    \@for\theoremstyle:=definition,remark,plain\do{%
+        \expandafter\g@addto@macro\csname th@\theoremstyle\endcsname{%
+            \addtolength\thm@preskip\parskip
+            }%
+        }
+\endgroup
+
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+\title{String Theory and Supersymmetry\\Winter 2016 Seminar Notes}
+\author{Anton Borissov, Henry Liu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Classical Strings}
+
+\section{Introduction}
+
+\chapter{Quantum Strings}
+
+\end{document}
