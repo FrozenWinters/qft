@@ -8,6 +8,7 @@
 \usepackage{dsfont}
 \usepackage{slashed}
 \usepackage{comment}
+\usepackage{mathtools}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
 \theoremstyle{plain}
@@ -53,25 +54,27 @@
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
 
-\DeclareMathOperator{\bC}{\mathbb{C}}
-\DeclareMathOperator{\bR}{\mathbb{R}}
-\DeclareMathOperator{\bP}{\mathbb{P}}
-\DeclareMathOperator{\bN}{\mathbb{N}}
-\DeclareMathOperator{\bZ}{\mathbb{Z}}
-\DeclareMathOperator{\cA}{\mathcal{A}}
-\DeclareMathOperator{\cB}{\mathcal{B}}
-\DeclareMathOperator{\cC}{\mathcal{C}}
-\DeclareMathOperator{\cD}{\mathcal{D}}
-\DeclareMathOperator{\cF}{\mathcal{F}}
-\DeclareMathOperator{\cG}{\mathcal{G}}
-\DeclareMathOperator{\cH}{\mathcal{H}}
-\DeclareMathOperator{\cI}{\mathcal{I}}
-\DeclareMathOperator{\cJ}{\mathcal{J}}
-\DeclareMathOperator{\cL}{\mathcal{L}}
-\DeclareMathOperator{\cM}{\mathcal{M}}
-\DeclareMathOperator{\fg}{\mathfrak{g}}
-\DeclareMathOperator{\fso}{\mathfrak{so}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fso}{\mathfrak{so}}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Ad}{Ad}
@@ -80,7 +83,11 @@
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\eff}{eff}
+\newcommand{\eff}{\text{eff}}
+\newcommand{\pp}{\text{pp}}
+\newcommand{\dder}[2]{\frac{d #1}{d #2}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
 
 \begingroup
     \makeatletter
@@ -105,10 +112,302 @@
 
 \tableofcontents
 
-\chapter{Classical Strings}
+\chapter{Introduction to Strings}
 
-\section{Introduction}
+We asked ``why fields?'' when we started QFT; now we ask, why strings?
+Here are some potentially convincing reasons.
+\begin{enumerate}
+\item If we allow one more degree of freedom than particles, many
+  IR/UV divergences disappear; we require less renormalization. If we
+  allow more than one degree of freedom, new divergences arise from
+  the increased internal degrees of freedom.
+\item Every consistent string theory contains a massless spin-$2$
+  state, i.e. a graviton, whose interactions at low energies reduce to
+  general relativity.
+\item The Standard Model, based on QFT, has $25$ adjustable constants.
+  String theory has none, and leads to gauge groups big enough to
+  include the Standard Model.
+\item Consistent string theories force upon us supersymmetry and
+  extra dimensions, which have arisen naturally from several different
+  attempts to unify the Standard Model.
+\end{enumerate}
 
-\chapter{Quantum Strings}
+Regardless of whether they are convincing, we start in this chapter,
+as with any other physical model, by writing down an action.
+Specifically, we first write the action for a relativistic string by
+generalizing that of a relativistic point particle, and then we
+quantize the action. As with QFT there are different ways to quantize.
+For exposure and convenience, we use the analogue of canonical
+quantization for now, in order to quickly compute the spectrum of a
+string.
+
+As usual, we take $\hbar = c = 1$, and use {\bf Einstein summation
+  convention}: indices that appear as both superscripts and subscripts
+are implicitly summed over.
+
+\section{Review of Relativity}
+
+We work in $\bR^{D-1,1}$ where $D$ is the {\bf number of dimensions}.
+Recall that coordinates are written $x^\mu = (x^0, x^1, \ldots, x^D) =
+(ct, x^1, \ldots, x^D)$, and the metric is
+\[ -ds^2 \coloneqq \eta_{\mu\nu} dx^\mu dx^\nu, \quad \eta_{\mu\nu} = \diag(-1, 1, 1, \ldots, 1). \]
+Note that $\eta^\mu{}_\mu = D$. We use the dot product to stand for
+the {\bf Lorentz inner product}, e.g. $-ds^2 = dx \cdot dx$.
+
+\begin{definition}
+  Define the {\bf proper time} of a system as the time elapsed
+  measured by a clock traveling in the same Lorentz frame as the
+  system itself. In such a Lorentz frame, $dx^i = 0$ and $dt$ is the
+  proper time elapsed, so $-ds^2 = -dt_p^2$; define
+  \[ ds \coloneqq \sqrt{ds^2} = dt_p \qquad \text{whenever } ds^2 > 0, \]
+  i.e. for timelike intervals. Hence $ds$ is the {\bf proper time
+    interval}. The {\bf relativistic momentum} is $p^\mu \coloneqq
+  m(dx^\mu/ds)$. Conveniently,
+  \[ p^\mu p_\mu = m^2\dder{x^\mu}{s} \dder{x_\mu}{s} = -m^2 \dder{s^2}{s^2} = -m^2. \]
+\end{definition}
+
+\begin{definition}
+  A {\bf Lorentz transformation} $\Lambda^\mu{}_\nu$ is an element of
+  the Lorentz group, the collection of all linear isometries of
+  $\bR^{D-1,1}$. We say $a^\mu$ is a {\bf vector} if under Lorentz
+  transformations, it changes as $a'^\mu = \Lambda^\mu{}_\nu a^\nu$. A
+  {\bf Poincar\'e transformation} is a Lorentz transformation possibly
+  followed by a translation.
+\end{definition}
+
+\begin{definition}
+  The {\bf world line} of a point particle is the path in spacetime
+  $\bR^{D-1,1}$ traced out by the particle as it evolves in time.
+\end{definition}
+
+The underlying principle of relativity says that physical laws are
+independent of Lorentz frame. In other words, any action we write down
+that we want to be compatible with relativity must have external
+symmetries: it must be invariant under Lorentz transformations. We
+call this {\bf Lorentz invariance}. As long as superscripts and
+subscripts match up, we do not have to worry about Lorentz invariance.
+
+The {\bf action} for a free relativistic {\bf point particle} is
+obtained by writing down the simplest Lorentz invariant action, and
+then making sure dimensions work out. If $\gamma$ is the path taken by
+the particle, the action is therefore
+\[ S_{\pp}[x] \coloneqq -m\int_\gamma ds = -m\int_\gamma d\tau \, \sqrt{-\eta_{\mu\nu} \dder{x^\mu}{\tau} \dder{x^\nu}{\tau}} = -m\int_\gamma d\tau \, \sqrt{-\dot{x}^\mu \cdot \dot{x}_\mu} \]
+where a dot denotes a $\tau$-derivative. Because $ds$ is
+coordinate-independent, it does not what how we pick the
+parametrization $\tau$. Physicists like to call this {\bf
+  reparametrization invariance}. This invariance is very important:
+without it, we have actually introduced a completely new parameter
+$\tau$, thus increasing the number of degrees of freedom from $D-1$ to
+$D$.
+
+\begin{exercise}
+  By computing $\delta(ds^2)$ in two different ways, show that
+  \[ \delta S_{\pp}[x] = m\int_\gamma \delta(dx^\mu) \frac{dx_\mu}{ds} = \int_\gamma d\tau \left(\dder{}{\tau} \delta x^\mu\right) p_\mu = \delta x^\mu p_\mu\bigg|_{\tau_i}^{\tau_f} - \int d\tau \delta x^\mu \dder{p_\mu}{\tau}. \]
+  Argue that the first term vanishes if we specify {\bf initial and
+    final conditions}. Hence deduce the equation of motion
+  $dp_\mu/d\tau = 0$.
+\end{exercise}
+
+The action $S_{\pp}$ seems simple in the $\int_\gamma ds$ form, but is
+messy when parametrized. Later when we quantize using path integrals,
+$S_{\pp}$ is difficult to work with because of the derivatives under
+the square root. There is a different, classically-equivalent action
+we can work with. Introduce an additional field
+$\gamma_{\tau\tau}(\tau)$ (sometimes called an {\bf einbein} in
+general relativity), which we can view as a metric on the world line,
+and take the action
+\[ S'_{\pp} \coloneqq -\frac{1}{2} \int_\gamma d\tau \sqrt{-\gamma_{\tau\tau}} (\gamma^{\tau\tau} \dot{x}^\mu \dot{x}_\mu + m^2) = -\frac{1}{2} \int_\gamma d\tau \, (\eta^{-1} \dot{x}^\mu \dot{x}_\mu - \eta m^2), \quad \eta \coloneqq \sqrt{-\gamma_{\tau\tau}(\tau)}. \]
+It seems like we have arbitrarily added an extra degree of freedom,
+but in fact $g$ is completely specified by the equation of motion. The
+action $S'_{\pp}$ is much better to work with in a path integral,
+because it is {\bf quadratic} in $\dot{x}^\mu$.
+
+\begin{exercise}
+  Vary $S'_{\pp}$ with respect to $\gamma_{\tau\tau}$ to get the
+  equation of motion $\gamma_{\tau\tau} = \dot{x}^\mu
+  \dot{x}_\mu/m^2$. Substitute this expression back into $S'_{\pp}$ to
+  obtain $S_{\pp}$, and therefore conclude that the two actions are
+  classically equivalent.
+\end{exercise}
+
+\section{Nambu--Goto and Polyakov Actions}
+
+We graduate to {\bf one-dimensional strings}; in this section we write
+down an action for them. There are two kinds of strings: those with
+two distinct endpoints, called {\bf open strings}, and those which are
+loops, called {\bf closed strings}. Because closed strings are just
+open strings with the extra constraint that the two endpoints match,
+we focus on open strings.
+
+The action for the relativistic point particle is proportional to the
+proper time elapsed on the particle's world line. But the proper time,
+when multiplied by $c$, can be viewed as the ``proper length'' of the
+world line. The natural generalization, then, is to consider the
+surface in space-time traced out by the string as it evolves in time,
+called the {\bf world sheet} $M$, and to define an action proportional
+to the ``proper area'' of the world sheet. The world sheet $M$ is a
+two-dimensional surface, and therefore requires charts modeled on
+$\bR^2$.
+
+\begin{definition}
+  The {\bf coordinates} we use on $\bR^2$, the parameter space, are
+  denoted $(\tau, \sigma)$, and so the {\bf world sheet} $M$ is
+  locally a surface given by functions denoted $X^\mu(\tau, \sigma)$
+  (capitalized to disambiguate from the coordinates $x^\mu$), called
+  {\bf string coordinates}. The lowercase Latin characters $a, b,
+  \ldots$ are used to denote {\bf indices} that run over values $\tau,
+  \sigma$. Two notes:
+  \begin{enumerate}
+  \item The choice of parametrization $(\tau, \sigma)$ is, again, up
+    to us, but usually we take the coordinate $\tau$ to be the proper
+    time, and $\sigma$ the position along the string.
+  \item For our purposes, $M = X^\mu$, i.e. the single chart $X^\mu$
+    describes the entire world sheet for the region of spacetime we
+    care about.
+  \end{enumerate}
+\end{definition}
+
+\begin{exercise}
+  Show that the metric $\eta_{\mu\nu}$ on spacetime $\bR^{D-1,1}$
+  induces a metric $g$ on the world sheet via pullback along the
+  inclusion $\iota\colon M \to \bR^{D-1,1}$. Compute $g$ and the area
+  element:
+  \[ g_{ab} = \di_a X^\mu \di_b X_\mu, \quad dA = d\tau \, d\sigma \, \sqrt{-\det g}. \]
+\end{exercise}
+
+A relativistic particle has a parameter we call mass. It turns out
+mass is not the appropriate physical interpretation of the
+corresponding parameter for strings. Instead, we interpret it as a
+{\bf tension}, and denote it $T_0$.
+
+\begin{definition}
+  The {\bf Nambu--Goto action} for a relativistic string is given by
+  \[ S_{\text{NG}}[X] \coloneqq -T_0 \int_M dA = -T_0 \int_M d\tau \, d\sigma \, \sqrt{-\det g}. \]
+  Again, note that it satisfies {\bf reparametrization invariance},
+  literally by construction.
+\end{definition}
+
+But again, we have a square root and derivatives inside it, and now we
+know how to get rid of it: introduce an independent world sheet metric
+$\gamma_{ab}(\tau, \sigma)$. This time the metric is on a surface, so
+we need to specify the signature. We take Lorentzian signature $(-,
++)$.
+
+\begin{definition}
+  The {\bf Polyakov action} for a relativistic string is given by
+  \[ S_{\text{P}}[X, \gamma] \coloneqq -\frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \di_a X^\mu \di_b X_\mu, \]
+  where $\gamma$ without indices stands for $\det(\gamma_{ab})$. From
+  now on, we always refer to $\gamma_{ab}$ as the {\bf metric}, and
+  $g_{ab}$ as the {\bf induced metric}. Indices are raised/lowered
+  using the metric $\gamma_{ab}$, not the induced metric $g_{ab}$. (In
+  fact, from now on we basically forget about $g_{ab}$; we use it only
+  to introduce the Nambu--Goto action, and the following exercise.)
+\end{definition}
+
+\begin{exercise}
+  Show that $\delta \sqrt{-\gamma} = (1/2)\sqrt{-\gamma} \,
+  \gamma^{ab} \delta \gamma_{ab}$, and therefore that
+  \[ \delta_\gamma S_{\text{P}}[X, \gamma] = -\frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \delta \gamma^{ab} \left(g_{ab} - \frac{1}{2} \gamma_{ab} \gamma^{cd} g_{cd}\right). \]
+  Rearrange the obtained equation of motion and conclude that
+  $g_{ab}\sqrt{-g} = \gamma_{ab}\sqrt{-\gamma}$. Hence replace
+  $\gamma$ in $S_{\text{P}}[X, \gamma]$ with $g$, and obtain that
+  $S_{\text{P}}[X, \gamma] = S_{\text{NG}}[X]$.
+\end{exercise}
+
+\begin{definition}
+  As in general relativity, define the {\bf stress-energy tensor}
+  \[ T^{ab}(\tau, \sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di^a X^\mu \di^b X_\mu - \frac{1}{2} \gamma^{ab} \di_c X^\mu \di^c X_\mu\right), \]
+  so that the {\bf equation of motion} arising from varying $\gamma$
+  says $T_{ab} = 0$.
+\end{definition}
+
+\begin{exercise} (Important!)
+  Now vary $S_{\text{P}}[X, \gamma]$ with respect to $X^\mu$ to obtain
+  \begin{align*}
+    \delta_X S_{\text{P}}[X, \gamma]
+    &= -T_0 \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \left(\di_a(\delta X^\mu \di_b X_\mu) - \di_a \di_b X_\mu \delta X^\mu\right) \\
+    &= -T_0 \int_0^{\ell} d\sigma \, \sqrt{-\gamma} \left[\delta X^\mu \di^\tau X_\mu\right]_{\tau=\tau_i}^{\tau=\tau_f} - T_0 \int_{\tau_i}^{\tau_f} d\tau \, \sqrt{-\gamma} \left[\delta X^\mu \di^\sigma X_\mu\right]_{\sigma=0}^{\sigma=\ell} \\
+    &\qquad + T_0 \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \delta X^\mu \nabla^2 X_\mu.
+  \end{align*}
+\end{exercise}
+
+A careful inspection of the terms in the variation $\delta_X
+S_{\text{P}}[X, \gamma]$ yield interesting insights. For this
+variation to vanish, each of the terms must vanish independently,
+since they control different aspects of the string's behavior.
+\begin{enumerate}
+\item The last term is determined by the motion of the string in the
+  domain $(0, \ell) \times (\tau_i, \tau_f)$, and therefore $\delta
+  X^\mu$ is not constrained by any boundary conditions there. Hence we
+  have the {\bf equation of motion} $\sqrt{-\gamma} \, \nabla^2 X_\mu
+  = 0$.
+\item The first term is determined by the configuration of the string
+  at times $\tau_i$ and $\tau_f$. If we specify these configurations
+  as {\bf initial and final conditions}, then $\delta X^\mu$ is zero
+  for the first term, so the term vanishes.
+\item The second term is determined by the configuration of the
+  endpoints of the string when $\tau \in (\tau_i, \tau_f)$. It does
+  not vanish automatically, and we have to impose {\bf boundary
+    conditions} in order for it to do so.
+\end{enumerate}
+
+\begin{definition}
+  Let $\sigma_*$ denote the $\sigma$-coordinate of an endpoint, i.e.
+  either $\sigma_* = 0$ or $\sigma_* = \ell$.
+  \begin{itemize}
+  \item The {\bf free (Neumann) boundary condition} is $\di^\sigma
+    X^\mu(\tau, \sigma_*) = 0$.
+  \item The {\bf Dirichlet boundary condition} is $\delta X^\mu(\tau,
+    \sigma_*) = 0$.
+  \end{itemize}
+  Alternatively, if the string is {\bf closed}, i.e. we have the {\bf
+    periodicity} conditions
+  \[ X^\mu(\tau, 0) = X^\mu(\tau, \ell), \quad \di^a X^\mu(\tau, 0) = \di^a X^\mu(\tau, \ell), \quad \gamma_{ab}(\tau, 0) = \gamma_{ab}(\tau, \ell), \]
+  no additional boundary conditions are necessary.
+\end{definition}
+
+For a long time, string theorists did not seriously consider the
+Dirichlet boundary condition. Why should the endpoints of an open
+string be fixed, and if they were, where would they be fixed onto? In
+particular, this fixing of endpoints would violate momentum
+conservation. Then Polchinski, in the 1990s, suggested that the
+endpoints are attached to {\bf D-branes}, which should themselves be
+thought of as dynamical objects alongside strings. Conceptually, then,
+\begin{enumerate}
+\item a D$0$-brane is a particle, a D$1$-brane is a string, and so on,
+  and they interact non-trivially;
+\item the Dirichlet boundary condition says that a given D$1$-brane
+  has fixed endpoints on a higher D$p$-brane;
+\item any momentum lost by the D$1$-brane is absorbed by the
+  D$p$-brane; and
+\item the Neumann boundary condition is just saying there is a
+  D-dimensional D-brane permeating all of space-time, i.e. the string
+  endpoints are not fixed at all.
+\end{enumerate}
+We return to this D-brane perspective much later on. It is hard enough
+to quantize strings without more dynamical objects floating around.
+
+\section{Gauge Fixing}
+
+There is another reason the Polyakov action is preferable over the
+Nambu--Goto action: it has more symmetries, and these symmetries make
+it easier to gauge fix (using Faddeev--Popov or otherwise) when we try
+to quantize. The Polyakov action is invariant under the following
+symmetries:
+\begin{enumerate}
+\item $D$-dimensional {\bf Poincar\'e transformations}:
+  \[ X^\mu(\tau, \sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\tau, \sigma) + a^\mu, \quad \gamma_{ab}(\tau, \sigma) \mapsto \gamma_{ab}(\tau, \sigma); \]
+\item {\bf Reparametrization}: for new coordinates
+  $\tilde{\sigma}^a(\tau, \sigma)$,
+  \[ X'^\mu(\tau', \sigma') = X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\tau, \sigma); \]
+\item $2$-dimensional {\bf Weyl transformations}: for arbitrary
+  $\omega(\tau, \sigma)$,
+  \[ X^\mu(\tau, \sigma) \mapsto X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \exp(2\omega(\tau, \sigma)) \gamma_{ab}(\tau, \sigma). \]
+\end{enumerate}
+The Nambu--Goto action is not invariant under Weyl transformations.
+
+\begin{exercise}
+  Verify all these statements. (This should be quite straightforward.)
+\end{exercise}
 
 \end{document}
