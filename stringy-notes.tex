@@ -73,7 +73,10 @@
 \newcommand{\cP}{\mathcal{P}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\fso}{\mathfrak{so}}
+\newcommand{\diff}{\mathrm{diff}}
+\newcommand{\Weyl}{\mathrm{Weyl}}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
@@ -218,9 +221,9 @@ general relativity), which we can view as a metric on the world line,
 and take the action
 \[ S'_{\pp} \coloneqq -\frac{1}{2} \int_\gamma d\tau \sqrt{-\gamma_{\tau\tau}} (\gamma^{\tau\tau} \dot{x}^\mu \dot{x}_\mu + m^2) = -\frac{1}{2} \int_\gamma d\tau \, (\eta^{-1} \dot{x}^\mu \dot{x}_\mu - \eta m^2), \quad \eta \coloneqq \sqrt{-\gamma_{\tau\tau}(\tau)}. \]
 It seems like we have arbitrarily added an extra degree of freedom,
-but in fact $g$ is completely specified by the equation of motion. The
-action $S'_{\pp}$ is much better to work with in a path integral,
-because it is {\bf quadratic} in $\dot{x}^\mu$.
+but in fact $\gamma$ is completely specified by the equation of
+motion. The action $S'_{\pp}$ is much better to work with in a path
+integral, because it is {\bf quadratic} in $\dot{x}^\mu$.
 
 \begin{exercise}
   Vary $S'_{\pp}$ with respect to $\gamma_{\tau\tau}$ to get the
@@ -256,7 +259,9 @@ $\bR^2$.
   (capitalized to disambiguate from the coordinates $x^\mu$), called
   {\bf string coordinates}. The lowercase Latin characters $a, b,
   \ldots$ are used to denote {\bf indices} that run over values $\tau,
-  \sigma$. Two notes:
+  \sigma$. In particular, sometimes we write $\sigma^0 = \tau$ and
+  $\sigma^1 = \sigma$, i.e. we write the coordinates $(\tau, \sigma)$
+  as $(\sigma^0, \sigma^1)$. Two notes:
   \begin{enumerate}
   \item The choice of parametrization $(\tau, \sigma)$ is, again, up
     to us, but usually we take the coordinate $\tau$ to be the proper
@@ -397,9 +402,9 @@ symmetries:
 \begin{enumerate}
 \item $D$-dimensional {\bf Poincar\'e transformations}:
   \[ X^\mu(\tau, \sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\tau, \sigma) + a^\mu, \quad \gamma_{ab}(\tau, \sigma) \mapsto \gamma_{ab}(\tau, \sigma); \]
-\item {\bf Reparametrization}: for new coordinates
-  $\tilde{\sigma}^a(\tau, \sigma)$,
-  \[ X'^\mu(\tau', \sigma') = X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\tau, \sigma); \]
+\item {\bf Reparametrization} (i.e. diffeomorphisms): for new
+  coordinates $\tilde{\sigma}^a(\tau, \sigma)$,
+  \[ X^\mu(\tau, \sigma) \mapsto X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\tau, \sigma); \]
 \item $2$-dimensional {\bf Weyl transformations}: for arbitrary
   $\omega(\tau, \sigma)$,
   \[ X^\mu(\tau, \sigma) \mapsto X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \exp(2\omega(\tau, \sigma)) \gamma_{ab}(\tau, \sigma). \]
@@ -409,5 +414,175 @@ The Nambu--Goto action is not invariant under Weyl transformations.
 \begin{exercise}
   Verify all these statements. (This should be quite straightforward.)
 \end{exercise}
+
+\begin{definition}
+  Let $\diff$ denote the group of diffeomorphisms acting on $\Sigma$,
+  and $\Weyl$ the group of Weyl transformations acting on $\Sigma$.
+\end{definition}
+
+Before we continue, let's make sure our Lagrangian is as general as
+possible, to reduce future work. If $\cL$ has more terms, they need to
+satisfy all the above symmetries. In particular, Weyl invariance is
+very odd: it prevents us from adding terms such as
+\[ \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_M d\tau \, d\sigma \, \sqrt{-\gamma}. \]
+
+\begin{exercise}
+  Convince yourself that $\cL$ must contain one more $\gamma^{ab}$
+  than $\gamma_{ab}$ in order to satisfy Weyl invariance and
+  counteract the change in $\sqrt{-\gamma}$. Since such a
+  $\gamma^{ab}$ can only pair up indices with derivatives, we need a
+  second-order Lorentz-invariant term that is coordinate-independent.
+  Convince yourself that other than $\di_a X^\mu \di_b X_\mu$, this
+  term can only involve $\gamma^{ab}$ and $\gamma_{ab}$, and that in
+  fact it must be the {\bf scalar curvature} $R$. Show that under a
+  Weyl transformation,
+  \[ \sqrt{-\gamma} \, R \mapsto \sqrt{-\gamma} (R - 2\nabla^2 \omega). \]
+  Hence argue that we need another term integrated over $\di M$ to
+  counteract $\nabla^2(\sqrt{-\gamma} \, \omega)$. Putting everything
+  together, conclude that
+  \[ \chi \coloneqq \frac{1}{4\pi} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di M} ds \, k \]
+  is Weyl invariant. Here $ds$ is proper time along $\di M$ using the
+  metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b \nabla_a t^b$ is
+  the {\bf geodesic curvature} of the boundary, where $t^a$ is a unit
+  vector tangent to the boundary, and $n_b$ an outward-pointing unit
+  vector, and we choose $\pm$ depending on whether the boundary is
+  timelike or spacelike.
+\end{exercise}
+
+Let's proceed with gauge fixing: we need to use up the internal
+degrees of freedom in $\diff \times \Weyl$. The transformation of the
+scalar curvature computed in the exercise above says we can use Weyl
+invariance to locally set the scalar curvature to zero, by solving
+$2\nabla^2\omega = R$ and then applying the Weyl transformation
+$\exp(2\omega)$. But we are in two dimensions, where the symmetries of
+the Riemann curvature tensor determine it from $R$:
+\[ R_{abcd} = R_{cdab}, \; R_{abcd} = -R_{bacd} = -R_{abdc} \implies R_{abcd} = \frac{1}{2}(\gamma_{ac}\gamma_{bd} - \gamma_{ad}\gamma_{bc}) R. \]
+Hence not only can we locally set $R = 0$, we can locally set
+$\gamma_{ab} = \eta_{ab}$, the flat Minkowski metric.
+
+\begin{definition}
+  If we consider only reparametrization and not Weyl transformations,
+  the metric $\gamma_{ab}$ can always be brought to the form
+  $\exp(2\omega)\eta_{ab}$. Forcing the metric to be of that form is
+  known as {\bf conformal gauge}. Performing the additional Weyl
+  transformation to obtain $\gamma_{ab} = \eta_{ab}$ is known as {\bf
+    unit gauge}. In general, the form of the metric we choose to put
+  $\gamma_{ab}$ in is called the {\bf fiducial metric}.
+\end{definition}
+
+How many internal degrees of freedom have we used up if we put the
+metric $\gamma_{ab}$ in unit gauge? Well, $\diff$ has two degrees of
+freedom, one for each coordinate, and $\Weyl$ has one, for the scale
+of the metric. But the metric itself has three independent components,
+being symmetric. Hence we expect to be done: we have canonically
+chosen a representative of each gauge equivalence class.
+
+But, perhaps unexpectedly, there is more gauge freedom: there are
+non-trivial transformations in $\diff \times \Weyl$ that preserve unit
+gauge! The key to finding these transformations is to realize that
+$\Sigma$ is actually a {\bf Riemann surface}: let $z \coloneqq \tau +
+i\sigma$, so that $ds^2 = dz d\bar{z}$. Now if $f(z)$ is a holomorphic
+change of coordinates, then
+\[ z \mapsto f(z), \quad ds^2 \mapsto |\di_z f|^{-2} dz d\bar{z}, \]
+so now applying the Weyl transformation $\exp(2 \ln |\di_z f|)$
+recovers $ds^2$. Clearly the composition of the two transformations is
+non-trivial.
+
+What went wrong? Well, just because dimensions match up does not mean
+we have spanned the whole space of gauge transformations! The
+holomorphic diffeomorphisms above actually have {\bf measure zero} in
+$\diff$. When we stop working locally and work globally instead, these
+extra bits of freedom are canceled by boundary conditions.
+
+\section{Quantization via Path Integral}
+
+Recall from QFT that we have a giant machine for quantizing classical
+theories: the path integral. Before we begin plugging the Polyakov
+action into the machine, however, we need to make a modification. From
+now on, the world sheet is equipped with a {\bf Euclidean metric}
+$g_{ab}$, instead of a Lorentzian one $\gamma_{ab}$. This is so that
+the path integral over metrics is better defined. The transition from
+Euclidean to Minkowski is, formally, done via {\bf Wick rotation}:
+$x^0 \mapsto ix^0$ and similarly for the metric. The {\bf Euclidean
+  path integral}, and the Euclidean action (with the additional terms
+on top of the Wick-rotated Polyakov action), is therefore
+\[ Z \coloneqq \frac{1}{\Vol} \int \cD g \, \cD X \, \exp(-S_{\text{P}}[X, g]), \]
+\[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_M d\tau \, d\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di M} ds \, k\right) \]
+where $\Vol$ is the volume of the gauge action on the {\bf
+  configuration space} consisting of all possible $X^\mu$ and
+$g$). More explicitly, we can imagine partitioning configuration
+space into gauge orbits; we actually want to integrate on a path
+through these gauge orbits. But now recall from QFT that we have
+another giant machine for doing so: the Faddeev-Popov method.
+
+\subsection{The Faddeev-Popov Method}
+
+Let's first recall that the idea behind Faddeev-Popov is very natural:
+we want to do a change of coordinates in configuration space so that
+instead of integrating over a mish-mash of $g$ and $X$, we integrate
+such that one variable goes along gauge orbits, and the other goes
+along the gauge-fixed path. Although this sounds technical, we perform
+procedures like this quite often without realizing it! For example,
+consider the calculation
+\[ \iint dx \, dy \, e^{-x^2 - y^2} = \int d\theta \int dr \, r e^{-r^2} = 2\pi \int dr \, r e^{-r^2} = \pi. \]
+What is really happening here is that we recognized the $U(1)$
+symmetry of the original integrand, and changed variables in order to
+factor out that symmetry. Instead of integrating over $(x, y)$, we
+integrated over $(r, \theta)$, with $\theta$ parametrizing the gauge
+orbits. Furthermore, we picked out the $y = 0$ representative of
+each gauge orbit for the remaining integral.
+
+Armed with this motivation, we can proceed. Let $\hat{g}_{ab}$ be the
+fiducial metric; it represents our choice of gauge fixing, just like
+the choice $y = 0$. Let $\zeta$ be shorthand for a combined coordinate
+and Weyl transformation:
+\[ \zeta\colon g \mapsto g^\zeta \coloneqq \exp(2\omega(\tau,\sigma)) \pder{\sigma^c}{\sigma'^a} \pder{\sigma^d}{\sigma'^b} g_{cd}(\tau,\sigma). \]
+
+\begin{definition}
+  Let $\cD \zeta$ be a gauge invariant measure on $\diff \times
+  \Weyl$. (Whether such a measure exists is very relevant for us, but
+  we disregard it for now.) Define the {\bf Faddeev-Popov determinant}
+  \[ \Delta_{\text{FP}}^{-1}(g) \coloneqq \int \cD \zeta \, \delta(\hat{g}^\zeta - g). \]
+  Here the $\delta$ is really the {\bf Dirac functional}, i.e.
+  $\hat{g}^\zeta$ and $g$ must agree at every point $(\tau, \sigma)$.
+\end{definition}
+
+\begin{exercise}
+  Show that $\Delta_{\text{FP}}(g)$ is gauge-invariant by computing
+  that $\Delta_{\text{FP}}(g^\zeta)^{-1} =
+  \Delta_{\text{FP}}(g)^{-1}$.
+\end{exercise}
+
+Now it is time to do the calculation to factor out the integral over
+the gauge orbits. The first step is to add a $1$ to the integral:
+\[ Z = \int \frac{\cD g \, \cD X}{\Vol} \exp(-S_{\text{P}}[X, g]) = \int \frac{\cD g \, \cD X \, \cD \zeta}{\Vol} \Delta_{\text{FP}}(g) \delta(\hat{g}^\zeta - g) \exp(-S_{\text{P}}[X, g]). \]
+The second step is to do the integral over $g$, which, due to the
+$\delta(\hat{g}^\zeta - g)$, amounts to substituting $g$ with
+$\hat{g}^\zeta$:
+\[ Z = \int \frac{\cD X \, \cD \zeta}{\Vol} \Delta_{\text{FP}}(\hat{g}^\zeta)\exp(-S_{\text{P}}[X, \hat{g}^\zeta]). \]
+Finally, since both $\Delta_{\text{FP}}$ and $S_{\text{P}}$ are
+gauge-invariant, we can substitute $\hat{g}$ for $\hat{g}^\zeta$. Then
+nothing in the integrand depends on $\zeta$ anymore, so it factors out
+and cancels the volume normalization:
+\[ Z = \int \frac{\cD \zeta}{\Vol} \int \cD X \, \Delta_{\text{FP}}(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]) = \int \cD X \, \Delta_{\text{FP}}(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]). \]
+
+\begin{exercise}
+  Evaluate $\iint dx \, dy \, e^{-x^2 - y^2}$ by applying the
+  Faddeev-Popov method to its $U(1)$ symmetry and the gauge-fixing
+  condition $y = 0$. Conclude that the Faddeev-Popov method is
+  completely rigorous in finite dimensions, and that
+  $\Delta_{\text{FP}}$ is actually a Jacobian (hence the name
+  Faddeev-Popov determinant).
+\end{exercise}
+
+It remains to compute the Faddeev-Popov determinant
+$\Delta_{\text{FP}}$. To do so, we make the simplifying assumption
+that $\diff \times \Weyl$ actually acts freely on metrics $g$, i.e.
+for each $g$, there is exactly one $\zeta$ such that
+$\delta(\hat{g}^\zeta - g) = 0$. Obviously this assumption is false:
+we showed earlier that the action has fixed points. But it is true
+locally, so we deal with the global issues later.
+
+
 
 \end{document}
