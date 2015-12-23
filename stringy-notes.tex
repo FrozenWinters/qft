@@ -321,9 +321,10 @@ we need to specify the signature. We take Lorentzian signature $(-,
 
 \begin{definition}
   As in general relativity, define the {\bf stress-energy tensor}
-  \[ T^{ab}(\sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di^a X^\mu \di^b X_\mu - \frac{1}{2} \gamma^{ab} \di_c X^\mu \di^c X_\mu\right), \]
-  so that the {\bf equation of motion} arising from varying $\gamma$
-  says $T_{ab} = 0$.
+  \[ T_{ab}(\sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di_a X^\mu \di_b X_\mu - \frac{1}{2} \gamma_{ab} \di_c X^\mu \di^c X_\mu\right), \]
+  so that the equation of motion arising from varying $\gamma$ says
+  $T_{ab} = 0$. We call $T_{ab} = 0$ a {\bf constraint} on the
+  equation of motion for $X^\mu$, which we derive soon.
 \end{definition}
 
 \begin{exercise} (Important!)
@@ -352,17 +353,17 @@ since they control different aspects of the string's behavior.
   for the first term, so the term vanishes.
 \item The second term is determined by the configuration of the
   endpoints of the string when $\sigma^0 \in (\tau_i, \tau_f)$. It
-  does not vanish automatically, and we have to impose {\bf boundary
-    conditions} in order for it to do so.
+  does not vanish automatically. We have to impose {\bf boundary
+    conditions} in order to make it vanish.
 \end{enumerate}
 
 \begin{definition}
   There are two different kinds of boundary conditions.
   \begin{itemize}
   \item The {\bf free (Neumann) boundary condition} is $\di^1
-    X^\mu(\sigma^0, 0) = \di^1 X^\mu(\sigma^0, \ell) = 0$.
+    X_\mu(\sigma^0, 0) = \di^1 X_\mu(\sigma^0, \ell) = 0$.
   \item The {\bf Dirichlet boundary condition} is $\delta
-    X^\mu(\sigma^0, 0) = \delta X^\mu(\sigma^0, \ell) 0$.
+    X^\mu(\sigma^0, 0) = \delta X^\mu(\sigma^0, \ell) = 0$.
   \end{itemize}
   Alternatively, if the string is {\bf closed}, i.e. we have the {\bf
     periodicity} conditions
@@ -391,7 +392,7 @@ thought of as dynamical objects alongside strings. Conceptually, then,
 We return to this D-brane perspective much later on. It is hard enough
 to quantize strings without more dynamical objects floating around.
 
-\section{Gauge Fixing}
+\section{Gauge Freedom and Gauge Fixing}
 
 There is another reason the Polyakov action is preferable over the
 Nambu--Goto action: it has more symmetries, and these symmetries make
@@ -403,12 +404,12 @@ symmetries:
   \[ X^\mu(\sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\sigma) + a^\mu, \quad \gamma_{ab}(\sigma) \mapsto \gamma_{ab}(\sigma); \]
 \item {\bf Reparametrization} (i.e. diffeomorphisms): for new
   coordinates $\tilde{\sigma}^a(\sigma)$,
-  \[ X^\mu(\sigma) \mapsto X^\mu(\sigma), \quad \gamma_{ab}(\sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\sigma); \]
+  \[ X^\mu(\sigma) \mapsto X^\mu(\tilde{\sigma}), \quad \gamma_{ab}(\tilde{\sigma}) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\sigma); \]
 \item $2$-dimensional {\bf Weyl transformations}: for arbitrary
   $\omega(\sigma)$,
   \[ X^\mu(\sigma) \mapsto X^\mu(\sigma), \quad \gamma_{ab}(\sigma) \mapsto \exp(2\omega(\sigma)) \gamma_{ab}(\sigma). \]
+  The Nambu--Goto action is not invariant under Weyl transformations.
 \end{enumerate}
-The Nambu--Goto action is not invariant under Weyl transformations.
 
 \begin{exercise}
   Verify all these statements. (This should be quite straightforward.)
@@ -416,13 +417,20 @@ The Nambu--Goto action is not invariant under Weyl transformations.
 
 \begin{definition}
   Let $\diff$ denote the group of diffeomorphisms acting on $\Sigma$,
-  and $\Weyl$ the group of Weyl transformations acting on $\Sigma$.
+  and $\Weyl$ the group of Weyl transformations acting on $\Sigma$;
+  these are {\bf internal symmetries}, while Poincar\'e
+  transformations are {\bf external symmetries}. The product $\diff
+  \times \Weyl$ is the {\bf gauge group}. The orbit, in the space of
+  all possible fields and metrics, of a particular $(X, \gamma)$ under
+  the action of the gauge group is the {\bf gauge orbit}.
 \end{definition}
 
-Before we continue, let's make sure our Lagrangian is as general as
-possible, to reduce future work. If $\cL$ has more terms, they need to
-satisfy all the above symmetries. In particular, Weyl invariance is
-very odd: it prevents us from adding terms such as
+A good exercise in working with the gauge and external symmetries is
+to make sure Polyakov action is as general as possible. This also
+reduces future work when we need the additional terms in the Polyakov
+action. Note that here, contrary to the case in QFT, the symmetries
+are very demanding. Weyl invariance in particular is very odd: it
+prevents us from adding terms such as
 \[ \int_M d^2\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_M d^2\sigma \, \sqrt{-\gamma}. \]
 
 \begin{exercise}
@@ -440,24 +448,47 @@ very odd: it prevents us from adding terms such as
   counteract $\nabla^2(\sqrt{-\gamma} \, \omega)$. Putting everything
   together, conclude that
   \[ \chi \coloneqq \frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di M} ds \, k \]
-  is Weyl invariant. Here $ds$ is proper time along $\di M$ using the
-  metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b \nabla_a t^b$ is
-  the {\bf geodesic curvature} of the boundary, where $t^a$ is a unit
-  vector tangent to the boundary, and $n_b$ an outward-pointing unit
-  vector, and we choose $\pm$ depending on whether the boundary is
-  timelike or spacelike.
+  is Weyl invariant, and that it is essentially the only term we can
+  add to the Polyakov action. Here $ds$ is proper time along $\di M$
+  using the metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b
+  \nabla_a t^b$ is the {\bf geodesic curvature} of the boundary, where
+  $t^a$ is a unit vector tangent to the boundary, and $n_b$ an
+  outward-pointing unit vector, and we choose $\pm$ depending on
+  whether the boundary is timelike or spacelike.
 \end{exercise}
 
-Let's proceed with gauge fixing: we need to use up the internal
-degrees of freedom in $\diff \times \Weyl$. The transformation of the
-scalar curvature computed in the exercise above says we can use Weyl
-invariance to locally set the scalar curvature to zero, by solving
-$2\nabla^2\omega = R$ and then applying the Weyl transformation
-$\exp(2\omega)$. But we are in two dimensions, where the symmetries of
-the Riemann curvature tensor determine it from $R$:
+Let's explore a few choices of gauge, some which use up all the gauge
+freedom, and some which do not. We commonly use reparametrization
+invariance to simplify expressions, so let's explore some choices of
+gauge using reparametrization invariance first.
+
+\begin{definition}
+  We can reparametrize $(\sigma^0, \sigma^1)$ such that $\sigma^0$
+  corresponds to the time coordinate $x^0$, i.e. $X^0 = R\sigma^0$ for
+  some dimensionful constant $R$. This is {\bf static gauge}, named as
+  such because then lines of constant $\sigma^0$ correspond to the
+  string at fixed moments in time, i.e. the string is static. Another
+  choice is {\bf lightcone gauge}, given by $X^+ = R\sigma^0$, where
+  \[ X^\pm \coloneqq \frac{1}{\sqrt{2}}(X^0 \pm X^{D-1}) \]
+  are {\bf lightcone coordinates}.
+\end{definition}
+
+Clearly neither static gauge nor lightcone gauge exhausts the gauge
+freedom: we haven't done anything with the metric! But it is hard to
+transform the metric in a useful way while staying in static or
+lightcone gauge. Let's take a different approach and try to transform
+the metric first.
+
+The transformation of the scalar curvature computed in the exercise
+above says we can use Weyl invariance to locally set the scalar
+curvature to zero, by solving $2\nabla^2\omega = R$ and then applying
+the Weyl transformation $\exp(2\omega)$. But we are in two dimensions,
+where the symmetries of the Riemann curvature tensor determine it from
+$R$:
 \[ R_{abcd} = R_{cdab}, \; R_{abcd} = -R_{bacd} = -R_{abdc} \implies R_{abcd} = \frac{1}{2}(\gamma_{ac}\gamma_{bd} - \gamma_{ad}\gamma_{bc}) R. \]
-Hence not only can we locally set $R = 0$, we can locally set
-$\gamma_{ab} = \eta_{ab}$, the flat Minkowski metric.
+Hence we can always locally get a flat metric, which, possibly after
+applying a coordinate transformation, gives $\gamma_{ab} = \eta_{ab}$,
+the flat Minkowski metric.
 
 \begin{definition}
   If we consider only reparametrization and not Weyl transformations,
@@ -469,19 +500,30 @@ $\gamma_{ab} = \eta_{ab}$, the flat Minkowski metric.
   $\gamma_{ab}$ in is called the {\bf fiducial metric}.
 \end{definition}
 
+\begin{exercise} (Important!)
+  Show that in unit gauge, the equation of motion and its
+  constraints become
+  \[ \di_a \di^a \vec{X} = 0, \quad \di_0\vec{X} \cdot \di_1\vec{X} = 0, \quad (\di_0\vec{X})^2 + (\di_1\vec{X})^2 = R^2. \]
+  In this form, the constraints are called {\bf Virasoro conditions}.
+  Argue that by tensoriality, the Virasoro conditions still hold in
+  static gauge, where $X^\mu = (R\sigma^0, \vec{X})$. Hence show in
+  static gauge that for an open string with free endpoints, i.e.
+  endpoints satisfying the Neumann boundary condition, $|\di_0\vec{X}|
+  = 1$. Conclude that string endpoints always move at the speed of
+  light.
+\end{exercise}
+
 How many internal degrees of freedom have we used up if we put the
 metric $\gamma_{ab}$ in unit gauge? Well, $\diff$ has two degrees of
 freedom, one for each coordinate, and $\Weyl$ has one, for the scale
 of the metric. But the metric itself has three independent components,
-being symmetric. Hence we expect to be done: we have canonically
-chosen a representative of each gauge equivalence class.
-
-But, perhaps unexpectedly, there is more gauge freedom: there are
-non-trivial transformations in $\diff \times \Weyl$ that preserve unit
-gauge! The key to finding these transformations is to realize that
-$\Sigma$ is actually a {\bf Riemann surface}: let $z \coloneqq
-\sigma^0 + i\sigma^1$, so that $ds^2 = dz d\bar{z}$. Now if $f(z)$ is
-a holomorphic change of coordinates, then
+being symmetric. Hence we expect to be done with choosing a
+representative of each gauge orbit. But, perhaps unexpectedly, there
+is more gauge freedom: there are non-trivial transformations in $\diff
+\times \Weyl$ that preserve unit gauge! The key to finding these
+transformations is to realize that $\Sigma$ is actually a {\bf Riemann
+  surface}: let $z \coloneqq \sigma^0 + i\sigma^1$, so that $ds^2 = dz
+d\bar{z}$. Now if $f(z)$ is a holomorphic change of coordinates, then
 \[ z \mapsto f(z), \quad ds^2 \mapsto |\di_z f|^{-2} dz d\bar{z}, \]
 so now applying the Weyl transformation $\exp(2 \ln |\di_z f|)$
 recovers $ds^2$. Clearly the composition of the two transformations is
@@ -491,9 +533,40 @@ What went wrong? Well, just because dimensions match up does not mean
 we have spanned the whole space of gauge transformations! The
 holomorphic diffeomorphisms above actually have {\bf measure zero} in
 $\diff$. When we stop working locally and work globally instead, these
-extra bits of freedom are canceled by boundary conditions.
+extra bits of freedom are removed by boundary conditions.
+
+\begin{definition}
+  When we successfully pick a unique and continuously-varying choice
+  of representative in each gauge orbit, our theory is {\bf
+    gauge-fixed}. When such a choice is impossible due to topological
+  obstructions, our theory has {\bf Gribov ambiguity}. (For us, there
+  is no Gribov ambiguity; we are just failing to consider boundary
+  conditions.)
+\end{definition}
 
 \section{Quantization via Canonical Commutation Relations}
+
+When we did QFT, we started by {\bf canonically quantizing} the
+Klein-Gordon and Dirac fields, which allowed us to immediately
+investigate some aspects of the quantized free theories, such as that
+Klein-Gordon fields represent bosons and Dirac fields represent
+fermions, and to obtain the spectrum and Hilbert space of states. On
+the other hand, {\bf path integral quantization} gave us an easy way
+to compute interactions in perturbative QFT, such as scattering
+amplitudes. We do the same for string theory: first, in this section,
+we canonically quantize in order to write down the spectrum and
+Hilbert space of states, and then, in the next section, we quantize
+using the path integral to work with interactions.
+
+In string theory, canonical quantization is called {\bf covariant
+  quantization}. This is just a difference in terminology; the
+procedure is the same:
+\begin{enumerate}
+\item take the classical object (e.g. Lagrangian, Hamiltonian,
+  solutions) you want to quantize, and
+\item impose {\bf canonical commutation relations} modeled on $[x, p]
+  = i$.
+\end{enumerate}
 
 \subsection{Spectrum of Open String}
 
