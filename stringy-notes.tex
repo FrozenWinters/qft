@@ -75,6 +75,7 @@
 \newcommand{\fso}{\mathfrak{so}}
 \newcommand{\diff}{\mathrm{diff}}
 \newcommand{\Weyl}{\mathrm{Weyl}}
+\newcommand{\detFP}{\Delta_{\text{FP}}}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\diag}{diag}
@@ -90,6 +91,7 @@
 \newcommand{\pp}{\text{pp}}
 \newcommand{\dder}[2]{\frac{d #1}{d #2}}
 \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\fder}[2]{\frac{\delta #1}{\delta #2}}
 \newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
 
 \begingroup
@@ -254,18 +256,16 @@ $\bR^2$.
 
 \begin{definition}
   The {\bf coordinates} we use on $\bR^2$, the parameter space, are
-  denoted $(\tau, \sigma)$, and so the {\bf world sheet} $M$ is
-  locally a surface given by functions denoted $X^\mu(\tau, \sigma)$
+  denoted $(\sigma^0, \sigma^1)$, and so the {\bf world sheet} $M$ is
+  locally a surface given by functions denoted $X^\mu(\sigma)$
   (capitalized to disambiguate from the coordinates $x^\mu$), called
   {\bf string coordinates}. The lowercase Latin characters $a, b,
-  \ldots$ are used to denote {\bf indices} that run over values $\tau,
-  \sigma$. In particular, sometimes we write $\sigma^0 = \tau$ and
-  $\sigma^1 = \sigma$, i.e. we write the coordinates $(\tau, \sigma)$
-  as $(\sigma^0, \sigma^1)$. Two notes:
+  \ldots$ are used to denote {\bf indices} that run over values $0,1$.
+  Two notes:
   \begin{enumerate}
-  \item The choice of parametrization $(\tau, \sigma)$ is, again, up
-    to us, but usually we take the coordinate $\tau$ to be the proper
-    time, and $\sigma$ the position along the string.
+  \item The choice of parametrization $(\sigma^0, \sigma^1)$ is,
+    again, up to us, but usually we take the coordinate $\sigma^0$ to
+    be the proper time, and $\sigma^1$ the position along the string.
   \item For our purposes, $M = X^\mu$, i.e. the single chart $X^\mu$
     describes the entire world sheet for the region of spacetime we
     care about.
@@ -277,7 +277,7 @@ $\bR^2$.
   induces a metric $g$ on the world sheet via pullback along the
   inclusion $\iota\colon M \to \bR^{D-1,1}$. Compute $g$ and the area
   element:
-  \[ g_{ab} = \di_a X^\mu \di_b X_\mu, \quad dA = d\tau \, d\sigma \, \sqrt{-\det g}. \]
+  \[ g_{ab} = \di_a X^\mu \di_b X_\mu, \quad dA =  d^2\sigma \, \sqrt{-\det g}. \]
 \end{exercise}
 
 A relativistic particle has a parameter we call mass. It turns out
@@ -287,20 +287,20 @@ corresponding parameter for strings. Instead, we interpret it as a
 
 \begin{definition}
   The {\bf Nambu--Goto action} for a relativistic string is given by
-  \[ S_{\text{NG}}[X] \coloneqq -T_0 \int_M dA = -T_0 \int_M d\tau \, d\sigma \, \sqrt{-\det g}. \]
+  \[ S_{\text{NG}}[X] \coloneqq -T_0 \int_M dA = -T_0 \int_M d^2\sigma \, \sqrt{-\det g}. \]
   Again, note that it satisfies {\bf reparametrization invariance},
   literally by construction.
 \end{definition}
 
 But again, we have a square root and derivatives inside it, and now we
 know how to get rid of it: introduce an independent world sheet metric
-$\gamma_{ab}(\tau, \sigma)$. This time the metric is on a surface, so
+$\gamma_{ab}(\sigma)$. This time the metric is on a surface, so
 we need to specify the signature. We take Lorentzian signature $(-,
 +)$.
 
 \begin{definition}
   The {\bf Polyakov action} for a relativistic string is given by
-  \[ S_{\text{P}}[X, \gamma] \coloneqq -\frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \di_a X^\mu \di_b X_\mu, \]
+  \[ S_{\text{P}}[X, \gamma] \coloneqq -\frac{T_0}{2} \int_M d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \di_a X^\mu \di_b X_\mu, \]
   where $\gamma$ without indices stands for $\det(\gamma_{ab})$. From
   now on, we always refer to $\gamma_{ab}$ as the {\bf metric}, and
   $g_{ab}$ as the {\bf induced metric}. Indices are raised/lowered
@@ -312,7 +312,7 @@ we need to specify the signature. We take Lorentzian signature $(-,
 \begin{exercise}
   Show that $\delta \sqrt{-\gamma} = (1/2)\sqrt{-\gamma} \,
   \gamma^{ab} \delta \gamma_{ab}$, and therefore that
-  \[ \delta_\gamma S_{\text{P}}[X, \gamma] = -\frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \delta \gamma^{ab} \left(g_{ab} - \frac{1}{2} \gamma_{ab} \gamma^{cd} g_{cd}\right). \]
+  \[ \delta_\gamma S_{\text{P}}[X, \gamma] = -\frac{T_0}{2} \int_M d^2\sigma \, \sqrt{-\gamma} \, \delta \gamma^{ab} \left(g_{ab} - \frac{1}{2} \gamma_{ab} \gamma^{cd} g_{cd}\right). \]
   Rearrange the obtained equation of motion and conclude that
   $g_{ab}\sqrt{-g} = \gamma_{ab}\sqrt{-\gamma}$. Hence replace
   $\gamma$ in $S_{\text{P}}[X, \gamma]$ with $g$, and obtain that
@@ -321,7 +321,7 @@ we need to specify the signature. We take Lorentzian signature $(-,
 
 \begin{definition}
   As in general relativity, define the {\bf stress-energy tensor}
-  \[ T^{ab}(\tau, \sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di^a X^\mu \di^b X_\mu - \frac{1}{2} \gamma^{ab} \di_c X^\mu \di^c X_\mu\right), \]
+  \[ T^{ab}(\sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di^a X^\mu \di^b X_\mu - \frac{1}{2} \gamma^{ab} \di_c X^\mu \di^c X_\mu\right), \]
   so that the {\bf equation of motion} arising from varying $\gamma$
   says $T_{ab} = 0$.
 \end{definition}
@@ -330,9 +330,9 @@ we need to specify the signature. We take Lorentzian signature $(-,
   Now vary $S_{\text{P}}[X, \gamma]$ with respect to $X^\mu$ to obtain
   \begin{align*}
     \delta_X S_{\text{P}}[X, \gamma]
-    &= -T_0 \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \left(\di_a(\delta X^\mu \di_b X_\mu) - \di_a \di_b X_\mu \delta X^\mu\right) \\
-    &= -T_0 \int_0^{\ell} d\sigma \, \sqrt{-\gamma} \left[\delta X^\mu \di^\tau X_\mu\right]_{\tau=\tau_i}^{\tau=\tau_f} - T_0 \int_{\tau_i}^{\tau_f} d\tau \, \sqrt{-\gamma} \left[\delta X^\mu \di^\sigma X_\mu\right]_{\sigma=0}^{\sigma=\ell} \\
-    &\qquad + T_0 \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, \delta X^\mu \nabla^2 X_\mu.
+    &= -T_0 \int_M d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \left(\di_a(\delta X^\mu \di_b X_\mu) - \di_a \di_b X_\mu \delta X^\mu\right) \\
+    &= -T_0 \int_0^{\ell} d\sigma^1 \, \sqrt{-\gamma} \left[\delta X^\mu \di^0 X_\mu\right]_{\sigma^0=\tau_i}^{\sigma^0=\tau_f} - T_0 \int_{\tau_i}^{\tau_f} d\sigma^0 \, \sqrt{-\gamma} \left[\delta X^\mu \di^1 X_\mu\right]_{\sigma^1=0}^{\sigma^1=\ell} \\
+    &\qquad + T_0 \int_M d^2\sigma \, \sqrt{-\gamma} \, \delta X^\mu \nabla^2 X_\mu.
   \end{align*}
 \end{exercise}
 
@@ -351,23 +351,22 @@ since they control different aspects of the string's behavior.
   as {\bf initial and final conditions}, then $\delta X^\mu$ is zero
   for the first term, so the term vanishes.
 \item The second term is determined by the configuration of the
-  endpoints of the string when $\tau \in (\tau_i, \tau_f)$. It does
-  not vanish automatically, and we have to impose {\bf boundary
+  endpoints of the string when $\sigma^0 \in (\tau_i, \tau_f)$. It
+  does not vanish automatically, and we have to impose {\bf boundary
     conditions} in order for it to do so.
 \end{enumerate}
 
 \begin{definition}
-  Let $\sigma_*$ denote the $\sigma$-coordinate of an endpoint, i.e.
-  either $\sigma_* = 0$ or $\sigma_* = \ell$.
+  There are two different kinds of boundary conditions.
   \begin{itemize}
-  \item The {\bf free (Neumann) boundary condition} is $\di^\sigma
-    X^\mu(\tau, \sigma_*) = 0$.
-  \item The {\bf Dirichlet boundary condition} is $\delta X^\mu(\tau,
-    \sigma_*) = 0$.
+  \item The {\bf free (Neumann) boundary condition} is $\di^1
+    X^\mu(\sigma^0, 0) = \di^1 X^\mu(\sigma^0, \ell) = 0$.
+  \item The {\bf Dirichlet boundary condition} is $\delta
+    X^\mu(\sigma^0, 0) = \delta X^\mu(\sigma^0, \ell) 0$.
   \end{itemize}
   Alternatively, if the string is {\bf closed}, i.e. we have the {\bf
     periodicity} conditions
-  \[ X^\mu(\tau, 0) = X^\mu(\tau, \ell), \quad \di^a X^\mu(\tau, 0) = \di^a X^\mu(\tau, \ell), \quad \gamma_{ab}(\tau, 0) = \gamma_{ab}(\tau, \ell), \]
+  \[ X^\mu(\sigma^0, 0) = X^\mu(\sigma^0, \ell), \quad \di^a X^\mu(\sigma^0, 0) = \di^a X^\mu(\sigma^0, \ell), \quad \gamma_{ab}(\sigma^0, 0) = \gamma_{ab}(\sigma^0, \ell), \]
   no additional boundary conditions are necessary.
 \end{definition}
 
@@ -401,13 +400,13 @@ to quantize. The Polyakov action is invariant under the following
 symmetries:
 \begin{enumerate}
 \item $D$-dimensional {\bf Poincar\'e transformations}:
-  \[ X^\mu(\tau, \sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\tau, \sigma) + a^\mu, \quad \gamma_{ab}(\tau, \sigma) \mapsto \gamma_{ab}(\tau, \sigma); \]
+  \[ X^\mu(\sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\sigma) + a^\mu, \quad \gamma_{ab}(\sigma) \mapsto \gamma_{ab}(\sigma); \]
 \item {\bf Reparametrization} (i.e. diffeomorphisms): for new
-  coordinates $\tilde{\sigma}^a(\tau, \sigma)$,
-  \[ X^\mu(\tau, \sigma) \mapsto X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\tau, \sigma); \]
+  coordinates $\tilde{\sigma}^a(\sigma)$,
+  \[ X^\mu(\sigma) \mapsto X^\mu(\sigma), \quad \gamma_{ab}(\sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\sigma); \]
 \item $2$-dimensional {\bf Weyl transformations}: for arbitrary
-  $\omega(\tau, \sigma)$,
-  \[ X^\mu(\tau, \sigma) \mapsto X^\mu(\tau,\sigma), \quad \gamma_{ab}(\tau, \sigma) \mapsto \exp(2\omega(\tau, \sigma)) \gamma_{ab}(\tau, \sigma). \]
+  $\omega(\sigma)$,
+  \[ X^\mu(\sigma) \mapsto X^\mu(\sigma), \quad \gamma_{ab}(\sigma) \mapsto \exp(2\omega(\sigma)) \gamma_{ab}(\sigma). \]
 \end{enumerate}
 The Nambu--Goto action is not invariant under Weyl transformations.
 
@@ -424,7 +423,7 @@ Before we continue, let's make sure our Lagrangian is as general as
 possible, to reduce future work. If $\cL$ has more terms, they need to
 satisfy all the above symmetries. In particular, Weyl invariance is
 very odd: it prevents us from adding terms such as
-\[ \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_M d\tau \, d\sigma \, \sqrt{-\gamma}. \]
+\[ \int_M d^2\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_M d^2\sigma \, \sqrt{-\gamma}. \]
 
 \begin{exercise}
   Convince yourself that $\cL$ must contain one more $\gamma^{ab}$
@@ -440,7 +439,7 @@ very odd: it prevents us from adding terms such as
   Hence argue that we need another term integrated over $\di M$ to
   counteract $\nabla^2(\sqrt{-\gamma} \, \omega)$. Putting everything
   together, conclude that
-  \[ \chi \coloneqq \frac{1}{4\pi} \int_M d\tau \, d\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di M} ds \, k \]
+  \[ \chi \coloneqq \frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di M} ds \, k \]
   is Weyl invariant. Here $ds$ is proper time along $\di M$ using the
   metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b \nabla_a t^b$ is
   the {\bf geodesic curvature} of the boundary, where $t^a$ is a unit
@@ -480,9 +479,9 @@ chosen a representative of each gauge equivalence class.
 But, perhaps unexpectedly, there is more gauge freedom: there are
 non-trivial transformations in $\diff \times \Weyl$ that preserve unit
 gauge! The key to finding these transformations is to realize that
-$\Sigma$ is actually a {\bf Riemann surface}: let $z \coloneqq \tau +
-i\sigma$, so that $ds^2 = dz d\bar{z}$. Now if $f(z)$ is a holomorphic
-change of coordinates, then
+$\Sigma$ is actually a {\bf Riemann surface}: let $z \coloneqq
+\sigma^0 + i\sigma^1$, so that $ds^2 = dz d\bar{z}$. Now if $f(z)$ is
+a holomorphic change of coordinates, then
 \[ z \mapsto f(z), \quad ds^2 \mapsto |\di_z f|^{-2} dz d\bar{z}, \]
 so now applying the Weyl transformation $\exp(2 \ln |\di_z f|)$
 recovers $ds^2$. Clearly the composition of the two transformations is
@@ -493,6 +492,10 @@ we have spanned the whole space of gauge transformations! The
 holomorphic diffeomorphisms above actually have {\bf measure zero} in
 $\diff$. When we stop working locally and work globally instead, these
 extra bits of freedom are canceled by boundary conditions.
+
+\section{Quantization via Canonical Commutation Relations}
+
+\subsection{Spectrum of Open String}
 
 \section{Quantization via Path Integral}
 
@@ -507,7 +510,7 @@ $x^0 \mapsto ix^0$ and similarly for the metric. The {\bf Euclidean
   path integral}, and the Euclidean action (with the additional terms
 on top of the Wick-rotated Polyakov action), is therefore
 \[ Z \coloneqq \frac{1}{\Vol} \int \cD g \, \cD X \, \exp(-S_{\text{P}}[X, g]), \]
-\[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_M d\tau \, d\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_M d\tau \, d\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di M} ds \, k\right) \]
+\[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_M d^2\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di M} ds \, k\right) \]
 where $\Vol$ is the volume of the gauge action on the {\bf
   configuration space} consisting of all possible $X^\mu$ and
 $g$). More explicitly, we can imagine partitioning configuration
@@ -536,53 +539,155 @@ Armed with this motivation, we can proceed. Let $\hat{g}_{ab}$ be the
 fiducial metric; it represents our choice of gauge fixing, just like
 the choice $y = 0$. Let $\zeta$ be shorthand for a combined coordinate
 and Weyl transformation:
-\[ \zeta\colon g \mapsto g^\zeta \coloneqq \exp(2\omega(\tau,\sigma)) \pder{\sigma^c}{\sigma'^a} \pder{\sigma^d}{\sigma'^b} g_{cd}(\tau,\sigma). \]
+\[ \zeta\colon g_{ab} \mapsto g^\zeta_{ab} \coloneqq \exp(2\omega(\sigma)) \pder{\sigma^c}{\sigma'^a} \pder{\sigma^d}{\sigma'^b} g_{cd}(\sigma). \]
 
 \begin{definition}
   Let $\cD \zeta$ be a gauge invariant measure on $\diff \times
   \Weyl$. (Whether such a measure exists is very relevant for us, but
   we disregard it for now.) Define the {\bf Faddeev-Popov determinant}
-  \[ \Delta_{\text{FP}}^{-1}(g) \coloneqq \int \cD \zeta \, \delta(\hat{g}^\zeta - g). \]
-  Here the $\delta$ is really the {\bf Dirac functional}, i.e.
-  $\hat{g}^\zeta$ and $g$ must agree at every point $(\tau, \sigma)$.
+  $\detFP$ by
+  \[ \detFP^{-1}(g) \coloneqq \int \cD \zeta \, \delta[\hat{g}^\zeta - g]. \]
+  Here the $\delta$ is the {\bf Dirac functional}, i.e.
+  $\hat{g}^\zeta$ and $g$ must agree at every point $\sigma$.
 \end{definition}
 
 \begin{exercise}
-  Show that $\Delta_{\text{FP}}(g)$ is gauge-invariant by computing
-  that $\Delta_{\text{FP}}(g^\zeta)^{-1} =
-  \Delta_{\text{FP}}(g)^{-1}$.
+  Show that $\detFP(g)$ is gauge-invariant by computing that
+  $\detFP(g^\zeta)^{-1} = \detFP(g)^{-1}$.
 \end{exercise}
 
 Now it is time to do the calculation to factor out the integral over
 the gauge orbits. The first step is to add a $1$ to the integral:
-\[ Z = \int \frac{\cD g \, \cD X}{\Vol} \exp(-S_{\text{P}}[X, g]) = \int \frac{\cD g \, \cD X \, \cD \zeta}{\Vol} \Delta_{\text{FP}}(g) \delta(\hat{g}^\zeta - g) \exp(-S_{\text{P}}[X, g]). \]
+\[ Z = \int \frac{\cD g \, \cD X}{\Vol} \exp(-S_{\text{P}}[X, g]) = \int \frac{\cD g \, \cD X \, \cD \zeta}{\Vol} \detFP(g) \delta[\hat{g}^\zeta - g] \exp(-S_{\text{P}}[X, g]). \]
 The second step is to do the integral over $g$, which, due to the
-$\delta(\hat{g}^\zeta - g)$, amounts to substituting $g$ with
+$\delta[\hat{g}^\zeta - g]$, amounts to replacing $g$ with
 $\hat{g}^\zeta$:
-\[ Z = \int \frac{\cD X \, \cD \zeta}{\Vol} \Delta_{\text{FP}}(\hat{g}^\zeta)\exp(-S_{\text{P}}[X, \hat{g}^\zeta]). \]
-Finally, since both $\Delta_{\text{FP}}$ and $S_{\text{P}}$ are
-gauge-invariant, we can substitute $\hat{g}$ for $\hat{g}^\zeta$. Then
-nothing in the integrand depends on $\zeta$ anymore, so it factors out
-and cancels the volume normalization:
-\[ Z = \int \frac{\cD \zeta}{\Vol} \int \cD X \, \Delta_{\text{FP}}(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]) = \int \cD X \, \Delta_{\text{FP}}(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]). \]
+\[ Z = \int \frac{\cD X \, \cD \zeta}{\Vol} \detFP(\hat{g}^\zeta)\exp(-S_{\text{P}}[X, \hat{g}^\zeta]). \]
+Finally, since both $\detFP$ and $S_{\text{P}}$ are gauge-invariant,
+we can replace $\hat{g}$ with $\hat{g}^\zeta$. Then nothing in the
+integrand depends on $\zeta$ anymore, so it factors out and cancels
+the volume normalization:
+\[ Z = \int \frac{\cD \zeta}{\Vol} \int \cD X \, \detFP(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]) = \int \cD X \, \detFP(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]). \]
 
 \begin{exercise}
   Evaluate $\iint dx \, dy \, e^{-x^2 - y^2}$ by applying the
   Faddeev-Popov method to its $U(1)$ symmetry and the gauge-fixing
   condition $y = 0$. Conclude that the Faddeev-Popov method is
-  completely rigorous in finite dimensions, and that
-  $\Delta_{\text{FP}}$ is actually a Jacobian (hence the name
-  Faddeev-Popov determinant).
+  completely rigorous in finite dimensions, and that $\detFP$ is
+  actually a Jacobian (hence the name Faddeev-Popov determinant).
 \end{exercise}
 
-It remains to compute the Faddeev-Popov determinant
-$\Delta_{\text{FP}}$. To do so, we make the simplifying assumption
-that $\diff \times \Weyl$ actually acts freely on metrics $g$, i.e.
-for each $g$, there is exactly one $\zeta$ such that
-$\delta(\hat{g}^\zeta - g) = 0$. Obviously this assumption is false:
-we showed earlier that the action has fixed points. But it is true
-locally, so we deal with the global issues later.
+\subsection{Computing the Faddeev-Popov Determinant}
 
+It remains to compute the Faddeev-Popov determinant $\detFP$ for the
+$\diff \times \Weyl$ action on world sheet metrics. To do so, we make
+the simplifying assumption that $\diff \times \Weyl$ actually acts
+freely on metrics $g$, i.e. for each $g$, there is exactly one $\zeta$
+such that $\delta[\hat{g}^\zeta - g] = 0$. Obviously this assumption
+is false: we showed earlier that the action has fixed points (albeit a
+measure zero set of them). But it is true locally, so we deal with the
+global issues later. The reason we make this assumption is so that we
+can compute $\detFP(\hat{g}) = \delta[\hat{g}^\zeta - \hat{g}]$ by
+integrating only around a small neighborhood of $\zeta = 0$. In this
+neighborhood, we can take infinitesimal Weyl transformations
+$\omega(\sigma)$ and infinitesimal diffeomorphisms $\delta
+\sigma^\alpha = v^\alpha(\sigma)$, and write
+\[ \detFP^{-1}(\hat{g}) = \int \cD \omega \, \cD v \, \delta[2\omega \hat{g}_{ab} + \nabla_a v_b + \nabla_b v_a]. \]
+Note that now we are integrating over the Lie algebra of $\diff \times
+\Weyl$. We want to get rid of the delta functional.
 
+\begin{exercise}
+  For a function $\phi\colon \bR^D \to \bR$, derive the integral form
+  \[ \delta[\phi] = \int_{j\colon \bR^D \to \bR} \cD j(x) \, \exp\left(2\pi i \int d^Dx \, j(x)\phi(x)\right) \]
+  by applying the one-dimensional identity $\delta(x) = \int dp \,
+  \exp(2\pi ipx)$ to piecewise linear paths, and then taking the limit
+  as the number of path segments goes to infinity.
+\end{exercise}
+
+In our case, the function inside the delta functional lives on the
+world sheet $\Sigma$, whose integration measure is $d^2\sigma \,
+\sqrt{\hat{g}}$ (remember we fixed the fiducial metric). Hence, if
+$\beta$ ranges over symmetric $2$-tensors on $\Sigma$, then
+\[ \detFP^{-1}(\hat{g}) = \int \cD \omega \, \cD v \, \cD \beta \, \exp\left(2\pi i \int d^2\sigma \, \sqrt{\hat{g}} \, \beta^{ab}(2\omega \hat{g}_{ab} + \nabla_a v_b + \nabla_b v_a)\right). \]
+But we can directly do the integral over $\omega$. The one and only
+term containing an $\omega$ factors out to give a delta functional:
+\[ \int \cD \omega \, \exp\left(2\pi i \int d^2\sigma \, \sqrt{\hat{g}} \, \beta^{ab} (2\omega \hat{g}_{ab})\right) = \delta[2\beta^{ab}\hat{g}_{ab}], \]
+i.e. in the remaining integral, $\beta^{ab}$ is traceless:
+\[ \detFP^{-1}(\hat{g}) = \int \cD v \, \cD \beta \, \exp\left(2\pi i \int d^2\sigma \, \sqrt{\hat{g}} \, \beta^{ab}(\nabla_a v_b + \nabla_b v_a)\right). \]
+{\bf Recap}: we are integrating over vector fields $v$ and symmetric
+$2$-tensors $\beta$ such that $\beta^{ab}$ is traceless, both living
+on $\Sigma$.
+
+\subsection{Faddeev-Popov Ghosts}
+
+We are not done: the path integral above is for $\detFP^{-1}$, but we
+want $\detFP$ itself. There is a general procedure for inverting
+$\detFP^{-1}$. To understand it, we must first clarify what $\detFP$
+really is. Let $F$ is the gauge-fixing condition. (For us, $F$ is a
+function of $g$ and $\zeta$ and takes values in symmetric
+$2$-tensors.) Note that via a change of variables from $\zeta$ to $F$,
+\[ \detFP^{-1} = \int D\zeta \, \delta(F) = \int DF \, \det\left[\fder{\zeta}{F}\right] \delta(F) = \det\left[\fder{\zeta}{F}\right]_{F=0}. \]
+This change of variables is valid again because we assume $\zeta$ acts
+freely on gauge orbits, and $F$ is supposed to pick a unique
+representative from each gauge orbit, so $\zeta$ and $F$ ``have the
+same number of degrees of freedom'' as physicists like to say. Now all
+we have to do is invert the determinant. For this, we use a clever
+trick, which is developed in the following two exercises.
+
+\begin{exercise}
+  Show by analogy from the finite dimensional case for two real fields
+  $\phi^1$ and $\phi^2$ that
+  \[ \int \cD \phi^1 \, \cD \phi^2 \exp\left(i\int d^dx \, \phi^1 A \phi^2\right) = (\det A)^{-1}. \]
+\end{exercise}
+
+\begin{exercise}
+  Recall from QFT that we defined {\bf Grassmann numbers}: they are
+  anti-commuting formal variables, i.e. $\theta \eta = -\eta \theta$,
+  that form an algebra. We also worked out the {\bf Berezin integral}
+  for Grassmann-valued quantities, with the convention that $\int
+  d\theta \int d\eta \, \eta\theta = 1$. If $\theta$ and $\eta$ are
+  Grassmann variables, i.e. taking values in the Grassmann algebra,
+  and $b \in \bR$, review/show (in order) that
+  \[ \theta^2 = 0, \quad \int d\theta f(\theta) = \pder{f}{\theta}, \quad \int d\theta \, d\eta \, \exp(-\theta b\eta) = b \]
+  Hence show by analogy with the finite dimensional case that for
+  Grassmann-valued fields $\chi^1$ and $\chi^2$,
+  \[ \int \cD \chi^1 \, \cD \chi^2 \exp\left(-\int d^dx \, \chi^1 A \chi^2\right) = \det A. \]
+\end{exercise}
+
+So here's the trick: if we have a path integral expression for $(\det
+A)^{-1}$, to get $\det A$ we simply replace ordinary variables with
+Grassmann variables! In particular, to get $\detFP(\hat{g})$ from
+$\detFP(\hat{g})^{-1}$, we replace $(\beta_{ab}, v^a)$ with
+Grassmann-valued fields $(b_{ab}, c^a)$, with $b^{ab}$, like
+$\beta^{ab}$, being traceless:
+\[ \detFP(\hat{g}) = \int \cD b \, \cD c \, \exp(S_{\text{G}}), \quad S_{\text{G}} \coloneqq \frac{1}{2\pi} \int d^2\sigma \, \sqrt{\hat{g}} \, b_{ab} \nabla^a c^b. \]
+Note that we've implicitly made a few cosmetic changes:
+\begin{enumerate}
+\item Because $b$ is a symmetric $2$-tensor (do {\bf not} confuse the
+  fact that $b$ is symmetric, i.e. $b_{ab} = b_{ba}$, with $b$ being
+  anti-commutative, e.g. $b_{ab}\theta = -\theta b_{ab}$), we can
+  rewrite
+  \[ b^{ab}(\nabla_a c_b + \nabla_b c_a) = b^{ab}\nabla_a c_b + b^{ab} \nabla_a c_b = 2b^{ab}\nabla_a c_b. \]
+\item We also rewrote $b^{ab}\nabla_a c_b = b_{ab} \nabla^a c^b$.
+\item We chose slightly different normalization factors to make later
+  computations cleaner. These factors make absolutely no difference,
+  because we can absorb them into the fields $b$ and $c$.
+\end{enumerate}
+The quantity $S_{\text{G}}$ is called the {\bf ghost action}, because
+when we plug $\detFP(\hat{g})$ back into the path integral, we get
+\[ Z = \int \cD X \, \cD b \, \cD c \, \exp(-S_{\text{P}}[X, \hat{g}] - S_{\text{G}}[b, c]), \]
+i.e. $S_{\text{G}}$ becomes part of the action. The fields $b$ and
+$c$, which do not correspond physically to anything, are known as {\bf
+  Faddeev-Popov ghost fields}. The price of gauge fixing is the
+introduction of these unphysical ghosts.
+
+\begin{exercise}
+  Repeat the computation of $\detFP$ for QED, and show that for QED,
+  $\detFP$ is independent of any fields. Hence conclude that QED has
+  no Faddeev-Popov ghosts. (That's why quantizing QED went a lot
+  faster. QCD has ghosts, however.)
+\end{exercise}
+
+\chapter{Conformal Field Theory}
 
 \end{document}
