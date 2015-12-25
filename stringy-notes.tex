@@ -395,7 +395,8 @@ thought of as dynamical objects alongside strings. Conceptually, then,
   endpoints are not fixed at all.
 \end{enumerate}
 We return to this D-brane perspective much later on. It is hard enough
-to quantize strings without more dynamical objects floating around.
+to quantize strings without more dynamical objects floating around. We
+take {\bf Neumann boundary conditions} for now.
 
 \section{Gauge Freedom and Gauge Fixing}
 
@@ -571,7 +572,8 @@ In string theory, canonical quantization is called {\bf covariant
   quantization}. This is just a difference in terminology. The
 procedure is the same: take the classical object (e.g. Lagrangian,
 Hamiltonian, solutions) you want to quantize, and impose {\bf
-  canonical commutation relations} modeled on $[x, p] = i$.
+  canonical commutation relations} modeled on $[x, p] = i$ on
+dynamical variables, by promoting them all to operators.
 
 \subsection{Classical Solutions}
 
@@ -579,7 +581,9 @@ We take classical solutions and quantize them in light cone gauge as
 well as two more gauge-fixing conditions for the metric: set
 \[ X^+ = \sigma^0, \quad \di_1 \gamma_{11} = 0, \quad \det \gamma_{ab} = -1. \]
 Note that we have dispensed with the dimensionful constant $R$; it can
-be reinserted via dimensional analysis.
+be reinserted via dimensional analysis. The first thing to do right
+after picking a gauge is to rewrite all the relevant objects in that
+gauge. To do so, we need some formulas.
 
 \begin{exercise}
   Show that in this gauge, $\gamma_{11}(\sigma^0)$ depends only on
@@ -592,7 +596,7 @@ be reinserted via dimensional analysis.
 
 \begin{definition}
   Given a dynamical variable $V(\sigma)$, define its associated {\bf
-    center of mass} variables
+    center of mass} (conceptually at a fixed time) variables
   \[ v(\sigma^0) = \frac{1}{\ell} \int_0^\ell d\sigma^1 \, V(\sigma), \quad \tilde{V}(\sigma) = V(\sigma) - v(\sigma^0), \]
   i.e. we split $V = v + \tilde{V}$ where $v$ is the mean value of
   $V$, and $\tilde{V}$ has mean zero.
@@ -621,7 +625,7 @@ The next step is to write down the Hamiltonian, which is the {\bf
   Legendre transform} of the Lagrangian. Recall that this means we
 write down momenta $\Pi_\mu$ corresponding to $X^\mu$, and then define
 \[ H \coloneqq \int_0^\ell \Pi_\mu \di_0 X^\mu - L = \int_0^\ell d\sigma^1 \, \left(\Pi_+\di_0 X^+ + \Pi_-\di_0 X^- + \Pi_i \di_0 X^i\right) - L = p_- \di_0 x^- + \int_0^\ell \Pi_i \di_0 X^i - L, \]
-where $p_i$ is the momentum conjugate to $x^-$, and $\Pi^i$ is the
+where $p_-$ is the momentum conjugate to $x^-$, and $\Pi^i$ is the
 momentum density conjugate to $X^i$:
 \[ p_- \coloneqq \pder{L}{\di_0x^-} = -T_0\ell \gamma_{11}, \quad \Pi^i \coloneqq \fder{L}{\di_0X^i} = T_0\gamma_{11}\di_0X^i = \frac{p^+}{\ell} \di_0X^i. \]
 Note that $p_- = -p^+$. Simplifying, we get the Hamiltonian
@@ -635,16 +639,39 @@ the general solution
 \[ X^i(\sigma) = X^i_L(\sigma^+) + X^i_R(\sigma^-) \]
 for arbitrary functions $X^i_L$ and $X^i_R$, describing {\bf
   left-moving} and {\bf right-moving} waves respectively, which we can
-Fourier expand:
+expand as Fourier series: (\CHECK{} Why are there $\sigma^\pm$ terms?)
 \begin{align*}
-  X^i_L(\sigma^+) &= \frac{1}{2}x^i + \frac{1}{2\pi T_0} p^i \sigma^+ + i\sqrt{\frac{1}{4\pi T_0}} \sum_{n \neq 0} \frac{1}{n} \tilde{\alpha}_n^i e^{-in\sigma^+}, \\
-  X^i_R(\sigma^-) &= \frac{1}{2}x^i + \frac{1}{2\pi T_0} p^i \sigma^+ + i\sqrt{\frac{1}{4\pi T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\sigma^-}.
+  X^i_L(\sigma^+) &= \frac{1}{2}x^i(0) + \frac{1}{2T_0} p^i(0) \sigma^+ + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \tilde{\alpha}_n^i e^{-in\pi\sigma^+/\ell}, \\
+  X^i_R(\sigma^-) &= \frac{1}{2}x^i(0) + \frac{1}{2T_0} p^i(0) \sigma^- + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\pi\sigma^-/\ell}.
 \end{align*}
 (Here $p^i$ are center of mass variables for $\Pi^i$ with an extra
 factor of $\ell$. We've also mucked around with the normalization
-factors of terms.) Because the $X^i$ are real fields, we have the
-{\bf constraints} $\tilde{\alpha}^i_n = (\tilde{\alpha}^i_{-n})^*$ and
-$\alpha^i_n = (\alpha^i_{-n})^*$ on the Fourier coefficients, along with the Virasoro conditions 
+factors for Fourier coefficients for later convenience.) Because the
+$X^i$ are real fields, we have the {\bf constraints}
+$\tilde{\alpha}^i_n = (\tilde{\alpha}^i_{-n})^*$ and $\alpha^i_n =
+(\alpha^i_{-n})^\dag$ on the Fourier coefficients.
+
+\begin{exercise}
+  Show that the Neumann boundary condition forces $\tilde{\alpha}_n^i
+  = \alpha_n^i$, so that the general form of a {\bf classical solution
+    for an open string} is
+  \[ X^i(\sigma) = x^i + \frac{1}{2\pi T_0}p^i\sigma^0 + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\pi\sigma^0/\ell} \cos \frac{n\pi\sigma^1}{\ell}. \]
+\end{exercise}
+
+Finally, we must write down the {\bf constraints}, i.e. the Virasoro
+conditions in this gauge. They become $(\di_+X)^2 = (\di_-X)^2 = 0$,
+which give conditions on the momenta $p^i$ and Fourier coefficients
+$\alpha_n^i$. Both $\di_+$ and $\di_-$ give the same result, so we
+compute
+\[ \di_+X^i = \di_+X^i_L = \frac{1}{2T_0} p^i(0) + \sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \alpha_n^i e^{-in\pi\sigma^+/\ell}. \]
+Hence, writing $\alpha_0^i \coloneqq \sqrt{1/2T_0} \, p^i(0)$,
+\[ 0 = (\di_+X)^2 = \frac{1}{T_0} \sum_n L_n e^{-i\pi n \sigma^+/\ell}, \quad L_n \coloneqq \frac{1}{2} \sum_{m,n} \alpha_m \cdot \alpha_{n-m}. \]
+So the $L_n$ are the Fourier coefficients of the constraints. By the
+linear independence of the Fourier basis, $L_n = 0$ for all $n \in
+\bZ$. In particular, since $p_\mu p^\mu = -M^2$ is the effective mass
+and $L_0$ contains the momentum, $L_0 = 0$ implies that the {\bf
+  effective mass} of the string is
+\[ M^2 = p \cdot p = 4 T_0 \sum_{m > 0} \alpha_m \cdot \alpha_{-m}. \]
 
 \subsection{Covariant Quantization}
 
@@ -652,13 +679,13 @@ Quantization is now trivial: we impose the canonical {\bf equal-time
   commutation relations}
 \[ [x^-, p^+] = i\eta^{-+} = -i, \quad [X^i(\sigma^0, \sigma^1), \Pi^j(\sigma^0, \sigma'^1)] = i\delta^{ij} \delta(\sigma^1 - \sigma'^1), \]
 with all other commutators vanishing. In terms of Fourier components, \CHECK
-\[ [x^i, p^j] = i\delta^\mu{}_\nu, \quad [\alpha^i_m, \alpha^j_n] = [\tilde{\alpha}^i_m, \tilde{\alpha}^j_n] = m \delta^{ij} \delta_{m+n,0}, \]
+\[ [x^-, p^+] = -i, \quad [x^i, p^j] = i\delta^\mu{}_\nu, \quad [\alpha^i_m, \alpha^j_n] = m \delta^{ij} \delta_{m+n,0}, \]
 with all other commutators vanishing. So as in QFT, we can treat
-$\tilde{\alpha}^i_m$ and $\alpha^i_n$ as creation and annihilation
-operators, and build up our state space using them. Note that instead
-of just two operators, we have two infinite towers of them! Without
-loss of generality, we are concerned only with $\alpha^i_n$, which are
-operators for right-moving modes.
+$\alpha^i_n$ as creation/annihilation operators ($\alpha$ is annihilation, $\alpha^\dag$ is creation), and build up our
+state space using them. Note that instead of just a single
+creation/annihilation operator, we have an infinite tower of them!
+Without loss of generality, we are concerned only with $\alpha^i_n$,
+which are operators for right-moving modes.
 
 \begin{definition}
   The (right-moving mode) {\bf creation/raising operators} are
@@ -676,8 +703,8 @@ operators for right-moving modes.
 Unlike QFT, each raising operator $\alpha^i_{-m}$ (for varying $m$)
 creates a different mode. So the {\bf independent states} are labeled
 using center of mass momenta $k = (k^+, k^i)$, and occupation numbers
-$N_{i,n}$ for $i = 2, \ldots, D-1$ and $n = 1, 2, \ldots$:
-\[ \ket{N; k} \coloneqq \left(\prod_{i=2}^{D-1} \prod_{n=1}^\infty \frac{(\alpha^i_{-n})^{N_{i,n}}}{\sqrt{n^{N_{i,n}} N_{i,n}!}}\right) \ket{0; k}. \]
+$N_{i,n}$ for $i = 2, \ldots, D$ and $n = 1, 2, \ldots$:
+\[ \ket{N; k} \coloneqq \left(\prod_{i=2}^D \prod_{n=1}^\infty \frac{(\alpha^i_{-n})^{N_{i,n}}}{\sqrt{n^{N_{i,n}} N_{i,n}!}}\right) \ket{0; k}. \]
 (The normalization is chosen for convenience.) Hence there are an
 infinite number of different first excitations of a single string. Let
 $\cH_1$ denote the space of all possible single-string states:
@@ -693,28 +720,83 @@ $\cH_1$ denote the space of all possible single-string states:
   strings. We symmetrize because it turns out the strings we are
   working are bosonic, i.e. they have integer spin, i.e. they commute,
   instead of anticommuting. ($\Sym(\cH_1)$ is known by us
-  mathematicians as a {\bf symmetric algebra}; a fermionic Fock space
-  is an exterior algebra.)
+  mathematicians as a {\bf symmetric algebra}; a fermionic Fock space,
+  for objects with half-integer spins, is an exterior algebra.)
 \end{definition}
 
-(\CHECK{} What happened to the Virasoro conditions?)
+We still need to impose the constraints $L_n = 0$, coming from the
+Virasoro conditions. Naively one might just insist that as operators,
+$L_n = 0$, but this quickly runs into problems (cf. Gupta--Bleuler
+quantization of QED). Instead, we impose $L_n\ket{\text{phys}} = 0$
+for any physical state $\ket{\text{phys}}$.
 
 \subsection{Spectrum and Critical Dimension}
 
-Polchinski pages 21.5 - 23, Tong pages 38 - 42.
+By mass-energy equivalence, to find the spectrum of our quantized
+string is equivalent to finding its effective mass, i.e. we must look
+at the quantized version of $M^2 = 4T_0\sum_{m > 0} |\alpha_m|^2$. But
+when we quantize, $\alpha_m$ and $\alpha_{-m}$ no longer commute, so
+there is an operator ordering ambiguity here. There are two choices:
+either we quantize $\alpha_m \dot \alpha_{-m}$, or we quantize
+$\alpha_{-m} \dot \alpha_m$. They both give
+\[ M^2 = 4T_0 \sum_{m > 0} (N_m + a), \quad N_m \coloneqq \alpha_{-m} \cdot \alpha_m \]
+(where by analogy with the harmonic oscillator, we've defined the {\bf
+  number operators} $N_m$), but the first with $a = m(D-2)/2$, using
+the commutation relation $[a_m^i, a_{-m}^i] = m$, and the second with
+$a = 0$. There are some physical arguments for why we pick the former
+during the quantization of the simple harmonic oscillator (Heisenberg
+uncertainty principle, etc.), but it boils down to the assertion that
+we want the ground state of the system to have non-zero energy. Hence
+we pick $a = m(D-2)/2$.
+
+\begin{exercise}
+  Recall/review from QFT that $\sum_{m > 0} m = -1/12$, and therefore
+  conclude that the ground state and first excited states, i.e.
+  $\alpha_{-m}^i\ket{0; k}$ for any $m$, have energies
+  \[ M_0^2 = 4T_0\frac{2-D}{24}, \quad M_1^2 = 4T_0\frac{26-D}{24}. \]
+\end{exercise}
+
+Fix an $m$. The first excited state $\alpha_{-m}^i\ket{0; k}$ acts as
+a vector because it has a vector index $i$, so it better be Lorentz
+invariant. In particular, in the rest frame, the (spatial rotation
+subgroup of the) Lorentz group can act on a vector to make it point in
+any spatial direction, so vectors better have $D-1$ states. But
+$\alpha_{-m}^i$ lives in the standard representation of $\SO(D-2)$: it
+only has $D-2$ states contained in it. This is not good!
+
+Here is the solution: we posit that $M_1^2 = 0$. Then there is no rest
+frame! Consequently, we are only free to rotate around the direction
+of motion, giving only $D-2$ states, exactly the number that we have.
+But this implies $D = 26$, known as the {\bf critical dimension} of
+bosonic string theory. This entire argument is sketchy, and we
+(hopefully) give a more rigorous argument later that $D = 26$ is the
+only dimension that works, based on enforcing Weyl invariance.
+
+There is another problem: $M_0^2 < 0$ for $D > 2$, especially for $D =
+26$. We have {\bf negative energy states}, known as {\bf tachyons}!
+This is explained from a field-theoretic perspective: given a field
+$\phi$, its mass squared is just $\di^2 V(\phi)/\di \phi^2|_{\phi=0}$.
+We are actually expanding around a critical point of the potential
+that is a maximum, i.e. an {\bf unstable} point, therefore resulting
+in a negative mass-squared. Currently it is unknown whether there are
+stable points in the purely bosonic theory. However, with the addition
+of fermions and {\bf supersymmetry}, giving the {\bf superstring}, the
+problem disappears. This is content for much later on.
 
 \section{Quantization via Path Integral}
 
-Recall from QFT that we have a giant machine for quantizing classical
-theories: the path integral. Before we begin plugging the Polyakov
-action into the machine, however, we need to make a modification. From
-now on, the world sheet is equipped with a {\bf Euclidean metric}
-$g_{ab}$, instead of a Lorentzian one $\gamma_{ab}$. This is so that
-the path integral over metrics is better defined. The transition from
-Euclidean to Minkowski is, formally, done via {\bf Wick rotation}:
-$x^0 \mapsto ix^0$ and similarly for the metric. The {\bf Euclidean
-  path integral}, and the Euclidean action (with the additional terms
-on top of the Wick-rotated Polyakov action), is therefore
+Now it is time to develop a different tool. Recall from QFT that we
+have a giant machine for quantizing classical theories and studying
+their interactive pictures: the path integral. However, before we
+begin plugging the Polyakov action into the machine, we need to make a
+modification. From now on, the world sheet is equipped with a {\bf
+  Euclidean metric} $g_{ab}$, instead of a Lorentzian one
+$\gamma_{ab}$. This is so that the path integral over metrics is
+better defined. The transition from Euclidean to Minkowski is,
+formally, done via {\bf Wick rotation}: $x^0 \mapsto ix^0$ and
+similarly for the metric. The {\bf Euclidean path integral}, and the
+Euclidean action (with the additional terms on top of the Wick-rotated
+Polyakov action), is therefore
 \[ Z \coloneqq \frac{1}{\Vol} \int \cD g \, \cD X \, \exp(-S_{\text{P}}[X, g]), \]
 \[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_M d^2\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di M} ds \, k\right) \]
 where $\Vol$ is the volume of the gauge action on the {\bf
@@ -873,17 +955,15 @@ Note that we've implicitly made a few cosmetic changes:
   fact that $b$ is symmetric, i.e. $b_{ab} = b_{ba}$, with $b$ being
   anti-commutative, e.g. $b_{ab}\theta = -\theta b_{ab}$), we can
   rewrite
-  \[ b^{ab}(\nabla_a c_b + \nabla_b c_a) = b^{ab}\nabla_a c_b + b^{ab} \nabla_a c_b = 2b^{ab}\nabla_a c_b. \]
-\item We also rewrote $b^{ab}\nabla_a c_b = b_{ab} \nabla^a c^b$.
+  \[ b^{ab}(\nabla_a c_b + \nabla_b c_a) = b^{ab}\nabla_a c_b + b^{ab} \nabla_a c_b = 2b^{ab}\nabla_a c_b = 2b_{ab} \nabla^a c^b. \]
 \item We chose slightly different normalization factors to make later
-  computations cleaner. These factors make absolutely no difference,
-  because we can absorb them into the fields $b$ and $c$.
+  computations cleaner.
 \end{enumerate}
-The quantity $S_{\text{G}}$ is called the {\bf ghost action}, because
-when we plug $\detFP(\hat{g})$ back into the path integral, we get
+The quantity $S_{\text{G}}$ is called the {\bf ghost action}: when we
+plug $\detFP(\hat{g})$ back into the path integral, we get
 \[ Z = \int \cD X \, \cD b \, \cD c \, \exp(-S_{\text{P}}[X, \hat{g}] - S_{\text{G}}[b, c]), \]
 i.e. $S_{\text{G}}$ becomes part of the action. The fields $b$ and
-$c$, which do not correspond physically to anything, are known as {\bf
+$c$, which do not correspond physically to anything, are {\bf
   Faddeev-Popov ghost fields}. The price of gauge fixing is the
 introduction of these unphysical ghosts.
 
