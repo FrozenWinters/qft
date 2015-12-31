@@ -8,6 +8,8 @@
 \usepackage{dsfont}
 \usepackage{slashed}
 \usepackage{comment}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
@@ -15,6 +17,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
@@ -32,6 +35,7 @@
 \newcommand{\SFR}[2]{\sqrt{\frac{#1}{#2}}}
 
 \newcommand{\mc}{\mathcal}
+\newcommand{\ms}{\mathscr}
 \newcommand{\lam}{\lambda}
 \newcommand{\vphi}{\varphi}
 \newcommand{\om}{\omega}
@@ -50,6 +54,7 @@
 \newcommand{\colr}[1]{ {\color{red} #1 } }
 \newcommand{\colb}[1]{ {\color{blue} #1 } }
 \newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
+\newcommand{\normalorder}[1]{ \colon\!\!{#1}\!\colon }
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -109,6 +114,7 @@
 \edef\restoreparindent{\parindent=\the\parindent\relax}
 \usepackage{parskip}
 \restoreparindent
+
 
 \title{String Theory and Supersymmetry\\Winter 2016 Seminar Notes}
 \author{Anton Borissov, Henry Liu}
@@ -410,7 +416,7 @@ symmetries:
   \[ X^\mu(\sigma) \mapsto \Lambda^\mu{}_\nu X^\nu(\sigma) + a^\mu, \quad \gamma_{ab}(\sigma) \mapsto \gamma_{ab}(\sigma); \]
 \item {\bf Reparametrization} (i.e. diffeomorphisms): for new
   coordinates $\tilde{\sigma}^a(\sigma)$,
-  \[ X^\mu(\sigma) \mapsto X^\mu(\tilde{\sigma}), \quad \gamma_{ab}(\tilde{\sigma}) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\sigma); \]
+  \[ X^\mu(\sigma) \mapsto X^\mu(\tilde{\sigma}), \quad \gamma_{ab}(\sigma) \mapsto \pder{\sigma^c}{\tilde{\sigma}^a} \pder{\sigma^d}{\tilde{\sigma}^b} \gamma_{cd}(\sigma); \]
 \item $2$-dimensional {\bf Weyl transformations}: for arbitrary
   $\omega(\sigma)$,
   \[ X^\mu(\sigma) \mapsto X^\mu(\sigma), \quad \gamma_{ab}(\sigma) \mapsto \exp(2\omega(\sigma)) \gamma_{ab}(\sigma). \]
@@ -975,5 +981,89 @@ introduction of these unphysical ghosts.
 \end{exercise}
 
 \chapter{Conformal Field Theory}
+String theory as we have defined it so far is a 2 dimensional theory where
+the fields are parameterized by two coordinates $(\sg^1,\sg^2)$. We shall
+now explore the conformal symmetry of the Polyakov action and deduce a
+number of important technical tools that will enable us to say a lot about
+the properties of this quantum field theory. This conformal symmetry is
+especially large in two dimensions and provides significant constraints.
+\footnote{References that were used for the preparation of this chapter
+include Polchinski's Vol 1, Polchinksi's Little Book, and Ginsparg's
+Applied CFT arXiv:hep-th/9108028, IAS Vol 1 and 2, Gomis' PSI 14/15
+Lectures on CFT.}
+
+The technical tool that will drive this whole chapter is the
+the \textbf{operator product expansion} (OPE). This is a canonical form
+for the product of two local operators:
+\[ \mc A_i(\sg_1)\mc A_j(\sg_2) = \sum_k c^k_{ij}(\sg_1-\sg_2) \mc A_k(\sg_2).\]
+This will turn out to be much like a Laurent expansion and the form of
+$c^k_{ij}(\sg_1-\sg_2)$ is severely restricted.  
+
+There are many reasons why it is useful for us to learn about CFT. Certain
+critical phase transitions can be described by a CFT and using the AdS/CFT
+correspondence we may be able to take a highly correlated system and
+rewrite it in terms of a weakly coupled theory of supergravity. Let's
+begin!
+
+\textbf{Apology:} Until further notice we will not be as general as
+possible. In this chapter we will take what we need and create the tools
+that will be immediately useful leaving generalizations of these statements
+to later days.
+
+The plan for this chapter as of \today will be to showcase important
+details of chapter $2$ from Polchinski's Volume 1 leaving out some
+technical details for as exercises. In the future it would be nice to
+include $d$-dimensional CFT and it's application to condensed matter
+systems. 
+
+\section{Conformal Normal Order and Operator Product Expansions}
+In our QFT adventures we focused on computing correlation functions since
+every physical quantity could be expressed in terms of them. However, in
+our journey we focused a lot on operators of the form
+$\braket{\phi_1\phi_2\cdots\phi_n}$. We shall now generalize this ever so
+slightly. 
+
+\begin{definition} Let $\sg_0$ be a fixed point and consider a classical
+world-sheet field theory with $X_1(\sg),\ldots,X_n(\sg)$ be fields. 
+A \textbf{local functional} or \textbf{local operator} is a function $\ms
+F[X]$ taking in, as arguments, $X_i(\sg_0)$ and $\di_a X_i(\sg_0)$ which
+are taken at $\sg_0$.
+\end{definition}
+Here are some examples of local operators $X^\mu(0,0),
+X^\mu(a,b)X_\mu(a,b), \di_{\bar z}X^3(z_1,\bar z_1)$. However,
+$X^\mu(z_1,\bar z_1)+X^\mu(z_2,\bar z_2)$ is not a local operator.  Before
+introducing the operator product expansion we need to introduce conformal
+normal ordering which will be used in the definition of OPE.
+
+\begin{definition} Let $\ms F$ be an arbitrary function of $X$. Define the
+(free-field) normal order of $\ms F$ to be the functional:
+\[ \normalorder{\ms F} = \exp \left( -\FR{1}{8\pi T}\int d^2z_1d^2z_2 \ln|z_{12}|^2
+    \FR{\delta}{\delta X^\mu(z_1,\bar z_1)}
+    \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) \ms F\]
+\end{definition}
+This is very analogous to the normal ordering that we saw in QFT where the
+coefficient $\eta^{\mu\nu}\ln|z_{12}|^2$ is replaced by the corresponding
+propogator $\Delta(z_1,z_2)$. The QFT version of normal ordering is useful
+for calculating matrix elements, while this version is useful for computing
+the OPE.
+
+Here are two examples: $\normalorder{X^\mu(z,\bar z)} = X^\mu(z,\bar z)$,
+and \[\normalorder{X^\mu(z_1,\bar z_2) X^\nu(z_2,\bar z_2)} = X^\mu(z_1,\bar
+z_2) X^\nu(z_2,\bar z_2) + \FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2.\]
+Perhaps the reason why this ordering is useful is because of the following:
+
+\begin{conjecture} Normal ordered expressions satisfy the classical
+equations of motion averaged over paths. In the case of classical bosonic
+field this amounts to saying:
+\[ \braket{ \di\bar\di \normalorder{\ms F} } = 0.\]
+\end{conjecture}
+\begin{exercise} Prove this.
+\end{exercise}
+This is true for instance in the case of $\braket{\di\bar\di \normalorder{
+X^\mu(z_1,\bar z_1) X^\nu(z_2,\bar z_2)}} = 0$ (Polchinski Vol 1 Page 36).
+
+\subsection{Conformal Invariance of $X^\mu$ Theory}
+\subsection{$bc$ CFT}
+\section{Vertex Operators}
 
 \end{document}
