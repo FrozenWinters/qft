@@ -54,7 +54,7 @@
 \newcommand{\colr}[1]{ {\color{red} #1 } }
 \newcommand{\colb}[1]{ {\color{blue} #1 } }
 \newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
-\newcommand{\normalorder}[1]{ \colon\!\!{#1}\!\colon }
+\newcommand{\normalorder}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -151,9 +151,9 @@ as with any other physical model, by writing down an action.
 Specifically, we first write the action for a relativistic string by
 generalizing that of a relativistic point particle, and then we
 quantize the action. As with QFT there are different ways to quantize.
-For exposure and convenience, we use the analogue of canonical
-quantization for now, in order to quickly compute the spectrum of a
-string.
+We go through the analogue of canonical quantization in order to
+quickly compute the spectrum of a string, and then go through path
+integral quantization in preparation for studying string interactions.
 
 As usual, we take $\hbar = c = 1$, and use {\bf Einstein summation
   convention}: repeated indices are implicitly summed over.
@@ -677,33 +677,30 @@ linear independence of the Fourier basis, $L_n = 0$ for all $n \in
 \bZ$. In particular, since $p_\mu p^\mu = -M^2$ is the effective mass
 and $L_0$ contains the momentum, $L_0 = 0$ implies that the {\bf
   effective mass} of the string is
-\[ M^2 = p \cdot p = 4 T_0 \sum_{m > 0} \alpha_m \cdot \alpha_{-m}. \]
+\[ M^2 = -p \cdot p = 4 T_0 \sum_{m > 0} \alpha_m \cdot \alpha_{-m}. \]
 
 \subsection{Covariant Quantization}
 
 Quantization is now trivial: we impose the canonical {\bf equal-time
   commutation relations}
-\[ [x^-, p^+] = i\eta^{-+} = -i, \quad [X^i(\sigma^0, \sigma^1), \Pi^j(\sigma^0, \sigma'^1)] = i\delta^{ij} \delta(\sigma^1 - \sigma'^1), \]
-with all other commutators vanishing. In terms of Fourier components, \CHECK
+\[ [x^-, p^+] = i\eta^{-+} = -i, \quad [X^i(\sigma^0, \sigma^1), \Pi^j(\sigma^0, \sigma'^1)] = i\delta^{ij} \delta(\sigma - \sigma'), \]
+with all other commutators vanishing. In terms of Fourier components,
 \[ [x^-, p^+] = -i, \quad [x^i, p^j] = i\delta^\mu{}_\nu, \quad [\alpha^i_m, \alpha^j_n] = m \delta^{ij} \delta_{m+n,0}, \]
 with all other commutators vanishing. So as in QFT, we can treat
 $\alpha^i_n$ as creation/annihilation operators ($\alpha$ is annihilation, $\alpha^\dag$ is creation), and build up our
 state space using them. Note that instead of just a single
 creation/annihilation operator, we have an infinite tower of them!
-Without loss of generality, we are concerned only with $\alpha^i_n$,
-which are operators for right-moving modes.
 
 \begin{definition}
-  The (right-moving mode) {\bf creation/raising operators} are
-  $\alpha^i_{-m}$ and the {\bf annihilation/lowering operators} are
-  $\alpha^i_n$. The {\bf ground state of a string with momentum $k$}
-  is defined as the eigenstate $\ket{0; k}$ of $p^i$, the center of
-  mass momenta, annihilated by the (actual) annihilation operators,
-  i.e.
+  The {\bf creation/raising operators} are $\alpha^i_{-m}$ and the
+  {\bf annihilation/lowering operators} are $\alpha^i_n$. The {\bf
+    ground state of a string with momentum $k$} is defined as the
+  eigenstate $\ket{0; k}$ of $p^i$, the center of mass momenta,
+  annihilated by the annihilation operators, i.e.
   \[ p^+\ket{0; k} = k^+\ket{0; k}, \quad p^i\ket{0; k} = k^i\ket{0; k}, \quad \alpha^i_m\ket{0; k} = 0 \quad \forall m > 0. \]
   Note that the zero-momentum ground state $\ket{0; 0}$ of a string is
   not the true {\bf vacuum state}, which consists of no strings at
-  all; we denote it $\ket{\vacuum}$.
+  all; we denote the true vacuum state $\ket{\vacuum}$.
 \end{definition}
 
 Unlike QFT, each raising operator $\alpha^i_{-m}$ (for varying $m$)
@@ -743,8 +740,8 @@ string is equivalent to finding its effective mass, i.e. we must look
 at the quantized version of $M^2 = 4T_0\sum_{m > 0} |\alpha_m|^2$. But
 when we quantize, $\alpha_m$ and $\alpha_{-m}$ no longer commute, so
 there is an operator ordering ambiguity here. There are two choices:
-either we quantize $\alpha_m \dot \alpha_{-m}$, or we quantize
-$\alpha_{-m} \dot \alpha_m$. They both give
+either we quantize $\alpha_m \cdot \alpha_{-m}$, or we quantize
+$\alpha_{-m} \cdot \alpha_m$. They both give
 \[ M^2 = 4T_0 \sum_{m > 0} (N_m + a), \quad N_m \coloneqq \alpha_{-m} \cdot \alpha_m \]
 (where by analogy with the harmonic oscillator, we've defined the {\bf
   number operators} $N_m$), but the first with $a = m(D-2)/2$, using
@@ -881,11 +878,10 @@ such that $\delta[\hat{g}^\zeta - g] = 0$. Obviously this assumption
 is false: we showed earlier that the action has fixed points (albeit a
 measure zero set of them). But it is true locally, so we deal with the
 global issues later. The reason we make this assumption is so that we
-can compute $\detFP(\hat{g}) = \delta[\hat{g}^\zeta - \hat{g}]$ by
-integrating only around a small neighborhood of $\zeta = 0$. In this
-neighborhood, we can take infinitesimal Weyl transformations
-$\omega(\sigma)$ and infinitesimal diffeomorphisms $\delta
-\sigma^\alpha = v^\alpha(\sigma)$, and write
+can compute $\detFP(\hat{g})^{-1}$ by integrating only around a small
+neighborhood of $\zeta = 0$. In this neighborhood, we can take
+infinitesimal Weyl transformations $\omega(\sigma)$ and infinitesimal
+diffeomorphisms $\delta \sigma^\alpha = v^\alpha(\sigma)$, and write
 \[ \detFP^{-1}(\hat{g}) = \int \cD \omega \, \cD v \, \delta[2\omega \hat{g}_{ab} + \nabla_a v_b + \nabla_b v_a]. \]
 Note that now we are integrating over the Lie algebra of $\diff \times
 \Weyl$. We want to get rid of the delta functional.
@@ -988,16 +984,16 @@ number of important technical tools that will enable us to say a lot about
 the properties of this quantum field theory. This conformal symmetry is
 especially large in two dimensions and provides significant constraints.
 \footnote{References that were used for the preparation of this chapter
-include Polchinski's Vol 1, Polchinksi's Little Book, and Ginsparg's
+include Polchinski's Vol 1, Polchinski's Little Book, and Ginsparg's
 Applied CFT arXiv:hep-th/9108028, IAS Vol 1 and 2, Gomis' PSI 14/15
 Lectures on CFT.}
 
 The technical tool that will drive this whole chapter is the
-the \textbf{operator product expansion} (OPE). This is a canonical form
+\textbf{operator product expansion} (OPE). This is a canonical form
 for the product of two local operators:
 \[ \mc A_i(\sg_1)\mc A_j(\sg_2) = \sum_k c^k_{ij}(\sg_1-\sg_2) \mc A_k(\sg_2).\]
 This will turn out to be much like a Laurent expansion and the form of
-$c^k_{ij}(\sg_1-\sg_2)$ is severely restricted.  
+$c^k_{ij}(\sg_1-\sg_2)$ is severely restricted.
 
 There are many reasons why it is useful for us to learn about CFT. Certain
 critical phase transitions can be described by a CFT and using the AdS/CFT
@@ -1010,13 +1006,14 @@ possible. In this chapter we will take what we need and create the tools
 that will be immediately useful leaving generalizations of these statements
 to later days.
 
-The plan for this chapter as of \today will be to showcase important
+The plan for this chapter as of \today{} will be to showcase important
 details of chapter $2$ from Polchinski's Volume 1 leaving out some
 technical details for as exercises. In the future it would be nice to
 include $d$-dimensional CFT and it's application to condensed matter
-systems. 
+systems.
 
 \section{Conformal Normal Order and Operator Product Expansions}
+
 In our QFT adventures we focused on computing correlation functions since
 every physical quantity could be expressed in terms of them. However, in
 our journey we focused a lot on operators of the form
@@ -1024,10 +1021,10 @@ $\braket{\phi_1\phi_2\cdots\phi_n}$. We shall now generalize this ever so
 slightly. 
 
 \begin{definition} Let $\sg_0$ be a fixed point and consider a classical
-world-sheet field theory with $X_1(\sg),\ldots,X_n(\sg)$ be fields. 
-A \textbf{local functional} or \textbf{local operator} is a function $\ms
-F[X]$ taking in, as arguments, $X_i(\sg_0)$ and $\di_a X_i(\sg_0)$ which
-are taken at $\sg_0$.
+world-sheet field theory with fields $X_1(\sg),\ldots,X_n(\sg)$. A
+\textbf{local functional} or \textbf{local operator} is a function
+$\ms F[X]$ taking in, as arguments, $X_i(\sg_0)$ and $\di_a
+X_i(\sg_0)$ which are taken at $\sg_0$.
 \end{definition}
 Here are some examples of local operators $X^\mu(0,0),
 X^\mu(a,b)X_\mu(a,b), \di_{\bar z}X^3(z_1,\bar z_1)$. However,
@@ -1035,11 +1032,13 @@ $X^\mu(z_1,\bar z_1)+X^\mu(z_2,\bar z_2)$ is not a local operator.  Before
 introducing the operator product expansion we need to introduce conformal
 normal ordering which will be used in the definition of OPE.
 
-\begin{definition} Let $\ms F$ be an arbitrary function of $X$. Define the
-(free-field) normal order of $\ms F$ to be the functional:
-\[ \normalorder{\ms F} = \exp \left( -\FR{1}{8\pi T}\int d^2z_1d^2z_2 \ln|z_{12}|^2
-    \FR{\delta}{\delta X^\mu(z_1,\bar z_1)}
-    \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) \ms F\]
+\begin{definition}
+  Write $z_{12} = z_1 - z_2$. Let $\ms F$ be an arbitrary function of
+  $X$. Define the (free-field) {\bf normal order} of $\ms F$ to be the
+  functional:
+  \[ \normalorder{\ms F} = \exp \left( -\FR{1}{4\pi T_0}\int d^2z_1d^2z_2 \ln|z_{12}|^2
+  \FR{\delta}{\delta X^\mu(z_1,\bar z_1)}
+  \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) \ms F\]
 \end{definition}
 This is very analogous to the normal ordering that we saw in QFT where the
 coefficient $\eta^{\mu\nu}\ln|z_{12}|^2$ is replaced by the corresponding
@@ -1065,5 +1064,11 @@ X^\mu(z_1,\bar z_1) X^\nu(z_2,\bar z_2)}} = 0$ (Polchinski Vol 1 Page 36).
 \subsection{Conformal Invariance of $X^\mu$ Theory}
 \subsection{$bc$ CFT}
 \section{Vertex Operators}
+
+\chapter{String Theory Revisited}
+
+\section{BRST Quantization}
+
+\section{S-matrix}
 
 \end{document}
