@@ -12,6 +12,7 @@
 \usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks=true, urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -54,7 +55,7 @@
 \newcommand{\colr}[1]{ {\color{red} #1 } }
 \newcommand{\colb}[1]{ {\color{blue} #1 } }
 \newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
-\newcommand{\normalorder}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
+\newcommand{\NO}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -94,6 +95,7 @@
 \DeclareMathOperator{\vspan}{span}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Res}{Res}
 \newcommand{\eff}{\text{eff}}
 \newcommand{\vacuum}{\text{vacuum}}
 \newcommand{\pp}{\text{pp}}
@@ -332,7 +334,11 @@ we need to specify the signature. We take Lorentzian signature $(-,
 
 \begin{definition}
   As in general relativity, define the {\bf stress-energy tensor}
-  \[ T_{ab}(\sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma} S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di_a X^\mu \di_b X_\mu - \frac{1}{2} \gamma_{ab} \di_c X^\mu \di^c X_\mu\right), \]
+  \begin{align}
+      \label{stressenergydefn}
+      T_{ab}(\sigma) \coloneqq -\frac{4\pi}{\sqrt{-\gamma}} \delta_{\gamma}
+      S_{\text{P}}[X, \gamma] = -2\pi T_0 \left(\di_a X^\mu \di_b X_\mu -
+      \frac{1}{2} \gamma_{ab} \di_c X^\mu \di^c X_\mu\right),\end{align}
   so that the equation of motion arising from varying $\gamma$ says
   $T_{ab} = 0$. We call $T_{ab} = 0$ a {\bf constraint} on the
   equation of motion for $X^\mu$, which we derive soon.
@@ -909,6 +915,7 @@ $2$-tensors $\beta$ such that $\beta^{ab}$ is traceless, both living
 on $\Sigma$.
 
 \subsection{Faddeev-Popov Ghosts}
+\label{chapterone-fpghosts}
 
 We are not done: the path integral above is for $\detFP^{-1}$, but we
 want $\detFP$ itself. There is a general procedure for inverting
@@ -986,12 +993,15 @@ especially large in two dimensions and provides significant constraints.
 \footnote{References that were used for the preparation of this chapter
 include Polchinski's Vol 1, Polchinski's Little Book, and Ginsparg's
 Applied CFT arXiv:hep-th/9108028, IAS Vol 1 and 2, Gomis' PSI 14/15
-Lectures on CFT.}
+Lectures on CFT, Green Schwarz Witten Vol 1.}
 
 The technical tool that will drive this whole chapter is the
 \textbf{operator product expansion} (OPE). This is a canonical form
 for the product of two local operators:
-\[ \mc A_i(\sg_1)\mc A_j(\sg_2) = \sum_k c^k_{ij}(\sg_1-\sg_2) \mc A_k(\sg_2).\]
+\begin{align}
+\mc A_i(\sg_1)\mc A_j(\sg_2) = \sum_k c^k_{ij}(\sg_1-\sg_2) \mc A_k(\sg_2).
+\label{OPEdefinition}
+\end{align}
 This will turn out to be much like a Laurent expansion and the form of
 $c^k_{ij}(\sg_1-\sg_2)$ is severely restricted.
 
@@ -1001,12 +1011,7 @@ correspondence we may be able to take a highly correlated system and
 rewrite it in terms of a weakly coupled theory of supergravity. Let's
 begin!
 
-\textbf{Apology:} Until further notice we will not be as general as
-possible. In this chapter we will take what we need and create the tools
-that will be immediately useful leaving generalizations of these statements
-to later days.
-
-The plan for this chapter as of \today{} will be to showcase important
+The plan for this chapter as of January 1, 2016 will be to showcase important
 details of chapter $2$ from Polchinski's Volume 1 leaving out some
 technical details for as exercises. In the future it would be nice to
 include $d$-dimensional CFT and it's application to condensed matter
@@ -1022,9 +1027,12 @@ slightly.
 
 \begin{definition} Let $\sg_0$ be a fixed point and consider a classical
 world-sheet field theory with fields $X_1(\sg),\ldots,X_n(\sg)$. A
-\textbf{local functional} or \textbf{local operator} is a function
+\textbf{local functional} is a function
 $\ms F[X]$ taking in, as arguments, $X_i(\sg_0)$ and $\di_a
-X_i(\sg_0)$ which are taken at $\sg_0$.
+X_i(\sg_0)$ which are taken at $\sg_0$. A \textbf{local operator} is the
+quantized version of a local functional that has well defined expectation
+values. Often a local operator is given by the normal ordering of a local
+functional.
 \end{definition}
 Here are some examples of local operators $X^\mu(0,0),
 X^\mu(a,b)X_\mu(a,b), \di_{\bar z}X^3(z_1,\bar z_1)$. However,
@@ -1036,9 +1044,13 @@ normal ordering which will be used in the definition of OPE.
   Write $z_{12} = z_1 - z_2$. Let $\ms F$ be an arbitrary function of
   $X$. Define the (free-field) {\bf normal order} of $\ms F$ to be the
   functional:
-  \[ \normalorder{\ms F} = \exp \left( -\FR{1}{4\pi T_0}\int d^2z_1d^2z_2 \ln|z_{12}|^2
+  \begin{align}
+  \label{normalorderdefinition}
+  \NO{\ms F} &= \ms F + \sum \;(\text{subtractions})\\
+  &= \exp \left( \FR{\alpha'}{2}\int d^2z_1d^2z_2 \ln|z_{12}|^2
   \FR{\delta}{\delta X^\mu(z_1,\bar z_1)}
-  \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) \ms F\]
+  \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) \ms F
+  \end{align}
 \end{definition}
 This is very analogous to the normal ordering that we saw in QFT where the
 coefficient $\eta^{\mu\nu}\ln|z_{12}|^2$ is replaced by the corresponding
@@ -1046,24 +1058,317 @@ propogator $\Delta(z_1,z_2)$. The QFT version of normal ordering is useful
 for calculating matrix elements, while this version is useful for computing
 the OPE.
 
-Here are two examples: $\normalorder{X^\mu(z,\bar z)} = X^\mu(z,\bar z)$,
-and \[\normalorder{X^\mu(z_1,\bar z_2) X^\nu(z_2,\bar z_2)} = X^\mu(z_1,\bar
-z_2) X^\nu(z_2,\bar z_2) + \FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2.\]
-Perhaps the reason why this ordering is useful is because of the following:
-
-\begin{conjecture} Normal ordered expressions satisfy the classical
+Here are two examples: $\NO{X^\mu(z,\bar z)} = X^\mu(z,\bar z)$,
+and
+\begin{align}
+\label{normalorder-example}
+\NO{X^\mu(z_1,\bar z_2) X^\nu(z_2,\bar z_2)} = X^\mu(z_1,\bar
+z_2) X^\nu(z_2,\bar z_2) + \FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2.
+\end{align}
+The reason why this ordering is useful is because of the following:
+\begin{conjecture}[Fundamental Property of Normal Ordering]
+\label{fundamentalpropnormalorder}
+Normal ordered expressions satisfy the classical
 equations of motion averaged over paths. In the case of classical bosonic
 field this amounts to saying:
-\[ \braket{ \di\bar\di \normalorder{\ms F} } = 0.\]
+\[ \braket{ \di\bar\di \NO{\ms F} } = 0.\]
 \end{conjecture}
-\begin{exercise} Prove this.
-\end{exercise}
-This is true for instance in the case of $\braket{\di\bar\di \normalorder{
+This is true for instance in the case of $\braket{\di\bar\di \NO{
 X^\mu(z_1,\bar z_1) X^\nu(z_2,\bar z_2)}} = 0$ (Polchinski Vol 1 Page 36).
+\begin{proposition} 
+\label{prop-product-normal-order}
+Let $\ms F,\ms G$ be two local operators. Then,
+\begin{align}
+ \NO{\ms F}\NO{\ms G} &=
+\NO{\ms F\ms G} + \sum \;(\text{cross-contractions})\\
+&= \exp\left( -\FR{\alpha'}{2}\int d^2z_1 d^2z_2 \ln|z_{12}|^2
+\FR{\delta}{\delta^\mu_F(z_1,\bar z_1)}
+\FR{\delta}{\delta_{\mu G(z_2,\bar z_2)}}
+\right) \NO{\ms FG}
+\end{align}
+\end{proposition}
 
-\subsection{Conformal Invariance of $X^\mu$ Theory}
-\subsection{$bc$ CFT}
-\section{Vertex Operators}
+\begin{remark} The operator product expansion, as given by
+\eqref{OPEdefinition}, is our definition of the OPE. However, it turns out,
+just like in complex analysis, that the singular part of this expansion is
+the one that plays the most crucial role. What does the singular part of
+the OPE do for us? It turns out that it gives us a way to compute the
+variation of local operators under conformal transformations. Here's how.
+Using the Ward identity in $d=2$ we relate $\delta\ms A(z_0,\bar z_0)$ with
+the residue of $j(z)\ms A(z_0,\bar z_0)$ at $z_0$. Rewrite $j$ in terms of
+the energy-momentum tensor and use the singular part of the OPE of $T\ms A$
+to calculate the residue.
+
+Now we describe how to compute the singular part of the OPE in free field
+theory. In particular, this means that the following derivation only works
+for the bosonic non-interacting string. We will revise our method
+later, if need be. The key observation is that harmonic functions can
+locally be written as a sum of a holomorphic and antiholomorphic part.
+\end{remark}
+\begin{lemma} Let $f : \bC \to \bC$ be harmonic. Then $\di\bar\di f = 0$
+and so $f = a(z) + b(\bar z)$ where $a$ is holomorphic and $b$ is
+antiholomorphic.
+\end{lemma}
+% \begin{proof} (Sketch) Using $\bar\di(\di f) = 0$, we write $\di f =
+% \sum_{n\ge0} a_nz^n$ and similarly, $\bar\di f = \sum_{n\ge0} b_nz^n$.
+% Then, show that $f(w) = \sum_{n\ge0} \int_0^w a_nz^n+\int_0^w b_nz^n$.
+% \end{proof}
+
+Using Prop.~\ref{prop-product-normal-order} we notice that, since
+$\NO{\ms F\ms g}$ is non-singular, the singular
+part in the OPE of $\NO{\ms F}\NO{\ms G}$ is given by the coefficient
+functions in the cross-contractions.
+
+% Let $\ms A(\sg_1), \ms B(\sg_2)$ be two local operators, with
+% $\sg_1=(z_1,\bar z_1), \sg_2=(z_2,\bar z_2)$ and 
+% \mbox{$\|\sg_1-\sg_2\| \ll 1$.} Using \ref{prop-product-normal-order}, we can
+% rearrange the product as a sum of normal ordering operators with meromorphic
+% or anti-meromorphic (terms of the form $(\bar z - \bar z_0)^{-1}$)
+% coefficients. Since 
+% \begin{align}
+%     \ms A\ms B &= \NO{\ms A\ms B} + \sum \;(\text{contractions})\\
+%     &= \exp \left(-\FR{\alpha'}{2}\int d^2z_1d^2z_2 \ln|z_{12}|^2
+%     \FR{\delta}{\delta X^\mu(z_1,\bar z_1)}
+%     \FR{\delta}{\delta X_\mu(z_2,\bar z_2)} \right) (\ms A\ms B)
+% \end{align}
+% By \eqref{fundamentalpropnormalorder}, $\NO{\ms A\ms B}$ is
+% non-singular, and so the sum of contractions contribute to the
+% (anti)meromorphic expansion. These (anti)meromorphic parts of the
+% decomposition are called the \textbf{singular terms of the OPE centred
+% around $z_2$} of $\ms A\ms B$. Just like in complex analysis, the singular
+% terms contain a lot of information about the behaviour of the function, so
+% do the singular terms of the OPE. %insert proposition number
+
+\begin{example} Using the definition of normal ordering
+\eqref{normalorderdefinition}, we may write (cf.
+\eqref{normalorder-example})
+\begin{align*}
+    X^\mu(z_1,\bar z_1)X^\nu(z_2,\bar z_2) &=
+    -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2 +\sum_{k=1}^\infty \FR{1}{k!} 
+    (z_{12})^k \NO{X^\nu\di^k X^\mu(z_2,\bar z_2)}
+    +(\bar z_{12})^k \NO{X^\nu\bar\di^k X^\mu(z_2,\bar z_2)}\\
+    &\sim -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2 
+\end{align*}
+The first equation is the full operator product expansion and the
+equivalence (up to singular terms) shows that $X^\mu X^\nu$ behaves like
+$\ln|z_{12}|^2$ for $z_1\to z_2$.
+\end{example}
+\begin{example} Let's suppose we have a product of two composite operators.
+$\ms F(z) = \di X^\mu(z)\di X_\mu(z)$ and $\ms G(z') = \di'
+X^\nu(z')\di'X_\nu(z')$.  Using the harmonicity of normal ordering we
+obtain:
+\begin{align*}
+\NO{\ms F(z)}\NO{\ms G} &= \NO{\ms F(z)\ms G(z')} - 4 \FR{\alpha'}{2}
+(\di\di' \ln|z-z'|^2) \NO{\di X^\mu \di' X_\mu(z')}
++2\eta^\mu_\mu \left( -\FR{\alpha'}{2}\di\di'\ln|z-z'|^2 \right)^2\\
+&\sim \FR{D\alpha'^2}{2(z-z')^4}-\FR{2\alpha'}{(z-z')^2}\NO{\di X^\mu \di'
+X_\mu(z')} - \FR{2\alpha'}{z-z'} \NO{\di X^\mu \di' X_\mu(z')}
+\end{align*}
+\end{example}
+
+In general CFTs we require the basis in which we expand operator products
+to transform like a tensor under conformal transformations. Moreover, the
+conformal invariance then puts even more restrictions on the coefficient
+functions rendering them unique up to a constant.  
+
+\subsection{Ward Identity}
+Although the idea of the OPE is what drives this chapter, the Ward identity
+is the oil that makes the engine turn. Suppose we are given a coordinate
+transformation $\sg' = \sg+\delta\sg$, that is a symmetry of the theory,
+how do operators transform under this transformation? Denote the
+transformation of fields as follows: $X'_\mu(\sg) = X_\mu(\sg) + \delta
+X_\mu(\sg)$. Now we consider a slightly more general transformation: 
+\[ X'_\mu(\sg) = X_\mu(\sg)+\rho(\sg)\delta X_\mu(\sg).\] 
+Such a general transformation might not be a symmetry of the action.
+However, the path integral \emph{is} invariant under change of coordinates,
+which means:
+\begin{align*}
+0 &= \delta\left( \int \mc DX\, e^{-S[X]}\ms A(\sg_0) \right)
+=\int\mc DX\delta (e^{-S[X]})\ms A(\sg_0)+e^{-S[X]}\delta\ms A(\sg_0)\\
+&=\int\mc DX\,(d^d\sg\sqrt{g}) e^{-S[X]} j^a(\sg)\di_a\rho(\sg)\ms
+A(\sg_0)+e^{-S[X]}\delta\ms A(\sg_0)
+\end{align*}
+Applying Stoke's theorem:
+\begin{align*}
+\braket{\delta \ms A(\sg_0)} &= \FR{i\epsilon}{2\pi} \int d^d\sg
+\sqrt{g} \braket{\di_aj^a(\sg)}\\
+&= \FR{i\epsilon}{2\pi} \braket{ \oint_{\di R} dA\,n^aj_a(\sg)\ms A(\sg_0)}
+\end{align*}
+In operator form and in $d=2$ this looks like
+\[\FR{2\pi}{\epsilon}\delta \ms A(\sg_0)
+=\oint_{\di R} (j_zdz - j_{\bar z}d\bar z) \ms A(z_0,\bar z_0)\]
+In the case that $j_z$ and $j_{\bar z}$ are (anti)holomorphic then we have
+the following relation:
+\[\Res_{z\to z_0} j(z)\ms A(z_0,\bar z_0) + \overline{\Res}_{\bar z\to\bar
+z_0} \tilde j(\bar z)\ms A(z_0,\bar z_0) = \FR{1}{i\epsilon}\delta\ms
+A(z_0,\bar z_0).\]
+
+
+
+
+\subsection{Applications of OPE}
+Let us show that the $X^\mu$-theory is conformally invariant. This amounts
+to showing if $z'=f(z)$, for some holomorphic $f$, then $X'^\mu(z',\bar z')
+= X(z,\bar z)$. For our purposes it will be easier to check this
+infinitesimally. consider 
+\begin{align} z' = z+\epsilon v(z)
+\label{worldsheet-translation}
+\end{align}
+for holomorphic $v$ (and similarly for the $\bar z'$).
+We want to show that such a transformation gives rise to the following variation:
+\[X'^\mu(z',\bar z')=X^\mu(z,\bar z)-\epsilon v^a(z)\di_a X^\mu(z,\bar
+z) - \epsilon v^a(z)^* \bar\di X^\mu\]
+because this is the infinitesimal version of $X'^\mu(z',\bar z')
+= X(z,\bar z)$. The idea will be to use the Ward identity,
+\[ \Res_{z \to z_0} j(z) \ms A(z_0,\bar z_0) + c.c. =
+\FR{1}{i\epsilon}\delta \ms A(z_0,\bar z_0),\] to compute the variation of
+$\ms A$. Therefore, we must first compute the current $j^a(z)$
+corresponding to $v^a(z)$, then compute the OPE $j(z)\ms A(z_0,\bar z_0)$
+to understand the asymptotics around $(z_0,\bar z_0)$, and finally compute
+the residue to obtain the symmetry that we are interested in.
+
+\begin{exercise} Show that the Noether current, corresponding to the
+symmetry \eqref{worldsheet-translation}, is given by $j_a = iv^b T_{ab}$
+where $T_{ab}$ is the normal ordered version of the stress-energy
+tensor \[T_{ab} = -\FR{1}{\alpha'} \NO{ \left( \di_a X^\mu\di_b
+X_\mu - \FR{1}{2}\delta_{ab}\di_c X^\mu\di^c X_\mu \right)}.\]
+Moreover, show that $T_a^a = 0$, that is the tensor is traceless. Rewriting
+this in complex coordinates, show this is equivalent to $T_{z\bar z} = 0$.
+Also, using $\di^aT_{ab} = 0 = T^a_a$, we have $\bar\di T_{zz} = \di
+T_{\bar z\bar z} = 0$, showing that $T = T_{zz}, \tilde T = T_{\bar z\bar
+z}$ are holomorphic and anti-holomorphic. Next, show that the OPEs of $T\ms
+A$ and $\tilde T\ms A$ have the following asymptotics:
+\[ T(z) X^\mu(0) \sim \FR{1}{z} \di_zX^\mu(0), \qquad\qquad 
+\tilde T(\bar z)X^\mu(0) \sim \FR{1}{\bar z}\bar\di X^\mu(0).\]
+\end{exercise}
+\subsection{Primary Fields}
+In a CFT, we would like to use a particular basis for the OPE
+\eqref{OPEdefinition}. This is a set of local operators which transform
+under conformal transformations similar to a tensor:
+\begin{align}
+    \ms O'(z',\bar z') = (\di z')^{-h}(\bar\di \bar z')^{-\tilde h} \ms
+    O(z,\bar z).
+    \label{primaryfielddefinition}
+\end{align}
+We call such a local operator a \textbf{primary field} or \textbf{conformal
+tensor} of weight $(h,\tilde h)$. These quasi-primary fields, by
+definition, play nice with conformal transformations, thus we may expect
+that the OPE of $T\ms O$ will be particularly nice. In fact, this does turn
+out to be the case:
+\begin{align}
+T(z)\ms O(0,0) = \FR{h}{z^2}\ms O(0,0) + \FR{1}{z}\di\ms O(0,0)+\cdots
+\end{align}
+
+\begin{example} The operator $\NO{(\prod_i\di^{m_i}X^{\mu_i})
+(\prod_j\di^{n_j}X^{\nu_j})e^{ik\cdot X}}$ has weight $\left(
+\FR{\alpha'k^2}{4} + \sum_i m_i, \FR{\alpha'k^2}{4} + \sum_j n_j \right)$.
+\end{example}
+
+\begin{proposition}[Refined OPE] Using rigid translations, scaling and
+rotations to both sides of an OPE we can write, for any two primary
+operators $\ms A_i, \ms A_j$:
+\begin{align}
+    \ms A_i(z_1,\bar z_1)\ms A_j(z_2,\bar z_2) = \sum_k
+    z_{12}^{h_k-h_i-h_j}\bar z_{12}^{\tilde h_k-\tilde h_i-\tilde h_j}
+    \ms A_k(z_2,\bar z_2)
+    \label{refinedOPE}
+\end{align}
+\end{proposition}
+\begin{theorem}[Conformal Bootstrap] 
+    We may express the OPEs (ie. the correlation functions) for a product
+    of any two or more fields, using only the quasi-primary fields. (Cf.
+    Chapter 15 -- Vol 2 Polchinski)
+\end{theorem}
+
+\begin{example}{$bc$ CFT}
+There are many different free conformal field theories. We have, in fact,
+already met with two in the first chapter. The first is the $X^\mu$ theory,
+which we have gotten to know quite well. The second comes from 
+\S~\!\ref{chapterone-fpghosts}: Faddeev-Popov ghosts $b_{ab},c^a$ with
+action \begin{align} S_G = \FR{1}{2\pi} \int d^2\sg b_{ab}\di^a c^b
+\end{align} is a free CFT where $b,c$ are primary fields (conformal
+tensors) with weights $(h_b,0) = (\lam,0)$ and $(h_c,0) = (1-\lam,0)$.
+For this theory we can compute the OPEs, and all of the other quantities in
+a similar manner to what we did above. All of these important facts are
+left as exercises with answers in Polchinski pg 50-51.
+\end{example}
+
+\subsection{Virasoro Algebra}
+Let us now compute the spectrum of a CFT. First, we will be clever and
+apply a conformal transformation from $(w=\sg^1+i\sg^2)\mapsto
+(z=e^{-iw}=e^{-i\sg^1+\sg^2})$.\footnote{In the previous sections what we
+meant by $z$ was actually the $w$ here.} Quantizing with parameter $z$ is
+usually referred to as \textbf{radial quantization}. Second, we will do a
+Laurent expansion of $T_{zz}(z)$ and $T_{\bar z\bar z}(\bar z)$ to obtain
+the Virasoro generators:
+\begin{align}
+    T(z) = \sum_{m=-\infty}^\infty \FR{L_m}{z^{m+2}}, \qquad
+    \tilde T(z) = \sum_{m=-\infty}^\infty \FR{\tilde L_m}{\bar z^{m+2}}, \qquad
+    L_m  = \oint_C \FR{dz}{2\pi iz} z^{m+2} T(z)
+    \label{Virasorodefinition}
+\end{align}
+This definition of operators $L_m$ has a number of consequences. First, we
+notice that the shape of the contour is irrelevant and we may fix the
+contours $C$ to be circles centred at $0$. This contours correspond to
+equal-time points of the world-sheet, since $|z| = e^{\sg^2}$. Moreover,
+since these operators are invariant under the radius of the circle, it
+follows that $L_m$ are invariant under time translation! This means that 
+$L_m$ are conserved charges with current $j_m(z) = z^{m+1} T(z)$.
+
+Before we can talk about the Hamiltonian, we again need a technical lemma.
+\begin{lemma}[Transformation of the Energy Momentum Tensor] In a general
+CFT, under a conformal transformation, $z \to z+\epsilon v(z)$, the energy
+momentum tensor transforms as:
+\begin{align}
+    \delta T(z) = -\FR{c}{12} \di^3 v(z) - 2\di v(z)T(z) - v(z)\di T(z)
+    \label{centralchargedefinition}
+\end{align}
+The quantity $c$ is called the central charge of the CFT.
+\end{lemma}
+
+\begin{exercise} 
+Show that the Hamiltonian is the conserved quantity given
+by (in the $w = \sg^1+i\sg^2$ frame) \[ H = \int_0^{2\pi} \FR{d\sg^1}{2\pi}
+T_{22} = L_0 + \tilde L_0 - \FR{c+\tilde c}{24},\] where $T_{ww} = (\di_w
+z)^2 T_{zz} + \FR{c}{24}$.  
+\end{exercise}
+
+The collection $\{L_m,\tilde L_m\}_{m\in\bZ}$ are the generators for the
+Virasoro algebra. To compute their commutators, we use the Ward identity
+and a contour trick. 
+
+\begin{lemma} Let $Q_i = \oint \FR{dz}{2\pi i} j_i(z), i=1,2$ be conserved
+charges, with current $j_1,j_2$. Then
+\begin{align*}
+    [Q_1,Q_2]\{C_2\} &= \lim_{C_1,C_3 \to C_2} Q_1\{C_1\}Q_2\{C_2\}
+    - Q_1\{C_3\} Q_2\{C_2\}\\
+    &= \oint_{C_2} \FR{dz_2}{2\pi i} = \Res_{z_1\to z_2} j_1(z_1)j_2(z_2)
+\end{align*}
+\end{lemma}
+\begin{proof}
+For the first equality, imagine slicing the path integral into three chunks.
+For the second, draw the standard picture where $C_1,C_3$ are perturbed
+around a point $z_2\in C_2$.
+\end{proof}
+This lemma shows that knowing the singular terms means we understand the
+commutators between conserved charges. Now we may apply this lemma to the
+Virasoro generators.
+\begin{theorem}[Virasoro Algebra Relations]
+Let $L_m, m\in\bZ$ be the generators of the Virasoro algebra. Then,
+\begin{align}
+    [L_m,L_n] = (m-n)L_{m+n} + \FR{c}{12}(m^3-m)\delta_{m,-n}
+    \label{Virasorogeneratorrelations}
+\end{align}
+\end{theorem}
+\begin{proof}
+Let us calculate the right-hand side of the equation of the lemma.
+$\Res_{z_1\to z_2} (z_1^{m+1}T(z_1))\,(z_2^{n+1}T(z_2))
+=\Res_{z_1\to z_2} z_1^{m+1}z_2^{n+1}\cdot \mathrm{OPE}\{T(z_1)T(z_2)\}$.
+Expanding the OPE, and then doing the contour integral, we obtain the
+result.
+\end{proof}
+
+\section{Vertex Operators, Scattering Amplitudes, Anomolies}
 
 \chapter{String Theory Revisited}
 
