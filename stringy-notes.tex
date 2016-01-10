@@ -989,11 +989,8 @@ the fields are parameterized by two coordinates $(\sg^1,\sg^2)$. We shall
 now explore the conformal symmetry of the Polyakov action and deduce a
 number of important technical tools that will enable us to say a lot about
 the properties of this quantum field theory. This conformal symmetry is
-especially large in two dimensions and provides significant constraints.
-\footnote{References that were used for the preparation of this chapter
-include Polchinski's Vol 1, Polchinski's Little Book, and Ginsparg's
-Applied CFT arXiv:hep-th/9108028, IAS Vol 1 and 2, Gomis' PSI 14/15
-Lectures on CFT, Green Schwarz Witten Vol 1.}
+especially large in two dimensions and provides significant
+constraints.
 
 The technical tool that will drive this whole chapter is the
 \textbf{operator product expansion} (OPE). This is a canonical form
@@ -1002,14 +999,16 @@ for the product of two local operators:
 \mc A_i(\sg_1)\mc A_j(\sg_2) = \sum_k c^k_{ij}(\sg_1-\sg_2) \mc A_k(\sg_2).
 \label{OPEdefinition}
 \end{align}
-This will turn out to be much like a Laurent expansion and the form of
-$c^k_{ij}(\sg_1-\sg_2)$ is severely restricted.
+This will turn out to be much like a Laurent expansion, however, in a
+conformally invariant theory the form of the $c^k_{ij}(\sg_1-\sg_2)$ is
+severely restricted. 
 
-There are many reasons why it is useful for us to learn about CFT. Certain
-critical phase transitions can be described by a CFT and using the AdS/CFT
-correspondence we may be able to take a highly correlated system and
-rewrite it in terms of a weakly coupled theory of supergravity. Let's
-begin!
+There are many reasons why it is useful for us to learn about CFT. One
+reason is that certain critical phase transitions can be described by a CFT
+and using the AdS/CFT correspondence we may be able to take a highly
+correlated system and rewrite it in terms of a weakly coupled theory of
+supergravity. To understand this sentence will require lots of time, so
+let's not waste anymore! 
 
 The plan for this chapter as of January 1, 2016 will be to showcase important
 details of chapter $2$ from Polchinski's Volume 1 leaving out some
@@ -1088,23 +1087,25 @@ Let $\ms F,\ms G$ be two local operators. Then,
 \end{align}
 \end{proposition}
 
-\begin{remark} The operator product expansion, as given by
-\eqref{OPEdefinition}, is our definition of the OPE. However, it turns out,
-just like in complex analysis, that the singular part of this expansion is
-the one that plays the most crucial role. What does the singular part of
-the OPE do for us? It turns out that it gives us a way to compute the
-variation of local operators under conformal transformations. Here's how.
-Using the Ward identity in $d=2$ we relate $\delta\ms A(z_0,\bar z_0)$ with
-the residue of $j(z)\ms A(z_0,\bar z_0)$ at $z_0$. Rewrite $j$ in terms of
-the energy-momentum tensor and use the singular part of the OPE of $T\ms A$
-to calculate the residue.
+\begin{remark} \label{necessityOPE} The operator product expansion, as
+given by \eqref{OPEdefinition}, is our definition of the OPE. However,
+it turns out, just like in complex analysis, that the singular part of
+this expansion is the one that plays the most crucial role. What does
+the singular part of the OPE do for us? It turns out that it gives us a
+way to compute the variation of local operators under conformal
+transformations. Here's how.  Using the Ward identity in $d=2$ we
+relate $\delta\ms A(z_0,\bar z_0)$ with the residue of $j(z)\ms
+A(z_0,\bar z_0)$ at $z_0$. Rewrite $j$ in terms of the energy-momentum
+tensor and use the singular part of the OPE of $T\ms A$ to calculate
+the residue.
+\end{remark}
 
 Now we describe how to compute the singular part of the OPE in free field
 theory. In particular, this means that the following derivation only works
-for the bosonic non-interacting string. We will revise our method
-later, if need be. The key observation is that harmonic functions can
-locally be written as a sum of a holomorphic and antiholomorphic part.
-\end{remark}
+for the bosonic non-interacting string. We will revise and possibly
+generalize our method later, if need be. The key observation is that
+harmonic functions can locally be written as a sum of a holomorphic and
+antiholomorphic part.
 \begin{lemma} Let $f : \bC \to \bC$ be harmonic. Then $\di\bar\di f = 0$
 and so $f = a(z) + b(\bar z)$ where $a$ is holomorphic and $b$ is
 antiholomorphic.
@@ -1173,11 +1174,12 @@ functions rendering them unique up to a constant.
 
 \subsection{Ward Identity}
 Although the idea of the OPE is what drives this chapter, the Ward identity
-is the oil that makes the engine turn. Suppose we are given a coordinate
-transformation $\sg' = \sg+\delta\sg$, that is a symmetry of the theory,
-how do operators transform under this transformation? Denote the
-transformation of fields as follows: $X'_\mu(\sg) = X_\mu(\sg) + \delta
-X_\mu(\sg)$. Now we consider a slightly more general transformation: 
+is the oil that makes the engine turn (cf.~Remark~\ref{necessityOPE}). Suppose we
+are given a coordinate transformation $\sg' = \sg+\delta\sg$, that is a
+symmetry of the theory, how do operators transform under this
+transformation? Denote the transformation of fields as follows:
+$X'_\mu(\sg) = X_\mu(\sg) + \delta X_\mu(\sg)$. Now we consider a slightly
+more general transformation: 
 \[ X'_\mu(\sg) = X_\mu(\sg)+\rho(\sg)\delta X_\mu(\sg).\] 
 Such a general transformation might not be a symmetry of the action.
 However, the path integral \emph{is} invariant under change of coordinates,
