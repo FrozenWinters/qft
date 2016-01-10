@@ -12,7 +12,7 @@
 \usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[colorlinks=true, urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
+\usepackage[colorlinks=true,urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -103,6 +103,8 @@
 \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\fder}[2]{\frac{\delta #1}{\delta #2}}
 \newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\bz}{\bar{z}}
+\newcommand{\bdi}{\bar{\di}}
 
 \begingroup
     \makeatletter
@@ -651,7 +653,7 @@ the general solution
 \[ X^i(\sigma) = X^i_L(\sigma^+) + X^i_R(\sigma^-) \]
 for arbitrary functions $X^i_L$ and $X^i_R$, describing {\bf
   left-moving} and {\bf right-moving} waves respectively, which we can
-expand as Fourier series: (\CHECK{} Why are there $\sigma^\pm$ terms?)
+expand as Fourier series:
 \begin{align*}
   X^i_L(\sigma^+) &= \frac{1}{2}x^i(0) + \frac{1}{2T_0} p^i(0) \sigma^+ + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \tilde{\alpha}_n^i e^{-in\pi\sigma^+/\ell}, \\
   X^i_R(\sigma^-) &= \frac{1}{2}x^i(0) + \frac{1}{2T_0} p^i(0) \sigma^- + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\pi\sigma^-/\ell}.
@@ -667,7 +669,7 @@ $\tilde{\alpha}^i_n = (\tilde{\alpha}^i_{-n})^*$ and $\alpha^i_n =
   Show that the Neumann boundary condition forces $\tilde{\alpha}_n^i
   = \alpha_n^i$, so that the general form of a {\bf classical solution
     for an open string} is
-  \[ X^i(\sigma) = x^i + \frac{1}{2\pi T_0}p^i\sigma^0 + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\pi\sigma^0/\ell} \cos \frac{n\pi\sigma^1}{\ell}. \]
+  \[ X^i(\sigma) = x^i(0) + \frac{1}{2T_0}p^i(0)\sigma^0 + i\frac{\ell}{\pi}\sqrt{\frac{1}{2T_0}} \sum_{n \neq 0} \frac{1}{n} \alpha_n^i e^{-in\pi\sigma^0/\ell} \cos \frac{n\pi\sigma^1}{\ell}. \]
 \end{exercise}
 
 Finally, we must write down the {\bf constraints}, i.e. the Virasoro
@@ -689,7 +691,7 @@ and $L_0$ contains the momentum, $L_0 = 0$ implies that the {\bf
 
 Quantization is now trivial: we impose the canonical {\bf equal-time
   commutation relations}
-\[ [x^-, p^+] = i\eta^{-+} = -i, \quad [X^i(\sigma^0, \sigma^1), \Pi^j(\sigma^0, \sigma'^1)] = i\delta^{ij} \delta(\sigma - \sigma'), \]
+\[ [x^-, p^+] = i\eta^{-+} = -i, \quad [X^i(\sigma), \Pi^j(\sigma')] = i\delta^{ij} \delta(\sigma - \sigma'), \]
 with all other commutators vanishing. In terms of Fourier components,
 \[ [x^-, p^+] = -i, \quad [x^i, p^j] = i\delta^\mu{}_\nu, \quad [\alpha^i_m, \alpha^j_n] = m \delta^{ij} \delta_{m+n,0}, \]
 with all other commutators vanishing. So as in QFT, we can treat
@@ -861,7 +863,7 @@ $\delta[\hat{g}^\zeta - g]$, amounts to replacing $g$ with
 $\hat{g}^\zeta$:
 \[ Z = \int \frac{\cD X \, \cD \zeta}{\Vol} \detFP(\hat{g}^\zeta)\exp(-S_{\text{P}}[X, \hat{g}^\zeta]). \]
 Finally, since both $\detFP$ and $S_{\text{P}}$ are gauge-invariant,
-we can replace $\hat{g}$ with $\hat{g}^\zeta$. Then nothing in the
+we can replace $\hat{g}^\zeta$ with $\hat{g}$. Then nothing in the
 integrand depends on $\zeta$ anymore, so it factors out and cancels
 the volume normalization:
 \[ Z = \int \frac{\cD \zeta}{\Vol} \int \cD X \, \detFP(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]) = \int \cD X \, \detFP(\hat{g}) \exp(-S_{\text{P}}[X, \hat{g}]). \]
@@ -1362,8 +1364,7 @@ Let $L_m, m\in\bZ$ be the generators of the Virasoro algebra. Then,
 \end{theorem}
 \begin{proof}
 Let us calculate the right-hand side of the equation of the lemma.
-$\Res_{z_1\to z_2} (z_1^{m+1}T(z_1))\,(z_2^{n+1}T(z_2))
-=\Res_{z_1\to z_2} z_1^{m+1}z_2^{n+1}\cdot \mathrm{OPE}\{T(z_1)T(z_2)\}$.
+\[ \Res_{z_1\to z_2} (z_1^{m+1}T(z_1))\,(z_2^{n+1}T(z_2)) =\Res_{z_1\to z_2} z_1^{m+1}z_2^{n+1}\cdot \mathrm{OPE}\{T(z_1)T(z_2)\}. \]
 Expanding the OPE, and then doing the contour integral, we obtain the
 result.
 \end{proof}
@@ -1372,7 +1373,254 @@ result.
 
 \chapter{String Theory Revisited}
 
+We now have enough background in conformal field theory to continue
+our exploration into string theory. However, for completeness, there
+are a few loose ends we must tie up first, and a few more tools we
+must develop.
+
 \section{BRST Quantization}
+
+Our covariant and path integral quantizations of the Polyakov action
+were somewhat unsatisfactory.
+\begin{enumerate}
+\item We were vague about how covariant quantization imposes the
+  quantized Virasoro conditions: how can we tell which states are
+  physical using our theory?
+\item We did not derive the spectrum or state space using the path
+  integral. With the introduction of ghost fields, not every
+  configuration that is integrated over is a valid state.
+\end{enumerate}
+{\bf Becchi-Rouet-Stora-Tyutin (BRST) quantization} cures these three
+problems simultaneously. It is a much more advanced method for
+quantizing a field theory with gauge symmetries and constraints.
+Instead of applying it directly to the Polyakov string, we first
+develop it in general.
+
+The setting is any $D$-dimensional field theory with action $S$, and
+fields $\phi_r(x)$, infinitesimal gauge symmetries $K_\alpha(x)$, and
+gauge-fixing conditions $F^A[\phi; x]$. The infinitesimal gauge
+symmetries form a Lie algebra $G$, i.e. $[K_\alpha, K_\beta] =
+f_{\alpha\beta}{}^\gamma K_\gamma$ where $f_{\alpha\beta}{}^\gamma$
+are the {\bf structure constants} of $G$. Importantly, the
+$f_{\alpha\beta}{}^\gamma$ must be independent of the fields $\phi_r$
+(though of course they are dependent on $x$). This condition does not
+hold for all gauge theories: when it does not, we must rely on some
+even more sophisticated machinery known as the {\bf Batalin-Vilkovisky
+  formalism}. Fortunately, we do not need to for the Polyakov string.
+
+{\bf Note}: indices become messy in this section. We use $A$ (and not
+$B$, which appears as a non-indexing subscript later) to index the
+gauge-fixing conditions, i.e. the degrees of gauge freedom, $\alpha,
+\beta, \ldots$ to index the gauge symmetries, and $r, s, \ldots$ to
+index the fields. This avoids conflict with $a, b, \ldots$, which
+index worldsheet coordinates, and $i, j, \ldots$ and $\mu, \nu,
+\ldots$, which index space and spacetime coordinates.
+
+\begin{exercise}
+  Apply the Faddeev-Popov method to this more general setting to
+  obtain the gauge-fixed path integral
+  \[ \int \cD \phi_r \, \cD B_A \, \cD b_A \, \cD c^\alpha \, \exp(-S - S_{\text{gf}} - S_{\text{G}}) \]
+  Here, as for the Polyakov string,
+  \begin{itemize}
+  \item $S$ is the original gauge-invariant action,
+  \item $S_{\text{gf}} \coloneqq -i \int d^Dx \sqrt{g} \, B_A
+    F^A[\phi]$ is the {\bf gauge fixing action}, and
+  \item $S_{\text{G}} \coloneqq \int d^Dx \sqrt{g} \, b_A c^\alpha
+    K_\alpha F^A[\phi]$ is the {\bf Faddeev-Popov ghost action}.
+  \end{itemize}
+  (We did not explicitly see $S_{\text{gf}}$ for the Polyakov string
+  because we immediately integrated it away: there, $\int \cD B_A \,
+  \exp(-S_{\text{gf}}) = \delta[\hat{g}^\zeta - g]$. If we had written
+  the $\delta$ functional as a path integral, its variable of
+  integration would have been $B_A$.) The auxiliary fields $B_A$ are
+  sometimes called {\bf Nakanishi-Lautrup fields}.
+\end{exercise}
+
+The resulting action $S + S_{\text{gf}} + S_{\text{G}}$ is not
+gauge-invariant anymore, but it has a very important symmetry called
+{\bf BRST symmetry}.
+
+\subsection{BRST Symmetry}
+
+\begin{definition}
+  The infinitesimal {\bf BRST transformation} $\delta_B$ is given by
+  \begin{align*}
+    \delta_B\phi_r(x) &\coloneqq -i\theta c^\alpha K_\alpha\phi_r(x), \\
+    \delta_B B_A(x) &\coloneqq 0, \\
+    \delta_B b_A(x) &\coloneqq \theta B_A(x), \\
+    \delta_B c^\alpha(x) &\coloneqq \frac{i}{2}\theta f_{\beta\gamma}{}^\alpha c^\beta(x)c^\gamma(x).
+  \end{align*}
+  (This is not the cleanest way of writing the BRST transformation; be
+  assured that this definition can actually be very well-motivated, as
+  we see soon.)
+\end{definition}
+
+\begin{proposition}
+  The BRST transformation $\delta_B$ is a symmetry of the action $S +
+  S_{\text{gf}} + S_{\text{G}}$, i.e.
+  \[ \delta_B(S + S_{\text{gf}} + S_{\text{G}}) = 0. \]
+\end{proposition}
+
+\begin{proof}[Proof/Exercise]
+  (Every calculation in this proof is implicitly done in the integrand
+  of $\int d^Dx \sqrt{g}$, i.e. we omit writing the integral and
+  integration measure.) First we establish two small identities, both
+  of which are fairly straightforward:
+  \[ \delta_B(F^A[\phi]) = -i\theta c^\alpha K_\alpha F^A[\phi], \qquad c^\alpha c^\beta K_\alpha K_\beta = \frac{1}{2} c^\alpha c^\beta f_{\alpha\beta}{}^\gamma K_\gamma. \]
+  Using these two identities and that $c^\alpha$ and $c^\beta$
+  anti-commute,
+  \begin{align*}
+    \delta_B(c^\alpha K_\alpha F^A[\phi])
+    &= \left(\frac{i}{2}\theta f_{\beta\gamma}{}^\alpha c^\beta c^\gamma\right) K_\alpha F^A[\phi] + c^\alpha K_\alpha (-i\theta c^\beta K_\beta F^A[\phi]) \\
+    &= \frac{i}{2}\theta f_{\beta\gamma}{}^\alpha c^\beta c^\gamma K_\alpha F^A[\phi] - \frac{i}{2}\theta c^\alpha c^\beta f_{\alpha\beta}{}^\gamma K_\gamma F^A[\phi] = 0.
+  \end{align*}
+  Hence when we compute $\delta_B(S_{\text{G}})$, the only
+  non-vanishing term comes from $\delta_B b_\lambda$. Similarly, since
+  $\delta_B(B_A) = 0$, the only non-vanishing term in
+  $\delta_B(S_{\text{gf}})$ comes from $\delta_B(F^A[\phi])$. But then
+  again using the first of the two identities,
+  \[ \delta_B(S_{\text{gf}} + S_{\text{G}}) = -iB_A \delta_B(F^A[\phi]) + \theta B_A c^\alpha K_\alpha F^A[\phi] = 0. \]
+  Finally, $\delta_B(S) = 0$ since $S$ is the original gauge-invariant
+  action and is only a function of $\phi_r$, but the transformation
+  $\delta_B \phi_r$ is no more than an infinitesimal gauge
+  transformation.
+\end{proof}
+
+Note that $\delta_B$ mixes commuting (e.g. $\phi_r$ and $B_A$) and
+anti-commuting (e.g. $b_A$ and $c^\alpha$) objects. For example, $b_A$
+is supposed to anti-commute, but $\delta_B b_A = \theta B_A$, and
+$B_A$ commutes. Hence $\theta$ must be anti-commuting, i.e. a
+Grassmann variable. Because of this mixing, physicists say that the
+BRST symmetry is a {\bf supersymmetry}. The field $c^\alpha$ has ghost
+number $+1$, the field $b_A$ and parameter $\theta$ have ghost number
+$-1$, and all other fields have ghost number $0$.
+
+\begin{exercise}
+  Let $\delta$ be an infinitesimal symmetry of the fields $\phi_r$.
+  Review/show that by Noether's theorem, associated to the symmetry
+  $\delta$ is a conserved charge
+  \[ Q \coloneqq \int d^{D-1}\vec{x} \, \left(\pder{\cL}{(\di_\mu \phi_r)} \delta \phi_r - \delta \cL\right) = \int d^{D-1}\vec{x} \, \left(\Pi^r \delta \phi_r - \delta \cL\right). \]
+  Suppose that $\delta \cL = 0$. When quantized, $Q = \NO{\int
+    d^{D-1}\vec{x}\, \Pi^r \delta \phi_r}$ is a {\bf generator} of the
+  symmetry $\delta$: show that
+  \[ \delta \phi_r = [Q, \phi_r], \]
+  and more generally, $\delta G = [Q, G]$ for any function $G$
+  depending only on the fields $\phi_r$ and not $x$. Finally, argue
+  that $\delta \theta_r = \{Q, \theta_r\}$ for fermionic, i.e.
+  Grassmann-valued, fields $\theta_r$. Let
+  \[ [\cdot, \cdot]_- \coloneqq [\cdot, \cdot], \quad [\cdot, \cdot]_+ \coloneqq \{\cdot, \cdot\}, \]
+  so that for a general field $G$, we can write $\delta G = [Q,
+    G]_{\pm}$.
+\end{exercise}
+
+Hence there is a conserved charge $Q_B$ associated to the BRST
+symmetry $\delta_B$. There are two important properties of $Q_B$. To
+establish both of them, we first need to calculate that
+\[ \int d^Dx \sqrt{g} \, \delta_B(b_A F^A) = \int d^Dx \sqrt{g} \, \left((\theta B_A) F^A - b_A (i\theta c^\alpha K_\alpha F^A)\right) = i\theta (S_{\text{gf}} + S_{\text{G}}). \]
+
+\begin{proposition}
+  Physical states satisfy $Q_B\ket{\mathrm{phys}} = 0$.
+\end{proposition}
+
+\begin{proof}[Proof/Exercise]
+  Let $\delta$ be an infinitesimal transformation of the gauge-fixing
+  functionals $F^A$, i.e. $F^A \mapsto F^A + \delta F^A$. Physical
+  amplitudes $\braket{f|i}$ should be independent of our choice of
+  gauge, so we require
+  \[ 0 = \delta \braket{f|i} = i\theta \bra{f}\delta_B \left(\int d^Dx \sqrt{g} \, b_A \delta F^A\right)\ket{i} = -\bra{f}\left\{Q_B, \int d^Dx \sqrt{g} \, b_A \delta F^A\right\}\ket{i}. \]
+  For this equality to hold for all variations $\delta F^A$, we must
+  have $Q_B^\dag\ket{f} = Q_B\ket{i} = 0$. (It must be that $Q_B^\dag
+  = Q_B$, otherwise there would be another symmetry associated with
+  $Q_B^\dag$, and there is none.) Since $\ket{f}$ and $\ket{i}$ are
+  arbitrary physical states, we are done.
+\end{proof}
+
+\begin{proposition}
+  $Q_B$ is nilpotent, i.e. $Q_B^2 = 0$.
+\end{proposition}
+
+\begin{proof}[Proof/Exercise]
+  A few calculations show that $\delta_B^2 = 0$. A few more
+  calculations show that $[Q_B, [Q_B, G]_{\pm}]_{\mp} = [Q_B^2, G]$
+  for any formal variable $G$. Hence for any function $G$ of the
+  fields,
+  \[ 0 = \delta_B \delta_B G = i\theta' [Q_B, i\theta [Q_B, G]_{\pm}]_{\pm} = \theta' \theta [Q_B, [Q_B, G]_{\pm}]_{\mp} = \theta' \theta [Q_B^2, G]. \]
+  Since $G$ is arbitrary, $Q_B^2$ must be a scalar multiple of the
+  identity. But $Q_B$ increases ghost number by $1$, as one can verify
+  from the definition of $\delta_B$, and the identity operator does
+  not do this. Hence $Q_B^2 = 0$.
+\end{proof}
+
+These two properties allow us to directly construct the {\bf BRST
+  state space} $\cH_{\text{BRST}}$. First, note that states of the
+form $Q_B\ket{\chi}$, called {\bf null states}, are automatically
+physical states, since $Q_B^2 = 0$. But they are orthogonal to all
+physical states, since $\bra{\psi}(Q_B\ket{\chi}) =
+(\bra{\psi}Q_B)\ket{\chi} = 0$. So their presence is never measurable:
+two physical states differing by a null state are physically
+equivalent. Hence
+\[ \cH_{\text{BRST}} \coloneqq \frac{\{\ket{\psi} : Q_B\ket{\psi} = 0\}}{\{\ket{\psi} : \ket{\psi} = Q_B\ket{\chi}\}}, \]
+i.e. the {\bf cohomology} of the operator $Q_B$.
+
+\subsection{Mathematical Formalism}
+
+{\bf Note}: this subsection is {\bf very optional}: it can be
+completely skipped. But if you are curious about the mathematical
+underpinnings of BRST, and what we actually calculated in the previous
+section, read on! This subsection contains an overview of BRST
+quantization as Lie algebra cohomology, in the context of symplectic
+reduction.
+
+What is BRST quantization really doing? Let's first restate the
+underlying problem of quantizing a constrained system: we have a phase
+space $M$ and a Hamiltonian action of a Lie group $G$ on $M$.
+
+{\color{blue} \bf TODO}:
+\begin{enumerate}
+\item Coisotropic reduction of $M = \{\phi_r, B_A, b_A, c^\alpha\}$ to
+  give $M//G$;
+\item Koszul complex $\Lambda^\bullet \fg \otimes C^\infty(M)$ and
+  identification of differential with $Q_B$;
+\item Chevalley-Eilenberg resolution $K^{\bullet,\bullet}$ of the
+  Koszul complex;
+\item Identification of Chevalley-Eilenberg cohomology with state
+  space of $M//G$ (spectral sequence for $K^{\bullet,\bullet}$
+  degenerates at second page).
+\end{enumerate}
+
+\subsection{Quantizing the Bosonic String}
+
+We can now apply the general machinery of BRST quantization and our
+knowledge of CFT to the Polyakov string. (We need CFT to apply
+Noether's theorem, to get the BRST charge $Q_B$.) Hence this
+subsection is essentially a huge calculation, and therefore we only
+outline the steps. Treat the entire subsection as an exercise.
+
+First, in order to apply CFT, we need to rewrite the action in complex
+coordinates $(z, \bz)$. Pick {\bf unit gauge}, i.e. $g_{ab} =
+\delta_{ab}$, so that $\nabla = \di$ and
+\[ S_{\text{P}} = T_0 \int_M d^2z \, \di X \cdot \bar{\di} X, \quad S_{\text{G}} = \frac{1}{2\pi} \int_m d^2z \, \left(b_{zz} \di_{\bz} c^z + b_{\bz\bz} \di_z c^{\bz}\right). \]
+The equations of motion for the ghosts give $\di_{\bz} b_{zz} = \di_z
+b_{\bz\bz} = 0$ and $\di_{\bz} c^z = \di_z c^{\bz} = 0$, so define
+\[ b(z) \coloneqq b_{zz}(z, \bz), \quad \tilde{b}(\bz) = b_{\bz\bz}(z, \bz), \quad c(z) = c^z(z, \bz), \quad \tilde{c}(\bz) = c^{\bz}(z, \bz). \]
+({\bf Note}: we write tildes because $\tilde{b}$ is not the conjugate
+of $b$.) Using this new notation, the ghost action is $S_{\text{G}} =
+(1/2\pi)\int d^2z \, (b\bdi c + \tilde{b} \di \tilde{c})$. It is
+straightforward now to write down the BRST symmetry, since we only
+need to consider diffeomorphisms and not Weyl transformations: nothing
+depends on the metric anymore. We have
+\begin{alignat*}{2}
+  \delta_B X^\mu &= i\theta (c\di X^\mu + \tilde{c}\bdi X^\mu), \\
+  \delta_B b &= i\theta (T_{\text{P}} + T_{\text{G}}), &&\delta_B \tilde{b} = i\theta (\tilde{T}_{\text{P}} + \tilde{T}_{\text{G}}), \\
+  \delta_B c &= i\theta c \di c, &&\delta_B \tilde{c} = i\theta \tilde{c} \bdi \tilde{c},
+\end{alignat*}
+where $T_{\text{P}}$ is the holomorphic part of the energy-momentum
+tensor coming from $S_{\text{P}}$, and likewise for $T_{\text{G}}$
+from $S_{\text{G}}$. Similarly, $\tilde{T}_{\text{P}}$ and
+$\tilde{T}_{\text{G}}$ are the anti-holomorphic parts. (\CHECK:
+Polchinski disagrees with $\delta_B$ of $c$ and $\tilde{c}$.)
+
+
 
 \section{S-matrix}
 
