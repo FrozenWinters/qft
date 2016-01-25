@@ -55,7 +55,11 @@
 \newcommand{\colr}[1]{ {\color{red} #1 } }
 \newcommand{\colb}[1]{ {\color{blue} #1 } }
 \newcommand{\colf}[1]{ {\color{Fuchsia} #1 } }
+ % normal ordering
 \newcommand{\NO}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
+% creation annihilation normal ordering
+\newcommand{\circcolon}{\mathbin{\raise 0.75ex\hbox{\oalign{$\scriptscriptstyle\mathrm{o}$\cr$\scriptscriptstyle\mathrm{o}$}}}}
+\newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,} 
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -84,6 +88,8 @@
 \newcommand{\detFP}{\Delta_{\text{FP}}}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Tot}{Tot}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Sym}{Sym}
@@ -1570,26 +1576,143 @@ i.e. the {\bf cohomology} of the operator $Q_B$.
 {\bf Note}: this subsection is {\bf very optional}: it can be
 completely skipped. But if you are curious about the mathematical
 underpinnings of BRST, and what we actually calculated in the previous
-section, read on! This subsection contains an overview of BRST
-quantization as Lie algebra cohomology, in the context of symplectic
-reduction.
+section, read on! This subsection contains a very rough outline of
+BRST quantization as Lie algebra cohomology, in the context of
+symplectic reduction. For more detail, see Jos\'e Figueroa-O'Farrill's
+PhD thesis.\footnote{\url{http://www.maths.ed.ac.uk/~jmf/Research/PVBLICATIONS/Thesis.pdf}.}
 
 What is BRST quantization really doing? Let's first restate the
 underlying problem of quantizing a constrained system: we have a phase
-space $M$ and a Hamiltonian action of a Lie group $G$ on $M$.
+space $M$ and a Hamiltonian action of a Lie group $G$ on $M$. For us,
+$M$ is the space of field configurations $\{\phi_r, B_A, b_A,
+c^\alpha\}$ and $G$ is the gauge group $\diff \times \Weyl$. But for
+now, let's imagine $M$ is finite-dimensional.
 
-{\color{blue} \bf TODO}:
+There is a correspondence, which can be made into a diffeomorphism,
+between $M$ and the maximal closed ideals of $C^\infty(M)$, so it
+suffices to study $C^\infty(M)$. But we actually want to understand
+$M$ after modding out by the action of $G$. Since the action of $G$ on
+$M$ is Hamiltonian, we get via {\bf symplectic reduction} the
+``quotient'' symplectic manifold $\tilde{M}$, sometimes denoted
+$M//G$. The symplectic reduction is done via the {\bf moment map}
+$\Phi\colon M \to \fg^*$, where $\fg$ is the Lie algebra of $G$:
+\[ M_0 \coloneqq \Phi^{-1}(0), \quad \tilde{M} \coloneqq M_0/G. \]
+The Marsden-Weinstein theorem says that if $G$ acts freely on
+$\Phi^{-1}(0)$, then $\tilde{M}$ is a symplectic manifold, inheriting
+the symplectic form from $M$. Note that this reduction is often, more
+precisely, called {\bf coisotropic reduction}.
+\footnote{The terminology describes how the zero locus $M_0 \coloneqq
+  \Phi^{-1}(0)$ arising in symplectic reduction sits inside $M$: if
+  $T_pM_0^\perp \subset T_pM_0$, then $M_0$ is {\bf coisotropic}. This
+  is in contrast with when $T_0M_0^\perp \cap T_pM_0 = \{0\}$, in
+  which case we call $M_0$ {\bf symplectic}. It turns out that for an
+  equivariant moment map $\Phi\colon M \to \fg^*$, the zero locus
+  $M_0$ is always coisotropic.}
+We want to understand $C^\infty(\tilde{M})$.
+
+The Hamiltonian action of $G$ on $M$ induces a Hamiltonian action of
+$\fg$ on $C^\infty(M)$, and therefore on $C^\infty(M_0)$. Quite unsurprisingly, it turns out that
+\[ C^\infty(\tilde{M}) = C^\infty(M_0)^{\fg} = H^0(\fg; C^\infty(M_0)), \]
+where the second equality is the definition of {\bf Lie algebra
+  cohomology}: it is the derived functor associated with the {\bf
+  invariants functor} $(-)^{\fg}$. But even $M_0$ is hard to
+understand; we really want $C^\infty(\tilde{M})$ in terms of
+$C^\infty(M)$. A standard tool called the {\bf Koszul complex}
+provides a resolution of $C^\infty(M_0)$ in terms
+$C^\infty(M)$-modules:
+\[ \cdots \xrightarrow{\delta} \Lambda^2 \fg \otimes C^\infty(M) \xrightarrow{\delta} \fg \otimes C^\infty(M) \xrightarrow{\delta} C^\infty(M) \to C^\infty(M_0) \to 0. \]
+Here $\delta$ extends the action $\fg \otimes C^\infty(M) \to
+C^\infty(M)$ as an odd derivation, i.e.
+\[ \delta(X_1 \wedge \cdots \wedge X_n \otimes f) \coloneqq \sum_{k=1}^n X_1 \wedge \cdots \wedge \hat{X}_k \wedge \cdots \wedge X_n \otimes \delta(X_k \otimes f). \]
+Given this Koszul complex, denoted $K^\bullet$, we can now construct
+its {\bf Chevalley-Eilenberg resolution}
+\[ K^{\bullet,\bullet} \coloneqq \Hom(\Lambda^\bullet \fg, \Lambda^\bullet \fg \otimes C^\infty(M)) = \Lambda^\bullet \fg^* \otimes \Lambda^\bullet \fg \otimes C^\infty(M) \]
+in order to compute Lie algebra cohomology. The horizontal sequences
+come from the Koszul complex, while the vertical differentials $d$
+come from Lie algebra cohomology. \footnote{If $\rho\colon \fg
+  \to \End(V)$ is a representation, then $C^p(\fg; V) \coloneqq
+  \Hom(\Lambda^p \fg, V)$ are the {\bf $p$-cochains}, and the
+  differential $d$ is given by extending
+  \[ d\colon C^0(\fg; V) = V \to C^1(\fg; V), \quad (dv)(X) = \rho(X)v \]
+  to $\Lambda^\bullet \fg^*$ as an anti-derivation, and to
+  $\Lambda^\bullet \fg^* \otimes V$ by $d(\alpha \otimes v) = d\alpha
+  \otimes v + (-1)^{|\alpha|} \alpha \otimes dv$. In this case, $V =
+  \Lambda^\bullet \fg \otimes C^\infty(M)$.} Form the {\bf total
+  complex} $\Tot(K)^\bullet \coloneqq \bigoplus_{p-q=n} K^{p,q}$ with
+differential $D = d + \delta$. (Note that this is a little different
+than usual, since the horizontal complex is homological while the
+vertical complex is cohomological.)
+
+\begin{proposition}
+  $H^p(\Tot(K)) = C^\infty(\tilde{M})$ for $p = 0$ and is zero
+  otherwise.
+\end{proposition}
+
+\begin{proof}
+  Let $E_n^{i,j}$ be the (cohomological, vertical) spectral sequence
+  associated to $K^{\bullet,\bullet}$, and recall that it converges to
+  $H^\bullet(\Tot(K))$.
+  \begin{enumerate}
+  \item The first page is the cohomology of the horizontal
+    differentials $\delta$, so $E_1^{p,q} = H^q(K^{p,\bullet}) =
+    \Lambda^p \fg^* \otimes C^\infty(M_0)$ if $q = 0$, and is zero
+    otherwise.
+  \item The second page is the cohomology of the vertical
+    differentials $d$ on $E_1^{\bullet,\bullet}$, so $E_2^{p,q} =
+    H^p(E_1^{\bullet,q}) = C^\infty(M_0)^{\fg} = C^\infty(\tilde{M})$
+    if $p = q = 0$, and is zero otherwise.
+  \end{enumerate}
+  Hence the spectral sequence collapses at the second page, and we
+  conclude that $H^0(\Tot(K)) = C^\infty(\tilde{M})$.
+\end{proof}
+
+So now we have a direct way to compute $C^\infty(\tilde{M})$: just
+form the total complex $\Tot(K)$ and compute its cohomology. The total
+complex $\Tot(K)$ has another name: it is usually called the {\bf BRST
+  complex}, and its differential $D$ is the {\bf BRST symmetry}.
+
+\begin{proposition}
+  The complex $\Tot(K)$ has the structure of a {\bf graded Poisson
+    superalgebra}, which for us just means that it has a {\bf Poisson
+    bracket} $\{\cdot, \cdot\}$ that respects the grading. Let $b_i$
+  be a basis for $\fg$, and $c^i$ be a dual basis for $\fg^*$. If
+  $\phi_i \coloneqq \Phi(b_i)$ are the components of the moment map,
+  then the differential $D$ on $\Tot(K)$ arises as $D = \{Q, -\}$,
+  with
+  \[ Q = c^i \phi_i - \frac{1}{2} f^i_{jk} c^j c^k b_i \in \Tot(K)^1, \]
+  where $f^i_{jk}$ are the structure constants of $\fg$.
+\end{proposition}
+
+\begin{proof}
+  Check that $\{Q, -\}$ acts as $D$ on the generators, i.e. on $f \in
+  C^\infty(M)$, $X \in \fg$, and $\alpha \in \fg^*$.
+\end{proof}
+
+Physicists call $c^i$ and $b_i$ {\bf ghosts} and {\bf anti-ghosts}
+respectively. The total degree in $\Tot(K)$ is called the {\bf ghost
+  number} (so note that the action of $Q$ increases the ghost number
+by $1$). In fact, this is how BRST quantization works in general for
+the physicists: given a system with symmetries $K_i$ forming a Lie
+algebra $\fg$, we
 \begin{enumerate}
-\item Coisotropic reduction of $M = \{\phi_r, B_A, b_A, c^\alpha\}$ to
-  give $M//G$;
-\item Koszul complex $\Lambda^\bullet \fg \otimes C^\infty(M)$ and
-  identification of differential with $Q_B$;
-\item Chevalley-Eilenberg resolution $K^{\bullet,\bullet}$ of the
-  Koszul complex;
-\item Identification of Chevalley-Eilenberg cohomology with state
-  space of $M//G$ (spectral sequence for $K^{\bullet,\bullet}$
-  degenerates at second page).
+\item introduce a basis $\{b_i\}$ for $\fg$ and $\{c^i\}$ for $\fg^*$,
+\item write down the BRST operator $Q = c^i K_i - (1/2)f^i_{jk} c^j
+  c^k b_i$, and
+\item compute cohomology, treating everything as operators, to find
+  physical states.
 \end{enumerate}
+The underlying hypothesis is, of course, that the following diagram
+commutes:
+\[ \begin{CD}
+  C^\infty(M) @>\text{quantization}>> \cH_{\text{classical}} \\
+  @V\text{classical BRST}VV @VV\text{quantum BRST}V \\
+  C^\infty(\tilde{M}) @>\text{quantization}>> \cH_{\text{quantum}},
+\end{CD} \]
+so that instead of having to quantize $C^\infty(\tilde{M})$ directly,
+which we have no idea how to do in general, we quantize $C^\infty(M)$
+and then apply the machinery of BRST, which is easy, quantized or not.
+In fact, the quantization of $C^\infty(\tilde{M})$ is usually defined
+using this diagram.
 
 \section{BRST Quantization of the Bosonic String}
 
@@ -1704,9 +1827,14 @@ d\bar{z} \, \tilde{j}_B)$.
 
 This calculation is the rigorous derivation of the {\bf critical
   dimension}. The failure of $Q_B^2$ to be zero automatically for any
-$D$ is known as the {\bf Weyl anomaly}.
+$D$ is known as the {\bf Weyl anomaly}. Alternatively, we could
+compute this result from the mode expansion of $Q_B$, which we record
+here for use in the next subsection:
+\[ Q_B = 2\sum_{n=-\infty}^\infty c_n L_{-n}^X + \sum_{m,n=-\infty}^\infty (m - n) \CANO{c_m c_n b_{-m-n}} - 2c_0 \]
+where $L_{-n}^X$ are the modes of $T_X$, and $\CANO{}$ denotes {\bf
+  creation-annihilation normal ordering}.
 
-\subsection{Physical State Space}
+\subsection{Physical State Space and the No-Ghost Theorem}
 
 We can now find the {\bf physical state space} by calculating the BRST
 cohomology of $Q_B$ acting on the entire state space. First, we need
@@ -1716,38 +1844,132 @@ $\alpha_m^i$ as {\bf raising/lowering operators}. But now we are not
 in lightcone gauge anymore, and we have two additional ghost fields.
 Hence we now have three sets $\{\alpha_m^\mu\}$, $\{b_m\}$, $\{c_m\}$
 of raising/lowering operators, arising from the mode expansions
-\[ \di X^\mu(z) = -i\sqrt{\frac{1}{2T_0}} \sum_{m=-\infty}^\infty \frac{\alpha_m^\mu}{z^{m+1}}, \quad b = \sum_{m=-\infty}^\infty \frac{b_m}{z^{m+2}}, \quad c = \sum_{m=-\infty}^\infty \frac{c_m}{z^{m-1}}. \]
+\[ \di X^\mu(z) = -i\sqrt{\frac{1}{2 \pi T_0}} \sum_{m=-\infty}^\infty \frac{\alpha_m^\mu}{z^{m+1}}, \quad b = \sum_{m=-\infty}^\infty \frac{b_m}{z^{m+2}}, \quad c = \sum_{m=-\infty}^\infty \frac{c_m}{z^{m-1}}. \]
 We also define, as usual, the {\bf number operators} for each set of
 operators, and the total number operator:
-\[ N_m^\mu \coloneqq \alpha^\mu_{-n} \cdot \alpha^\mu_n, \quad N_m^b \coloneqq nb_{-n} c_n, \quad N_m^c \coloneqq nc_{-n} b_n, \quad N \coloneqq \sum_{m=1}^\infty \left(\sum_{\mu=0}^{25} N_m^\mu + N_m^b + N_m^c\right). \]
+\[ N_m^\mu \coloneqq \alpha^\mu_{-n} \alpha^\mu_n, \quad N_m^b \coloneqq nb_{-n} c_n, \quad N_m^c \coloneqq nc_{-n} b_n, \quad N \coloneqq \sum_{m=1}^\infty \left(\sum_{\mu=0}^{25} N_m^\mu + N_m^b + N_m^c\right). \]
 The associated eigenvalue of $N$ is called the {\bf level} of the
 string. The most general level-$N$ open bosonic string is, as
 expected,
 \[ \ket{N; k} = \sum_{N_n^{\mu}, N_n^b, N_n^c} C_{N_n^{\mu}, N_n^b, N_n^c} \left(\prod_{\mu=0}^{25} \prod_{n=1}^\infty \frac{(\alpha^\mu_{-n})^{N_n^\mu}}{\sqrt{n^{N_n^\mu} N_n^\mu!}}\right) \left(\prod_{n=1}^\infty (b_{-n})^{N_n^b}\right) \left(\prod_{n=0}^\infty (c_{-n})^{N_n^c}\right) \ket{0; k}, \]
 where the sum is of course over the quantum numbers $\{N_n^{\mu},
 N_n^b, N_n^c\}$ giving a level-$N$ string, and $C_{N_n^{\mu}, N_n^b,
-  N_n^c}$ are normalization constants. {\bf Note}: $c_0$ is a creation
-operator while $b_0$ is not. (Why? Read on.)
+  N_n^c}$ are normalization constants. What are the ground states
+$\ket{0; k}$? From canonical quantization, we have a definition of the
+ground states $\ket{0; k}_{\text{X}}$ for the matter fields, but not
+for the ghost fields. Well, ground states should always be annihilated
+by lowering operators, so now we define the {\bf ground state}
+$\ket{0; k}$ such that
+\[ p^\mu \ket{0; k} = k^\mu \ket{0; k}, \quad b_0\ket{0; k} = 0, \quad \alpha_n^\mu\ket{0; k} = b_n\ket{0; k} = c_n\ket{0; k}_{\text{G}} = 0 \quad \forall n > 0. \]
 
-But what is the vacuum state $\ket{0; k}$? From canonical
-quantization, we have a definition of the vacuum state $\ket{0;
-  k}_{\text{X}}$ for the matter fields, but not for the ghost fields.
-Well, vacuum states should always be annihilated by lowering
-operators, so now we define the {\bf ghost vacuum state} $\ket{0;
-  k}_{\text{G}}$ such that
-\[ b_0\ket{0; k}_{\text{G}} = 0, \quad b_n\ket{0; k}_{\text{G}} = c_n\ket{0; k}_{\text{G}} = 0 \quad \forall n > 0. \]
+\begin{exercise}
+  Note that $c_0$ is a creation operator while $b_0$ is not: this
+  exercise explains why. Show that if $b_0$ were also a creation
+  operator, the system generated by $b_0$ and $c_0$ has a two-fold
+  degeneracy at every state $\ket{0; k}$, which splits into states
+  $\ket{0; k, \uparrow}$ and $\ket{0; k, \downarrow}$ satisfying
+  \begin{alignat*}{2}
+    b_0 \ket{0; k, \uparrow} &= \ket{0; k, \downarrow}, \quad b_0 \ket{0; k, \downarrow} &&= 0 \\
+    c_0 \ket{0; k, \downarrow} &= \ket{0; k, \uparrow}, \quad c_0 \ket{0; k, \uparrow} &&= 0.
+  \end{alignat*}
+  Using the mode expansion of $Q_B$ from the previous subsection, show
+  that $Q_B$ acts on either of these states as $2c_0 ((L_X)_0 - 1)$,
+  and therefore that
+  \[ Q_B\ket{0; k, \downarrow} = 2\left(\frac{k^2}{2\pi T_0} - 1\right) \ket{0; k, \uparrow}, \quad Q_B\ket{0; k, \uparrow} = 0. \]
+  Hence if $k^2 \neq 2\pi T_0$, the states $\ket{0; k, \uparrow}$ are
+  BRST-exact. But not all the states $\ket{0; k, \downarrow}$ are
+  BRST-closed, hence $\braket{\text{phys} | 0;k,\downarrow} \propto
+  \delta(k^2 - 2\pi T_0)$. Since amplitudes in QFTs cannot have delta
+  functions, conclude that $\ket{0; k, \uparrow}$ for $k^2 = 2\pi T_0$
+  are the real physical states, which therefore satisfy $b_0\ket{0; k,
+    \uparrow} = 0$.
+\end{exercise}
 
-{\color{blue} \bf TODO}:
-\begin{enumerate}
-\item Explain why the Virasoro conditions are imposed automagically by
-  $Q_B\ket{\text{phys}} = 0$.
-\item Point out the $\bZ/2\bZ \times \bR$ grading on the state space.
-\item Explain the mass shell condition $L_0\ket{\text{phys}} = \{Q_B,
-  b_0\}\ket{\text{phys}} = 0$ and associated issues: why is $c_0$ a
-  creation operator? Why is the ghost vacuum state doubly degenerate?
-\item Explain the no-ghost theorem.
-\end{enumerate}
+This also explains why we require the ground state $\ket{0; k}$ to be
+annihilated by $b_0$: when we write $\ket{0; k}$, we implicitly mean
+$\ket{0; k, \uparrow}$.
 
+\begin{definition}
+  The {\bf physicality condition} for states $\ket{N; k}$ to be
+  physical is the criteria $Q_B\ket{N; k} = b_0\ket{N; k} = 0$. Note
+  that $L_0 = \{Q_B, b_0\}$, so $L_0 = (1/2\pi T_0)(k^2 + m^2)$
+  annihilates all physical states, i.e. $k^2 = -m^2$ for all physical
+  states. Hence we index using $\vec{k}$ instead of $k$, since given
+  $\vec{k}$ we can solve for $k^0$.
+\end{definition}
+
+For the ground state, then, $m^2 = -k^2 = -2\pi T_0$, which is, of
+course, the same result that we got via canonical quantization. We
+essentially worked out in the exercise that $\ket{0; \vec{k}}$ for
+$k^2 = 2\pi T_0$ is the unique ground state. (There are no BRST-exact
+states here to remove, since $Q_B\ket{0; \vec{k}} = 0$.)
+
+For $N = 1$, the most general state is of the form
+\[ \ket{1; \vec{k}} = (e \cdot \alpha_{-1} + \beta b_{-1} + \gamma c_{-1})\ket{0; \vec{k}}, \quad k^2 = 0 \]
+where $e^\mu$ is a $26$-vector and $\beta, \gamma \in \bC$ are
+scalars. The physicality condition requires
+\begin{align*}
+  0 = Q_B\ket{1; \vec{k}}
+  &= 2(c_1(L_X)_{-1} + c_0(L_X)_0 + c_{-1}(L_X)_1 + c_0c_{-1}b_1 + c_1c_0 b_{-1} - c_0)\ket{1; \vec{k}} \\
+  &= 2\sqrt{\frac{1}{\pi T_0}}(\beta k \cdot \alpha_{-1} + k \cdot e c_{-1}) \ket{0; \vec{k}},
+\end{align*}
+i.e. $k \cdot e = \beta = 0$. (Note that $b_0 \ket{1; \vec{k}}$ is
+automatically satisfied.) Also, note that this calculation also gives
+us the BRST-exact states, $c_{-1}\ket{0; \vec{k}}$ and $k \cdot
+\alpha_{-1}\ket{0; \vec{k}}$. Hence, after removing these BRST-exact
+states, the remaining {\bf physical states} are
+\[ \ket{1; \vec{k}} = e \cdot \alpha_{-1} \ket{0; \vec{k}}, \quad k^2 = k \cdot e = 0, \quad e^\mu \sim e^\mu + \zeta k^\mu. \]
+A basis for these remaining physical states is $\{\alpha_{-1}^i\ket{1;
+  \vec{k}} : i = 2, \ldots, 25\}$. Note that all these results for $N
+= 1$ matches up exactly with our heuristic derivation a long time ago
+when we applied canonical quantization. But now that we have obtained
+these results rigorously, it is time to reveal that an open string at
+$N = 1$ excitation is usually identified with a {\bf photon} with {\bf
+  polarization} $e^\mu$.
+
+\begin{theorem}
+  The BRST state space, i.e. the cohomology of $Q_B$, is isomorphic to
+  the state space obtained from the subspace (of the Hilbert space
+  arising from canonical quantization) annihilated by the Virasoro
+  algebra.
+\end{theorem}
+
+\begin{proof}
+  See Polchinski, section 4.4, pg. 141.
+\end{proof}
+
+\begin{exercise}
+  By repeating the BRST calculation for $N = 1$, conclude that at $N =
+  2$ there are a total of $324$ proper physical states, $300$ of which
+  come from $\alpha_{-1}^i \alpha_{-1}^j \ket{0; \vec{k}}$ and $24$ of
+  which come from $\alpha_{-2}^i\ket{0; \vec{k}}$.
+\end{exercise}
+
+It turns out, quite fortunately, that we do not need to go through the
+tedious BRST procedure to actually find what the proper physical
+states are; for the bosonic string, at least, BRST quantization is
+just a tool used to establish the following very important and
+practical theorem.
+
+\begin{theorem}[No-ghost theorem]
+  The BRST state space is isomorphic to the subspace (of the Hilbert
+  space arising from canonical quantization) with no $X^0$, $X^1$,
+  $b$, or $c$ excitations.
+\end{theorem}
+
+\begin{proof}
+  See Polchinski, section 4.4, pg. 137.
+\end{proof}
+
+\begin{exercise}
+  Show, as a corollary of the no-ghost theorem, that the generating
+  function for the number of states at excitation $N$ is
+  \[ \prod_{n=1}^\infty \frac{1}{(1 - x^n)^{24}} = 1 + 24x + 324x^2 + 3200x^3 + 25650x^4 + \cdots = \eta(x)^{-24} \propto \Delta(x), \]
+  where $\eta(q)$ is the {\bf Dedekind eta function} and $\Delta(x)$
+  is the {\bf modular discriminant}. Conclude that there is something
+  magical about the number $24$, and that string theory is worth
+  studying for its mathematics (even if the physicists laugh at it.)
+\end{exercise}
 
 \chapter{Amplitudes}
 
