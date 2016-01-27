@@ -33,5 +33,16 @@ progresses. For now, the plan is:
     that of quantum electrodynamics, but there are additional
     complications, called Faddeev-Popov ghosts, arising from the
     non-abelian gauge group.
-* Week 3 (Friday Jan 22nd): Conformal field theory.
-* Week 4 (Friday Jan 29th): Conformal field theory.
+* Week 3 (Friday Jan 22nd): Conformal field theory; sect. 2.1 in notes.
+  - The next step in our journey to unravel the ball of string is to
+    get comfortable with aspects of Conformal Field Theory. Many of
+    the seminars to follow in this series will rely heavily on the
+    computational tools from CFT and so we will spend some time going
+    through examples that will come up in the future. In particular,
+    in this seminar we will talk about normal ordering, operator
+    product expansions, and Virasoro algebras in the context of 2
+    dimensional free field theories.
+* Week 4 (Friday Jan 29th): Conformal field theory; sect. 2.2 in notes.
+* Week 5 (Friday Feb 5th): BRST quantization; chpt. 3 in notes.
+* Week 6 (Friday Feb 12th): Amplitudes; chpt. 4 in notes.
+* Week 7 (Friday Feb 19th): T-Duality.
