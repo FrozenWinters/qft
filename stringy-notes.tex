@@ -3,6 +3,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{amscd}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks=true,urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
 \usepackage{fullpage}
 \usepackage{braket}
 \usepackage{dsfont}
@@ -11,8 +13,13 @@
 \usepackage{verbatim}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[colorlinks=true,urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{tqft}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes.misc,fit}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -81,6 +88,7 @@
 \newcommand{\cL}{\mathcal{L}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cV}{\mathcal{V}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\fso}{\mathfrak{so}}
 \newcommand{\diff}{\mathrm{diff}}
@@ -96,12 +104,19 @@
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\SO}{SO}
-\DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\vspan}{span}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Teich}{Teich}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareMathOperator{\Met}{Met}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Conf}{Conf}
+\DeclareMathOperator{\CKG}{CKG}
+\DeclareMathOperator{\Fixed}{Fixed}
 \newcommand{\eff}{\text{eff}}
 \newcommand{\vacuum}{\text{vacuum}}
 \newcommand{\pp}{\text{pp}}
@@ -110,6 +125,7 @@
 \newcommand{\fder}[2]{\frac{\delta #1}{\delta #2}}
 \newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
 \newcommand{\bz}{\bar{z}}
+\newcommand{\bu}{\bar{u}}
 \newcommand{\bdi}{\bar{\di}}
 
 \begingroup
@@ -125,14 +141,32 @@
 \usepackage{parskip}
 \restoreparindent
 
+\tikzset{
+  directed/.style={postaction=decorate,
+    decoration={markings,mark=at position .5 with {\arrow{>}}}},
+  fermion/.style={thick,draw=black},
+  photon/.style={draw=black,decorate,decoration=snake},
+  gluon/.style={draw=black,decorate,decoration={coil,aspect=0}},
+  vertex/.style={shape=circle,scale=0.5,fill=black,draw=black},
+  counterterm/.style={shape=circle,draw=black,
+    append after command={node[draw=black,fit=(\tikzlastnode),
+      inner sep=-7\pgflinewidth,cross out] {}}},
+  interaction/.style={shape=circle,scale=2,fill=gray,draw=black},
+  every loop/.style={thick,draw=black},
+  loop left/.style={in=140,out=220,min distance=2cm},
+  loop right/.style={in=-40,out=40,min distance=2cm},
+  loop above/.style={in=60,out=120,min distance=2.4cm},
+  loop below/.style={in=-120,out=-60,min distance=2.4cm}
+}
 
 \title{String Theory and Supersymmetry\\Winter 2016 Seminar Notes}
 \author{Anton Borissov, Henry Liu}
 \date{\today}
 
 \begin{document}
-
+\hypersetup{pageanchor=false}
 \maketitle
+\hypersetup{pageanchor=true}
 
 \tableofcontents
 
@@ -267,34 +301,34 @@ proper time elapsed on the particle's world line. But the proper time,
 when multiplied by $c$, can be viewed as the ``proper length'' of the
 world line. The natural generalization, then, is to consider the
 surface in space-time traced out by the string as it evolves in time,
-called the {\bf world sheet} $M$, and to define an action proportional
-to the ``proper area'' of the world sheet. The world sheet $M$ is a
-two-dimensional surface, and therefore requires charts modeled on
-$\bR^2$.
+called the {\bf world sheet} $\Sigma$, and to define an action
+proportional to the ``proper area'' of the world sheet. The world
+sheet $\Sigma$ is a two-dimensional surface, and therefore requires
+charts modeled on $\bR^2$.
 
 \begin{definition}
   The {\bf coordinates} we use on $\bR^2$, the parameter space, are
-  denoted $(\sigma^0, \sigma^1)$, and so the {\bf world sheet} $M$ is
-  locally a surface given by functions denoted $X^\mu(\sigma)$
-  (capitalized to disambiguate from the coordinates $x^\mu$), called
-  {\bf string coordinates}. The lowercase Latin characters $a, b,
-  \ldots$ are used to denote {\bf indices} that run over values $0,1$.
-  Two notes:
+  denoted $(\sigma^0, \sigma^1)$, and so the {\bf world sheet}
+  $\Sigma$ is locally a surface given by functions denoted
+  $X^\mu(\sigma)$ (capitalized to disambiguate from the coordinates
+  $x^\mu$), called {\bf string coordinates}. The lowercase Latin
+  characters $a, b, \ldots$ are used to denote {\bf indices} that run
+  over values $0,1$. Two notes:
   \begin{enumerate}
   \item The choice of parametrization $(\sigma^0, \sigma^1)$ is,
     again, up to us, but usually we take the coordinate $\sigma^0$ to
     be the proper time, and $\sigma^1$ the position along the string.
-  \item For our purposes, $M = X^\mu$, i.e. the single chart $X^\mu$
-    describes the entire world sheet for the region of spacetime we
-    care about.
+  \item For our purposes, $\Sigma = X^\mu$, i.e. the single chart
+    $X^\mu$ describes the entire world sheet for the region of
+    spacetime we care about.
   \end{enumerate}
 \end{definition}
 
 \begin{exercise}
   Show that the metric $\eta_{\mu\nu}$ on spacetime $\bR^{D-1,1}$
   induces a metric $g$ on the world sheet via pullback along the
-  inclusion $\iota\colon M \to \bR^{D-1,1}$. Compute $g$ and the area
-  element:
+  inclusion $\iota\colon \Sigma \to \bR^{D-1,1}$. Compute $g$ and the
+  area element:
   \[ g_{ab} = \di_a X^\mu \di_b X_\mu, \quad dA =  d^2\sigma \, \sqrt{-\det g}. \]
 \end{exercise}
 
@@ -307,7 +341,7 @@ not to.
 
 \begin{definition}
   The {\bf Nambu--Goto action} for a relativistic string is given by
-  \[ S_{\text{NG}}[X] \coloneqq -T_0 \int_M dA = -T_0 \int_M d^2\sigma \, \sqrt{-\det g}. \]
+  \[ S_{\text{NG}}[X] \coloneqq -T_0 \int_\Sigma dA = -T_0 \int_\Sigma d^2\sigma \, \sqrt{-\det g}. \]
   Again, note that it satisfies {\bf reparametrization invariance},
   literally by construction.
 \end{definition}
@@ -320,7 +354,7 @@ we need to specify the signature. We take Lorentzian signature $(-,
 
 \begin{definition}
   The {\bf Polyakov action} for a relativistic string is given by
-  \[ S_{\text{P}}[X, \gamma] \coloneqq -\frac{T_0}{2} \int_M d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \di_a X^\mu \di_b X_\mu, \]
+  \[ S_{\text{P}}[X, \gamma] \coloneqq -\frac{T_0}{2} \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \di_a X^\mu \di_b X_\mu, \]
   where $\gamma$ without indices stands for $\det(\gamma_{ab})$. From
   now on, we always refer to $\gamma_{ab}$ as the {\bf metric}, and
   $g_{ab}$ as the {\bf induced metric}. World sheet indices are
@@ -333,7 +367,7 @@ we need to specify the signature. We take Lorentzian signature $(-,
 \begin{exercise}
   Show that $\delta \sqrt{-\gamma} = (1/2)\sqrt{-\gamma} \,
   \gamma^{ab} \delta \gamma_{ab}$, and therefore that
-  \[ \delta_\gamma S_{\text{P}}[X, \gamma] = -\frac{T_0}{2} \int_M d^2\sigma \, \sqrt{-\gamma} \, \delta \gamma^{ab} \left(g_{ab} - \frac{1}{2} \gamma_{ab} \gamma^{cd} g_{cd}\right). \]
+  \[ \delta_\gamma S_{\text{P}}[X, \gamma] = -\frac{T_0}{2} \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, \delta \gamma^{ab} \left(g_{ab} - \frac{1}{2} \gamma_{ab} \gamma^{cd} g_{cd}\right). \]
   Rearrange the obtained equation of motion and conclude that
   $g_{ab}\sqrt{-g} = \gamma_{ab}\sqrt{-\gamma}$. Hence replace
   $\gamma$ in $S_{\text{P}}[X, \gamma]$ with $g$, and obtain that
@@ -356,9 +390,9 @@ we need to specify the signature. We take Lorentzian signature $(-,
   Now vary $S_{\text{P}}[X, \gamma]$ with respect to $X^\mu$ to obtain
   \begin{align*}
     \delta_X S_{\text{P}}[X, \gamma]
-    &= -T_0 \int_M d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \left(\di_a(\delta X^\mu \di_b X_\mu) - \di_a \di_b X_\mu \delta X^\mu\right) \\
+    &= -T_0 \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, \gamma^{ab} \left(\di_a(\delta X^\mu \di_b X_\mu) - \di_a \di_b X_\mu \delta X^\mu\right) \\
     &= -T_0 \int_0^{\ell} d\sigma^1 \, \sqrt{-\gamma} \left[\delta X^\mu \di^0 X_\mu\right]_{\sigma^0=\tau_i}^{\sigma^0=\tau_f} - T_0 \int_{\tau_i}^{\tau_f} d\sigma^0 \, \sqrt{-\gamma} \left[\delta X^\mu \di^1 X_\mu\right]_{\sigma^1=0}^{\sigma^1=\ell} \\
-    &\qquad + T_0 \int_M d^2\sigma \, \sqrt{-\gamma} \, \delta X^\mu \nabla^2 X_\mu.
+    &\qquad + T_0 \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, \delta X^\mu \nabla^2 X_\mu.
   \end{align*}
 \end{exercise}
 
@@ -457,7 +491,7 @@ reduces future work when we need the additional terms in the Polyakov
 action. Note that here, contrary to the case in QFT, the symmetries
 are very demanding. Weyl invariance in particular is very odd: it
 prevents us from adding terms such as
-\[ \int_M d^2\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_M d^2\sigma \, \sqrt{-\gamma}. \]
+\[ \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, V(X), \quad \mu \int_\Sigma d^2\sigma \, \sqrt{-\gamma}. \]
 
 \begin{exercise}
   Convince yourself that the action must contain one more
@@ -470,13 +504,13 @@ prevents us from adding terms such as
   fact it must be the {\bf scalar curvature} $R$. Show that under a
   Weyl transformation,
   \[ \sqrt{-\gamma} \, R \mapsto \sqrt{-\gamma} (R - 2\nabla^2 \omega). \]
-  Hence argue that we need another term integrated over $\di M$ to
+  Hence argue that we need another term integrated over $\di \Sigma$ to
   counteract $\nabla^2(\sqrt{-\gamma} \, \omega)$. Putting everything
   together, conclude that
-  \[ \chi \coloneqq \frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di M} ds \, k \]
+  \[ \chi \coloneqq \frac{1}{4\pi} \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di \Sigma} ds \, k \]
   is Weyl invariant, and that it is essentially the only term we can
-  add to the Polyakov action. Here $ds$ is proper time along $\di M$
-  using the metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b
+  add to the Polyakov action. Here $ds$ is proper time along $\di
+  \Sigma$ using the metric $\gamma_{ab}$, and $k \coloneqq \pm t^a n_b
   \nabla_a t^b$ is the {\bf geodesic curvature} of the boundary, where
   $t^a$ is a unit vector tangent to the boundary, and $n_b$ an
   outward-pointing unit vector, and we choose $\pm$ depending on
@@ -814,7 +848,7 @@ similarly for the metric. The {\bf Euclidean path integral}, and the
 Euclidean action (with the additional terms on top of the Wick-rotated
 Polyakov action), is therefore
 \[ Z \coloneqq \frac{1}{\Vol} \int \cD g \, \cD X \, \exp(-S_{\text{P}}[X, g]), \]
-\[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_M d^2\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_M d^2\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di M} ds \, k\right) \]
+\[ S_{\text{P}}[X, g] = \frac{T_0}{2} \int_\Sigma d^2\sigma \, \sqrt{g} \, g^{ab} \di_a X^\mu \di_b X_\mu + \lambda\left(\frac{1}{4\pi} \int_\Sigma d^2\sigma \, \sqrt{g} \, R + \frac{1}{2\pi}\int_{\di \Sigma} ds \, k\right) \]
 where $\Vol$ is the volume of the gauge action on the {\bf
   configuration space} consisting of all possible $X^\mu$ and
 $g$). More explicitly, we can imagine partitioning configuration
@@ -1374,7 +1408,7 @@ Expanding the OPE, and then doing the contour integral, we obtain the
 result.
 \end{proof}
 
-\section{Vertex Operators, Scattering Amplitudes, Anomolies}
+\section{Vertex Operators, Scattering Amplitudes, Anomalies}
 
 \chapter{BRST Quantization}
 
@@ -1408,8 +1442,8 @@ are the {\bf structure constants} of $G$. Importantly, the
 $f_{\alpha\beta}{}^\gamma$ must be independent of the fields $\phi_r$.
 This condition does not hold for all gauge theories: when it does not,
 we must rely on some even more sophisticated machinery known as the
-{\bf Batalin-Vilkovisky formalism}. Fortunately, we do not need to for
-the bosonic string.
+{\bf Batalin-Vilkovisky (BV) formalism}. Fortunately, we do not need
+to for the bosonic string.
 
 {\bf Note}: indices become messy in this section. We use $A$ (and not
 $B$, which appears as a non-indexing subscript later) to index the
@@ -1704,9 +1738,9 @@ algebra $\fg$, we
 The underlying hypothesis is, of course, that the following diagram
 commutes:
 \[ \begin{CD}
-  C^\infty(M) @>\text{quantization}>> \cH_{\text{classical}} \\
+  C^\infty(M) @>\text{quantization}>> \cH \\
   @V\text{classical BRST}VV @VV\text{quantum BRST}V \\
-  C^\infty(\tilde{M}) @>\text{quantization}>> \cH_{\text{quantum}},
+  C^\infty(\tilde{M}) @>\text{quantization}>> \cH_{\text{gauge-fixed}},
 \end{CD} \]
 so that instead of having to quantize $C^\infty(\tilde{M})$ directly,
 which we have no idea how to do in general, we quantize $C^\infty(M)$
@@ -1727,7 +1761,7 @@ in grisly detail for reference.
 First, in order to apply CFT, we need to rewrite the action in complex
 coordinates $(z, \bz)$. Pick {\bf unit gauge}, i.e. $g_{ab} =
 \delta_{ab}$, so that $\nabla = \di$, and
-\[ S_{\text{X}} = T_0 \int_M d^2z \, \di X \cdot \bar{\di} X, \quad S_{\text{G}} = \frac{1}{2\pi} \int_m d^2z \, \left(b_{zz} \di_{\bz} c^z + b_{\bz\bz} \di_z c^{\bz}\right). \]
+\[ S_{\text{X}} = T_0 \int_\Sigma d^2z \, \di X \cdot \bdi X, \quad S_{\text{G}} = \frac{1}{2\pi} \int_m d^2z \, \left(b_{zz} \di_{\bz} c^z + b_{\bz\bz} \di_z c^{\bz}\right). \]
 {\bf Notation}: we write $S_{\text{X}}$ instead of $S_{\text{P}}$ for
 the Polyakov action from now on. Similarly, $T_{\text{X}}$ is the
 holomorphic part of the energy-momentum tensor for $S_{\text{X}}$, and
@@ -1973,8 +2007,369 @@ practical theorem.
 
 \chapter{Amplitudes}
 
-\section{S-Matrix}
+In QFT, after we studied the spectrum of a free particle, we proceeded
+to add an interaction term in the form of $(\lambda/4!)\phi^4$. Then
+we studied how to compute $n$-point functions in $\phi^4$ theory. We
+shall do the same now for the bosonic string. However two things are
+different.
+\begin{enumerate}
+\item We do not need to add an interaction term to the Polyakov
+  action: interactions are implicitly encoded.
+\item Computing amplitudes is a lot harder unless the string sources
+  are taken to infinity, which corresponds to computing S-matrix
+  elements.
+\end{enumerate}
+For simplicity, this chapter works out the theory for {\bf closed
+  strings} only. The simplicity arises from the worldsheet of
+interacting closed strings being a {\bf closed surface}, i.e. we do
+not need to deal with boundary components. Henceforth when we say
+surface, we mean closed surface.
+
+\begin{theorem}[Classification of closed surfaces]
+  Any closed surface $\Sigma$ is homeomorphic to the connected sum of
+  a $2$-sphere with $p \ge 0$ tori, and has Euler characteristic
+  $\chi(\Sigma) = 2 - 2p$.
+\end{theorem}
+
+\section{S-Matrix Elements}
+
+As a first example, let's look at the scattering amplitude for four
+closed strings, with sources approaching $X^0 = \pm \infty$.
+Diagrammatically, this looks like four infinitely long cylinders
+attached to a sphere in the middle. On these cylinders, we have the
+complex coordinate $w = x + iy$ where $x \cong x + 2\pi$ goes around
+the string, and $-\infty < y \le 0$ is identified with the time
+coordinate $X^0$.
+
+Consider the new coordinate $z = \exp(-iw)$. In this coordinate, the
+cylinders taper off conically as $y \to -\infty$, and therefore as the
+cylinders become infinitely long, we end up with a sphere with $4$
+{\bf marked points}. This is essentially the {\bf state-operator
+  correspondence} from CFT: at each of these $4$ marked points is now
+a local {\bf vertex operator} $\cV_j(k)$. (Incoming and outgoing
+states are distinguished by the sign of $k^0$.)
+
+The same argument can be repeated for open strings to obtain the
+closed disk with marked points on it. In both cases, the resulting
+(conformally-equivalent) worldsheet is compact, with some number of
+marked points on it. Note that the {\bf genus} of the worldsheet
+encodes different interactions! {\bf Tree-level amplitudes} in QFT
+correspond to a sphere with marked points; {\bf one-loop amplitudes}
+correspond to a torus with marked points; and so on. For example,
+\begin{align*}
+  \begin{tikzpicture}[node distance=1cm and 1cm,baseline={([yshift=-.5ex]current bounding box.center)}]
+    \coordinate (J1);
+    \coordinate[vertex,below right=of J1] (w1);
+    \coordinate[below left=of w1] (J2);
+    \coordinate[vertex,right=of w1] (w2);
+    \coordinate[above right=of w2] (J3);
+    \coordinate[below right=of w2] (J4);
+    \begin{scope}[every node/.style={scale=.85}]
+      \draw (J1) -- (w1);
+      \draw (J2) -- (w1);
+      \draw (w1) to[in=90,out=90] (w2);
+      \draw (w1) to[in=-90,out=-90] (w2);
+      \draw (w2) -- (J3);
+      \draw (w2) -- (J4);
+    \end{scope}
+  \end{tikzpicture}
+  \quad \Rightarrow \quad
+  \begin{tikzpicture}[every tqft/.style={draw},baseline={([yshift=-.5ex]current bounding box.center)}]
+    \pic[tqft,
+      incoming boundary components=2,
+      outgoing boundary components=2,
+      genus=1,
+      every lower boundary component/.style={draw}
+    ];
+  \end{tikzpicture}
+  \quad \cong \quad T^2 \text{ with 4 marked points}.
+\end{align*}
+
+In QFT, to obtain the $4$-point correlation function, we summed over
+all tree-level, i.e. zero-loop, Feynman diagrams, followed by one-loop
+diagrams, etc. Similarly, to obtain the $4$-point scattering amplitude
+here, we must sum over all genus zero surfaces with four marked points
+and their metrics, then genus one surfaces with four marked points and
+their metrics, etc.
+
+Do surfaces of different genus contribute differently to the path
+integral? Recall that when we first discussed the gauge symmetries of
+the Polyakov action, we found that aside from the already-existing
+term, there could only be one other term satisfying all the
+gauge symmetries, given by
+\[ \chi \coloneqq \frac{1}{4\pi} \int_\Sigma d^2\sigma \, \sqrt{-\gamma} \, R + \frac{1}{2\pi} \int_{\di \Sigma} ds \, k \]
+Of course, by Gauss-Bonnet, $\chi$ is nothing more than the {\bf Euler
+  characteristic} of the worldsheet. It acts as the {\bf coupling
+  constant} for worldsheets of different genus.
+
+\begin{definition}
+  An {\bf $n$-string S-matrix element} involving $n$ strings with
+  momenta $(k_i)^\mu$ and states $j_i$ is given by
+  \[ S_{j_1 \cdots j_n}(k_1, \ldots, k_n) \coloneqq \sum_{\substack{\text{closed}\\\text{surfaces } \Sigma}} \int \frac{\cD X \, \cD g}{\diff \times \Weyl} \exp(-S_{\text{X}} - \lambda \chi) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \]
+  where the $\cV_{j_i}$ are the local operators arising from the
+  state-operator correspondence. Note that we integrate them over the
+  worldsheet to preserve diffeomorphism invariance. Also, since
+  $\exp(-\lambda \chi)$ is a topological invariant, it does not depend
+  on the {\bf embedding} $X^\mu$ of $\Sigma$ into spacetime, nor the
+  metric $g$ on $\Sigma$, so we define $g_s \coloneqq \exp(-\lambda)$,
+  the {\bf string coupling constant}, and write
+  \[ S_{j_1 \cdots j_n}(k_1, \ldots, k_n) = \sum_{\text{genus } p=0}^\infty g_s^{-(2-2p)} \int \frac{\cD X \, \cD g}{\diff \times \Weyl} \exp(-S_{\text{X}}) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \]
+\end{definition}
+
+\begin{definition}
+  For a fixed genus $p$, let $\Met(\Sigma_p)$ be the space of all
+  metrics on any surface $\Sigma_p$ of genus $p$. Then the
+  configuration space we are integrating over is
+  \[ \frac{\Met(\Sigma_p) \times C^\infty(\Sigma_p, \bR^D) \times (\Sigma_p)^n}{\diff \times \Weyl} \cong \cM(\Sigma_p) \times C^\infty(\Sigma_p, \bR^D) \times (\Sigma_p)^n \]
+  where $\cM(\Sigma_p)$ is the {\bf moduli space of genus-$p$ Riemann
+    surfaces}. Here, the action of $\Weyl$ on $\Met(\Sigma_p)$ simply
+  defines the {\bf conformal classes} $\Conf(\Sigma_p)$ of metrics on
+  $\Sigma_p$, i.e. $\Met(\Sigma_p)/\Weyl \cong \Conf(\Sigma_p)$.
+\end{definition}
+
+Recall that $\cM(\Sigma_p)$ is actually finite-dimensional, so these
+is some hope of ending up with a well-defined integral! There are a
+few things we must do in order to have this happen: we must
+\begin{enumerate}
+\item completely understand the action of $\diff \times \Weyl$ on
+  $\Met(\Sigma_p)$ (including the remnant gauge symmetry we
+  encountered, in the form of holomorphic diffeomorphisms, even after
+  gauge-fixing),
+\item use Faddeev-Popov to write $S_{j_1\cdots j_n}(k_1, \ldots, k_n)$
+  as a finite-dimensional integral over the moduli space
+  $\cM(\Sigma_p)$, and
+\item define a measure on $\cM(\Sigma_p)$, hopefully descending from
+  $\Met(\Sigma_p)$, so that this integral is well-defined.
+\end{enumerate}
+Physicists call elements of the moduli space {\bf metric moduli}, or
+just {\bf moduli} for short.
+
+\subsection{Integration Measure on the Moduli Space}
+
+We shall begin with items 1 and 3; they are related. But the former is
+surprisingly non-trivial for genus $p < 2$. (Usually, people avoid
+such difficulties by defining $\cM(\Sigma_p)$ differently for $p < 2$.
+But we cannot.)
+\begin{enumerate}
+\item For genus $p < 2$, there exist {\bf conformal Killing vectors}
+  (CKVs) on $\Sigma_p$, i.e. non-trivial transformations in $\diff
+  \times \Weyl$ that act as the identity on the metric. We examined
+  some, given by holomorphic diffeomorphisms, when we introduced
+  gauge-fixing.
+\item The CKVs form a group, called the {\bf conformal Killing group}
+  $\CKG(\Sigma_p)$. If $\CKG(\Sigma_p)$ has real dimension $k$, then
+  we can remove these extra degrees of gauge freedom by fixing $k$
+  (real) coordinates of marked points on $\Sigma_p$.
+\end{enumerate}
+The CKG causes us problems; we must understand how to identify which
+infinitesimal $\diff \times \Weyl$ transformations are in the CKG. So
+consider an infinitesimal $\diff \times \Weyl$ transformation
+\[ \delta g_{ab} = 2\delta \omega g_{ab} - \nabla_a \delta \sigma_b - \nabla_b \delta \sigma_a = (2\delta \omega - \nabla_c \delta \sigma^c)g_{ab} - 2(P_1\delta \sigma)_{ab} \]
+where we define a differential operator $P_1$ taking vectors into
+traceless symmetric $2$-tensors:
+\[ (P_1 \delta \sigma)_{ab} = \frac{1}{2}(\nabla_a \delta \sigma_b + \nabla_b \delta \sigma_a - g_{ab} \nabla_c \delta \sigma^c). \]
+By definition, $\delta$ is a CKV iff $\delta g_{ab} = 0$, which, from
+the variation $\delta g_{ab}$, happens iff $(P_1\delta\sigma)_{ab} =
+0$, called the {\bf conformal Killing equation}. (To get this, just
+take the trace of $\delta g_{ab} = 0$, which enforces $2\delta\omega =
+\nabla \cdot \delta \sigma$.)
+
+In much the same way, we can identify infinitesimal transformations of
+$\Met(\Sigma_p)$ that correspond to moduli: they are variations
+$\delta' g_{ab}$ that are {\bf orthogonal} (hang on, we'll define the
+metric soon) to all $\diff \times \Weyl$ variations, i.e.
+\begin{align*}
+  0
+  &= \int d^2\sigma \sqrt{g} \, \delta' g_{ab} \left((2\delta \omega - \nabla \cdot \delta \sigma) g^{ab} - 2(P_1 \delta \sigma)^{ab}\right) \\
+  &= \int d^2\sigma \sqrt{g} \, \left(\delta' g_{ab} g^{ab}(2\delta \omega - \nabla \cdot \delta \sigma) - 2(P_1^\dag \delta' g)_a \delta \sigma^a\right),
+\end{align*}
+where we define $(P_1^\dag u)_a = -\nabla^b u_{ab}$. We see from this
+calculation that $\delta'$ is a modulus iff
+\[ g^{ab}\delta' g_{ab} = 0 \text{ and } (P_1^\dag \delta' g)_a = 0. \]
+
+\begin{exercise}
+  Show that in conformal gauge, the conformal Killing equation and the
+  condition that $\delta'$ is a modulus become, respectively,
+  \[ \di_{\bz} \delta z = \di_z \delta \bz = 0, \quad \di_{\bz} \delta' g_{zz} = \di_z \delta' g_{\bz\bz} = 0, \]
+  i.e. CKVs are {\bf holomorphic vector fields} and moduli are {\bf
+    holomorphic quadratic differentials}.
+\end{exercise}
+
+\begin{definition}
+  Define an inner product on symmetric tensors (of any rank) on a
+  surface with metric $g$ by
+  \[ (A, B)_g \coloneqq \int d^2\sigma \sqrt{g} \, A \cdot B, \]
+  where the dot denotes contraction on all indices. Using this inner
+  product, define a {\bf metric} $\langle \cdot, \cdot \rangle_{\Met}$
+  on $\Met(\Sigma)$ as follows. Fix $g \in \Met(\Sigma)$, and let
+  $(g^I)$ be coordinates in an open neighborhood of $g$. Given $X, Y
+  \in T_g\Met(\Sigma)$, we can expand them in coordinates as
+  \[ X = X^I \pder{}{g^I} = X^I_{a_1b_1} \pder{}{g^I_{a_1b_1}} \in T_g\Met(\Sigma), \quad Y = Y^J \pder{}{g^J} = Y^J_{a_2b_2} \pder{}{g^J_{a_2b_2}} \in T_g\Met(\Sigma). \]
+  Then define
+  \[ \langle X, Y \rangle_{\Met} \coloneqq (X^I, Y^I)_g = \int_\Sigma d^2\sigma \, \sqrt{g} \, g^{a_1a_2}(\sigma) g^{b_1b_2}(\sigma) X^I_{a_1b_1}(\sigma) Y^I_{a_2b_2}(\sigma). \] 
+  Consequently, we get a well-defined measure on $\Met(\Sigma)$.
+\end{definition}
+
+\begin{exercise}
+  Check that, under this metric, moduli are indeed orthogonal to the
+  $\diff \times \Weyl$ action. Indeed, check that we have an {\bf
+    orthogonal decomposition} of metric variations
+  \[ \delta g = \{\Weyl\} \oplus \{\diff\} \oplus \{\text{moduli}\} = \{\Weyl\} \oplus \im P_1 \oplus \ker P_1^\dag \]
+  by showing that $P_1^\dag$ is the adjoint of $P_1$ under $(\cdot,
+  \cdot)_{g(x)}$, and recalling that $\ker A^\dag = (\im A)^\perp$ for
+  an operator $A$. Also, verify that $\ker P_1$ is the CKG. $P_1$ is
+  an important operator!
+\end{exercise}
+
+It is fairly easy to check that $\langle \cdot, \cdot \rangle_{\Met}$
+is invariant under the $\diff \times \Weyl$ action, so it descends
+from $\Met(\Sigma_p)$ to a well-defined metric on $\cM(\Sigma_p)$,
+known as the {\bf Weil-Petersson metric}. Hence we also obtain a
+well-defined measure on $\cM(\Sigma_p)$.
+
+\subsection{Calculating the Measure Using Faddeev-Popov}
+
+Now we shall apply Faddeev-Popov in order to compute what this measure
+on $\cM(\Sigma_p)$ is. Essentially, we shall perform a change of
+variables, from integrating over metrics and vertex positions to
+integrating over variables corresponding to the orthogonal
+decomposition, i.e. integrating over the gauge group, moduli (of
+dimension $\tau$), and unfixed vertex positions. In other words, we
+wish to find the Jacobian for the transformation
+\[ \frac{1}{\diff \times \Weyl}\int_{\Met(\Sigma_p)} \cD g \, d^{2n}\sigma \to \frac{1}{\diff \times \Weyl}\int_{\diff \times \Weyl} \cD \zeta \int_{\cM(\Sigma_p)} d^\tau m \int_{(\Sigma_p)^{n-k/2}} d^{2n-k}\sigma. \]
+Note that because of the additional gauge freedom given by the CKG, we
+can choose the gauge-fixing conditions now to also fix $\kappa = \dim
+\CKG(\Sigma_p)$ of the vertex operator coordinates, so that
+$\sigma_i^a \to \hat{\sigma}_i^a$ for some set, denoted $\Fixed$, of
+fixed coordinates $(a, i)$.
+
+To find the appropriate Jacobian for this change of variables, we use
+Faddeev-Popov. We can directly write down the {\bf Faddeev-Popov
+  determinant}:
+\[ \Delta_{\text{FP}}(g, \sigma)^{-1} = \int_{\cM(\Sigma)} d^\tau m \int_{\diff \times \Weyl} \cD \zeta \, \delta(\hat{g}(m)^\zeta - g) \prod_{(a, i) \in \Fixed} \delta((\hat{\sigma}_i^\zeta)^a - \sigma_i^a). \]
+Previously, we rewrote the right hand side as an integration over
+infinitesimal transformations under the false assumption that the
+gauge group acted freely on the configuration space of embeddings and
+metrics. This was OK because we did not explicitly compute anything
+that depended on getting factors correct in numerical results.
+However, now we care. Note that:
+\begin{enumerate}
+\item an integral over infinitesimal transformations, i.e. the Lie
+  algebra, only captures behavior in the connected component of the
+  identity in $\diff \times \Weyl$;
+\item by homogeneity, the value of the integral in the connected
+  component of the identity is the same as the value in any other
+  connected component;
+\item after removing the CKG, the action of the connected component of
+  the identity $(\diff \times \Weyl)_0 = \diff_0 \times \Weyl$ is free.
+\end{enumerate}
+Hence we can, again, write the integral as an integral over the Lie
+algebra, but now we have a constant, finite factor $n_R$ in front:
+\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma})^{-1} = n_R \int d^\tau (\delta m) \, \cD(\delta \omega) \, \cD(\delta \sigma) \, \delta(\delta g_{ab}) \prod_{(a,i) \in \Fixed} \delta(\delta \sigma^a(\hat{\sigma}_i)), \]
+where $n_R$ is the size of the {\bf mapping class group} $\Mod(\Sigma)
+= |\diff/\diff_0|$. (We don't care about $\Weyl$, since it is
+trivially connected.)
+
+Now we follow the exact same procedure as we did for inverting the
+Faddeev-Popov determinant for the Polyakov action: compute $\delta
+g_{ab}$, introduce auxiliary variables of integration $x$ and
+$\beta_{ab}$ to write the delta functionals as exponentials, integrate
+out $\delta \omega$ to obtain the constraint that $\beta_{ab}$ is
+traceless, and replace the bosonic variables $(\delta \sigma^a,
+\beta_{ab}, x_{ai}, \delta m^t)$ with fermionic variables $(c^a,
+b_{ab}, \eta_{ai}, \zeta^t)$, to get
+\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma}) = \frac{1}{n_R} \int \cD b \, \cD c \, d^\tau \zeta \, d^\kappa \eta \, \exp\left(-\frac{1}{4\pi} (b, 2P_1 c - \zeta^j \di_j \hat{g})_{\hat{g}} + \sum_{(a,i) \in \Fixed} \eta_{ai} c^a(\hat{\sigma}_i)\right). \]
+(We've added in some convenient normalization factors.) Finally, we do
+the integratation over the Grassmann parameters $\eta_{ai}$ and
+$\zeta^i$. The (somewhat elegant) result is
+\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma}) = \frac{1}{n_R} \int \cD b \, \cD c \, \exp(-S_{\text{G}}) \prod_{j=1}^\tau \frac{(b, \di_j \hat{g})_{\hat{g}}}{4\pi} \prod_{(a,i) \in \Fixed} c^a(\hat{\sigma}_i) \]
+
+But there is a nicer way to write $\Delta_{\text{FP}}$. As a Jacobian,
+it is a determinant, and as a Jacobian for a change of variables into
+an orthogonal decomposition, we expect it to decompose as a product of
+determinants. Indeed, it does. First, obtain real eigenbases
+$\{\cC_J\}$ and $\{\cB_K\}$ for the operators $P_1^\dag P_1$ and $P_1
+P_1^\dag$, i.e.
+\[ P_1^\dag P_1 (\cC_J)^a = v_J^2 (\cC_J)^a, \quad P_1 P_1^\dag (\cB_K)_{ab} = w_K^2 (\cB_K)_{ab}, \]
+normalized such that $(\cC_J, \cC_{J'}) = \delta_{JJ'}$ and $(\cB_K,
+\cB_{K'}) = \delta_{KK'}$.
+
+These eigenbases are related. Note that $P_1\cC_J$ is an eigenfunction
+of $P_1P_1^\dag$, and similarly, $P_1\cB_K$ is an eigenfunction of
+$P_1^\dag P_1$. Hence there is a one-to-one correspondence between the
+eigenbases $\{\cC_J\}$ and $\{\cB_K\}$ except for when $P_1\cC_J = 0$
+or $P_1\cB_K = 0$, i.e. when the eigenfunction has a zero eigenvalue.
+The $\cC_J$ with zero eigenvalue correspond to $\kappa$ CKVs, and the
+$\cB_K$ with zero eigenvalue correspond to $\tau$ moduli. Denote these
+eigenfunctions of zero eigenvalue $\{(\cC_{0j})^a\}_{j=1}^\kappa$ and
+$\{(\cB_{0k})_{ab}\}_{k=1}^\tau$. The rest (of non-zero eigenvalue)
+are indexed as normal with $J, K = 1, \ldots$, and satisfy
+$(\cB_J)_{ab} = (1/w_J)(P_1 \cC_J)_{ab}$.
+
+If we rewrite the integral for $\Delta_{\text{FP}}$ in terms of these
+eigenbases, we get
+\begin{align*}
+  \Delta_{\text{FP}} = \int &\prod_{k=1}^\tau db_{0k} \prod_{j=1}^\kappa dc_{0j} \prod_J db_J \, dc_J \, \exp\left(-\frac{w_J b_J c_J}{2\pi}\right) \\
+  &\quad \times \left(\prod_{k'=1}^\tau \sum_{k''=1}^\tau \frac{b_{0k''}}{4\pi} (\cB_{0k''}, \di_{k'}\hat{g})\right) \left(\prod_{(a,i) \in \Fixed} \sum_{j'=1}^\kappa c_{0j'} (\cC_{0j'})^a(\sigma_i)\right),
+\end{align*}
+which is just a product of three Gaussian integrals. Recalling how to
+do Gaussian integrals with insertions, i.e. of the form $\int dx \,
+\exp(-x^2) x^k$, we get
+\[ \Delta_{\text{FP}} = \left[\det\left(\frac{(\cB_{0k}, \di_{k'}\hat{g})}{4\pi}\right)_{k,k'=1}^\tau\right]\left[\det\left((\cC_{0j})^a(\sigma_i)\right)_{j=1, (a,i) \in \Fixed}^\kappa\right] \left[\det' \left(\frac{P_1^\dag P_1}{2\pi}\right)^{1/2}\right], \]
+where $\det'$ indicates that we omit zero eigenvalues. Otherwise the
+whole expression is trivially zero.
+
+For tree-level and one-loop amplitudes, evaluating this expression for
+$\Delta_{\text{FP}}$ is not too bad. For higher-loop amplitudes, there
+is more work involved. But in that case we must put in more work
+anyway: to even integrate on the moduli space requires us to put {\bf
+  Fenchel-Nielsen} coordinates on it, which is not an easy task.
+
+\subsection{The $X^\mu$ Integration}
+
+It remains to handle the integration
+\[ \left\langle \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \right\rangle \coloneqq \int \cD X \, \exp(-S_X) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i). \]
+To evaluate this integral, we use the same trick we used in QFT:
+introduce a formal variable $J$, write down the {\bf generating
+  functional} $Z[J]$, and do tricks with $J$ in order to get the
+vertex operator insertions we want.
 
 \section{Tree-Level Amplitudes}
+
+For closed strings, tree-level amplitudes correspond to $\Sigma = S^2$
+with marked points. Hence we must understand $\cM(S^2)$ and
+$\CKG(S^2)$.
+
+\begin{proposition}
+  $\cM(S^2)$ is a single point, and $\CKG(S^2) \cong \PSL(2, \bC)$,
+  with real dimension $6$.
+\end{proposition}
+
+\begin{proof}
+  Take the standard atlas for $S^2$ given by stereographic projection:
+  one coordinate $z$ on $S^2 \setminus \{N\}$, i.e. everywhere except
+  the north pole, and another coordinate $u$ on $S^2 \setminus \{S\}$,
+  i.e. everywhere except the south pole. In conformal gauge, we know
+  from a previous exercise that moduli are holomorphic quadratic
+  differentials $\delta g_{zz}(z)$ and CKVs are holomorphic vector
+  fields $\delta z(z)$. But these objects must be well-defined
+  globally, so we need to consider them on the $u$ patch:
+  \[ \delta u = \pder{u}{z} \delta z = -z^{-2} \delta z, \quad \delta g_{uu} = \left(\pder{u}{z}\right)^{-2} \delta g_{zz} = z^4 \delta g_{zz}. \]
+  If $\delta g_{uu}$ is well-defined at $u = 0$, i.e. the north pole,
+  then $\delta g_{zz} \propto z^{-4}$ as $|z| \to \infty$. Hence
+  $\delta g_{zz}$ is a bounded entire function, which, by Liouville's
+  theorem, is constant. In the moduli space, we have already modded
+  out by Weyl transformations, so all constant functions are
+  equivalent. However, for CKVs, we only need $\delta z \propto z^2$
+  as $|z| \to \infty$, so in general,
+  \[ \delta z = a_0 + a_1z + a_2z^2, \quad \delta \bz = a_0^* + a_1^*\bz + a_2^*\bz^2. \]
+  Hence $\dim_{\bR} \CKG(S^2) = 6$. It is well-known that these are
+  precisely the infinitesimal transformations of the M\"obius group
+  \[ \PSL(2, \bC) = \left\{\frac{az+b}{cz+d} : ad - bc = 1\right\}/((a, b, c, d) \sim (-a, -b, -c, -d)). \qedhere \]
+\end{proof}
+
+\section{One-Loop Amplitudes}
+
+\section{Higher-Order Amplitudes}
 
 \end{document}
