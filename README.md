@@ -60,4 +60,17 @@ progresses. For now, the plan is:
     theorem, which allows us to avoid using the heavy machinery of
     BRST in practice.
 * Week 6 (Friday Feb 12th): Amplitudes; chpt. 4 in notes.
+  - As for the phi^4 theory in QFT, we can compute n-point functions
+    for interactions between bosonic strings. But there is no need to
+    add an explicit interaction term to the Polyakov action: it
+    already encodes every interaction there is! We shall write down
+    the partition function for bosonic string theory, and carefully
+    gauge-fix it using Faddeev-Popov to get a well-defined
+    (finite-dimensional!) integral over the moduli space of Riemann
+    surfaces. Then we compute tree-level and one-loop amplitudes, and
+    outline how to compute higher-order corrections using tools from
+    Teichmüller theory. In particular, we shall compute the famous
+    Veneziano amplitude, for the tree-level 4-point amplitude of
+    ground state strings, which was the historical starting point for
+    string theory.
 * Week 7 (Friday Feb 19th): T-Duality; chpt. 5 in notes.

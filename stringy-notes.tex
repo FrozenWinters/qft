@@ -76,6 +76,7 @@
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bN}{\mathbb{N}}
 \newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bH}{\mathbb{H}}
 \newcommand{\cA}{\mathcal{A}}
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
@@ -89,6 +90,7 @@
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cP}{\mathcal{P}}
 \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cX}{\mathcal{X}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\fso}{\mathfrak{so}}
 \newcommand{\diff}{\mathrm{diff}}
@@ -975,7 +977,7 @@ trick, which is developed in the following two exercises.
 \begin{exercise}
   Show by analogy from the finite dimensional case for two real fields
   $\phi^1$ and $\phi^2$ that
-  \[ \int \cD \phi^1 \, \cD \phi^2 \exp\left(i\int d^dx \, \phi^1 A \phi^2\right) = (\det A)^{-1}. \]
+  \[ \int \cD \phi^1 \, \cD \phi^2 \exp\left(i\int d^Dx \, \phi^1 A \phi^2\right) = (\det A)^{-1}. \]
 \end{exercise}
 
 \begin{exercise}
@@ -989,7 +991,7 @@ trick, which is developed in the following two exercises.
   \[ \theta^2 = 0, \quad \int d\theta f(\theta) = \pder{f}{\theta}, \quad \int d\theta \, d\eta \, \exp(-\theta b\eta) = b \]
   Hence show by analogy with the finite dimensional case that for
   Grassmann-valued fields $\chi^1$ and $\chi^2$,
-  \[ \int \cD \chi^1 \, \cD \chi^2 \exp\left(-\int d^dx \, \chi^1 A \chi^2\right) = \det A. \]
+  \[ \int \cD \chi^1 \, \cD \chi^2 \exp\left(-\int d^Dx \, \chi^1 A \chi^2\right) = \det A. \]
 \end{exercise}
 
 So here's the trick: if we have a path integral expression for $(\det
@@ -1881,7 +1883,7 @@ of raising/lowering operators, arising from the mode expansions
 \[ \di X^\mu(z) = -i\sqrt{\frac{1}{2 \pi T_0}} \sum_{m=-\infty}^\infty \frac{\alpha_m^\mu}{z^{m+1}}, \quad b = \sum_{m=-\infty}^\infty \frac{b_m}{z^{m+2}}, \quad c = \sum_{m=-\infty}^\infty \frac{c_m}{z^{m-1}}. \]
 We also define, as usual, the {\bf number operators} for each set of
 operators, and the total number operator:
-\[ N_m^\mu \coloneqq \alpha^\mu_{-n} \alpha^\mu_n, \quad N_m^b \coloneqq nb_{-n} c_n, \quad N_m^c \coloneqq nc_{-n} b_n, \quad N \coloneqq \sum_{m=1}^\infty \left(\sum_{\mu=0}^{25} N_m^\mu + N_m^b + N_m^c\right). \]
+\[ N_n^\mu \coloneqq \alpha^\mu_{-n} \alpha^\mu_n, \quad N_n^b \coloneqq nb_{-n} c_n, \quad N_n^c \coloneqq nc_{-n} b_n, \quad N \coloneqq \sum_{n=1}^\infty \left(\sum_{\mu=0}^{25} N_n^\mu + N_n^b + N_n^c\right). \]
 The associated eigenvalue of $N$ is called the {\bf level} of the
 string. The most general level-$N$ open bosonic string is, as
 expected,
@@ -2031,7 +2033,7 @@ surface, we mean closed surface.
   $\chi(\Sigma) = 2 - 2p$.
 \end{theorem}
 
-\section{S-Matrix Elements}
+\section{Computing Scattering Amplitudes}
 
 As a first example, let's look at the scattering amplitude for four
 closed strings, with sources approaching $X^0 = \pm \infty$.
@@ -2047,7 +2049,9 @@ cylinders become infinitely long, we end up with a sphere with $4$
 {\bf marked points}. This is essentially the {\bf state-operator
   correspondence} from CFT: at each of these $4$ marked points is now
 a local {\bf vertex operator} $\cV_j(k)$. (Incoming and outgoing
-states are distinguished by the sign of $k^0$.)
+states are distinguished by the sign of $k^0$.) Generally, we look at
+ground state, i.e. {\bf tachyon}, vertex operators $\NO{\exp(ik \cdot
+  X)}$.
 
 The same argument can be repeated for open strings to obtain the
 closed disk with marked points on it. In both cases, the resulting
@@ -2103,7 +2107,7 @@ Of course, by Gauss-Bonnet, $\chi$ is nothing more than the {\bf Euler
   constant} for worldsheets of different genus.
 
 \begin{definition}
-  An {\bf $n$-string S-matrix element} involving $n$ strings with
+  An {\bf $n$-string scattering amplitude} involving $n$ strings with
   momenta $(k_i)^\mu$ and states $j_i$ is given by
   \[ S_{j_1 \cdots j_n}(k_1, \ldots, k_n) \coloneqq \sum_{\substack{\text{closed}\\\text{surfaces } \Sigma}} \int \frac{\cD X \, \cD g}{\diff \times \Weyl} \exp(-S_{\text{X}} - \lambda \chi) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \]
   where the $\cV_{j_i}$ are the local operators arising from the
@@ -2265,7 +2269,7 @@ However, now we care. Note that:
 \end{enumerate}
 Hence we can, again, write the integral as an integral over the Lie
 algebra, but now we have a constant, finite factor $n_R$ in front:
-\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma})^{-1} = n_R \int d^\tau (\delta m) \, \cD(\delta \omega) \, \cD(\delta \sigma) \, \delta(\delta g_{ab}) \prod_{(a,i) \in \Fixed} \delta(\delta \sigma^a(\hat{\sigma}_i)), \]
+\[ \Delta_{\text{FP}}(\hat{g}, \sigma)^{-1} = n_R \int d^\tau (\delta m) \, \cD(\delta \omega) \, \cD(\delta \sigma) \, \delta(\delta g_{ab}) \prod_{(a,i) \in \Fixed} \delta(\delta \sigma^a(\hat{\sigma}_i)), \]
 where $n_R$ is the size of the {\bf mapping class group} $\Mod(\Sigma)
 = |\diff/\diff_0|$. (We don't care about $\Weyl$, since it is
 trivially connected.)
@@ -2278,11 +2282,11 @@ out $\delta \omega$ to obtain the constraint that $\beta_{ab}$ is
 traceless, and replace the bosonic variables $(\delta \sigma^a,
 \beta_{ab}, x_{ai}, \delta m^t)$ with fermionic variables $(c^a,
 b_{ab}, \eta_{ai}, \zeta^t)$, to get
-\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma}) = \frac{1}{n_R} \int \cD b \, \cD c \, d^\tau \zeta \, d^\kappa \eta \, \exp\left(-\frac{1}{4\pi} (b, 2P_1 c - \zeta^j \di_j \hat{g})_{\hat{g}} + \sum_{(a,i) \in \Fixed} \eta_{ai} c^a(\hat{\sigma}_i)\right). \]
+\[ \Delta_{\text{FP}}(\hat{g}, \sigma) = \frac{1}{n_R} \int \cD b \, \cD c \, d^\tau \zeta \, d^\kappa \eta \, \exp\left(-\frac{1}{4\pi} (b, 2P_1 c - \zeta^j \di_j \hat{g})_{\hat{g}} + \sum_{(a,i) \in \Fixed} \eta_{ai} c^a(\hat{\sigma}_i)\right). \]
 (We've added in some convenient normalization factors.) Finally, we do
 the integratation over the Grassmann parameters $\eta_{ai}$ and
 $\zeta^i$. The (somewhat elegant) result is
-\[ \Delta_{\text{FP}}(\hat{g}, \hat{\sigma}) = \frac{1}{n_R} \int \cD b \, \cD c \, \exp(-S_{\text{G}}) \prod_{j=1}^\tau \frac{(b, \di_j \hat{g})_{\hat{g}}}{4\pi} \prod_{(a,i) \in \Fixed} c^a(\hat{\sigma}_i) \]
+\[ \Delta_{\text{FP}}(\hat{g}, \sigma) = \frac{1}{n_R} \int \cD b \, \cD c \, \exp(-S_{\text{G}}) \prod_{j=1}^\tau \frac{(b, \di_j \hat{g})_{\hat{g}}}{4\pi} \prod_{(a,i) \in \Fixed} c^a(\hat{\sigma}_i) \]
 
 But there is a nicer way to write $\Delta_{\text{FP}}$. As a Jacobian,
 it is a determinant, and as a Jacobian for a change of variables into
@@ -2292,16 +2296,15 @@ $\{\cC_J\}$ and $\{\cB_K\}$ for the operators $P_1^\dag P_1$ and $P_1
 P_1^\dag$, i.e.
 \[ P_1^\dag P_1 (\cC_J)^a = v_J^2 (\cC_J)^a, \quad P_1 P_1^\dag (\cB_K)_{ab} = w_K^2 (\cB_K)_{ab}, \]
 normalized such that $(\cC_J, \cC_{J'}) = \delta_{JJ'}$ and $(\cB_K,
-\cB_{K'}) = \delta_{KK'}$.
-
-These eigenbases are related. Note that $P_1\cC_J$ is an eigenfunction
-of $P_1P_1^\dag$, and similarly, $P_1\cB_K$ is an eigenfunction of
-$P_1^\dag P_1$. Hence there is a one-to-one correspondence between the
-eigenbases $\{\cC_J\}$ and $\{\cB_K\}$ except for when $P_1\cC_J = 0$
-or $P_1\cB_K = 0$, i.e. when the eigenfunction has a zero eigenvalue.
-The $\cC_J$ with zero eigenvalue correspond to $\kappa$ CKVs, and the
-$\cB_K$ with zero eigenvalue correspond to $\tau$ moduli. Denote these
-eigenfunctions of zero eigenvalue $\{(\cC_{0j})^a\}_{j=1}^\kappa$ and
+\cB_{K'}) = \delta_{KK'}$. These eigenbases are related. Note that
+$P_1\cC_J$ is an eigenfunction of $P_1P_1^\dag$, and similarly,
+$P_1\cB_K$ is an eigenfunction of $P_1^\dag P_1$. Hence there is a
+one-to-one correspondence between the eigenbases $\{\cC_J\}$ and
+$\{\cB_K\}$ except for when $P_1\cC_J = 0$ or $P_1\cB_K = 0$, i.e.
+when the eigenfunction has a zero eigenvalue. The $\cC_J$ with zero
+eigenvalue correspond to $\kappa$ CKVs, and the $\cB_K$ with zero
+eigenvalue correspond to $\tau$ moduli. Denote these eigenfunctions of
+zero eigenvalue $\{(\cC_{0j})^a\}_{j=1}^\kappa$ and
 $\{(\cB_{0k})_{ab}\}_{k=1}^\tau$. The rest (of non-zero eigenvalue)
 are indexed as normal with $J, K = 1, \ldots$, and satisfy
 $(\cB_J)_{ab} = (1/w_J)(P_1 \cC_J)_{ab}$.
@@ -2315,7 +2318,7 @@ eigenbases, we get
 which is just a product of three Gaussian integrals. Recalling how to
 do Gaussian integrals with insertions, i.e. of the form $\int dx \,
 \exp(-x^2) x^k$, we get
-\[ \Delta_{\text{FP}} = \left[\det\left(\frac{(\cB_{0k}, \di_{k'}\hat{g})}{4\pi}\right)_{k,k'=1}^\tau\right]\left[\det\left((\cC_{0j})^a(\sigma_i)\right)_{j=1, (a,i) \in \Fixed}^\kappa\right] \left[\det' \left(\frac{P_1^\dag P_1}{2\pi}\right)^{1/2}\right], \]
+\[ \Delta_{\text{FP}} = \left[\det\left(\frac{(\cB_{0k}, \di_{k'}\hat{g})}{4\pi}\right)_{k,k'=1}^\tau\right]\left[\det\left((\cC_{0j})^a(\sigma_i)\right)_{j=1, (a,i) \in \Fixed}^\kappa\right] \left[\det\nolimits' \left(\frac{P_1^\dag P_1}{2\pi}\right)^{1/2}\right], \]
 where $\det'$ indicates that we omit zero eigenvalues. Otherwise the
 whole expression is trivially zero.
 
@@ -2327,18 +2330,53 @@ anyway: to even integrate on the moduli space requires us to put {\bf
 
 \subsection{The $X^\mu$ Integration}
 
-It remains to handle the integration
+It remains to handle the $X^\mu$ integration
 \[ \left\langle \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \right\rangle \coloneqq \int \cD X \, \exp(-S_X) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i). \]
 To evaluate this integral, we use the same trick we used in QFT:
 introduce a formal variable $J$, write down the {\bf generating
-  functional} $Z[J]$, and do tricks with $J$ in order to get the
-vertex operator insertions we want.
+  functional}
+\[ Z[J] = \left\langle \exp\left(i\int d^2\sigma \, J_\mu X^\mu\right) \right\rangle \]
+and do tricks with $J^\mu(\sigma)$ in order to get the vertex operator
+insertions we want. We can directly compute $Z[J]$ by writing the
+Polyakov action as
+\[ S_X = \frac{T_0}{2} \int d^2\sigma \, X_\mu \Delta_g X^\mu, \quad \Delta_g \coloneqq \nabla^2 = \frac{1}{\sqrt{g}} \di_a \sqrt{g} \, g^{ab} \di_b, \]
+which is a Gaussian. Expand $X$ and $J$ in terms of an eigenbasis of
+the Laplacian:
+\[ \Delta_g \cX_I = -\omega_I^2 \cX_I, \quad X^\mu = \sum_I x_I^\mu \cX_I, \quad J^\mu = \sum_I J_I^\mu \cX_I, \]
+where the eigenfunctions $\psi_I$ are chosen to be orthogonal with
+respect to $(\cdot, \cdot)_g$. Then
+\[ Z[J] = \prod_{I,\mu} \int \cD X^\mu \, \exp\left(-\frac{T_0}{2} \omega_I^2 x_I \cdot x_I + iJ_I \cdot x_I\right). \]
+Before doing the Gaussian integrals, note that the zero mode $\cX_0$
+is special: since $\nabla^2 \cX_0 = 0$, it has an extremum in the
+interior of the Riemann surface $\Sigma$. By the maximum modulus
+principle, $\cX_0$ must be constant. Hence its corresponding Gaussian
+integral becomes $\int \cD X^\mu \exp(iJ_0 \cdot x_0) =
+\delta^D(J_0)$.
+
+\begin{exercise}
+  Review how to do Gaussian integrals, in particular the $Z[J]$
+  integral from QFT, and calculate that
+  \[ Z[J] = i(2\pi)^D \delta^D(J_0) \det\nolimits' \left(\frac{T_0}{\pi}\Delta_g\right)^{-d/2} \exp\left(-\frac{1}{2} \int d^2 \sigma_1 \, d^2\sigma_2 \, J(\sigma_1) G'(\sigma_1, \sigma_2) J(\sigma_2)\right), \]
+  where the {\bf Green's function} (excluding zero modes) is
+  \[ G'(\sigma_1, \sigma_2) \coloneqq \sum_{I \neq 0} \frac{1}{T_0} \frac{1}{\omega_I^2} \cX_I(\sigma_1) \cX_I(\sigma_2). \]
+  Verify that $G'(\sigma_1, \sigma_2)$ satisfies
+  \[ -T_0 \Delta_g G'(\sigma_1, \sigma_2) = \sum_{I \neq 0} \cX_I(\sigma_1) \cX_I(\sigma_2) = \frac{1}{\sqrt{g}} \delta^2(\sigma_1 - \sigma_2) - \cX_0^2 \]
+  using the completeness relation for the eigenbasis $\{\cX_I\}$.
+\end{exercise}
+
+We shall use this differential equation for the Green's function in
+order find out what it is. Note that it depends on $\Delta_g$, which
+changes with different moduli, and, in particular, different genus.
+Hence for every $n$, to compute the $n$-loop corrections to the
+amplitude, we need to find $G'$ for every element in the moduli space.
 
 \section{Tree-Level Amplitudes}
 
-For closed strings, tree-level amplitudes correspond to $\Sigma = S^2$
-with marked points. Hence we must understand $\cM(S^2)$ and
-$\CKG(S^2)$.
+In this section, we compute tree-level amplitudes for {\bf $n$-tachyon
+  scattering}, which, for closed strings, corresponds to $\Sigma =
+S^2$ with $n$ marked points with {\bf tachyon vertex operators}
+$\cV_{j_i}(k_i, \sigma_i) = \NO{e^{ik\cdot X}}$. Hence we must first
+understand $\cM(S^2)$ and $\CKG(S^2)$.
 
 \begin{proposition}
   $\cM(S^2)$ is a single point, and $\CKG(S^2) \cong \PSL(2, \bC)$,
@@ -2360,15 +2398,93 @@ $\CKG(S^2)$.
   $\delta g_{zz}$ is a bounded entire function, which, by Liouville's
   theorem, is constant. In the moduli space, we have already modded
   out by Weyl transformations, so all constant functions are
-  equivalent. However, for CKVs, we only need $\delta z \propto z^2$
-  as $|z| \to \infty$, so in general,
+  equivalent. (In fact, by the uniformization theorem, every metric is
+  equivalent to the constant-curvature metric induced by the inclusion
+  $S^2 \to \bR^3$.) However, for CKVs, we only need $\delta z \propto
+  z^2$ as $|z| \to \infty$, so in general,
   \[ \delta z = a_0 + a_1z + a_2z^2, \quad \delta \bz = a_0^* + a_1^*\bz + a_2^*\bz^2. \]
   Hence $\dim_{\bR} \CKG(S^2) = 6$. It is well-known that these are
   precisely the infinitesimal transformations of the M\"obius group
   \[ \PSL(2, \bC) = \left\{\frac{az+b}{cz+d} : ad - bc = 1\right\}/((a, b, c, d) \sim (-a, -b, -c, -d)). \qedhere \]
 \end{proof}
 
+We first compute the $X^\mu$ integral using the results of the
+previous section. Using the fact that $\di \bdi \ln |z| = 2\pi
+\delta(z)$, by solving the DE, we get the Green's function
+\[ G'(\sigma_1, \sigma_2) = -\frac{1}{4\pi T_0} \ln |z_1 - z_2|^2 + f(z_1, \bz_1) + f(z_2, \bz_2), \quad f(z, \bz) \coloneqq \frac{\cX_0^2}{8\pi T_0} \int d^2 w \, e^{2\omega(z,\bz)} \ln |z - w|^2 + C \]
+where the function $f$ acts as a {\bf regulator} that cancels out in
+the final amplitudes, and $C$ is just a constant to make sure $G'$ is
+orthogonal to $\cX_0$, a constant. The tachyon vertex operators
+$\NO{e^{ik_i\cdot X}}$ correspond to $J(\sigma) = \sum_i \delta(\sigma
+- \sigma_i)$. Consequently,
+\[ Z[J] = C_{S^2}^{\text{X}} \delta^D(\sum_i k_i) \exp\left(-\sum_{i < j} k_i \cdot k_j G'(\sigma_i, \sigma_j) - \frac{1}{2}\sum_i k_i^2 G'_r(\sigma_i, \sigma_i)\right), \; C_{S^2}^{\text{X}} \coloneqq \frac{i(2\pi)^D}{\cX_0^D} \det\nolimits' \left(\frac{T_0}{\pi}\Delta_g\right)^{-\frac{D}{2}}, \]
+where the $G'_r \neq G'$ because of the normal ordering. In fact, for
+normal-ordered vertex operators, we get $G'_r(\sigma, \sigma) = 2f(z,
+\bz)$, so
+\[ Z[J] = C_{S^2}^{\text{X}} \delta^D\left(\sum_i k_i\right) \prod_{i<j} |z_i - z_j|^{k_i \cdot k_j/2\pi T_0}. \]
+Note that the regulator $f$ has canceled. 
+
+Since the sphere has no moduli, we are free to ignore the integral
+over moduli space. Most of the Faddeev-Popov measure becomes constant,
+except the Jacobian for the CKG. From
+our computation of the CKG, we know a basis for CKVs is given by
+$\cC^z = 1, z, z^2$ and $\cC^{\bz} = 1, \bz, \bz^2$, so
+\[ \Delta_{\text{FP}} = C_{S^2}^{\text{G}} \det(\cC^a_{0j}(\sigma_i)) = C_{S^2}^{\text{G}} \det((z_i)^{j-1})_{i,j=1}^3 \det((\bz_i)^{j-1})_{i,j=1}^3 = C_{S^2}^{\text{G}} |z_1 - z_2|^2 |z_1 - z_3|^2 |z_2 - z_3|^2, \]
+absorbing the two other (now constant) determinants in
+$C_{S^2}^{\text{G}}$. Assume that we are scattering $n > 2$ tachyons,
+so that the $\dim_{\bC} \CKG(S^2) = 3$ degrees of freedom can fix the
+positions $\hat{z}_1, \hat{z}_2, \hat{z}_3$ of the first three local
+operators: it is well-known that the M\"obius transformations $\PSL(2,
+\bC)$ act transitively on triplets of points, i.e. is $3$-transitive.
+
+\begin{proposition}
+  The closed string, tree-level, $n$-tachyon scattering amplitude is
+  given by
+  \[ S_{j_1 \cdots j_n}(k_1, \ldots, k_n) = g_s^{-2+n} C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D\left(\sum_{i=1}^n k_i\right) |\hat{z}_1 - \hat{z}_2|^2 |\hat{z}_1 - \hat{z}_3|^2 |\hat{z}_2 - \hat{z}_3|^2 \int \prod_{i=4}^n d^2 z_i \prod_{i<j} |z_i - z_j|^{k_i \cdot k_j/2\pi T_0} \]
+  for any choice of $\hat{z}_1, \hat{z}_2, \hat{z}_3 \in \bC^2$.
+\end{proposition}
+
+The closed string, four-tachyon scattering amplitude is the first
+computed non-trivial string scattering amplitude, and therefore has a
+name: the {\bf Virasoro-Shapiro amplitude}. We shall compute it
+explicitly.
+
+\begin{example}[Virasoro-Shapiro amplitude]
+  Write $\alpha' = 1/2\pi T_0$. Pick $\hat{z}_1 = 1$, $\hat{z}_2 = 0$,
+  and $\hat{z}_3 = \infty$. Then any term $|\hat{z}_3 - z_i|$ can be
+  treated as $|\hat{z}_3|$, so
+  \[ |\hat{z}_1 - \hat{z}_3|^{2+\alpha' k_1\cdot k_3}|\hat{z}_2 - \hat{z}_3|^{2+\alpha' k_2 \cdot k_3}|\hat{z}_3 - z_4|^{\alpha' k_3 \cdot k_4} = |\hat{z}_3|^{4 + \alpha' k_3 \cdot (k_1 + k_2 + k_4)} = |\hat{z}_3|^0 = 1, \]
+  by recalling that on-shell tachyons satisfy $k^2 = 4/\alpha'$, and
+  therefore, using momentum conservation,
+  \[ 4 + \alpha' k_3(k_1 + k_2 + k_4) = 4 - \alpha' k_3^2 = 4 - 4 = 0. \]
+  Introduce {\bf Mandelstam variables} like we did for $4$-point
+  scattering in QFT:
+  \[ s \coloneqq -(k_1 + k_2)^2, \quad t \coloneqq -(k_1 + k_3)^2, \quad u \coloneqq -(k_1 + k_4)^2, \]
+  which satisfy $s + t + u = -16/\alpha'$. Again using the on-shell
+  condition and momentum conservation, we can show that the remaining
+  part of the integral is
+  \[ \int d^2z_4 \, |1 - z_4|^{\alpha' k_1 \cdot k_4} |z_4|^{\alpha' k_2 \cdot k_4} = \int d^2z_4 |1 - z_4|^{-(\alpha' u)/2 - 4} |z_4|^{-(\alpha' t)/2 - 4}. \]
+  Now recall that using the {\bf Euler beta function},
+  \[ \int d^2z \, |z|^{2a-2} |1-z|^{2b-2} = 2\pi \frac{\Gamma(a) \Gamma(b) \Gamma(c)}{\Gamma(a+b) \Gamma(a+c) \Gamma(b+c)}, \quad a + b + c = 1, \]
+  so that our final expression is
+  \[ S_{j_1 \cdots j_4}(k_1, \ldots, k_4) = g_s^2 C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D(k_1 + \cdots + k_4) 2\pi \frac{\Gamma(-1 - \frac{\alpha'}{4} s)\Gamma(-1 - \frac{\alpha'}{4} t)\Gamma(-1 - \frac{\alpha'}{4} u)}{\Gamma(2 + \frac{\alpha'}{4}s)\Gamma(2 + \frac{\alpha'}{4}t)\Gamma(2 + \frac{\alpha'}{4}u)}. \]
+\end{example}
+
+The analogous amplitude for open strings, called the {\bf Veneziano
+  amplitude}, led to the birth of string theory in the 1970s.
+
 \section{One-Loop Amplitudes}
+
+In this section, we compute one-loop corrections to amplitudes for
+$n$-tachyon scattering, which, for closed strings, corresponds to
+$\Sigma = T^2$, the torus, with $n$ marked points. Hence we must
+understand $\cM(T^2)$ and $\CKG(T^2)$. Recall that $\bH^2$ is the {\bf
+  hyperbolic plane}, which can be identified with the {\bf upper half
+  plane}.
+
+\begin{proposition}
+  $\cM(T^2) = \bH^2/\PSL(2, \bZ)$, and $\CKG(T^2) = U(1) \times U(1)$.
+\end{proposition}
 
 \section{Higher-Order Amplitudes}
 
