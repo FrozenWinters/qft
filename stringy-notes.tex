@@ -77,6 +77,7 @@
 \newcommand{\bN}{\mathbb{N}}
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\bH}{\mathbb{H}}
+\newcommand{\bQ}{\mathbb{Q}}
 \newcommand{\cA}{\mathcal{A}}
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
@@ -89,10 +90,12 @@
 \newcommand{\cL}{\mathcal{L}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
 \newcommand{\cV}{\mathcal{V}}
 \newcommand{\cX}{\mathcal{X}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\fso}{\mathfrak{so}}
+\newcommand{\fF}{\mathfrak{F}}
 \newcommand{\diff}{\mathrm{diff}}
 \newcommand{\Weyl}{\mathrm{Weyl}}
 \newcommand{\detFP}{\Delta_{\text{FP}}}
@@ -2008,6 +2011,7 @@ practical theorem.
 \end{exercise}
 
 \chapter{Amplitudes}
+\setcounter{theorem}{0}
 
 In QFT, after we studied the spectrum of a free particle, we proceeded
 to add an interaction term in the form of $(\lambda/4!)\phi^4$. Then
@@ -2271,8 +2275,8 @@ Hence we can, again, write the integral as an integral over the Lie
 algebra, but now we have a constant, finite factor $n_R$ in front:
 \[ \Delta_{\text{FP}}(\hat{g}, \sigma)^{-1} = n_R \int d^\tau (\delta m) \, \cD(\delta \omega) \, \cD(\delta \sigma) \, \delta(\delta g_{ab}) \prod_{(a,i) \in \Fixed} \delta(\delta \sigma^a(\hat{\sigma}_i)), \]
 where $n_R$ is the size of the {\bf mapping class group} $\Mod(\Sigma)
-= |\diff/\diff_0|$. (We don't care about $\Weyl$, since it is
-trivially connected.)
+= |\diff(\Sigma)/\diff_0(\Sigma)|$. (We don't care about $\Weyl$,
+since it is trivially connected.)
 
 Now we follow the exact same procedure as we did for inverting the
 Faddeev-Popov determinant for the Polyakov action: compute $\delta
@@ -2315,9 +2319,8 @@ eigenbases, we get
   \Delta_{\text{FP}} = \int &\prod_{k=1}^\tau db_{0k} \prod_{j=1}^\kappa dc_{0j} \prod_J db_J \, dc_J \, \exp\left(-\frac{w_J b_J c_J}{2\pi}\right) \\
   &\quad \times \left(\prod_{k'=1}^\tau \sum_{k''=1}^\tau \frac{b_{0k''}}{4\pi} (\cB_{0k''}, \di_{k'}\hat{g})\right) \left(\prod_{(a,i) \in \Fixed} \sum_{j'=1}^\kappa c_{0j'} (\cC_{0j'})^a(\sigma_i)\right),
 \end{align*}
-which is just a product of three Gaussian integrals. Recalling how to
-do Gaussian integrals with insertions, i.e. of the form $\int dx \,
-\exp(-x^2) x^k$, we get
+which is just a product of three Gaussian integrals. Calculating these
+integrals over Grassmann-valued fields, we get
 \[ \Delta_{\text{FP}} = \left[\det\left(\frac{(\cB_{0k}, \di_{k'}\hat{g})}{4\pi}\right)_{k,k'=1}^\tau\right]\left[\det\left((\cC_{0j})^a(\sigma_i)\right)_{j=1, (a,i) \in \Fixed}^\kappa\right] \left[\det\nolimits' \left(\frac{P_1^\dag P_1}{2\pi}\right)^{1/2}\right], \]
 where $\det'$ indicates that we omit zero eigenvalues. Otherwise the
 whole expression is trivially zero.
@@ -2331,21 +2334,21 @@ anyway: to even integrate on the moduli space requires us to put {\bf
 \subsection{The $X^\mu$ Integration}
 
 It remains to handle the $X^\mu$ integration
-\[ \left\langle \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i) \right\rangle \coloneqq \int \cD X \, \exp(-S_X) \prod_{i=1}^n \int d^2\sigma_i \, \sqrt{g(\sigma_i)} \, \cV_{j_i}(k_i, \sigma_i). \]
-To evaluate this integral, we use the same trick we used in QFT:
-introduce a formal variable $J$, write down the {\bf generating
-  functional}
-\[ Z[J] = \left\langle \exp\left(i\int d^2\sigma \, J_\mu X^\mu\right) \right\rangle \]
+\[ \left\langle \prod_{i=1}^n \cV_{j_i}(k_i, \sigma_i) \right\rangle \coloneqq \int \cD X \, \exp(-S_X) \prod_{i=1}^n \cV_{j_i}(k_i, \sigma_i) \]
+for a fixed moduli $g$. To evaluate this integral, we use the same
+trick we used in QFT: introduce a formal variable $J$, write down the
+{\bf generating functional}
+\[ Z[J; g] = \left\langle \exp\left(i\int d^2\sigma \sqrt{g} \, J_\mu X^\mu\right) \right\rangle \]
 and do tricks with $J^\mu(\sigma)$ in order to get the vertex operator
 insertions we want. We can directly compute $Z[J]$ by writing the
 Polyakov action as
-\[ S_X = \frac{T_0}{2} \int d^2\sigma \, X_\mu \Delta_g X^\mu, \quad \Delta_g \coloneqq \nabla^2 = \frac{1}{\sqrt{g}} \di_a \sqrt{g} \, g^{ab} \di_b, \]
+\[ S_X = \frac{T_0}{2} \int d^2\sigma \sqrt{g} \, X_\mu \Delta_g X^\mu, \quad \Delta_g \coloneqq \nabla^2 = \frac{1}{\sqrt{g}} \di_a \sqrt{g} \, g^{ab} \di_b, \]
 which is a Gaussian. Expand $X$ and $J$ in terms of an eigenbasis of
 the Laplacian:
 \[ \Delta_g \cX_I = -\omega_I^2 \cX_I, \quad X^\mu = \sum_I x_I^\mu \cX_I, \quad J^\mu = \sum_I J_I^\mu \cX_I, \]
 where the eigenfunctions $\psi_I$ are chosen to be orthogonal with
 respect to $(\cdot, \cdot)_g$. Then
-\[ Z[J] = \prod_{I,\mu} \int \cD X^\mu \, \exp\left(-\frac{T_0}{2} \omega_I^2 x_I \cdot x_I + iJ_I \cdot x_I\right). \]
+\[ Z[J; g] = \prod_{I,\mu} \int \cD X^\mu \, \exp\left(-\frac{T_0}{2} \omega_I^2 x_I \cdot x_I + iJ_I \cdot x_I\right). \]
 Before doing the Gaussian integrals, note that the zero mode $\cX_0$
 is special: since $\nabla^2 \cX_0 = 0$, it has an extremum in the
 interior of the Riemann surface $\Sigma$. By the maximum modulus
@@ -2355,8 +2358,8 @@ integral becomes $\int \cD X^\mu \exp(iJ_0 \cdot x_0) =
 
 \begin{exercise}
   Review how to do Gaussian integrals, in particular the $Z[J]$
-  integral from QFT, and calculate that
-  \[ Z[J] = i(2\pi)^D \delta^D(J_0) \det\nolimits' \left(\frac{T_0}{\pi}\Delta_g\right)^{-d/2} \exp\left(-\frac{1}{2} \int d^2 \sigma_1 \, d^2\sigma_2 \, J(\sigma_1) G'(\sigma_1, \sigma_2) J(\sigma_2)\right), \]
+  integral from QFT, and calculate that for a fixed moduli $g$,
+  \[ Z[J; g] = i(2\pi)^D \delta^D(J_0) \left(\frac{\det\nolimits' ((T_0/\pi)\Delta_g)}{\int d^2\sigma \sqrt{g}}\right)^{-D/2} \exp\left(-\frac{1}{2} \int d^2 \sigma_1 \, d^2\sigma_2 \, J(\sigma_1) G'(\sigma_1, \sigma_2) J(\sigma_2)\right), \]
   where the {\bf Green's function} (excluding zero modes) is
   \[ G'(\sigma_1, \sigma_2) \coloneqq \sum_{I \neq 0} \frac{1}{T_0} \frac{1}{\omega_I^2} \cX_I(\sigma_1) \cX_I(\sigma_2). \]
   Verify that $G'(\sigma_1, \sigma_2)$ satisfies
@@ -2372,11 +2375,12 @@ amplitude, we need to find $G'$ for every element in the moduli space.
 
 \section{Tree-Level Amplitudes}
 
-In this section, we compute tree-level amplitudes for {\bf $n$-tachyon
-  scattering}, which, for closed strings, corresponds to $\Sigma =
-S^2$ with $n$ marked points with {\bf tachyon vertex operators}
-$\cV_{j_i}(k_i, \sigma_i) = \NO{e^{ik\cdot X}}$. Hence we must first
-understand $\cM(S^2)$ and $\CKG(S^2)$.
+In this section, we compute tree-level amplitudes $S_{S^2}(k_1,
+\ldots, k_n)$ for {\bf $n$-tachyon scattering}, which, for closed
+strings, corresponds to $\Sigma = S^2$ with $n$ marked points with
+{\bf tachyon vertex operators} $\cV_{j_i}(k_i, \sigma_i) =
+\NO{e^{ik\cdot X}}$. Hence we must first understand $\cM(S^2)$ and
+$\CKG(S^2)$.
 
 \begin{proposition}
   $\cM(S^2)$ is a single point, and $\CKG(S^2) \cong \PSL(2, \bC)$,
@@ -2408,6 +2412,11 @@ understand $\cM(S^2)$ and $\CKG(S^2)$.
   \[ \PSL(2, \bC) = \left\{\frac{az+b}{cz+d} : ad - bc = 1\right\}/((a, b, c, d) \sim (-a, -b, -c, -d)). \qedhere \]
 \end{proof}
 
+Because the moduli space is trivial, we take $g$ to be the constant
+curvature metric on the sphere. Most things that involve $g$ now
+become constants, and the integral over moduli space disappears. We
+write $Z[J; g]$ as $Z[J]$.
+
 We first compute the $X^\mu$ integral using the results of the
 previous section. Using the fact that $\di \bdi \ln |z| = 2\pi
 \delta(z)$, by solving the DE, we get the Green's function
@@ -2417,18 +2426,18 @@ the final amplitudes, and $C$ is just a constant to make sure $G'$ is
 orthogonal to $\cX_0$, a constant. The tachyon vertex operators
 $\NO{e^{ik_i\cdot X}}$ correspond to $J(\sigma) = \sum_i \delta(\sigma
 - \sigma_i)$. Consequently,
-\[ Z[J] = C_{S^2}^{\text{X}} \delta^D(\sum_i k_i) \exp\left(-\sum_{i < j} k_i \cdot k_j G'(\sigma_i, \sigma_j) - \frac{1}{2}\sum_i k_i^2 G'_r(\sigma_i, \sigma_i)\right), \; C_{S^2}^{\text{X}} \coloneqq \frac{i(2\pi)^D}{\cX_0^D} \det\nolimits' \left(\frac{T_0}{\pi}\Delta_g\right)^{-\frac{D}{2}}, \]
+\[ Z[J] = C_{S^2}^{\text{X}} \delta^D(\sum_i k_i) \exp\left(-\sum_{i < j} k_i \cdot k_j G'(\sigma_i, \sigma_j) - \sum_i k_i^2 G'_r(\sigma_i, \sigma_i)\right), \; C_{S^2}^{\text{X}} \coloneqq \frac{i(2\pi)^D}{\cX_0^D} \left(\frac{\det'(\frac{T_0}{\pi}\Delta_g)}{\int d^2\sigma \sqrt{g}}\right)^{-\frac{D}{2}}, \]
 where the $G'_r \neq G'$ because of the normal ordering. In fact, for
 normal-ordered vertex operators, we get $G'_r(\sigma, \sigma) = 2f(z,
-\bz)$, so
+\bz)$, so that using momentum conservation $\sum_i k_i = 0$, the
+regulator $f$ cancels and we get
 \[ Z[J] = C_{S^2}^{\text{X}} \delta^D\left(\sum_i k_i\right) \prod_{i<j} |z_i - z_j|^{k_i \cdot k_j/2\pi T_0}. \]
-Note that the regulator $f$ has canceled. 
 
 Since the sphere has no moduli, we are free to ignore the integral
 over moduli space. Most of the Faddeev-Popov measure becomes constant,
-except the Jacobian for the CKG. From
-our computation of the CKG, we know a basis for CKVs is given by
-$\cC^z = 1, z, z^2$ and $\cC^{\bz} = 1, \bz, \bz^2$, so
+except the CKG determinant. From our computation of the CKG, we know a
+basis for CKVs is given by $\cC^z = 1, z, z^2$ and $\cC^{\bz} = 1,
+\bz, \bz^2$, so
 \[ \Delta_{\text{FP}} = C_{S^2}^{\text{G}} \det(\cC^a_{0j}(\sigma_i)) = C_{S^2}^{\text{G}} \det((z_i)^{j-1})_{i,j=1}^3 \det((\bz_i)^{j-1})_{i,j=1}^3 = C_{S^2}^{\text{G}} |z_1 - z_2|^2 |z_1 - z_3|^2 |z_2 - z_3|^2, \]
 absorbing the two other (now constant) determinants in
 $C_{S^2}^{\text{G}}$. Assume that we are scattering $n > 2$ tachyons,
@@ -2440,7 +2449,7 @@ operators: it is well-known that the M\"obius transformations $\PSL(2,
 \begin{proposition}
   The closed string, tree-level, $n$-tachyon scattering amplitude is
   given by
-  \[ S_{j_1 \cdots j_n}(k_1, \ldots, k_n) = g_s^{-2+n} C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D\left(\sum_{i=1}^n k_i\right) |\hat{z}_1 - \hat{z}_2|^2 |\hat{z}_1 - \hat{z}_3|^2 |\hat{z}_2 - \hat{z}_3|^2 \int \prod_{i=4}^n d^2 z_i \prod_{i<j} |z_i - z_j|^{k_i \cdot k_j/2\pi T_0} \]
+  \[ S_{S^2}(k_1, \ldots, k_n) = g_s^{-2+n} C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D\left(\sum_{i=1}^n k_i\right) |\hat{z}_1 - \hat{z}_2|^2 |\hat{z}_1 - \hat{z}_3|^2 |\hat{z}_2 - \hat{z}_3|^2 \int \prod_{i=4}^n d^2 z_i \prod_{i<j} |z_i - z_j|^{k_i \cdot k_j/2\pi T_0} \]
   for any choice of $\hat{z}_1, \hat{z}_2, \hat{z}_3 \in \bC^2$.
 \end{proposition}
 
@@ -2467,25 +2476,274 @@ explicitly.
   Now recall that using the {\bf Euler beta function},
   \[ \int d^2z \, |z|^{2a-2} |1-z|^{2b-2} = 2\pi \frac{\Gamma(a) \Gamma(b) \Gamma(c)}{\Gamma(a+b) \Gamma(a+c) \Gamma(b+c)}, \quad a + b + c = 1, \]
   so that our final expression is
-  \[ S_{j_1 \cdots j_4}(k_1, \ldots, k_4) = g_s^2 C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D(k_1 + \cdots + k_4) 2\pi \frac{\Gamma(-1 - \frac{\alpha'}{4} s)\Gamma(-1 - \frac{\alpha'}{4} t)\Gamma(-1 - \frac{\alpha'}{4} u)}{\Gamma(2 + \frac{\alpha'}{4}s)\Gamma(2 + \frac{\alpha'}{4}t)\Gamma(2 + \frac{\alpha'}{4}u)}. \]
+  \[ S_{S^2}(k_1, \ldots, k_4) = g_s^2 C_{S^2}^{\text{X}} C_{S^2}^{\text{G}} \delta^D(k_1 + \cdots + k_4) 2\pi \frac{\Gamma(-1 - \frac{\alpha'}{4} s)\Gamma(-1 - \frac{\alpha'}{4} t)\Gamma(-1 - \frac{\alpha'}{4} u)}{\Gamma(2 + \frac{\alpha'}{4}s)\Gamma(2 + \frac{\alpha'}{4}t)\Gamma(2 + \frac{\alpha'}{4}u)}. \]
 \end{example}
 
 The analogous amplitude for open strings, called the {\bf Veneziano
-  amplitude}, led to the birth of string theory in the 1970s.
+  amplitude}, led to the birth of string theory in the 1970s. Note
+that any expectation value on the sphere $S^2$ must be invariant under
+$\CKG(S^2) = \PSL(2, \bC)$, the M\"obius group. This invariance is
+known as {\bf M\"obius invariance}, and holds in particular for
+amplitudes.
 
-\section{One-Loop Amplitudes}
+\section{One-Loop Corrections}
 
-In this section, we compute one-loop corrections to amplitudes for
-$n$-tachyon scattering, which, for closed strings, corresponds to
-$\Sigma = T^2$, the torus, with $n$ marked points. Hence we must
-understand $\cM(T^2)$ and $\CKG(T^2)$. Recall that $\bH^2$ is the {\bf
-  hyperbolic plane}, which can be identified with the {\bf upper half
-  plane}.
+In this section, we outline\footnote{For details on this computation,
+  see \url{http://ccdb5fs.kek.jp/cgi-bin/img/allpdf?198803041}.} the
+computation for one-loop corrections $S_{T^2}(k_1, \ldots, k_n)$ to
+amplitudes for $n$-tachyon scattering, which, for closed strings,
+corresponds to $\Sigma = T^2$, the torus, with $n$ marked points.
+Hence we must understand $\cM(T^2)$ and $\CKG(T^2)$. Two notes:
+\begin{enumerate}
+\item recall that $\bH^2$ is the {\bf hyperbolic plane}, which can be
+  identified with the {\bf upper half plane}; and
+\item for this section, for simplicity, we set $2\pi T_0 = 1$.
+\end{enumerate}
 
 \begin{proposition}
   $\cM(T^2) = \bH^2/\PSL(2, \bZ)$, and $\CKG(T^2) = U(1) \times U(1)$.
 \end{proposition}
 
-\section{Higher-Order Amplitudes}
+\begin{proof}[Proof sketch]
+  By the uniformization theorem, $T^2$ has universal cover $\bC^2$,
+  and we obtain $T^2$ from $\bC^2$ by quotienting out by a lattice,
+  i.e. $\bC^2/\sim$ where $z \sim z + 2\pi \tau$. To eliminate
+  overcounting, we take $\tau \in \bH^2$. The claim is that two torii
+  are equivalent if and only if their $\tau$'s equal. Note however
+  that $\diff(T^2)/\diff_0(T^2) = \PSL(2, \bZ)$ is no longer trivial,
+  and we must quotient it out. Hence $\cM(T^2) = \bH^2/\PSL(2, \bZ)$.
+
+  The CKG is generated by the translations
+  \[ \pder{}{z} + \pder{}{\bz}, \quad \tau \pder{}{z} + \bar{\tau} \pder{}{\bz}. \]
+  Since translation across the fundamental domain is actually the
+  identity on the resulting torus, two distinct translations differing
+  only by fundamental domains are actually equivalent. Hence we obtain
+  $U(1) \times U(1)$ as the CKG.
+\end{proof}
+
+Recall that the action of the {\bf modular group} $\PSL(2, \bZ)$ on
+$\bH^2$ is generated by the transformations $\tau \mapsto \tau+1$ and
+$\tau \mapsto -1/\tau$. Hence we must take a {\bf fundamental domain}
+of $\bH^2/\PSL(2, \bZ)$, which usually is chosen to be
+\[ \fF \coloneqq \{\tau \in \bH^2 : \Re(\tau) \in [-1/2, 1/2], \, |\tau| \ge 1\}. \]
+
+Now we want to compute the Green's function $G'(\sigma_1, \sigma_2)$.
+Note that as a function on $\bC^2$, it is doubly periodic and is
+(mostly) the sum of holomorphic and antiholomorphic functions (this
+comes from the PDE for the Green's function). These conditions
+indicate that $G'$ may be related to {\bf theta functions}.
+
+\subsection{Theta Functions}
+
+For reference, we briefly write down some definitions regarding theta
+functions. They are important for not just the one-loop calculation,
+but also for superstring amplitudes later on.
+
+\begin{definition}
+  The {\bf Jacobi theta function} $\vartheta(v, \tau)$ is the unique
+  function, up to normalization, satisfying
+  \[ \vartheta(v+1, \tau) = \vartheta(v, \tau), \quad \vartheta(v + \tau, \tau) = \exp(-\pi i \tau - 2\pi i v) \vartheta(v, \tau). \]
+  Explicitly, it is given by
+  \begin{align*}
+    \vartheta(v, \tau)
+    &\coloneqq \sum_{n=-\infty}^\infty \exp\left(\pi i n^2\tau + 2\pi inv\right) \\
+    &= \prod_{n=1}^\infty (1 - q^n) (1 + z q^{n-1/2})(1 + z^{-1}q^{m-1/2}), \quad q = e^{2\pi i\tau}, \, z = e^{2\pi iv}.
+  \end{align*}
+\end{definition}
+
+\begin{proposition}
+  The Jacobi theta satisfies the {\bf Jacobi identities}
+  \[ \vartheta(v, \tau + 1) = \vartheta(v + 1/2, \tau), \quad \vartheta(v/\tau, -1/\tau) = (-i\tau)^{1/2} \exp(\pi i v^2/\tau) \vartheta(v, \tau). \]
+\end{proposition}
+
+\begin{definition}
+  The {\bf auxiliary theta functions} are
+  \[ \vartheta(v, \tau; a, b) \coloneqq \exp\left(\pi i a^2\tau + 2\pi ia(v + b)\right)\vartheta(v + a\tau + b, \tau), \]
+  and common notations for special cases (which we write as sums using
+  the {\bf Jacobi triple product}) are
+  \begin{align*}
+    \vartheta_{00}(v, \tau) &\coloneqq \vartheta_3(v|\tau) \coloneqq \vartheta(v, \tau; 0, 0) = \sum_{m=-\infty}^\infty q^{m^2/2} z^m \\
+    \vartheta_{11}(v, \tau) &\coloneqq -\vartheta_1(v|\tau) \coloneqq \vartheta(v, \tau; 1/2, 1/2) = -i\sum_{m=-\infty}^\infty (-1)^m q^{(m-1/2)^2} z^{m-1/2}.
+  \end{align*}
+  For completeness, $\vartheta_{01} \coloneqq \vartheta_4 \coloneqq
+  \vartheta(v, \tau; 0, 1/2)$ and $\vartheta_{10} \coloneqq
+  \vartheta_2 \coloneqq \vartheta(v, \tau; 1/2, 0)$.
+\end{definition}
+
+\begin{exercise}
+  Show that the {\bf Dedekind eta function} $\eta(\tau)$ is given by
+  \[ \eta(\tau) \coloneqq q^{1/24} \prod_{m=1}^\infty (1 - q^m) = \left(-\frac{\vartheta_{11}'(0 | \tau)}{2\pi}\right)^{1/3}, \]
+  and that it has the modular transformations
+  \[ \eta(\tau + 1) = \exp(i\pi/12)\eta(\tau), \quad \eta(-1/\tau) = (-i\tau)^{1/2} \eta(\tau). \]
+\end{exercise}
+
+\subsection{The Amplitude Calculation}
+
+Using theta functions, we take a guess for $G'(z_1, \bz_1, z_2,
+\bz_2)$: it should be proportional to $\ln |\vartheta_{11}(z_1 - z_2 |
+\tau)|^2$, so that it satisfies all the desired properties. This is
+mostly correct, except that the theta functions are not completely
+doubly periodic, so we need an extra term to counteract the extra
+factors:
+\[ G'(z_1, \bz_1, z_2, \bz_2) = -\frac{1}{2} \ln\left|\vartheta_{11}\left(\frac{z_1 - z_2}{2\pi} \big| \tau\right)\right|^2 + \frac{\im(z_1 - z_2)^2}{4\pi \im(\tau)} + k(\tau,\bar{\tau}), \]
+where $k(\tau, \bar{\tau})$ is orthogonal to $\cX_0$ and acts as a
+regulator.
+
+\begin{exercise}
+  Using the same procedure as for $S^2$, conclude that
+  \[ Z[J] = C_{T^2}^{\text{X}}(\tau) \delta^D\left(\sum_{i=1}^n k_i\right) \prod_{i<j} \exp\left(-\pi \frac{(\im (z_i - z_j))^2}{\tau_2}\right) \left|\frac{\vartheta_{11}(z_i - z_j)}{\vartheta_{11}'(0)}\right|^{k_i \cdot k_j}. \]
+\end{exercise}
+
+Now we must be careful, because unlike $S^2$, the moduli space for
+$T^2$ is non-trivial. Hence terms such as $\det'(\Delta_g/2\pi^2)$ and
+$\int d^2\sigma \sqrt{g}$, which are hidden in
+$C_{T^2}^{\text{X}}(\tau)$, are no longer constant, and instead depend
+on the modulus $\tau$. In particular, note that $\sqrt{g} = \tau$.
+
+\begin{exercise}
+  Write $\tau = \tau_1 + i\tau_2$, where $\tau_1, \tau_2 \in \bR$.
+  Show that the eigen-decomposition of $\Delta_g$ on the torus, for a
+  fixed modulus $\tau$, is
+  \[ \lambda_{n,m} \coloneqq \frac{4\pi^2}{\tau_2^2} (m + \tau n)(m + \bar{\tau} n), \quad \psi_{n,m}(\sigma_1, \sigma_2) = \exp\left(2\pi i \left(n\sigma_1 - \frac{\tau_1}{\tau_2} n\sigma^2 - \frac{1}{\tau_2} m\sigma^2\right)\right), \]
+  and therefore, using zeta regularization,
+  \[ \det\nolimits' \left(\frac{\Delta_g}{2\pi^2}\right) = \prod_{(m,n) \neq (0,0)} \frac{2}{\tau_2^2} (m + \tau n)(m + \bar{\tau} n) = \tau_2^2 |\eta(\tau)|^4. \]
+  Hence we can write $C_{T^2}^{\text{X}}(\tau) = C_{T^2}^{\text{X}}
+  \tau_2^{-13} |\eta(\tau)|^{-52}$ where here the constant
+  $C_{T^2}^{\text{X}}$ is no longer a function of $\tau$. The extra
+  factor of $\tau_2^{13}$ comes from $(\int d^2\sigma \sqrt{g})^{13}$.
+\end{exercise}
+
+\begin{exercise}
+  Instead of gauge-fixing the degrees of freedom in the CKG, we
+  explicitly divide out by its volume this time. Show that the volume
+  of the CKG satisfies
+  \[ \Vol(\CKG)^2 = \det\begin{pmatrix} \tau_2 & \tau_1 \tau_2 \\ \tau_1 \tau_2 & \tau_2 |\tau|^2 \end{pmatrix} = \tau_2^2|\tau|^2 - \tau_1^2 \tau_2^2 = \tau_2^4. \]
+  Also, compute that the moduli and CKG determinants give $1/\tau_2$.
+  Finally, compute $\det'(P_1^\dag P_1/2\pi)^{1/2} \propto
+  \tau_2^2|\eta(\tau)|^4$, absorbing the constant factors in
+  $C_{T^2}^{\text{G}}$.
+\end{exercise}
+
+\begin{proposition}
+  The closed string, one-loop correction to the $n$-tachyon scattering
+  amplitude is given by
+  \[ S_{T^2}(k_1, \ldots, k_n) = g_s^n C_{T^2}^{\text{X}} C_{T^2}^{\text{G}} \int_{\fF} d^2\tau \, \frac{1}{\tau_2^2} \tau_2^{-12} |\eta(\tau)|^{-48} \int \prod_{i=1}^n dz_i \prod_{i<j} \chi(z_i - z_j; \tau)^{k_i \cdot k_j} \]
+  where $\eta(\tau)$ is the Dedekind eta function, and
+  \[ \chi(z; \tau) = \exp\left(-\pi \frac{(\im z)^2}{\tau_2}\right) \left|\frac{\vartheta_{11}(z)}{\vartheta_{11}'(0)}\right| \]
+  is a modular invariant.
+\end{proposition}
+
+There are a few things to note about this amplitude.
+\begin{enumerate}
+\item It is invariant under the action of the modular group, as it
+  should be: the measure $d^2\tau/\tau_2^2$ and $\tau_2|\eta(\tau)|^4$
+  are individually invariant, the latter using properties of theta
+  functions.
+\item The exponent $-48$ comes from the $24$ possible excitations; in
+  the calculations, the additional factor $|\eta(\tau)|^4$ from
+  $\det'(P_1^\dag P_1/2\pi)^{1/2}$ can be traced back to the removal
+  of ghost excitations.
+\end{enumerate}
+This {\bf modular invariance} plays a key role later on in the
+construction of the heterotic string theory.
+
+\section{Higher-Order Corrections}
+
+For all genera $p \ge 2$, a general derivation of the $n$-tachyon
+scattering amplitudes exists; the genus $0$ and $1$ cases are special
+because of the existence of CKVs. But every component of this
+derivation becomes more elaborate. From our calculations on $S^2$ and
+$T^2$, we see that there are three main components to calculating
+amplitudes, so in this section we merely jot down some notes outlining
+how one goes about calculating each of these components.
+
+First, to integrate over moduli space, we require coordinates on
+it. The usual way to put coordinates on $\cM(\Sigma_p)$ to first put
+coordinates on the {\bf Teichm\"uller space} $\cT(\Sigma_p)$ of
+metrics. The general idea is to take $\Sigma_p$ and cut it up, along
+$3p-3$ simple closed curves, into $2p-2$ {\bf pairs of pants}:
+\begin{align*}
+  \begin{tikzpicture}[every tqft/.style={rotate=90},baseline={([yshift=-.5ex]current bounding box.center)}]
+    \pic[tqft, incoming boundary components=0,
+      outgoing boundary components=2,
+      cobordism edge/.style={draw},
+      outgoing upper boundary component 1/.style={draw},
+      outgoing lower boundary component 1/.style={draw,dashed}];
+    \pic[tqft/reverse pair of pants,at={(2,0)},
+      cobordism edge/.style={draw}];
+    \pic[tqft/pair of pants,draw,at={(4,1)},
+      every outgoing lower boundary component/.style={draw}];
+  \end{tikzpicture}
+  \cdots
+  \begin{tikzpicture}[every tqft/.style={rotate=90},baseline={([yshift=-.5ex]current bounding box.center)}]
+    \pic[tqft/reverse pair of pants,draw,
+      every incoming lower boundary component/.style={draw}];
+    \pic[tqft/pair of pants,at={(2,1)},
+      cobordism edge/.style={draw}];
+    \pic[tqft, at={(4,0)}, incoming boundary components=2,
+      outgoing boundary components=0,
+      cobordism edge/.style={draw},
+      incoming upper boundary component 1/.style={draw},
+      incoming lower boundary component 1/.style={draw,dashed}];
+  \end{tikzpicture}
+\end{align*}
+Each of the $3p-3$ simple closed curves is homotopic to a geodesic.
+The $3p-3$ {\bf lengths} of these $3p-3$ geodesics form one half of
+the coordinates. There are $3p-3$ more coordinates measuring {\bf
+  twists} in the legs of each pair of pants. Together, these length
+and twist parameters form {\bf Fenchel-Nielsen coordinates} for
+Teichm\"uller space, which descend to the moduli space.
+
+We also need to compute the various determinants: the two (no more
+CKVs) determinants forming the Faddeev-Popov measure, and the
+determinant of $\Delta_g$ coming from the $X^\mu$ integral. Define the
+{\bf Selberg zeta function}
+\[ Z(s) \coloneqq \prod_{\gamma \text{ primitive}} \prod_{k=1}^\infty (1 - \exp\left(-(s+k)l(\gamma)\right), \]
+where $\gamma$ ranges over simple closed geodesics of $\Sigma_p$ and
+$l(\gamma)$ is the length of $\gamma$. Then
+\[ \det(\Delta_g) = \exp(-c_0(2-2p)) Z'(1), \quad \det(P_1^\dag P_1) = \exp(-c_1(2-2p)) Z(2), \]
+with a giant formula for $c_n$:
+\[ c_n \coloneqq \sum_{0 \le m < n-1/2} (2n-2m-1) \ln(2n-m) - \left(n + \frac{1}{2}\right)^2 + 2(n - [n])\left(n+\frac{1}{2}\right)\ln 2\pi + 2\zeta'(-1). \]
+The remaining determinant depends on specific details of
+Fenchel-Nielsen coordinates, and so we say no more about it.
+
+Finally, we must find the Green's function. For $T^2$, exponentiating
+the Green's function gave us $\chi(z; \tau)$. It turns out we can
+generalize $\chi(z; \tau)$ to higher genus with a lot more work.
+Define the {\bf Riemann theta function}
+\[ \vartheta(\vec{z}, \Omega; \vec{a}, \vec{b}) \coloneqq \sum_{\vec{n} \in \bZ^p} \exp\left(i\pi(\vec{a} + \vec{n})^T\Omega(\vec{a} + \vec{n}) + 2\pi i(\vec{a} + \vec{n})^T(\vec{z} + \vec{b})\right) \]
+for $\vec{z} \in \bC^p$ and $\vec{a}, \vec{b} \in \bQ^p$ and $\Omega
+\in M_p(\bC)$ symmetric with $\im \Omega > 0$; this is just a
+higher-dimensional generalization of the Jacobi theta function, and
+also satisfies many periodicity properties.
+
+Recall that a homology basis of $\Sigma_p$ consists $2p$ cycles
+$\alpha_i$ and $\beta_j$, to which we can associate $p$ holomorphic
+$1$-forms $\vec{\omega} = (\omega^i)_{i=1}^p$, called {\bf abelian
+  differentials}. The {\bf period matrix} is then $\Omega_{ij}
+\coloneqq \int_{\beta_i} \omega_j$, and it is a fact that
+$\Omega_{ij}$ is symmetric with $\im \Omega > 0$. We can now state the
+generalization of $\chi$:
+\[ \chi(z_1, z_2) \coloneqq \exp\left(-\pi \left(\im \int_{z_1}^{z_2} \omega\right)^T (\im \Omega)^{-1} \left(\im \int_{z_1}^{z_2} \omega\right)\right) |E(z_1, z_2)|, \]
+where $E(z_1, z_2)$ is the {\bf Schottky-Klein prime form} of
+$\Sigma_p$:
+\[ E(z_1, z_2) \coloneqq \frac{\vartheta\left(\int_{z_1}^{z_2} \omega, \Omega; \vec{a}, \vec{b}\right)}{\sqrt{\di_i\vartheta(0, \Omega; \vec{a}, \vec{b}) \omega^i(z_1)}\sqrt{\di_j\vartheta(0, \Omega; \vec{a}, \vec{b}) \omega^j(z_2)}}. \]
+The vectors $\vec{a}$ and $\vec{b}$ must have entries in $(1/2)\bZ$,
+such that $4\vec{a} \cdot \vec{b}$ is odd, and the prime form $E(z_1,
+z_2)$ does not actually depend on the choice of $\vec{a}$ and
+$\vec{b}$.
+
+In the end, the goal of calculating higher-loop corrections for the
+purely bosonic string is to, hopefully, carry the techniques over to
+the superstring, and therefore show that superstring theory is finite
+at all loops. For more details, see, in order, the following papers.
+\begin{enumerate}
+\item A. A. Belavin, V. Knizhnik, A. Morozov and A. Perelomov, Two and
+  three loop amplitudes in the bosonic string theory, Phys. Lett. B
+  177 (1986), 324-328.
+\item M. Matone, Extending the Belavin-Knizhnik ``wonderful formula''
+  by the characterization of the Jacobian, JHEP 1210 (2012) 175.
+\end{enumerate}
+
 
 \end{document}

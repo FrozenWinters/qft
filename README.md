@@ -73,4 +73,5 @@ progresses. For now, the plan is:
     Veneziano amplitude, for the tree-level 4-point amplitude of
     ground state strings, which was the historical starting point for
     string theory.
-* Week 7 (Friday Feb 19th): T-Duality; chpt. 5 in notes.
+* Week 7 (Friday Feb 19th): **Reading week break**
+* Week 8 (Friday Feb 26th): T-Duality; chpt. 5 in notes.
