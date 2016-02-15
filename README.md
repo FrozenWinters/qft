@@ -43,6 +43,35 @@ progresses. For now, the plan is:
     product expansions, and Virasoro algebras in the context of 2
     dimensional free field theories.
 * Week 4 (Friday Jan 29th): Conformal field theory; sect. 2.2 in notes.
-* Week 5 (Friday Feb 5th): BRST quantization; chpt. 3 in notes.
+* Week 5 (**Wednesday Feb 5th, MC5479**): BRST quantization; chpt. 3
+  in notes.
+  - With the tools of conformal field theory, we can now construct the
+    state space of a bosonic string in a fairly rigorous manner.
+    However, not all the states will be physical states, which must be
+    annihilated by the Virasoro algebra. Fortunately, there is a
+    simple criterion for a state to be physical: we shall construct an
+    operator, called the BRST charge, such that its cohomology is
+    precisely the physical state space. This operator lives within a
+    larger framework, called BRST quantization, for systematically
+    constructing the physical state spaces of a large class of gauge
+    theories with constraints. We briefly discuss the relationship
+    between BRST and symplectic reduction, and then apply it to the
+    bosonic string. After all that work, we shall see the no-ghost
+    theorem, which allows us to avoid using the heavy machinery of
+    BRST in practice.
 * Week 6 (Friday Feb 12th): Amplitudes; chpt. 4 in notes.
-* Week 7 (Friday Feb 19th): T-Duality.
+  - As for the phi^4 theory in QFT, we can compute n-point functions
+    for interactions between bosonic strings. But there is no need to
+    add an explicit interaction term to the Polyakov action: it
+    already encodes every interaction there is! We shall write down
+    the partition function for bosonic string theory, and carefully
+    gauge-fix it using Faddeev-Popov to get a well-defined
+    (finite-dimensional!) integral over the moduli space of Riemann
+    surfaces. Then we compute tree-level and one-loop amplitudes, and
+    outline how to compute higher-order corrections using tools from
+    Teichmüller theory. In particular, we shall compute the famous
+    Veneziano amplitude, for the tree-level 4-point amplitude of
+    ground state strings, which was the historical starting point for
+    string theory.
+* Week 7 (Friday Feb 19th): **Reading week break**
+* Week 8 (Friday Feb 26th): T-Duality; chpt. 5 in notes.
