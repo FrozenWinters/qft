@@ -111,6 +111,7 @@
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\vspan}{span}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
@@ -2149,8 +2150,8 @@ few things we must do in order to have this happen: we must
 \item define a measure on $\cM(\Sigma_p)$, hopefully descending from
   $\Met(\Sigma_p)$, so that this integral is well-defined.
 \end{enumerate}
-Physicists call elements of the moduli space {\bf metric moduli}, or
-just {\bf moduli} for short.
+Physicists call tangent vectors of the moduli space {\bf metric
+  moduli}, or just {\bf moduli} for short.
 
 \subsection{Integration Measure on the Moduli Space}
 
@@ -2244,7 +2245,7 @@ integrating over variables corresponding to the orthogonal
 decomposition, i.e. integrating over the gauge group, moduli (of
 dimension $\tau$), and unfixed vertex positions. In other words, we
 wish to find the Jacobian for the transformation
-\[ \frac{1}{\diff \times \Weyl}\int_{\Met(\Sigma_p)} \cD g \, d^{2n}\sigma \to \frac{1}{\diff \times \Weyl}\int_{\diff \times \Weyl} \cD \zeta \int_{\cM(\Sigma_p)} d^\tau m \int_{(\Sigma_p)^{n-k/2}} d^{2n-k}\sigma. \]
+\[ \frac{1}{\diff \times \Weyl}\int_{\Met(\Sigma_p)} \cD g \, d^{2n}\sigma \to \frac{1}{\diff \times \Weyl}\int_{\diff \times \Weyl} \cD \zeta \int_{\cM(\Sigma_p)} d^\tau m \int_{(\Sigma_p)^{n-\kappa/2}} d^{2n-\kappa}\sigma. \]
 Note that because of the additional gauge freedom given by the CKG, we
 can choose the gauge-fixing conditions now to also fix $\kappa = \dim
 \CKG(\Sigma_p)$ of the vertex operator coordinates, so that
@@ -2348,7 +2349,7 @@ the Laplacian:
 \[ \Delta_g \cX_I = -\omega_I^2 \cX_I, \quad X^\mu = \sum_I x_I^\mu \cX_I, \quad J^\mu = \sum_I J_I^\mu \cX_I, \]
 where the eigenfunctions $\psi_I$ are chosen to be orthogonal with
 respect to $(\cdot, \cdot)_g$. Then
-\[ Z[J; g] = \prod_{I,\mu} \int \cD X^\mu \, \exp\left(-\frac{T_0}{2} \omega_I^2 x_I \cdot x_I + iJ_I \cdot x_I\right). \]
+\[ Z[J; g] = \prod_{I,\mu} \int \cD x^\mu_I \, \exp\left(-\frac{T_0}{2} \omega_I^2 x_I \cdot x_I + iJ_I \cdot x_I\right). \]
 Before doing the Gaussian integrals, note that the zero mode $\cX_0$
 is special: since $\nabla^2 \cX_0 = 0$, it has an extremum in the
 interior of the Riemann surface $\Sigma$. By the maximum modulus
@@ -2745,5 +2746,226 @@ at all loops. For more details, see, in order, the following papers.
   by the characterization of the Jacobian, JHEP 1210 (2012) 175.
 \end{enumerate}
 
+\chapter{Compactification and T-Duality}
+
+
+
+\chapter{Introduction to Superstrings}
+
+So far we have looked at a purely bosonic string theory: from the
+physicality condition $L_0\ket{\psi} = 0$ we get the mass-shell
+condition $k^2 + m^2 = 0$, which is nothing more than the Klein-Gordon
+equation, describing spin-zero bosons. But consequently we have
+tachyons, and no fermions, and we want to fix both issues. The idea is
+to extend the Virasoro algebra to get the {\bf superconformal
+  algebra}, which has both a bosonic and fermionic component. The
+bosonic component shall be the Polyakov action we know and love, and
+the fermionic component shall give a new energy-momentum tensor $T_F$,
+whose zero modes give a new physicality condition, this time enforcing
+the Dirac equation $i\slashed{k} + m = 0$.
+
+\begin{definition}
+  For convenience, we use Feynman's {\bf slash notation}, defined as
+  follows. Let $\Gamma^\mu_{(D)}$ be a basis for the Clifford algebra
+  $\Cl_{D-1,1}$, i.e. with
+  \[ \{\Gamma^\mu_{(D)}, \Gamma^\nu_{(D)}\} = 2\eta_{(D)}^{\mu\nu}I_n. \]
+  Then if $A$ is a covector, we write $\slashed{A} \coloneqq
+  \Gamma^k_{(D)} A_k$. (Usually we omit the subscript, since it is
+  clear from context whether we are working on spacetime or the
+  worldsheet.) The $\Gamma^\mu$ are not uniquely specified, but there
+  is a commonly-used choice: for $D = 2$ and $D = 4$, we take the {\bf
+    Pauli matrices}
+  \[ \sigma^1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \; \sigma^2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \; \sigma^3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \]
+  and define
+  \[ \Gamma^0_{(2)} \coloneqq \sigma^2, \quad \Gamma^1_{(2)} \coloneqq i\sigma^1, \quad \Gamma^0_{(4)} \coloneqq \begin{pmatrix} I_2 & 0 \\ 0 & -I_2 \end{pmatrix}, \quad \Gamma^i_{(4)} \coloneqq \begin{pmatrix} 0 & \sigma^i \\ -\sigma^i & 0 \end{pmatrix}. \]
+\end{definition}
+
+There are two known ways to add these new fermionic modes: the {\bf
+  Green--Schwarz} (GS) formulation, and the {\bf
+  Ramond--Neveu--Schwarz} (RNS) formulation. They are equivalent after
+quantization, but the RNS formulation turns out to be easier for us to
+study.
+
+\section{The Ramond--Neveu--Schwarz Superstring}
+
+To introduce the superstring, we go through the same steps as we did
+for the bosonic string. But now we have the benefit of having
+developed several tools, including CFT and BRST. Hence we can proceed
+in a much more structured manner. We shall
+\begin{enumerate}
+\item write down the superstring action and identify its
+  supersymmetry,
+\item identify and investigate the constraint algebra for physical
+  superstring states,
+\item discuss superstring boundary conditions and corresponding
+  spectra,
+\item find the superstring ghosts, their CFT and central charge, and
+  the superstring critical dimension, and
+\item apply covariant quantization to obtain physical states.
+\end{enumerate}
+
+{\bf Notation:} a subscript $B$ indicates the bosonic part of an
+object, and a subscript $F$ indicates the fermionic part. For example,
+$S_B$ denotes the Polyakov action, while $S_F$ denotes the fermionic
+action, which we define now. However, we re-interpret what $T_B$
+means: instead of seeing it as the energy-momentum tensor, we see it
+as the operator encoding the Virasoro algebra, i.e. the bosonic
+constraint algebra. Hence $T_F$ is not the fermionic energy-momentum
+tensor; it is the operator encoding the fermionic constraint algebra.
+
+\begin{definition}
+  Let $\psi^\mu(z), \tilde{\psi}^\mu(\bz)$ be $D$ new anticommuting
+  (Majorana) spinor fields on the worldsheet. The {\bf supersymmetric
+    worldsheet action} in conformal gauge is given by
+  \[ S = \int d^2\sigma \, \left(T_0 \di_a X^\mu \di^a X_\mu - \frac{i}{4\pi}\bar{\psi}^\mu \slashed{\di} \psi_\mu\right) = \frac{1}{4\pi}\int d^2z \, \left(4\pi T_0\di X^\mu \bdi X_\mu + \psi^\mu \bdi \psi_\mu + \tilde{\psi}^\mu \di \tilde{\psi}_\mu\right), \]
+  where, as usual, $\psi^\mu$ and $\tilde{\psi}^\mu$ in complex
+  coordinates denote the holomorphic and antiholomorphic part of
+  $\psi^\mu(\sigma)$ respectively.
+\end{definition}
+
+Why do we enforce that there are $D$ new fields $\psi^\mu$, and why
+are they Majorana spinors as opposed to, say, Dirac spinors or
+Majorana--Weyl spinors? The answer lies in the resulting {\bf
+  supersymmetry}, which is crucial to making this new theory work.
+
+\subsection{Supersymmetry and the Super-Virasoro Algebra}
+
+\begin{definition}
+  Let $\epsilon(\sigma)$ be an anticommuting two-component spinor. The
+  {\bf worldsheet supersymmetry} is given by the infinitesimal
+  transformation
+  \[ \delta X^\mu(\sigma) \coloneqq \bar{\epsilon}(\sigma) \psi^\mu(\sigma), \quad \delta \psi^\mu(\sigma) \coloneqq -i \slashed{\di} X^\mu(\sigma) \epsilon(\sigma). \]
+\end{definition}
+
+(As a side note, introducing spinor fields $\psi^\mu$ such that there
+is an automatic worldsheet supersymmetry is the RNS formalism. In
+contrast, the GS formalism introduces new spinor fields such that
+there is an automatic {\bf spacetime supersymmetry}.)
+
+\begin{exercise}
+  Use the chirality condition $\Gamma^i \Gamma_j \di_i \epsilon = 0$
+  to show that the worldsheet supersymmetry is indeed a symmetry. Then
+  rewrite it in complex coordinates as
+  \[ \delta X^\mu(z, \bz) = -\epsilon(z) \psi^\mu(z) - \epsilon^*(z) \tilde{\psi}^\mu(z), \quad \delta \psi^\mu(z) = \epsilon(z) \di X^\mu(z), \quad \delta \tilde{\psi}^\mu(\bz) = \epsilon(\bz)^* \bdi X^\mu(\bz). \]
+  Show that the {\bf worldsheet supercurrent} $T_F$ generating this
+  supersymmetry and the {\bf energy-momentum tensor} $T_B$
+  of the new action are given by
+  \[ T_F(z) \coloneqq i\sqrt{4\pi T_0} \, \psi^\mu(z) \di X_\mu(z), \quad T_B(z) \coloneqq -2\pi T_0 \di X^\mu(z) \di X_\mu(z) - \frac{1}{2} \psi^\mu(z) \di \psi_\mu(z). \]
+\end{exercise}
+
+Importantly, the commutator of two worldsheet supersymmetries is a
+translation on the worldsheet. The energy-momentum tensor is the
+current associated with translations, and the Virasoro algebra arises
+from the modes of the energy-momentum tensor. Hence it is reasonable
+to suspect that the worldsheet supersymmetry gives an {\bf extension}
+of the Virasoro algebra, i.e. a bigger Lie algebra containing the
+Virasoro algebra as a subalgebra. This is indeed true: the resulting
+Lie (super)algebra is known as the {\bf super-Virasoro algebra}. It is
+the two-dimensional case of a {\bf superconformal algebra}.
+
+It is crucial that we have the super-Virasoro algebra, as opposed to
+just the Virasoro algebra, as the constraints on physical states: the
+Virasoro algebra itself knows nothing about the fermionic fields
+$\psi^\mu$, and therefore cannot eliminate unphysical excitations of
+$\psi^\mu$.
+
+\begin{exercise} (Important!)
+  First compute the following OPEs by playing around with the identity
+  $0 = \int \cD X \cD \psi \, \fder{}{A} (e^{-S} B)$ for appropriate
+  operators $A$ and $B$:
+  \[ \psi^\mu(z) \psi^\nu(0) \sim \frac{\eta^{\mu\nu}}{z}, \quad \di X^\mu(z) \di X^\nu(0) \sim -\frac{1}{4\pi T_0} \frac{\eta^{\mu\nu}}{z^2}, \quad \psi^\mu(z) \di X^\nu(0) \sim \text{regular terms}. \]
+  Using these OPEs, verify the following OPEs (this is just an
+  exercise in Wick contraction):
+  \begin{align*}
+    T_B(z) T_B(0) &\sim \frac{3D/2}{2z^4} + \frac{2}{z^2} T_B(0) + \frac{1}{z} \di T_B(0) \\
+    T_B(z) T_F(0) &\sim \frac{3/2}{z^2} T_F(0) + \frac{1}{z} \di T_F(0) \\
+    T_F(z) T_F(0) &\sim \frac{D}{z^3} + \frac{2}{z} T_B(0).
+  \end{align*}
+  For example, the third OPE is calculated as follows:
+  \begin{align*}
+    \NO{\psi^\mu (z) \di X_\mu(z)} \NO{\psi^\nu (0) \di X_\nu(0)}
+    &\sim \frac{\eta^{\mu\nu}}{z} \left(-\frac{1}{4\pi T_0}\frac{\eta_{\mu\nu}}{z^2}\right) + \frac{\NO{\di X_\mu(z) \di X^\mu(0)}}{z} - \frac{1}{4\pi T_0} \frac{\NO{\psi^\mu(z) \psi_\mu(0)}}{z^2} \\
+    &\sim -\frac{1}{4\pi T_0} \frac{D}{z^3} + \frac{\NO{\di X^\mu(0) \di X_\mu(0)}}{z} + \frac{1}{4\pi T_0} \frac{\NO{\psi^\mu(0) \di\psi_\mu(0)}}{z} \\
+    &\sim -\frac{1}{4\pi T_0} \left(\frac{D}{z^3} + \frac{2}{z} T_B(0)\right),
+  \end{align*}
+  and then multiply by $(i\sqrt{4\pi T_0})^2 = -4\pi T_0$.
+\end{exercise}
+
+From the $T_B T_B$ OPE, the central charge of the super-Virasoro
+algebra is $c = 3D/2$, and from the $T_B T_F$ OPE, $T_F$ is a weight
+$(3/2, 0)$ tensor. Now obviously there is an antiholomorphic copy of
+the same algebra, so altogether we have a {\bf $(N, \tilde{N}) = (1,
+  1)$-superconformal field theory} (SCFT). Here $N = 1$ refers to the
+number of $(3/2, 0)$ currents.
+
+\subsection{Ramond and Neveu--Schwarz Sectors}
+
+We shall investigate the {\bf closed RNS superstring}, so as usual we
+use the cylindrical coordinate $w = \sigma^1 + i\sigma^2$, with $w
+\sim w + 2\pi$. Then $X^\mu$ must be $2\pi$-periodic.
+
+\begin{definition}
+  Even with periodicity conditions and Poincar\'e invariance enforced,
+  there are two possible periodicity conditions for $\psi^\mu$:
+  \begin{enumerate}
+  \item {\bf Ramond} (R): $\psi^\mu(w + 2\pi) = \psi^\mu(w)$, and
+  \item {\bf Neveu--Schwarz} (NS): $\psi^\mu(w + 2\pi) = -\psi^\mu(w)$.
+  \end{enumerate}
+  Alternatively, we write $\psi^\mu(w + 2\pi) = \exp(2\pi i v)
+  \psi^\mu(w)$ with $v = 0$ or $1/2$. The four possibilities for $(v,
+  \tilde{v})$ give rise to four different closed superstring theories,
+  denoted {\bf NS--NS}, {\bf NS--R}, {\bf R--NS}, and {\bf R--R}. We
+  shall see that NS--NS and R--R are bosons, and NS--R and R--NS are
+  fermions.
+\end{definition}
+
+Taking $(v, \tilde{v})$ into account, then, we write the relevant mode
+expansions as
+\[ \psi^\mu(w) = i^{-1/2} \sum_{r \in \bZ + v} \psi_r^\mu \exp(irw), \quad T_B(w) = \sum_{m \in \bZ} L_m \exp(imw), \quad T_F(w) = \sum_{r \in \bZ + v} G_r \exp(irw). \]
+Note that, from the explicit expressions for $T_F$ and $T_B$, we have
+$T_F(w + 2\pi) = \exp(2\pi iv) T_F(w)$ as well, but $T_B(w + 2\pi) =
+T_B(w)$ is untwisted, and hence the sums are over $\bZ + v$ (and $\bZ
++ \tilde{v}$ for the antiholomorphic part). The mode expansion for
+$\di X^\mu$ is unchanged, with its modes denoted $\alpha^\mu_m$.
+
+\begin{exercise}
+  Show that imposing the canonical commutation relations
+  \[ \{\psi^\mu(w), \psi^\nu(w')\} = \eta^{\mu\nu} \delta(w - w'), \quad [\di X^\mu(w), \di X^\nu(w')] = -i \eta^{\mu\nu} \delta(w - w'), \]
+  and likewise for the antiholomorphic part, results in the following
+  commutation relations for modes:
+  \[ \{\psi^\mu_r, \psi^\nu_s\} = \{\tilde{\psi}^\mu_r, \tilde{\psi}^\nu_s\} = \eta^{\mu\nu} \delta_{r,-s}, \quad [\alpha^\mu_m, \alpha^\nu_n] = [\tilde{\alpha}^\mu_m, \tilde{\alpha}^\nu_n] = m\eta^{\mu\nu} \delta_{m,-n}, \]
+\end{exercise}
+
+\begin{exercise} (Optional)
+  Show, using the OPEs for the super-Virasoro algebra, that
+  \begin{align*}
+    [L_m, L_n] &= (m - n) L_{m+n} + \frac{c}{12}(m^3 - m)\delta_{m,-n} \\
+    \{G_r, G_s\} &= 2 L_{r+s} + \frac{c}{12} (4r^2 - 1) \delta_{r,-s} \\
+    [L_m, G_r] &= \frac{m - 2r}{2} G_{m+r}.
+  \end{align*}
+  These modes form the {\bf Ramond algebra} for integer $r, s$, and
+  the {\bf Neveu--Schwarz algebra} for half-integer $r, s$; these are
+  the two $N = 1$ supersymmetric (minimal) extensions of the Virasoro
+  algebra.
+\end{exercise}
+
+Unsurprisingly, the {\bf ground state} $\ket{0}_R$ of the R sector
+differs from the ground state $\ket{0}_{NS}$ of the NS sector. Both
+are defined the same way:
+\[ \alpha^\mu_m \ket{0}_R = \psi^\mu_r \ket{0}_R = 0, \quad \alpha^\mu_m \ket{0}_{NS} = \psi^\mu_m \ket{0}_{NS} = 0 \quad \forall m, r > 0. \]
+But $\ket{0}_R$ is degenerate because of the existence of the zero
+modes $\psi^\mu_0$ in the R sector, by the same argument as for $b_0$
+and $c_0$ in the $bc$ CFT (c.f. BRST state space). Instead of two zero
+modes $b_0$ and $c_0$, however, we now have $D$ of them, satisfying
+$\{\psi^\mu_0, \psi^\nu_0\} = \delta^{\mu\nu}$, the Clifford algebra
+relation (up to scalars)! Hence $\ket{0}_R$ lives in an irreducible
+representation of the Clifford algebra $\Cl_{D-1,1}$, and is a {\bf
+  spinor}, representing a {\bf fermion}.
+
+In contrast, $\ket{0}_{NS}$ is non-degenerate because there is no
+$\psi^\mu_0$ in the NS sector, and therefore is a {\bf scalar},
+representing a {\bf boson}.
+
+\section{The Heterotic String}
 
 \end{document}
