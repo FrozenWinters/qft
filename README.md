@@ -75,3 +75,5 @@ progresses. For now, the plan is:
     string theory.
 * Week 7 (Friday Feb 19th): **Reading week break**
 * Week 8 (Friday Feb 26th): T-Duality; chpt. 5 in notes.
+* Week 9 (Friday Mar 4th): Ramond--Neveu--Schwarz Superstrings; 6.1 in
+  notes.
