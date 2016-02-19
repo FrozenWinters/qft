@@ -9,7 +9,9 @@
 \usepackage{braket}
 \usepackage{dsfont}
 \usepackage{slashed}
+\usepackage{bm}
 \usepackage{comment}
+\usepackage{mdframed}
 \usepackage{verbatim}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
@@ -2885,6 +2887,212 @@ at all loops. For more details, see, in order, the following papers.
 \item M. Matone, Extending the Belavin-Knizhnik ``wonderful formula''
   by the characterization of the Jacobian, JHEP 1210 (2012) 175.
 \end{enumerate}
+
+
+\chapter{Toroidal Compactification}
+
+Goal of this chapter is to introduce the basic role of compactifications in
+field/string theories. To do this we consider the following plan of attack:
+\begin{enumerate}
+    \item Kaluza--Klein -- the unification of gauge theory and gravity
+    \item Extension of Kaluza--Klein to string theory where we see:
+        \begin{itemize}
+            \item Winding states
+            \item Enhanced Gauge symmetries
+            \item $T$-duality
+            \item $D$-branes.
+        \end{itemize}
+    \item More complicated compactifications
+        \begin{itemize}
+            \item Orbifolds
+            \item Orientifolds
+        \end{itemize}
+\end{enumerate}
+
+\section{Toroidal compactifications in field theory}
+The Kaluza Klein mechanism attempts to incorporate gauge theory and gravity
+into one theory. Let us suppose that we have $D=d+1$ dimensions, with
+the extra dimension compact: $x^d\equiv x^2+2\pi R$. Now let's suppose we
+have a metric $G^D_{MN}$, with $M,N\in \{0,\dots,d\}$. 
+%Questions for later 1) Why is $G_$\mu\nu$ \ne G^D_{\mu\nu}$? If we are
+% 2) Why do we want a metric that is invariant under $x^d$ translations?
+
+\begin{proposition}
+    The metric $G^D_{MN}$ separates into three parts $G_{\mu\nu}, G_{\mu
+    d}, G_{dd}$, that depend only on the non-compact dimensions. In
+    particular the most general metric invariant under translations of
+    $x^d$ will be given by:
+\[ ds^2 = G_{MN}dx^M dx^N = G_{\mu\nu}dx^\mu dx^\nu+G_{dd}(dx^d+A_\mu
+dx^\mu)^2\]
+\end{proposition}
+Reparametrizations in the $d$-th component, $x'^d=x^d+\epsilon^d(x^\mu)$
+give rise to a gauge transformation $A'_\mu = A_\mu - \di_\mu\epsilon^d$.
+
+Now let us take an aside and describe what we mean by a ``small'' compact
+extra dimension reducing a theory. Consider a massless scalar field $\phi$.
+This means the Lagrangian is given by $\mc L = \di_M \phi \di^M \phi$ and
+thus gives an equation of motion $\di_M\di^M\phi = 0$. Now, by periodicity
+of $x^d$ we expect the conjugate momentum to be discrete: $\ket{p_d} =
+\sum_{x_d} e^{ip_dx_d}\ket{x_d} = \sum_{x_d} e^{ip_dx_d}\ket{x_d+2\pi R} =
+e^{-ip_d2\pi R}\ket{p_d}$, which implies that $p_d = n/R$ for some $n \in
+\bZ$. This discretization means that we can expand the massless scalar
+$\phi$ as a power series:
+\[\phi(x^M) = \sum_{n\in\bZ} \phi_n(x^\mu)\exp(inx^d/R)\]
+Plugging this into the equation of motion for a massless scalar in $D$
+dimensions gives a tower of massive scalars in $d$ dimensions. Taking
+$G_{dd}=1$ simplifies this equation to become:
+\[ \di_\mu\di^\mu \phi_n(x^\mu) = \FR{n^2}{R^2}\phi_n(x^\mu).\]
+In particular, $\phi_n$, is a scalar with mass $\FR{n}{R}$. When energies
+$\Lambda \ll \FR{1}{R}$, these massive scalars do not appear in the theory
+and thus we say that our theory is reduced to a $d$-dimensional one.
+
+\subsection{Enhancing the $U(1)\times U(1)$ symmetry to $SU(2)\times SU(2)$}
+
+Much of the stringy intuition that is to follow will be grounded in our
+understanding of canonical quantization. Let us quickly remind ourselves of
+the essentials and develop it just a bit further in order to better
+understand what we are dealing with.
+
+\begin{itemize}
+\item Graviton, antisymmetric tensor, dilaton, (photon?); from section 1
+\item String theory in curved spacetime, in order to understand the next
+    point:
+\item Rewriting Polyakov action as sym$+$antisym$+$scalar; from section 3
+\end{itemize}
+
+\begin{mdframed}
+% Decide whether or not this is important. Perhaps introduce it in a place
+% where it will be relevant.
+\subsubsection{Effective action for massless fields}
+The action is thus decomposed into three parts: the symmetric graviton, the
+antisymmetric part, and the dilaton. We shall write the action as $S =
+S_1+S_2$ with $S_1$ being the graviton-dilaton action and $S_2$ being the
+action corresponding to the antisymmetric tensor.
+
+Take $G_{dd}=e^{2\sg}$. The Ricci scalar for the metric $G^D_{MN}$ is given
+by: \[ \bm R = \bm R_d - 2e^{-\sg}\nabla^2e^\sg - \FR{1}{4}e^{2\sg}
+F_{\mu\nu} F^{\mu\nu},\]
+which gives rise to
+\begin{align*}
+    S_1 &= \FR{1}{2\kappa_0^2}\int d^Dx \sqrt{-G_D} e^{-2\Phi}(\bm
+    R+4\nabla_\mu\Phi \nabla^\mu\Phi)\\
+    &= \FR{\pi R}{\kappa_0^2}\int d^dx \sqrt{-G_d} e^{-2\Phi_d} \left( \bm
+    R_d - \di_\mu\sg\di^\mu\sg+4\di_\mu\Phi_d\di^\mu\Phi_d -
+    \FR{1}{3}e^{2\sg}F_{\mu\nu} F^{\mu\nu}
+    \right)\\
+S_2 &= \FR{-1}{24\kappa_0^2} \int d^D x\sqrt{-G_D} e^{-2\Phi}H_{MNL}H^{MNL}\\
+&= \FR{-\pi R}{12\kappa_0^2} \int d^d x\sqrt{-G_d} e^{-2\Phi_d} \left( 
+\tilde H_{\mu\nu\lam}\tilde H^{\mu\nu\lam} +
+3e^{-2\sg}H_{d\mu\nu}H_d^{\mu\nu} \right)
+\end{align*}
+where \[\Phi_d = \Phi-\sg,\qquad\qquad
+    \tilde H_{\mu\nu\lam}=(\di_\mu B_{\nu\lam}-A_\mu H_{d\nu\lam}) +
+\text{cyclic permutations}.\]
+
+There are two important points to be made here.  
+First of all, the fields $\Phi_d,\sg$ have kinetic terms but lack
+potential; which is similar to the massless Goldstone bosons. 
+\colf{ Second, it is not possible to couple $B_{MN}$ minimally to other
+fields.  This means that the fields cannot be charged under the
+antisymmetric tensor gauge symmetry.}
+\end{mdframed}
+
+
+
+
+
+
+\section{Toroidal Compactification for Strings}
+%Follows Johnson's treatment
+
+We showed that \[X^\mu(z,\bar z) = \FR{x^\mu}{2} + \FR{\tilde x^\mu}{2}
+-i\SFR{\alpha'}{2}(\alpha_0^\mu + \tilde \alpha_0^\mu)\tau
++ \SFR{\alpha'}{2}(\alpha_0^\mu - \tilde \alpha_0^\mu)\sg
++ \text{oscillators}.\]
+Suppose that we take $\sg^1$, the space parameter of the string and run it
+around by $2\pi$: $\sg^1 \leadsto \sg^1+2\pi$. This will get us:
+\[X^\mu(z,\bar z) \leadsto X^\mu(z,\bar
+z)+2\pi\SFR{\alpha'}{2}(\alpha_0^\mu - \tilde\alpha_0^\mu).\]
+In the non-compact case, we have single-valuedness of $X^\mu$ this gives
+means that $\alpha_0^\mu = \tilde\alpha_0^\mu\propto p^\mu$. In the compact
+case, $X^{25} \leadsto X^{25} + 2\pi wR$, where $w$ corresponds to the number
+of times the string wound around the compact dimension.  Recall, that the
+momentum of the string can be given by \[p^\mu = \FR{1}{\sqrt{2\alpha'}}
+(\alpha_0^\mu+\tilde\alpha_0^\mu),\] which means that we have two
+restrictions on the pair $\alpha_0^{25}$ and $\tilde\alpha_0^{25}$. Since
+$p^d = \FR{n}{R}$, we have the following equations for $\alpha_0^{25}$ and
+$\tilde\alpha_0^{25}$:
+\begin{align*}
+    \alpha_0^{25} &= \left( \FR{n}{R}+\FR{wR}{\alpha'} \right)
+    \SFR{\alpha'}{2}\\
+    \tilde\alpha_0^{25}&= \left( \FR{n}{R}-\FR{wR}{\alpha'} \right)
+    \SFR{2}{\alpha'}
+\end{align*}
+When we compactify the dimension $d=25$ we can ask what happens to the
+mass spectrum of the string in the remaining $0,\dots,24$ dimensions.
+\begin{align*}
+    m^2 = -p^\mu p_\mu 
+&= \FR{2}{\alpha'}(\alpha_0^{25})^2 + \FR{4}{\alpha'}(N-1)\\
+&= \FR{2}{\alpha'}(\tilde\alpha_0^{25})^2 + \FR{4}{\alpha'}(\tilde N-1)
+\end{align*}
+Here $N,\tilde N$ refer to the sum over $i$ of the $\alpha_i^{25}$ and
+$\tilde\alpha_i^{25}$ terms. These two equations are equivalent to the
+following:
+\begin{align}
+    m^2 &= \FR{n^2}{R^2} + \FR{w^2R^2}{\alpha'^2} + \FR{2}{\alpha'}(N +
+    \tilde N - 2)\\
+    0&= nw + N-\tilde N
+    \label{massspectrum-tduality}
+\end{align}
+Note that the tower of Kaluza Klein states reappears in the
+stringy-setting. In addition to this we obtain our first stringy phenomenon
+which is a contribution to the mass from the winding number.
+
+Now that we have a mass spectrum for the theory, we can look at a
+special case that is of importance to the theory: the massless states.
+In field theory or string theory as we've seen it before we know that
+certain massless states, vector bosons or photons, admit a $U(1)$
+gauge group. From canonical quantization, the vector boson comes from the
+following state: \colr{$\alpha^\mu_{-1}\tilde\alpha^{\bm\nu}_{-1}\ket{0,0;k}$}. 
+Now that there is a possibility for the string to wind around
+$d=25$, we saw that the holomorphic and anti-holomorphic components of the
+theory do not quite equal each other. This gives rise to two distinct
+vector bosons and thus a $U(1)\times U(1)$ gauge group. Explicitly, using
+the symmetric tensor and the antisymmetric tensor, we can form the
+following fields:
+\[ A_{\mu(R)} \equiv \FR{1}{2}(G-B)_{\mu,25};\qquad
+A_{\mu(L)} \equiv \FR{1}{2}(G+B)_{\mu,25}.\]
+\begin{exercise}(Optional, but informative.) It is useful to tie together
+    the various different approaches that we have for describing the
+    string fields/states/vertex operators. Here is a table, taken from
+    Charles Johnson's, \emph{D-branes}, which relates these three concepts:
+    \begin{align*}
+    \begin{array}{|c|c|c|}
+        \hline
+        field & state & operator\\
+        \hline
+G_{\mu\nu} & (\alpha^\mu_{-1}\tilde\alpha^\nu_{-1} + \alpha^\nu_{-1}\tilde\alpha^\mu_{-1})\ket{0;k} & \di X^\mu\di X^\nu + \di X^\mu\di X^\nu\\
+        \hline
+B_{\mu\nu} & (\alpha^\mu_{-1}\tilde\alpha^\nu_{-1} - \alpha^\nu_{-1}\tilde\alpha^\mu_{-1})\ket{0;k} & \di X^\mu\bar\di X^\nu + \di X^\mu\bar\di X^\nu\\
+        \hline
+A_{\mu(R)} & \alpha^{25}_{-1}\tilde\alpha^{25}_{-1}\ket{0;k} & \di X^\mu\bar\di X^{25}\\
+        \hline
+A_{\mu(L)} & \tilde\alpha^{\mu}_{-1}\alpha^{25}_{-1}\ket{0;k} & \di X^{25}\bar\di X^\mu\\
+        \hline
+\phi \equiv \FR{1}{2}\log G_{25,25} & \alpha^{25}_{-1}\tilde\alpha^{25}_{-1}\ket{0;k} & \di X^{25}\bar\di X^\mu
+    \end{array}
+    \end{align*}
+    As an extra exercise, determine the state and associated vertex
+    operator at zero momentum for the dilaton $\Phi$.
+\end{exercise}
+
+\section{T-Duality}
+The mass spectrum \eqref{massspectrum-tduality} has curious symmetries.
+Associated to the compactness we the Kaluza-Klein states that correspond to
+$w=0$. As $R\to\infty$ these states become massless; however, the states
+for which the winding number is non-zero suddenly extremely massive.
+
+
 
 
 \end{document}
