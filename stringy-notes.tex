@@ -71,7 +71,7 @@
 \newcommand{\NO}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
 % creation annihilation normal ordering
 \newcommand{\circcolon}{\mathbin{\raise 0.75ex\hbox{\oalign{$\scriptscriptstyle\mathrm{o}$\cr$\scriptscriptstyle\mathrm{o}$}}}}
-\newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,} 
+\newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,}
 
 \newcommand{\elaborate}{{\color{blue} \textbf{Elaborate.}}}
 \newcommand{\CHECK}{{\color{blue} \textbf{CHECK}}}
@@ -116,6 +116,7 @@
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Spin}{Spin}
 \DeclareMathOperator{\SU}{SU}
 \DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\vspan}{span}
@@ -139,6 +140,9 @@
 \newcommand{\bz}{\bar{z}}
 \newcommand{\bu}{\bar{u}}
 \newcommand{\bdi}{\bar{\di}}
+\newcommand{\rep}[1]{\mathbf{#1}}
+\newcommand{\NS}{\mathrm{NS}}
+\newcommand{\R}{\mathrm{R}}
 
 \begingroup
     \makeatletter
@@ -1054,14 +1058,14 @@ for the product of two local operators:
 \end{align}
 This will turn out to be much like a Laurent expansion, however, in a
 conformally invariant theory the form of the $c^k_{ij}(\sg_1-\sg_2)$ is
-severely restricted. 
+severely restricted.
 
 There are many reasons why it is useful for us to learn about CFT. One
 reason is that certain critical phase transitions can be described by a CFT
 and using the AdS/CFT correspondence we may be able to take a highly
 correlated system and rewrite it in terms of a weakly coupled theory of
 supergravity. To understand this sentence will require lots of time, so
-let's not waste anymore! 
+let's not waste anymore!
 
 The plan for this chapter as of January 1, 2016 will be to showcase
 important details of chapter $2$ from Polchinski's Volume 1 leaving out
@@ -1083,7 +1087,7 @@ conformal symmetry to a 2d CFT.
 
 \colr{TALK ABOUT THIS!}
 \begin{itemize}
-\item 
+\item
    First we begin with some terminology. In our adventures on QFT, we defined
    fields from some base manifold into a vector space, $\phi : M \to V$. The
    manifold $M$ in our case was locally Minkowski, which in fancy terms meant
@@ -1092,7 +1096,7 @@ conformal symmetry to a 2d CFT.
    with (possibly) more than one spatial dimension: $X^\mu : S^1\times \bR \to
    \bR^{1,d-1}$.
 
-\item 
+\item
    Second, when we write expressions like $X^\mu X_\mu$ we are referring
    explicitly to an underlying metric, $g$, which assigns meaning to
    contractions: $g_{\mu\nu} X^\mu X^\nu$.
@@ -1124,7 +1128,7 @@ transformations\footnote{see Ginsparg pg 5}
 When $d=2$ something special happens. The constraint \eqref{proportional}
 reduces to the Cauchy-Riemann conditions, which means that the finite
 transformation corresponding to the conformal transformations are simply
-holomorphic functions. 
+holomorphic functions.
 
 \colr{\textbf{RESTRICTIONS ON CORRELATION FUNCTIONS}}
 
@@ -1136,7 +1140,7 @@ Two point functions $C = \braket{\phi_1(x_1)\phi_2(x_2)}$
     \item Special conformal $\implies C(\FR{r_{ij}r_{kl}}{r_{ik}r_{jl}})$
 \end{itemize}
 
-\begin{remark}[\textbf{Conformal Bootstrap}] 
+\begin{remark}[\textbf{Conformal Bootstrap}]
     We may express the OPEs (ie. the correlation functions) for a product
     of any two or more fields, using only the quasi-primary fields. (Cf.
     Chapter 15 -- Vol 2 Polchinski)
@@ -1148,7 +1152,7 @@ In our QFT adventures we focused on computing correlation functions since
 every physical quantity could be expressed in terms of them. However, in
 our journey we focused a lot on operators of the form
 $\braket{\phi_1\phi_2\cdots\phi_n}$. We shall now generalize this ever so
-slightly. 
+slightly.
 
 \begin{definition} Let $\sg_0$ be a fixed point and consider a classical
 world-sheet field theory with fields $X_1(\sg),\ldots,X_n(\sg)$. A
@@ -1200,7 +1204,7 @@ field this amounts to saying:
 \end{conjecture}
 This is true for instance in the case of $\braket{\di\bar\di \NO{
 X^\mu(z_1,\bar z_1) X^\nu(z_2,\bar z_2)}} = 0$ (Polchinski Vol 1 Page 36).
-\begin{proposition} 
+\begin{proposition}
 \label{prop-product-normal-order}
 Let $\ms F,\ms G$ be two local operators. Then,
 \begin{align}
@@ -1247,11 +1251,11 @@ part in the OPE of $\NO{\ms F}\NO{\ms G}$ is given by the coefficient
 functions in the cross-contractions.
 
 % Let $\ms A(\sg_1), \ms B(\sg_2)$ be two local operators, with
-% $\sg_1=(z_1,\bar z_1), \sg_2=(z_2,\bar z_2)$ and 
+% $\sg_1=(z_1,\bar z_1), \sg_2=(z_2,\bar z_2)$ and
 % \mbox{$\|\sg_1-\sg_2\| \ll 1$.} Using \ref{prop-product-normal-order}, we can
 % rearrange the product as a sum of normal ordering operators with meromorphic
 % or anti-meromorphic (terms of the form $(\bar z - \bar z_0)^{-1}$)
-% coefficients. Since 
+% coefficients. Since
 % \begin{align}
 %     \ms A\ms B &= \NO{\ms A\ms B} + \sum \;(\text{contractions})\\
 %     &= \exp \left(-\FR{\alpha'}{2}\int d^2z_1d^2z_2 \ln|z_{12}|^2
@@ -1271,10 +1275,10 @@ functions in the cross-contractions.
 \eqref{normalorder-example})
 \begin{align*}
     X^\mu(z_1,\bar z_1)X^\nu(z_2,\bar z_2) &=
-    -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2 +\sum_{k=1}^\infty \FR{1}{k!} 
+    -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2 +\sum_{k=1}^\infty \FR{1}{k!}
     (z_{12})^k \NO{X^\nu\di^k X^\mu(z_2,\bar z_2)}
     +(\bar z_{12})^k \NO{X^\nu\bar\di^k X^\mu(z_2,\bar z_2)}\\
-    &\sim -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2 
+    &\sim -\FR{\alpha'}{2}\eta^{\mu\nu}\ln|z_{12}|^2
 \end{align*}
 The first equation is the full operator product expansion and the
 equivalence (up to singular terms) shows that $X^\mu X^\nu$ behaves like
@@ -1296,7 +1300,7 @@ X_\mu(z')} - \FR{2\alpha'}{z-z'} \NO{\di X^\mu \di' X_\mu(z')}
 In general CFTs we require the basis in which we expand operator products
 to transform like a tensor under conformal transformations. Moreover, the
 conformal invariance then puts even more restrictions on the coefficient
-functions rendering them unique up to a constant.  
+functions rendering them unique up to a constant.
 
 \subsection{Ward Identity}
 Although the idea of the OPE is what drives this chapter, the Ward identity
@@ -1305,8 +1309,8 @@ are given a coordinate transformation $\sg' = \sg+\delta\sg$, that is a
 symmetry of the theory, how do operators transform under this
 transformation? Denote the transformation of fields as follows:
 $X'_\mu(\sg) = X_\mu(\sg) + \delta X_\mu(\sg)$. Now we consider a slightly
-more general transformation: 
-\[ X'_\mu(\sg) = X_\mu(\sg)+\rho(\sg)\delta X_\mu(\sg).\] 
+more general transformation:
+\[ X'_\mu(\sg) = X_\mu(\sg)+\rho(\sg)\delta X_\mu(\sg).\]
 Such a general transformation might not be a symmetry of the action.
 However, the path integral \emph{is} invariant under change of coordinates,
 which means:
@@ -1341,7 +1345,7 @@ A(z_0,\bar z_0).\]
 Let us show that the $X^\mu$-theory is conformally invariant. This amounts
 to showing if $z'=f(z)$, for some holomorphic $f$, then $X'^\mu(z',\bar z')
 = X(z,\bar z)$. For our purposes it will be easier to check this
-infinitesimally. consider 
+infinitesimally. consider
 \begin{align} z' = z+\epsilon v(z)
 \label{worldsheet-translation}
 \end{align}
@@ -1369,7 +1373,7 @@ Also, using $\di^aT_{ab} = 0 = T^a_a$, we have $\bar\di T_{zz} = \di
 T_{\bar z\bar z} = 0$, showing that $T = T_{zz}, \tilde T = T_{\bar z\bar
 z}$ are holomorphic and anti-holomorphic. Next, show that the OPEs of $T\ms
 A$ and $\tilde T\ms A$ have the following asymptotics:
-\[ T(z) X^\mu(0) \sim \FR{1}{z} \di_zX^\mu(0), \qquad\qquad 
+\[ T(z) X^\mu(0) \sim \FR{1}{z} \di_zX^\mu(0), \qquad\qquad
 \tilde T(\bar z)X^\mu(0) \sim \FR{1}{\bar z}\bar\di X^\mu(0).\]
 \end{exercise}
 \subsection{TODO: $bc$ theory -- an extended example}
@@ -1417,7 +1421,7 @@ operators $\ms A_i, \ms A_j$:
 \begin{example}{$bc$ CFT}
 There are many different free conformal field theories. We have, in fact,
 already met with two in the first chapter. The first is the $X^\mu$ theory,
-which we have gotten to know quite well. The second comes from 
+which we have gotten to know quite well. The second comes from
 \S~\!\ref{chapterone-fpghosts}: Faddeev-Popov ghosts $b_{ab},c^a$ with
 action \begin{align} S_G = \FR{1}{2\pi} \int d^2\sg b_{ab}\di^a c^b
 \end{align} is a free CFT where $b,c$ are primary fields (conformal
@@ -1440,7 +1444,7 @@ the isomorphism is a conformal mapping. The isomorphism takes $(x,t)
 $\ket 0$ in the theory and to every operator $\phi$ we define the incoming
 state: \[\ket{\phi_{\text{in}}} = \phi(0,0)\ket 0.\] This identification is
 one direction of the state-operator correspondence and we will discuss at
-length before we get to calculating string amplitudes. 
+length before we get to calculating string amplitudes.
 
 What we can do next, is consider expanding out the $z,\bar z$ dependence
 out of a conformal field:
@@ -1456,7 +1460,7 @@ needed.
 \subsection{Radial Ordering, OPEs \,$\Leftrightarrow$ Commutation Relations}
 Our next goal is to write down an expression for the Hamiltonian. This will
 happen in these next two subsections. Read carefully, otherwise you might
-miss it! 
+miss it!
 
 Recall that correlation functions defined in QFT are always interpreted to
 be time-ordered. In our case, since time corresponds to the radial part of
@@ -1474,7 +1478,7 @@ implies that we must have:
     &= [A,b]
 \end{align*}
 where $A = \oint_C a(z)dz$ and the counterclockwise contours, $C_1,C_2$,
-are circles centred around the origin with radii $|w| + \epsilon, |w| 
+are circles centred around the origin with radii $|w| + \epsilon, |w|
 -\epsilon$. Therefore we can define the commutator of two operators which
 are integrals of holomorphic fields as:
 \begin{align}
@@ -1539,13 +1543,13 @@ the Virasoro algebra, that is, the Verma modules.
 
 \begin{itemize}
     \item The vacuum state needs to be invariant under global conformal
-        transformations.  
+        transformations.
     \item Primary fields define asymptotic states that will turn out to be
         the highest weight states: $\ket{\phi_{in}} = \phi(0,0)\ket 0$ with
-        $\dim \phi = (h,\bar h)$ implies 
+        $\dim \phi = (h,\bar h)$ implies
         \begin{align*}
             L_0\ket{h,\bar h} &= h \ket{h,\bar h},\\
-            \bar L_0\ket{h,\bar h} &= \bar h \ket{h,\bar h},\\ 
+            \bar L_0\ket{h,\bar h} &= \bar h \ket{h,\bar h},\\
             L_n\ket{h,\bar h} &= 0\;\;\forall n>0
         \end{align*}
     \item By mode expanding the primary field we obtain raising and
@@ -1570,7 +1574,7 @@ understand this correspondence through examples. Consider the identity
 operator $\iden$, what should the state $\ket\iden$ correspond to?
 Well, notice that the charges $\alpha^\mu_m$ , for $m>0$, annihilate the
 state $\ket\iden$ since:
-\[\SFR{2}{\alpha'}\int\FR{dz}{2\pi} \,z^m\di X^\mu\cdot \iden= 0\] 
+\[\SFR{2}{\alpha'}\int\FR{dz}{2\pi} \,z^m\di X^\mu\cdot \iden= 0\]
 since the argument of the integral is holomorphic and similarly for
 $\tilde\alpha^\mu_m\ket{\iden}$. Therefore, $\ket\iden$ is annihilated by
 all lowering operators which means that it is proportional to the vacuum,
@@ -1579,7 +1583,7 @@ $\ket{0,0;0}$. In fact, we may define it this way:
 Now that we have the vacuum we can go the other way: given excitations what
 are the vertex operators corresponding to them?
 \begin{align*}
-    \alpha^\mu_{-m}\ket\iden 
+    \alpha^\mu_{-m}\ket\iden
     &= \SFR{2}{\alpha'}\int \FR{dz}{2\pi} \, z^{-m}\di X^\mu\\
     &= \SFR{2}{\alpha'}\FR{i}{(m-1)!} \di^m X^\mu(0), m\ge 1
 \end{align*}
@@ -2387,7 +2391,7 @@ calculation that $\delta'$ is a modulus iff
   \in T_g\Met(\Sigma)$, we can expand them in coordinates as
   \[ X = X^I \pder{}{g^I} = X^I_{a_1b_1} \pder{}{g^I_{a_1b_1}} \in T_g\Met(\Sigma), \quad Y = Y^J \pder{}{g^J} = Y^J_{a_2b_2} \pder{}{g^J_{a_2b_2}} \in T_g\Met(\Sigma). \]
   Then define
-  \[ \langle X, Y \rangle_{\Met} \coloneqq (X^I, Y^I)_g = \int_\Sigma d^2\sigma \, \sqrt{g} \, g^{a_1a_2}(\sigma) g^{b_1b_2}(\sigma) X^I_{a_1b_1}(\sigma) Y^I_{a_2b_2}(\sigma). \] 
+  \[ \langle X, Y \rangle_{\Met} \coloneqq (X^I, Y^I)_g = \int_\Sigma d^2\sigma \, \sqrt{g} \, g^{a_1a_2}(\sigma) g^{b_1b_2}(\sigma) X^I_{a_1b_1}(\sigma) Y^I_{a_2b_2}(\sigma). \]
   Consequently, we get a well-defined measure on $\Met(\Sigma)$.
 \end{definition}
 
@@ -3021,6 +3025,7 @@ special case that is of importance to the theory: the massless states.
 In field theory or string theory as we've seen it before we know that
 certain massless states, vector bosons or photons, admit a $U(1)$
 gauge group. 
+
 Now that there is a possibility for the string to wind around
 $d=25$, we saw that the holomorphic and anti-holomorphic components of the
 theory do not quite equal each other. This gives rise to two distinct
@@ -3061,7 +3066,7 @@ The mass spectrum \eqref{massspectrum-tduality} has curious symmetries.
 Associated to the compactness we the Kaluza--Klein states that correspond to
 $w=0$. As $R\to\infty$ these states become massless; however, the states
 for which the winding number is non-zero suddenly become extremely massive.
-This is precisely what we expect in the non-compact case. 
+This is precisely what we expect in the non-compact case.
 
 Conversely, if $R\to0$, all of the Kaluza--Klein states (which traverse the
 compact direction) become massive. Roughly speaking, this means that open
@@ -3072,7 +3077,7 @@ it becomes massless. This corresponds, again, to an effective non-compact
 dimension.
 
 This is precisely the T-duality: \[ n\leftrightarrow w, \quad R
-\leftrightarrow R' = \FR{\alpha'}{R}.\] 
+\leftrightarrow R' = \FR{\alpha'}{R}.\]
 In particular, this duality exchanges the mode operators by:
 $\alpha_0^{25}\to\alpha_0^{25}$ and $\talpha_0^{25}\to-\talpha_0^{25}$.
 In terms of the $X(z,\bar z)$, the transformations take $X^{25}(z,\bar z)
@@ -3111,12 +3116,12 @@ gauge symmetry. Let us explore this is in more detail.
 For illustrative purposes, we show the form of the vertex operators that
 correspond to the pair of solutions listed above: \[
 \NO{\overline\di X^\mu e^{ik\cdot X}\exp\left[\FR{\pm2i}{\sqrt{\alpha'}}X^{25}_L\right]}
-\qquad\qquad 
+\qquad\qquad
 \NO{\di X^\mu e^{ik\cdot X}\exp\left[\FR{\pm2i}{\sqrt{\alpha'}} X^{25}_R\right]}.\]
 These vertex operators carry with them both the plane-wave factors which
 give a Kaluza--Klein charge and antisymmetric-tensor gauge charge,
 corresponding to the $\exp\left[\FR{\pm2i}{\sqrt{\alpha'}} X^{25}_{L,R}
-\right]$. 
+\right]$.
 %fill in some details: for more about vertex operators see pg 238-240.
 The charges that act on these vertex operators can be written as:
 \begin{align*}
@@ -3253,7 +3258,7 @@ equation, describing spin-zero bosons. But consequently we have
 tachyons, and no fermions, and we want to fix both issues. The idea is
 to extend the Virasoro algebra to get the {\bf superconformal
   algebra}, which has both a bosonic and fermionic component. The
-bosonic component shall be the Polyakov action we know and love, and
+bosonic component shall have the Polyakov action we know and love, and
 the fermionic component shall give a new energy-momentum tensor $T_F$,
 whose zero modes give a new physicality condition, this time enforcing
 the Dirac equation $i\slashed{k} + m = 0$.
@@ -3304,8 +3309,9 @@ $S_B$ denotes the Polyakov action, while $S_F$ denotes the fermionic
 action, which we define now. However, we re-interpret what $T_B$
 means: instead of seeing it as the energy-momentum tensor, we see it
 as the operator encoding the Virasoro algebra, i.e. the bosonic
-constraint algebra. Hence $T_F$ is not the fermionic energy-momentum
-tensor; it is the operator encoding the fermionic constraint algebra.
+constraint algebra. Hence $T_F$ is not, a priori, the ``fermionic
+energy-momentum tensor''; it is the operator encoding the fermionic
+constraint algebra.
 
 \begin{definition}
   Let $\psi^\mu(z), \tilde{\psi}^\mu(\bz)$ be $D$ new anticommuting
@@ -3341,10 +3347,12 @@ there is an automatic {\bf spacetime supersymmetry}.)
   to show that the worldsheet supersymmetry is indeed a symmetry. Then
   rewrite it in complex coordinates as
   \[ \delta X^\mu(z, \bz) = -\epsilon(z) \psi^\mu(z) - \epsilon^*(z) \tilde{\psi}^\mu(z), \quad \delta \psi^\mu(z) = \epsilon(z) \di X^\mu(z), \quad \delta \tilde{\psi}^\mu(\bz) = \epsilon(\bz)^* \bdi X^\mu(\bz). \]
-  Show that the {\bf worldsheet supercurrent} $T_F$ generating this
-  supersymmetry and the {\bf energy-momentum tensor} $T_B$
-  of the new action are given by
-  \[ T_F(z) \coloneqq i\sqrt{4\pi T_0} \, \psi^\mu(z) \di X_\mu(z), \quad T_B(z) \coloneqq -2\pi T_0 \di X^\mu(z) \di X_\mu(z) - \frac{1}{2} \psi^\mu(z) \di \psi_\mu(z). \]
+  Show that the {\bf worldsheet supercurrent} $T_F^{\text{m}}$
+  generating this supersymmetry and the {\bf matter energy-momentum
+    tensor} $T_B^{\text{m}}$ of the new action are given by
+  \[ T_F^{\text{m}}(z) \coloneqq i\sqrt{4\pi T_0} \, \psi^\mu(z) \di X_\mu(z), \quad T_B^{\text{m}}(z) \coloneqq -2\pi T_0 \di X^\mu(z) \di X_\mu(z) - \frac{1}{2} \psi^\mu(z) \di \psi_\mu(z). \]
+  (The superscripts are there because later on we have the same
+  objects again, but for ghosts.)
 \end{exercise}
 
 Importantly, the commutator of two worldsheet supersymmetries is a
@@ -3417,10 +3425,11 @@ Taking $(v, \tilde{v})$ into account, then, we write the relevant mode
 expansions as
 \[ \psi^\mu(w) = i^{-1/2} \sum_{r \in \bZ + v} \psi_r^\mu \exp(irw), \quad T_B(w) = \sum_{m \in \bZ} L_m \exp(imw), \quad T_F(w) = \sum_{r \in \bZ + v} G_r \exp(irw). \]
 Note that, from the explicit expressions for $T_F$ and $T_B$, we have
-$T_F(w + 2\pi) = \exp(2\pi iv) T_F(w)$ as well, but $T_B(w + 2\pi) =
-T_B(w)$ is untwisted, and hence the sums are over $\bZ + v$ (and $\bZ
-+ \tilde{v}$ for the antiholomorphic part). The mode expansion for
-$\di X^\mu$ is unchanged, with its modes denoted $\alpha^\mu_m$.
+$T_F(w + 2\pi) = \exp(2\pi iv) T_F(w)$ as well, and hence the sums are
+over $\bZ + v$ (and $\bZ + \tilde{v}$ for the antiholomorphic part).
+But $T_B(w + 2\pi) = T_B(w)$ is untwisted, so there the sum is over
+$\bZ$. The mode expansion for $\di X^\mu$ is of course unchanged, with
+its modes denoted $\alpha^\mu_m$.
 
 \begin{exercise}
   Show that imposing the canonical commutation relations
@@ -3443,23 +3452,291 @@ $\di X^\mu$ is unchanged, with its modes denoted $\alpha^\mu_m$.
   algebra.
 \end{exercise}
 
-Unsurprisingly, the {\bf ground state} $\ket{0}_R$ of the R sector
-differs from the ground state $\ket{0}_{NS}$ of the NS sector. Both
+Unsurprisingly, the {\bf ground state} $\ket{0;k}_{\R}$ of the R sector
+differs from the ground state $\ket{0;k}_{\NS}$ of the NS sector. Both
 are defined the same way:
-\[ \alpha^\mu_m \ket{0}_R = \psi^\mu_r \ket{0}_R = 0, \quad \alpha^\mu_m \ket{0}_{NS} = \psi^\mu_m \ket{0}_{NS} = 0 \quad \forall m, r > 0. \]
-But $\ket{0}_R$ is degenerate because of the existence of the zero
+\[ \alpha^\mu_m \ket{0;k}_{\R} = \psi^\mu_r \ket{0;k}_{\R} = 0, \quad \alpha^\mu_m \ket{0;k}_{\NS} = \psi^\mu_m \ket{0;k}_{\NS} = 0 \quad \forall m, r > 0. \]
+But $\ket{0;k}_{\R}$ is degenerate because of the existence of the zero
 modes $\psi^\mu_0$ in the R sector, by the same argument as for $b_0$
 and $c_0$ in the $bc$ CFT (c.f. BRST state space). Instead of two zero
 modes $b_0$ and $c_0$, however, we now have $D$ of them, satisfying
-$\{\psi^\mu_0, \psi^\nu_0\} = \delta^{\mu\nu}$, the Clifford algebra
-relation (up to scalars)! Hence $\ket{0}_R$ lives in an irreducible
+$\{\psi^\mu_0, \psi^\nu_0\} = \eta^{\mu\nu}$, the Clifford algebra
+relation (up to scalars)! Hence $\ket{0;k}_{\R}$ lives in an irreducible
 representation of the Clifford algebra $\Cl_{D-1,1}$, and is a {\bf
   spinor}, representing a {\bf fermion}.
 
-In contrast, $\ket{0}_{NS}$ is non-degenerate because there is no
+In contrast, $\ket{0;k}_{\NS}$ is non-degenerate because there is no
 $\psi^\mu_0$ in the NS sector, and therefore is a {\bf scalar},
 representing a {\bf boson}.
 
+\begin{exercise} (Important!)
+  Verify, using the super-Virasoro algebra relations, the mode
+  expansions
+  \[ G_r = \sum_{n \in \bZ} \alpha_n \cdot \psi_{r-n}, \quad L_m = \frac{1}{2} \sum_{n \in \bZ} \CANO{\alpha_{m-n} \cdot \alpha_n} + \frac{1}{4} \sum_{r \in \bZ + v} (2r - m) \CANO{\psi_{m-r} \cdot \psi_r} + a^X \delta_{m,0} \]
+  where $a^X$ is a normal ordering constant equal to $D/16$ for the R
+  sector and $0$ for the NS sector.
+\end{exercise}
+
+Using the mode expansions of $L_m$ and $G_r$, we can say more about
+the ground states. For the R ground state, the constraint
+\[ G_0 \ket{0}_{\R} = \left(\alpha_0 \cdot \psi_0 + \sum_{n \neq 0} \alpha_{-n} \cdot \psi_n\right)\ket{0}_{\R} = 0 \]
+is equivalent to $\alpha_0 \cdot \psi_0 \ket{0}_{\R} = 0$ since
+$\psi_n^\mu\ket{0}_{\R} = 0$ for $n > 0$ by definition. But
+\begin{enumerate}
+\item recall from the quantization of the bosonic string that
+  $\alpha_0^\mu \propto p^\mu = -i \di^\mu$, and
+\item since $\{\psi^\mu_0, \psi^\nu_0\} = \eta^{\mu\nu}$, they act as
+  Dirac matrices $\Gamma^\mu$.
+\end{enumerate}
+Hence $\alpha_0 \cdot \psi_0 \ket{0}_{\R} \propto -i \slashed{\di}
+\ket{0}_{\R} = 0$ is precisely the {\bf massless Dirac equation}, and
+it follows that $\ket{0}_{\R}$ is a massless spinor.
+
+\subsection{Superconformal Ghosts}
+
+We added anti-commuting ghost fields $b$ and $c$ to the Polyakov
+action in order to invert the Faddeev-Popov determinant for a
+commuting variable $X^\mu$. But now we have an anti-commuting variable
+$\psi^\mu$, and so to invert its Faddeev-Popov determinant, we
+introduce {\bf commuting} ghost fields $\beta$ and $\gamma$. By
+analogy with the $bc$ CFT, the new {\bf ghost action} is
+\[ S_{\text{g}} \coloneqq \frac{1}{2\pi} \int d^2z (b \bdi c + \beta \bdi \gamma). \]
+(The new fields $\beta$ and $\gamma$ are called {\bf superconformal
+  ghosts}.) However, we must be a little careful when deriving the
+ghost energy-momentum tensor.
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 446e6e8... bleh
+
+\begin{exercise}
+  Start with the action $\int d^2z \, b \bdi c$ for the $bc$
+  CFT and:
+  \begin{enumerate}
+  \item derive its energy-momentum tensor $T = (\di b) c - \di (bc)$
+    using Noether's theorem;
+  \item argue that we can add any total derivative term $\lambda \di
+    (bc)$ to the action without affecting the equations of motion, so
+    the energy-momentum tensor should really be $T = (\di b)c -
+    \lambda \di (bc)$;
+  \item calculate the OPE of $T$ with $b$ and $c$ to show that $b$ has
+    weight $(\lambda, 0)$, and $c$ has weight $(1-\lambda, 0)$.
+  \end{enumerate}
+  Now recall that $b$ comes from $b_{ab}$ and $c$ comes from $c^a$. So
+  under a conformal transformation, $b$ has weight $(2, 0)$, and $c$
+  has weight $(-1, 0)$. Hence conclude that $\lambda = 2$.
+\end{exercise}
+
+We can repeat this procedure for the $\beta\gamma$ CFT to get the
+analogous energy-momentum tensor involving $\beta$ and $\gamma$, but
+now with $\lambda = 3/2$. (The half-integer is because $\psi$
+transforms as a spinor, i.e. with half-integer spin, and $\beta$ and
+$\gamma$ are associated with $\psi$.) Putting this together with the
+$bc$ CFT, the total {\bf ghost energy-momentum tensor} is
+\[ T_B^{\text{g}} \coloneqq -(\di b) c - 2b \di c - \frac{1}{2}(\di \beta)\gamma - \frac{3}{2} \beta \di \gamma. \]
+There is also a ghost version $T_F^{\text{g}}$ of $T_F^{\text{m}}$
+arising from the supersymmetry:
+\[ T_F^{\text{g}} \coloneqq -(\di \beta)c - \frac{3}{2}\beta \di c - 2b\gamma. \]
+We shall examine where it comes from later on, along with a detailed
+derivation of $\lambda = 3/2$ for the $\beta\gamma$ CFT. (Actually, a
+quick heuristic explanation is that the weight $\lambda$ should match
+the weight of $T_F$, which is $3/2$ from the $T_BT_F$ OPE.)
+
+\begin{exercise}
+<<<<<<< HEAD
+=======
+
+\begin{exercise}
+  Start with the action $\int d^2z \, b \bdi c$ for the $bc$
+  CFT and:
+  \begin{enumerate}
+  \item derive its energy-momentum tensor $T = (\di b) c - \di (bc)$
+    using Noether's theorem;
+  \item argue that we can add any total derivative term $\lambda \di
+    (bc)$ to the action without affecting the equations of motion, so
+    the energy-momentum tensor should really be $T = (\di b)c -
+    \lambda \di (bc)$;
+  \item calculate the OPE of $T$ with $b$ and $c$ to show that $b$ has
+    weight $(\lambda, 0)$, and $c$ has weight $(1-\lambda, 0)$.
+  \end{enumerate}
+  Now recall that $b$ comes from $b_{ab}$ and $c$ comes from $c^a$. So
+  under a conformal transformation, $b$ has weight $(2, 0)$, and $c$
+  has weight $(-1, 0)$. Hence conclude that $\lambda = 2$.
+\end{exercise}
+
+We can repeat this procedure for the $\beta\gamma$ CFT to get the
+analogous energy-momentum tensor involving $\beta$ and $\gamma$, but
+now with $\lambda = 3/2$. (The half-integer is because $\psi$
+transforms as a spinor, i.e. with half-integer spin, and $\beta$ and
+$\gamma$ are associated with $\psi$.) Putting this together with the
+$bc$ CFT, the total {\bf ghost energy-momentum tensor} is
+\[ T_B^{\text{g}} \coloneqq -(\di b) c - 2b \di c - \frac{1}{2}(\di \beta)\gamma - \frac{3}{2} \beta \di \gamma. \]
+There is also a ghost version $T_F^{\text{g}}$ of $T_F^{\text{m}}$
+arising from the supersymmetry:
+\[ T_F^{\text{g}} \coloneqq -(\di \beta)c - \frac{3}{2}\beta \di c - 2b\gamma. \]
+We shall examine where it comes from later on, along with a detailed
+derivation of $\lambda = 3/2$ for the $\beta\gamma$ CFT. (Actually, a
+quick heuristic explanation is that the weight $\lambda$ should match
+the weight of $T_F$, which is $3/2$ from the $T_BT_F$ OPE.)
+
+\begin{exercise}
+>>>>>>> bleh
+=======
+>>>>>>> 446e6e8... bleh
+  Verify, by computing the $TT$ OPEs, that
+  \begin{enumerate}
+  \item the {\bf central charge} of the $bc$ CFT is $-3(2\lambda -
+    1)^2 + 1$;
+  \item the {\bf central charge} of the $\beta\gamma$ CFT is
+    $3(2\lambda - 1)^2 - 1$.
+  \end{enumerate}
+  Hence the central charge for the ghost super-CFT is $-26 + 11 =
+  -15$. Recalling that the central charge for the matter CFT is
+  $3D/2$, conclude that the {\bf superstring critical dimension} is $D
+  = 10$.
+\end{exercise}
+
+Now, in preparation for finding the physical state space, we write
+down the relevant mode expansions and the commutator for the modes:
+\[ \beta(z) \coloneqq \sum_{r \in \bZ + v} \frac{\beta_r}{z^{r+3/2}}, \quad \gamma(z) \coloneqq \sum_{r \in \bZ + v} \frac{\gamma_r}{z^{r-1/2}}, \quad [\gamma_r, \beta_s] = \delta_{r,-s}. \]
+
+\begin{definition}
+  The {\bf ground states} $\ket{0}_{\R}$ and $\ket{0}_{\NS}$ must
+  satisfy the additional requirements
+  \begin{align*}
+    \beta_r\ket{0}_{\NS} = \gamma_s\ket{0}_{\NS} = 0 \quad \forall r,s \ge 1/2 \\
+    \beta_r\ket{0}_{\R} = \gamma_s\ket{0}_{\NS} = 0 \quad \forall r \ge 0, \; s \ge 1
+  \end{align*}
+  Note that, as with the $bc$ CFT, we group $\beta_0$ with the
+  lowering operators and $\gamma_0$ with the raising operators.
+\end{definition}
+
+\subsection{The Physical State Space}
+
+By analogy with the derivation for the purely bosonic theory, the mass
+formula for a given state is
+\[ \frac{M^2}{2\pi T_0} = \begin{cases} \sum_{n=1}^\infty \alpha_{-n} \cdot \alpha_n + \sum_{r=1/2}^\infty r \psi_{-r} \cdot \psi_r - \frac{1}{2} & \text{NS sector} \\ \sum_{n=1}^\infty \alpha_{-n} \cdot \alpha_n + \sum_{r=1}^\infty r \psi_{-r} \cdot \psi_r + 0 & \text{R sector}. \end{cases} \]
+(It is a small exercise to compute the normal-ordering constants
+$-1/2$ and $0$.)
+
+Canonical quantization or BRST quantization proceeds as usual to
+obtain the Fock space of states. Instead of outlining those
+calculations, we just state the following result and move on to
+details about the physical state space, which contains more subtleties
+than for the bosonic theory.
+
+\begin{theorem}[Superstring no-ghost theorem]
+  The physical state space is isomorphic to the subspace (of the
+  Hilbert space arising from canonical quantization) with no $X^0$,
+  $X^1$, $\psi^0$, $\psi^1$, $b$, $c$, $\beta$ or $\gamma$
+  excitations.
+\end{theorem}
+
+Let's use the no-ghost theorem to explicitly write down where the
+various low-level states live. The R ground state is a massless
+spinor, and therefore lives in a spinor representation of $\SO(8)$.
+But there are two such representations, denoted $\rep{8}$ and
+$\rep{8}'$; they come from the decomposition of the representation
+$\rep{16}$ of $\Spin(8)$ into the $\pm 1$ eigenspaces of $\Gamma^9$.
+Similarly, the NS first excited state lives in a vector representation
+of $\SO(8)$, of which there is only one, denoted $\rep{8}_v$.
+
+\begin{exercise} (Optional)
+  Show in light-cone gauge that the representations $\rep{8}$ and
+  $\rep{8}'$ have spin $s = 1/2$ and $s = -1/2$ respectively.
+\end{exercise}
+
+There is some conventional notation for the {\bf low-level state
+  sectors}, summed up in the following table:
+\begin{center}
+\begin{tabular}{cccc}
+  notation & state & $\SO(8)$ spin & $M^2$ \\ \hline
+  $\NS+$ & $\psi^i_{-1/2}$ $\ket{0}_{\NS}$ & $\rep{8}_v$ & $0$ \\
+  $\NS-$ & $\ket{0}_{\NS}$ & $\rep{1}$ & $-\pi T_0$ \\
+  $\R+$ & $\ket{0}_{\R}^+$ & $\rep{8}$ & $0$ \\
+  $\R-$ & $\ket{0}_{\R}^-$ & $\rep{8}'$ & $0$
+\end{tabular}
+\end{center}
+This table reminds us of the remaining issue: there is still a
+tachyon! Even more worryingly, it it actually violating supersymmetry:
+the tachyon has no fermionic counterpart. The idea now is to say with
+iron certainty that we want to enforce supersymmetry, and therefore we
+want to find some consistent way to remove the violating states.
+
+\begin{definition}
+  Define the {\bf worldsheet fermion number operator}
+  \[ (-1)^F = \begin{cases} (-1)^{\sum_{r=1/2}^\infty \psi_{-r} \cdot \psi_r + 1} & \text{NS sector} \\ \Gamma^9 (-1)^{\sum_{r=1}^\infty \psi_{-r} \cdot \psi_r} & \text{R sector} \end{cases} \]
+  and similarly for $(-1)^{\tilde{F}}$. The {\bf
+    Gliozzi--Scherk--Olive (GSO) projection} is a truncation of the
+  superstring spectrum to produce a consistent, supersymmetric theory:
+  \begin{enumerate}
+  \item the GSO projection of the NS sector consists of the states
+    with
+    \[ (-1)^F \ket{N}_{\NS,L} = \ket{N}_{\NS,L}, \quad (-1)^{\tilde{F}} \ket{N}_{\NS,R} = \ket{N}_{\NS,R}; \]
+  \item the GSO projection of the R sector consists of the states with
+    \[ (-1)^F \ket{N}_{\R,L} = \ket{N}_{\R,L}, \quad (-1)^{\tilde{F}} \ket{N}_{\R,R} = \chi \ket{N}_{\R,R}, \]
+    where the {\bf chirality} $\chi = \pm 1$ arises from the two
+    different (opposite-chirality) spinor representations $\rep{8}$
+    and $\rep{8}'$.
+  \end{enumerate}
+\end{definition}
+
+\begin{exercise}
+  Show that GSO projection is compatible with the physical state
+  conditions, i.e. that $[(-1)^F, L_m] = \{(-1)^F, G_r\} = 0$ for all
+  $m, r$.
+\end{exercise}
+
+There are many ways \footnote{See Polchinski 10.6, or
+  Green--Schwarz--Witten 4.3.3} to motivate or ``derive'' GSO
+projection. The basic idea is that we want to enforce (worldsheet and
+spacetime) supersymmetry, modular invariance, and some technical
+conditions involving how we don't want anti-commuting operators to be
+able to take bosons to bosons. (Precisely why we need to rule that out
+is complicated, but at an intuitive level it makes sense.) Instead of
+outlining the technicalities, we shall just take the pragmatic
+approach: it works. The following exercise provides additional
+support.
+
+\begin{exercise}
+  Write down the generating function for the number of fermionic
+  states (in the R sector):
+  \[ f_{\R}(q) \coloneqq 8 \prod_{m=1}^\infty (1 - q^{2m})^{-8} (1 + q^{2m})^8 \]
+  where the $8$ comes from the eight-fold degeneracy of
+  $\ket{0}_{\R}$. Then write down the generating function for the
+  number of bosonic states:
+  \[ f_{\NS}(q) \coloneqq \prod_{m=1}^\infty (1 - q^{2m})^{-8} \frac{1}{2q}\left(\prod_{n=1}^\infty (1 + q^{2n-1})^8 - \prod_{n=1}^\infty (1 - q^{2n-1})^8\right). \]
+  Now rewrite $f_{\R}$ and $f_{\NS}$ in terms of theta functions (see
+  the relevant subsection in the one-loop amplitudes section) and use
+  ``{\bf Jacobi's abstruse identity}'' $\vartheta_4(0;\tau)^4 =
+<<<<<<< HEAD
+<<<<<<< HEAD
+  \vartheta_3(0;\tau)^4 - \vartheta_2(0;\tau)^4$ to prove that the GSO
+  projected state space has the same number of fermions as bosons at
+  every level, i.e. $f_{\R}(q) = f_{\NS}(q)$.
+=======
+  \vartheta_3(0;\tau)^4 - \vartheta_2(0;\tau)^4$ to prove that
+  $f_{\R}(q) = f_{\NS}(q)$.
+>>>>>>> bleh
+=======
+  \vartheta_3(0;\tau)^4 - \vartheta_2(0;\tau)^4$ to prove that the GSO
+  projected state space has the same number of fermions as bosons at
+  every level, i.e. $f_{\R}(q) = f_{\NS}(q)$.
+>>>>>>> 446e6e8... bleh
+\end{exercise}
+
+
+\subsection{Superspace and Gravitinos}
+
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> bleh
+=======
+>>>>>>> 446e6e8... bleh
 \section{The Heterotic String}
+
 
 \end{document}
