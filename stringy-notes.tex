@@ -3317,7 +3317,7 @@ constraint algebra.
   Let $\psi^\mu(z), \tilde{\psi}^\mu(\bz)$ be $D$ new anticommuting
   (Majorana) spinor fields on the worldsheet. The {\bf supersymmetric
     worldsheet action} in conformal gauge is given by
-  \[ S = \int d^2\sigma \, \left(T_0 \di_a X^\mu \di^a X_\mu - \frac{i}{4\pi}\bar{\psi}^\mu \slashed{\di} \psi_\mu\right) = \frac{1}{4\pi}\int d^2z \, \left(4\pi T_0\di X^\mu \bdi X_\mu + \psi^\mu \bdi \psi_\mu + \tilde{\psi}^\mu \di \tilde{\psi}_\mu\right), \]
+  \[ S_{\text{X}} = \int d^2\sigma \, \left(T_0 \di_a X^\mu \di^a X_\mu - \frac{i}{4\pi}\bar{\psi}^\mu \slashed{\di} \psi_\mu\right) = \frac{1}{4\pi}\int d^2z \, \left(4\pi T_0\di X^\mu \bdi X_\mu + \psi^\mu \bdi \psi_\mu + \tilde{\psi}^\mu \di \tilde{\psi}_\mu\right), \]
   where, as usual, $\psi^\mu$ and $\tilde{\psi}^\mu$ in complex
   coordinates denote the holomorphic and antiholomorphic part of
   $\psi^\mu(\sigma)$ respectively.
@@ -3495,9 +3495,9 @@ it follows that $\ket{0}_{\R}$ is a massless spinor.
 \subsection{Superconformal Ghosts}
 
 We added anti-commuting ghost fields $b$ and $c$ to the Polyakov
-action in order to invert the Faddeev-Popov determinant for a
+action in order to invert the Faddeev--Popov determinant for a
 commuting variable $X^\mu$. But now we have an anti-commuting variable
-$\psi^\mu$, and so to invert its Faddeev-Popov determinant, we
+$\psi^\mu$, and so to invert its Faddeev--Popov determinant, we
 introduce {\bf commuting} ghost fields $\beta$ and $\gamma$. By
 analogy with the $bc$ CFT, the new {\bf ghost action} is
 \[ S_{\text{g}} \coloneqq \frac{1}{2\pi} \int d^2z (b \bdi c + \beta \bdi \gamma). \]
@@ -3525,18 +3525,17 @@ ghost energy-momentum tensor.
 
 We can repeat this procedure for the $\beta\gamma$ CFT to get the
 analogous energy-momentum tensor involving $\beta$ and $\gamma$, but
-now with $\lambda = 3/2$. (The half-integer is because $\psi$
-transforms as a spinor, i.e. with half-integer spin, and $\beta$ and
+now with $\lambda = 3/2$. This weight comes from the weight of
+$T_F^{\text{m}}$, which is the generator of {\bf superconformal
+  transformations}. (The half-integer corroborates that $\psi$
+transforms as a spinor, i.e. with half-integer spin; $\beta$ and
 $\gamma$ are associated with $\psi$.) Putting this together with the
 $bc$ CFT, the total {\bf ghost energy-momentum tensor} is
 \[ T_B^{\text{g}} \coloneqq -(\di b) c - 2b \di c - \frac{1}{2}(\di \beta)\gamma - \frac{3}{2} \beta \di \gamma. \]
 There is also a ghost version $T_F^{\text{g}}$ of $T_F^{\text{m}}$
 arising from the supersymmetry:
 \[ T_F^{\text{g}} \coloneqq -(\di \beta)c - \frac{3}{2}\beta \di c - 2b\gamma. \]
-We shall examine where it comes from later on, along with a detailed
-derivation of $\lambda = 3/2$ for the $\beta\gamma$ CFT. (Actually, a
-quick heuristic explanation is that the weight $\lambda$ should match
-the weight of $T_F$, which is $3/2$ from the $T_BT_F$ OPE.)
+We shall examine where it comes from later on.
 
 \begin{exercise}
   Verify, by computing the $TT$ OPEs, that
@@ -3670,11 +3669,115 @@ support.
   at every level, i.e. $f_{\R}(q) = f_{\NS}(q)$.
 \end{exercise}
 
+The GSO projection removes the tachyon, which has $(-1)^F
+\ket{0}_{\NS} = -\ket{0}_{\NS}$, and all states that arise from an odd
+number of $\psi$ excitations. It also removes one chiral branch of the
+R sector:
+\begin{enumerate}
+\item {\bf type IIA} superstring theory has $\chi = 1$, giving a
+  non-chiral theory;
+\item {\bf type IIB} superstring theory has $\chi = -1$, giving a
+  chiral theory.
+\end{enumerate}
 
 \subsection{Superspace and Gravitinos}
 
+There is a loose end to tie up: we have been working in (super)conformal
+gauge this whole time (check how we defined the supersymmetric
+action). For completeness, we state the action and supersymmetry for
+the full, un-gauged theory.
+
+\begin{definition}
+  The full {\bf supersymmetric worldsheet action} is
+  \[ \frac{1}{4\pi} \int d^2\sigma \sqrt{g} \left(4\pi T_0 g^{ab} \di_a X^\mu \di_b X_\mu - i \bar{\psi}^\mu \slashed{\nabla} \psi_\mu  - i (\bar{\chi}_a \Gamma^b \Gamma^a \psi_\mu)\left(\di_b X^\mu - \frac{1}{4} i \bar{\chi}_b \psi^\mu\right)\right) \]
+  with $\chi_a$, called the {\bf worldsheet gravitino}, the
+  supersymmetric partner of the metric $g$. The full {\bf local
+    supersymmetry} is
+  \[ \delta X^\mu \coloneqq \bar{\epsilon} \psi^\mu, \quad \delta \psi^\mu \coloneqq -i \slashed{\di} X^\mu \epsilon, \]
+  \[ \delta g_{ab} \coloneqq \bar{\epsilon} (\gamma_a \chi_b + \gamma_b \chi_a), \quad \delta \chi_a \coloneqq 2 \nabla_a \epsilon. \]
+  The analogue of the conformal gauge, called {\bf superconformal
+    gauge}, is given by
+  \[ g_{ab} = e^{\phi} \delta_{ab}, \quad \chi_a = \gamma_a \zeta \]
+  where $\zeta$ is a constant Majorana spinor. Then $\phi$ and $\zeta$
+  decouple from the action.
+\end{definition}
+
+If we were to start, properly, at the beginning, we would take this
+un-gauged action and gauge fix it via Faddeev--Popov. For arbitrary
+genus, this is rather hard due to the anticommuting fields: the
+(super)moduli space now contains anticommuting coordinates, and
+becomes a {\bf supermanifold}. Hence we started with the action in
+conformal gauge and proceeded from there, under the assumption that
+the whole gauge-fixing procedure does still work when anticommuting
+fields are added.
+
+It is nice, however, to introduce anticommuting coordinates anyway, in
+order to motivate the full form of the action. The idea is that
+instead of formulating the action over a two-dimensional space
+$\Sigma$, we formulate it on a two-dimensional {\bf superspace}
+$\hat{\Sigma}$, which has two new anti-commuting coordinates
+$\theta^A$ forming a two-component Majorana spinor.
+
+\begin{definition}
+  Define {\bf supersymmetry on superspace} $\delta$ as the
+  transformation with generator
+  \[ Q_A \coloneqq \pder{}{\bar{\theta}^A} + i(\Gamma^a\theta)_A \di_a, \]
+  i.e. $\delta Y^\mu = [\bar{\epsilon}Q, Y^\mu]$ for general functions
+  $Y^\mu$.
+\end{definition}
+
+\begin{exercise}
+  Check that $[\delta_1, \delta_2]$ is a translation by first
+  calculating that
+  \[ \delta \theta^A = [\bar{\epsilon}Q, \theta^A] = \epsilon^A, \quad \delta \sigma^a = [\bar{\epsilon}Q, \sigma^a] = i\bar{\epsilon}\Gamma^a \theta. \]
+  Using the two-dimensional {\bf Fierz identity} $\theta_A
+  \bar{\theta}_B = (-1/2)\delta_{AB}\bar{\theta}_C \theta^C$, show
+  that if we expand $Y^\mu(\sigma, \theta) = X^\mu + \bar{\theta}
+  \psi^\mu + (1/2)\bar{\theta} \theta B^\mu$ (and similarly for
+  $X^\mu$), then
+  \[ \delta X^\mu = \bar{\epsilon}\psi^\mu, \quad \delta \psi^\mu = -i \slashed{\di} X^\mu \epsilon + B^\mu \epsilon, \quad \delta B^\mu = -i \slashed{\di} \psi^\mu \bar{\epsilon}. \]
+  Hence recover worldsheet supersymmetry in conformal gauge by setting
+  $\slashed{\di}\psi^\mu = 0$, which is the equation of motion for
+  $\psi^\mu$.
+\end{exercise}
+
+\begin{exercise}
+  Write down all the gauge symmetries of the un-gauged supersymmetric
+  action:
+  \begin{enumerate}
+  \item diffeomorphism and Weyl actions on $\sigma^a$ and $g^{ab}$;
+  \item diffeomorphism and Weyl actions on $\theta^A$ and $\chi^a$;
+  \item worldsheet supersymmetry.
+  \end{enumerate}
+  Apply Faddeev--Popov to get the un-gauged ghost action
+  \[ \int d^2\sigma \, d^2\theta \, B \bar{D} C + \bar{B} D \bar{C}, \quad B \coloneqq \beta + \theta b, \; C \coloneqq c + \theta \gamma. \]
+\end{exercise}
+
+The usual derivative $\di$ is not invariant under supersymmetry, so we
+need a ``covariant derivative'' invariant under supersymmetry. A
+little bit of searching gives the following definition.
+
+\begin{definition}
+  The {\bf superspace covariant derivative} is $D \coloneqq
+  \di/\di \bar{\theta} - i \Gamma^a \theta \di_a$.
+\end{definition}
+
+Using the covariant derivative we can write down the {\bf
+  supersymmetric worldsheet action} in a different way:
+\[ S_{\text{X}} \coloneqq \frac{i}{4\pi} \int d^2\sigma \, d^2\theta \, \bar{D}Y^\mu DY_\mu, \quad Y^\mu \coloneqq X^\mu + \bar{\theta} \psi^\mu + \frac{1}{2} \bar{\theta} \theta B^\mu. \]
+
+\begin{exercise}
+  Show that the supersymmetric worldsheet action written this way is
+  equal to the one we wrote previously.
+\end{exercise}
+
+\begin{exercise}
+  Show that the energy-momentum tensors $T_B^{\text{m}},
+  T_F^{\text{m}}$ and $T_B^{\text{g}}, T_F^{\text{g}}$ arise as the
+  components of the {\bf super-energy-momentum tensors}
+  \[ T^{\text{m}} = T_F^{\text{m}} + \theta T_B^{\text{m}} = -\frac{1}{2} DX^\mu \di X_\mu, \quad T^{\text{g}} = T_F^{\text{g}} + \theta T_B^{\text{g}} = -C \di B + \frac{1}{2} DC DB - \frac{3}{2} \di C B. \]
+\end{exercise}
 
 \section{The Heterotic String}
-
 
 \end{document}
