@@ -157,6 +157,9 @@
 \usepackage{parskip}
 \restoreparindent
 
+\newcommand{\multilinecell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
 \tikzset{
   directed/.style={postaction=decorate,
     decoration={markings,mark=at position .5 with {\arrow{>}}}},
@@ -3779,5 +3782,256 @@ Using the covariant derivative we can write down the {\bf
 \end{exercise}
 
 \section{The Heterotic String}
+
+We have found a consistent superstring theory by extending the
+constraint algebra from the Virasoro algebra to the
+$(1,1)$-superconformal algebra. The natural question is: can we find
+more consistent superstring theories by imposing different constraint
+algebras? The main reason behind wanting to do so is that type II
+theory is not satisfactory as a {\bf grand unified theory}; it doesn't
+even contain the $\SU(3) \times \SU(2) \times U(1)$ of the standard
+model!
+
+One natural idea is to look at $(N, \tilde{N})$-superconformal
+algebras for $N > 1$. But using these algebras as constraint algebras
+fails for non-trivial reasons; \footnote{See Polchinski 11.1 or
+  Green--Schwarz--Witten 4.5.1. One issue is that the critical
+  dimension of the $N=2$ theory is $D=2$, and for $N > 2$ it becomes
+  negative!} it turns out only $N = 0$ and $N = 1$ work. So the other
+slightly less natural idea is to look at the case where $N \neq
+\tilde{N}$, i.e. the {\bf $(0,1)$-superconformal algebra}. Such a
+constraint algebra is only possible for closed strings, since level
+matching in open strings enforces $N = \tilde{N}$.
+
+\begin{definition}
+  The {\bf heterotic string} is the closed superstring theory with the
+  $(0,1)$-superconformal algebra as its constraint algebra.
+\end{definition}
+
+The interpretation is that the left-moving (holomorphic) sector of the
+theory acts like a purely bosonic string with $26$ left-moving
+coordinates, whereas the right-moving sector acts as a superstring
+with $10$ right-moving coordinates.
+
+To enforce the $(0,1)$-superconformal algebra as the constraint
+algebra, we must first decide how many spacetime dimensions we
+actually have: $10$ or $26$? The simplest approach postulates that we
+still have $10$ spacetime dimensions in both sectors, so there are
+\begin{enumerate}
+\item $10$ left- and right-moving bosonic fields $X^\mu(z, \bz)$
+  for $\mu = 0, \ldots, 9$, and
+\item $10$ right-moving fermionic (Majorana--Weyl spinor) fields $\tilde{\psi}^\mu(\bz)$ for
+  $\mu = 0, \ldots, 9$.
+\end{enumerate}
+These have total central charge $(c, \tilde{c}) = (10, 15)$ and ghost
+central charge $(-26, -15)$, so we need to balance out the remaining
+$(16, 0)$ charge. We could add sixteen more left-moving bosonic
+coordinates, but that is not the easiest way to get to the heterotic
+theory. Instead, the simplest solution is to add
+\begin{enumerate}
+\item[3.] $32$ left-moving fermionic (Majorana--Weyl spinor) fields
+  $\lambda^A(z)$ for $A = 1, \ldots, 32$.
+\end{enumerate}
+By doing so, we are exploring the {\bf fermionic realization of
+  heterotic strings}, as opposed to the {\bf bosonic realization},
+which we shall sketch later.
+
+\begin{definition}
+  In conformal gauge, the {\bf action} for the heterotic theory is
+  \[ S \coloneqq \frac{1}{4\pi} \int d^2z (4\pi T_0 \di X^\mu \bdi X_\mu + \lambda^A \bdi \lambda_A + \tilde{\psi}^\mu \di \tilde{\psi}_\mu). \]
+\end{definition}
+
+\begin{definition}
+  Let $\epsilon(\bz)$ be an anticommuting spinor with only a
+  right-moving component. The {\bf worldsheet supersymmetry} is given
+  by the infinitesimal transformation
+  \[ \delta X^\mu(z,\bz) \coloneqq \bar{\epsilon}(z) \tilde{\psi}^\mu(\bz), \quad \delta \tilde{\psi}^\mu(\bz) \coloneqq -i \slashed{\di} X^\mu(z,\bz) \epsilon(\bz). \]
+\end{definition}
+
+We need to impose boundary conditions on the fields $\lambda^A$. There
+are already some conditions imposed by the periodicity of $T_B$.
+
+\begin{exercise}
+  Compute the energy-momentum tensors
+  \[ T_B^{\text{m}}(z) = -2\pi T_0 \di X^\mu(z) \di X_\mu(z) - \frac{1}{2} \lambda^A \di \lambda_A, \quad T_F^{\text{m}}(\bz) = i\sqrt{4\pi T_0} \tilde{\psi}^\mu(\bz) \di X_\mu(z, \bz). \]
+  Since $T_B^{\text{m}}$ must be periodic, conclude that the fields
+  $\lambda^A$ are periodic up to some $O \in O(32)$:
+  \[ \lambda^A(w + 2\pi) = O^A_B \lambda^B(w). \]
+\end{exercise}
+
+Systematically searching for all possible consistent heterotic
+theories is technically difficult, \footnote{See Schellekens'
+  ``Classification of Ten-Dimensional Heterotic Strings''} so instead
+we state the known results.
+
+\begin{theorem}[Schellekens]
+  There are $9$ possible ten-dimensional heterotic theories:
+  \begin{center}
+    \begin{tabular}{ccccc}
+      Gauge group & \multilinecell{\# Ground state\\bosons} & \multilinecell{\# Ground state\\fermions} & \# Tachyons & Spacetime SUSY \\ \hline
+      $\SO(32)$ & 496 & 496 & 0 & Yes \\
+      $E_8 \times E_8$ & 496 & 496 & 0 & Yes \\
+      $\SO(16) \times \SO(16)$ & 240 & 512 & 0 & No \\
+      $\SO(32)$ & 496 & 0 & 32 & No \\
+      $\SO(16) \times E_8$ & 368 & 256 & 16 & No \\
+      $\SO(8) \times \SO(24)$ & 304 & 384 & 8 & No \\
+      $(E_7 \times \SU(2))^2$ & 272 & 448 & 4 & No \\
+      $U(16)$ & 256 & 480 & 2 & No \\
+      $E_8$ & 248 & 496 & 1 & No
+    \end{tabular}
+  \end{center}
+\end{theorem}
+
+Out of these theories, only the first two are relevant to us, because
+they are the only ones that exhibit spacetime supersymmetry. The next
+two subsections focus on their construction. The $\SO(32)$ theory is
+workable, but the $E_8 \times E_8$ theory of practical interest
+because it comfortably fits the current Standard Model gauge group
+$\SU(3) \times \SU(2) \times U(1)$.
+
+\subsection{The $SO(32)$ Heterotic String}
+
+The $\SO(32)$ symmetry is the easier one to construct. We postulate
+that each of the $\lambda^A$ fields have the same boundary conditions,
+and therefore that there is an {\bf internal $\SO(32)$ symmetry} of
+the $\lambda^A$.
+
+\begin{definition}
+  In the right-moving sector, we have analogues of the R and NS sectors:
+  \begin{enumerate}
+  \item the {\bf P sector} is defined by $\lambda^A(w + 2\pi) =
+    \lambda^A(w)$;
+  \item the {\bf A sector} is defined by $\lambda^A(w + 2\pi) =
+    -\lambda^A(w)$.
+  \end{enumerate}
+  This is equivalent to requiring that $O^A_B$ is diagonalizable. We
+  let $\nu = 0$ in the P sector and $\nu = 1/2$ in the A sector.
+  States are denoted $\ket{N}_{\text{P},L}$ and $\ket{N}_{\text{A},L}$
+  respectively. (The subscript $L$ reminds us that these states are in
+  the left-moving sector.)
+\end{definition}
+
+\begin{exercise}
+  Compute the normal ordering constants
+  \[ a^{\text{m}}_{\text{P}} = \frac{8}{24} - \frac{32}{24} = -1, \quad a^{\text{m}}_{\text{A}} = \frac{8}{24} + \frac{32}{48} = 1 \]
+  in the A and P sectors and show by analogy to the R and NS sectors
+  of the superstring that the masses for the left-moving sector are
+  \[ \frac{M^2}{8\pi T_0} = \begin{cases} \sum_{n=1}^\infty \alpha_{-n} \cdot \alpha_n + \sum_{r=1}^\infty r \lambda_{-r} \cdot \lambda_r + 1 = N + 1 & \text{P sector} \\ \sum_{n=1}^\infty \alpha_{-n} \cdot \alpha_n + \sum_{r=1/2}^\infty r \lambda_{-r} \cdot \lambda_r - 1 = N - 1 & \text{A sector}. \end{cases} \]
+  Show, or recall, the constraint that $N - a^{\text{m}} = \tilde{N} -
+  \tilde{a}^{\text{m}}$, i.e. $N \pm 1 = \tilde{N}$ depending on which
+  of the P and A sectors we are in.
+\end{exercise}
+
+The zero modes in the P sector live in a spinor representation of
+$\Spin(32)$, by analogy with the R sector zero modes, so
+$\ket{0}_{\text{P}}$ is a spinor. (We usually omit the subscript $L$
+because the P and A sectors are only in the left-moving sector.)
+
+\begin{definition}
+  The {\bf GSO projection operator} on the $\lambda^A$ fields is given
+  by
+  \[ (-1)^F \coloneqq \begin{cases} \lambda_0 (-1)^{\sum_{n=1}^\infty \lambda_{-n} \cdot \lambda_n} & \text{P sector} \\ (-1)^{\sum_{r=1/2}^\infty \lambda_{-r} \cdot \lambda_r} & \text{A sector}, \end{cases} \]
+  where $\lambda_0 \coloneqq \lambda_0^1 \cdots \lambda_0^{32}$ is the
+  analogue of the chirality operator $\Gamma^9$. The {\bf GSO
+    projection} is given by $(-1)^F \ket{\psi}_L = \ket{\psi}_L$.
+\end{definition}
+
+The reason why we need the GSO projection for the internal $\lambda^A$
+fields is unclear so far; the real reason is to preserve modular
+invariance at the one-loop level for amplitudes, but this
+demonstration is computationally involved and we shall skip it.
+However, we of course need to GSO project the right-moving sector,
+where we also require $(-1)^F \ket{\psi}_R = \ket{\psi}_R$.
+
+Let's make a nice little table for the {\bf low-level states} again.
+The states of the type II superstring are specified by their $\SO(8)$
+quantum numbers; here,
+\begin{enumerate}
+\item elements in the left-moving sector are specified by their
+  $\SO(8) \times \SO(32)$ quantum numbers (the $\SO(8)$ for the usual
+  bosonic string, and the $\SO(32)$ for the $\lambda^A$), and
+\item elements in the right-moving sector are specified by their
+  $\SO(8)$ quantum numbers (the $\SO(8)$ for the usual superstring).
+\end{enumerate}
+The GSO projection removes the tachyon $\ket{0}_{\text{A},L}$, so we
+look at massless states in the left-moving and right-moving sectors.
+The right-moving sector still has the same states ($\rep{8}_v$ and
+$\rep{8}$) as the type II superstring, so the interesting spectrum is
+that of the left-moving sector.
+
+Recall that $M^2 \propto N - a^{\text{m}}$ in the left-moving sector.
+In the A sector, we computed that $a^{\text{m}}_{\text{A}} = 1$, so
+massless states have $N = 1$. They are as follows:
+\begin{enumerate}
+\item $\alpha_{-1}^i \ket{0}_{\text{A},L}$, which transforms as
+  $(\rep{8}_v, \rep{1})$, i.e. it lives in the vector representation
+  of $\SO(8)$, and the trivial representation of $\SO(32)$;
+\item $\lambda^A_{-1/2} \lambda^B_{-1/2} \ket{0}_{\text{A},L}$, which
+  transforms as $(\rep{1}, \rep{496})$, where $496 = \binom{32}{2}$.
+\end{enumerate}
+On the other hand, in the P sector, we have $M^2 \propto N + 1$. Since
+$N$ is a non-negative operator, we cannot have $M^2 = 0 \propto N +
+1$, and therefore the P sector has no massless states. Nonetheless, it
+is important to keep the P sector around to preserve unitarity and
+modular invariance.
+
+Hence we get the following table of low-level states in the
+left-moving and right-moving sectors:
+\begin{center}
+\begin{tabular}{ccccc}
+  $M^2$ & P & A & $\tilde{\NS}$ & $\tilde{\R}$ \\ \hline
+  $-8\pi T_0$ & - & $(\rep{1}, \rep{1})$ & - & - \\
+  $0$ & - & $(\rep{8}_v, \rep{1}) \oplus (\rep{1}, \rep{496})$ & $\rep{8}_v$ & $\rep{8}$
+\end{tabular}
+\end{center}
+where we include the tachyon for completeness, though it is not a
+physical state. By tensoring together physical states in the
+left-moving sector with states in the right-moving sector, we get
+actual physical states of the heterotic string:
+\begin{align*}
+  (\rep{8}_v, \rep{1}) \otimes (\rep{8}_v \oplus \rep{8})
+  &= (\rep{1}, \rep{1}) \oplus (\rep{28}, \rep{1}) \oplus (\rep{35}, \rep{1}) \oplus (\rep{56}, \rep{1}) \oplus (\rep{8}', \rep{1}) \\
+  (\rep{1}, \rep{496}) \otimes (\rep{8}_v \oplus \rep{8})
+  &= (\rep{8}_v, \rep{496}) \oplus (\rep{8}, \rep{496}).
+\end{align*}
+The latter is a {\bf $N=1$ super Yang--Mills multiplet} in the adjoint
+of $\SO(32)$. It is a gauge symmetry in spacetime, confirming that the
+$\lambda^A$ should be viewed as internal (gauge) fields, and is the
+underlying reason we call this theory the $\SO(32)$ heterotic string.
+(Aside: the other product is the {\bf type I supergravity multiplet}.)
+
+\subsection{The $E_8 \times E_8$ Heterotic String}
+
+We got the $\SO(32)$ heterotic string by imposing identical boundary
+conditions for all $32$ fields $\lambda^A$. Specially, we said they
+are either all in the A sector, or all in the P sector. The natural
+alternative is to look at an $\SO(n) \times \SO(32-n)$ symmetry, i.e.
+$n$ of the $\lambda^A$ fields are in the P sector, and $32-n$ are in
+the A sector. Then there are {\bf four possible sectors}: PP, AP, PA
+and AA.
+
+\begin{exercise}
+  Compute the normal ordering constants
+  \begin{align*}
+    a_{\text{PP}} &= \frac{8}{24} - \frac{n}{24} - \frac{32 - n}{24} = -1 \\
+    a_{\text{PA}} &= \frac{8}{24} + \frac{32 - n}{48} - \frac{n}{24} = 1 - \frac{n}{16} \\
+    a_{\text{AP}} &= \frac{8}{24} + \frac{n}{48} - \frac{32 - n}{24} = \frac{n}{16} - 1 \\
+    a_{\text{AA}} &= \frac{8}{24} + \frac{n}{48} + \frac{32 - n}{48} = 1.
+  \end{align*}
+\end{exercise}
+
+We still have the constraint $N + a^{\text{m}} = \tilde{N}$, but $N$
+is half-integer valued and $\tilde{N}$ is integer-valued. If we are to
+have any states in the PA or AP sectors, $a^{\text{m}}_{\text{PA}} =
+-a^{\text{m}}_{\text{AP}}$ must be a half-integer, leaving the
+possibilities $n = 8, 16, 24$. (If $n = 0$ or $n = 32$, we recover
+$\SO(32)$ heterotic theory.)
+\begin{enumerate}
+\item If $n = 8$ or $n = 24$, then we have an $\SO(8) \times \SO(24)$
+  theory which suffers from one-loop anomalies.
+\item If $n = 16$, then we have (a priori) an $\SO(16) \times \SO(16)$
+  theory.
+\end{enumerate}
+Hence we focus on the $n = 16$ case.
 
 \end{document}
