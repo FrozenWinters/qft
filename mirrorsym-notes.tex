@@ -1,0 +1,584 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks=true,urlcolor=blue,bookmarks=true,citecolor=blue]{hyperref}
+\usepackage{fullpage}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{todonotes}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\di}{\partial}
+\newcommand{\sdi}{\slashed\partial}
+\newcommand{\del}{\partial}
+\newcommand{\delbar}{\bar\partial}
+ % normal ordering
+\newcommand{\NO}[1]{\vcentcolon\mathrel{#1}\vcentcolon\,}
+% creation annihilation normal ordering
+\newcommand{\circcolon}{\mathbin{\raise 0.75ex\hbox{\oalign{$\scriptscriptstyle\mathrm{o}$\cr$\scriptscriptstyle\mathrm{o}$}}}}
+\newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,}
+
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cU}{\mathcal{U}}
+\DeclareMathOperator{\id}{id}
+\newcommand{\Morse}{\mathrm{Morse}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\coker}{coker}
+\newcommand{\chH}{\check{H}}
+\newcommand{\dR}{\mathrm{dR}}
+\newcommand{\dder}[2]{\frac{d #1}{d #2}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\fder}[2]{\frac{\delta #1}{\delta #2}}
+\newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\bz}{\bar{z}}
+\newcommand{\bu}{\bar{u}}
+\newcommand{\bdi}{\bar{\di}}
+\newcommand{\rep}[1]{\mathbf{#1}}
+
+\begingroup
+    \makeatletter
+    \@for\theoremstyle:=definition,remark,plain\do{%
+        \expandafter\g@addto@macro\csname th@\theoremstyle\endcsname{%
+            \addtolength\thm@preskip\parskip
+            }%
+        }
+\endgroup
+
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+\title{Mirror Symmetry\\Summer 2016 Seminar Notes}
+\author{Anton Borissov, Henry Liu}
+\date{\today}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\maketitle
+\hypersetup{pageanchor=true}
+
+\tableofcontents
+
+\chapter{Mathematical Preliminaries}
+
+The aim of this chapter is to give a brief review of the required
+mathematical background for mirror symmetry.
+
+\section{Cohomology Theories}
+
+Throughout this section, $X$ is a complex manifold, and $H_{\dR}$ is
+de Rham cohomology. We examine the relationships between some common
+cohomology theories on $X$.
+
+\subsection{Sheaf Cohomology}
+
+All of our sheaves take values in abelian groups. Let $\cF$ be a
+presheaf on $X$.
+
+\begin{definition}
+  Recall the definition of a {\bf presheaf} $\cF$ on $X$:
+  \begin{enumerate}
+  \item (presheaf) every open set $U$ in $X$ is assigned an abelian
+    group $\cF(U)$, such that if $V \subseteq U$ are two open sets,
+    there is a restriction map $-|_{U \to V}\colon \cF(U) \to \cF(V)$
+    compatible with inclusion, i.e. $(-|_{U \to V})|_{V \to W} = -|_{U
+      \to W}$ for any $W \subseteq V \subseteq U$.
+  \end{enumerate}
+  If in addition $\cF$ satisfies the following two properties, it is a
+  {\bf sheaf}:
+  \begin{enumerate}
+  \setcounter{enumi}{1}
+  \item (locality) if $\{U_\alpha\}$ is an open cover of $X$ and $f, g
+    \in \cF(X)$ such that $f|_{U \to U_\alpha} = g|_{U \to U_\alpha}$
+    for every $U_\alpha$, then $f = g$;
+  \item (gluing) if $\{U_\alpha\}$ is an open cover of $X$ and
+    $f_\alpha \in \cF(U_\alpha)$ for every $U_\alpha$ are elements
+    agreeing on overlaps, i.e. such that $f_\alpha|_{U_\alpha \to
+      U_\alpha \cap U_\beta} = f_\beta|_{U_\beta \to U_\alpha \cap
+      U_\beta}$, then we can glue the $f_\alpha$ together to get $f
+    \in \cF(X)$, i.e. $f|_{X \to U_\alpha} = f_\alpha$ for every
+    $U_\alpha$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  Let $\cU = \{U_\alpha\}$ be an {\bf ordered open cover} of $X$, i.e.
+  with a partial order such that if $\alpha$ and $\beta$ are
+  incomparable then $U_\alpha \cap U_\beta$ is empty. A {\bf
+    $p$-simplex} $\sigma$ of $\cU$ is a totally ordered collection of
+  open sets $U_{\alpha_0}, \ldots, U_{\alpha_p} \in \cU$; we call
+  $U_{\alpha_0, \ldots, \alpha_p} \coloneqq U_{\alpha_0} \cap \cdots
+  \cap U_{\alpha_p}$ its {\bf support}, and often refer to $\sigma$ by
+  it instead. The {\bf $k$-th boundary component} of a $p$-simplex
+  $U_{\alpha_0, \ldots, \alpha_p}$ is given by $\di_k U_{\alpha_0,
+    \ldots, \alpha_p} \coloneqq U_{\alpha_0, \ldots, \hat{\alpha}_k,
+    \ldots, \alpha_p}$. Cochains are maps from simplices to sheaf
+  sections, and form a cochain complex:
+  \[ C^p(\cU, \cF) \coloneqq \prod_{\alpha_0 < \cdots < \alpha_p} \cF(U_{\alpha_0, \ldots, \alpha_p}), \quad (\delta^p \omega)(\sigma) \coloneqq \sum_{k=0}^{p+1} (-1)^k \omega(\di_k \sigma)|_{\sigma} \colon C^p(\cU, \cF) \to C^{p+1}(\cU, \cF). \]
+  The {\bf \v Cech cohomology of $\cU$} with coefficients in $\cF$,
+  denoted $\chH^\bullet(\cU, \cF)$, is the cohomology of this complex.
+\end{definition}
+
+\begin{example}
+  Let $\cF$ be a sheaf. By the gluing condition for a sheaf, a global
+  section $f \in \cF(X)$ is defined by its values $f_\alpha \coloneqq
+  f|_{X \to U_\alpha} \in \cF(U_\alpha)$ on every $U_\alpha$ in an
+  open cover. These $f_\alpha$ form precisely the data for an element
+  of $C^0(\cU, \cF)$, and satisfy the gluing condition $f_\alpha =
+  f_\beta$ on $U_\alpha \cap U_\beta$, which is precisely the
+  statement $\delta_0 f = 0$. Hence $\chH^0(\cU, \cF) = \cF(X)$ for a
+  sheaf $\cF$.
+\end{example}
+
+\begin{example}
+  Let $\cO$ denote the sheaf of holomorphic functions (and $\cO^*$ the
+  nowhere-zero ones) on $\bP^1$. Recall that on $\bP^1$ we have the
+  charts $U = \bP^1 \setminus \{S\}$ and $V = \bP^1 \setminus \{N\}$,
+  with coordinates $u$ and $v$ respectively. To look at sections of
+  $\cO(U)$ versus $\cO(V)$, we use the transition map $v = u^{-1}$ on
+  $U \cap V$. The cochains for this open cover are
+  \[ C^0(\cU, \cO) = \cO(U) \times \cO(V), \quad C^1(\cU, \cO) = \cO(U \cap V), \quad C^k(\cU, \cO) = 0 \; \forall k \ge 2. \]
+  We compute the sheaf cohomology.
+  \begin{enumerate}
+  \item ($\chH^0(\cU, \cO)$) The boundary map $\delta_0$ maps $(f, g)
+    \in C^0(\cU, \cO)$ to $g - f$. But
+    \[ f = \sum_{k=0}^\infty f_k u^k, \quad g = \sum_{k=0}^\infty g_k v^k = \sum_{k=0}^\infty g_k u^{-k}, \]
+    so $g - f = 0$ iff $f_k = g_k = 0$ for all $k > 0$, and $f_0 =
+    g_0$. Hence $\chH^0(\cU, \cO) \cong \bC$, consisting of all
+    constant functions.
+  \item ($\chH^1(\cU, \cO)$) Given $h \in C^1(\cU, \cO)$, rewrite its
+    Laurent expansion:
+    \[ h = \sum_{k=-\infty}^\infty h_k u^k = \sum_{k=0}^\infty h_k u^k + \sum_{k=1}^{\infty} h_k v^k = -f + g \]
+    where $f \in \cO(U)$ and $g \in \cO(V)$. Hence $h \in \im
+    \delta_0$, and $\chH^1(\cU, \cO) = 0$.
+  \item ($\chH^k(\cU, \cO)$) Trivially, $\chH^k(\cU, \cO) = 0$ for $k
+    \ge 2$.
+  \end{enumerate}
+  Note that $\chH^0(\cU, \cO) \cong \bC$ is consistent with what we
+  know so far, since $\chH^0(\cU, \cO) = \cO(\bP^1)$, and Liouville's
+  theorem shows that $\cO(\bP^1)$ can only contain constant functions.
+\end{example}
+
+\begin{example}
+  Recall the tautological line bundle $\cO(-1)$ and its dual $\cO(1)$
+  on $\bP^n$; we have $\cO(n) = \cO(1)^n$. On the same charts on
+  $\bP^1$, since $\cO(1)$ has transition function $u = v^{-1}$, we
+  know $\cO(n)$ has transition function $u^n = v^{-n}$. To construct a
+  global section of $\cO(n)$, given a monomial $v^k$ on $V$, we
+  require $u^n v^k = u^{n-k}$ to be well-defined on $U$, so $k \le n$.
+  In homogeneous coordinates $[x_0 : x_1]$, the global sections are
+  therefore $x_0^n, x_0^{n-1}x_1, \ldots, x_1^n$, the homogeneous
+  polynomials of degree $n$. The same story holds on $\bP^N$. Hence
+  $\dim H^0(\bP^N, \cO(n)) = \binom{N+n-1}{n-1}$. In particular, there
+  are $\binom{9}{5} = 126$ independent global sections of
+  $\cO_{\bP^4}(5)$.
+\end{example}
+
+\begin{definition}
+  The set of all open covers of $X$ form a directed set under
+  refinement. The {\bf \v Cech cohomology of $X$} with coefficients in
+  $\cF$ is the direct limit $\chH^n(X, \cF) \coloneqq \varinjlim_{\cU}
+  \chH^n(\cU, \cF)$.
+\end{definition}
+
+\begin{definition}
+  An ordered open cover $\{U_\alpha\}$ is {\bf good} if it is
+  countable and every finite intersection $U_{\alpha_0, \ldots,
+    \alpha_p}$ is either empty or contractible.
+\end{definition}
+
+\begin{theorem}[{\cite[Corollary of Theorem 5.4.1]{Godement1997}}]
+  The \v Cech cohomology of a good cover $\cU$ is isomorphic to the \v
+  Cech cohomology of $X$.
+\end{theorem}
+
+One can define {\bf sheaf cohomology} $H^n(X, \cF)$ as the right
+derived functors of the global sections functor $\Gamma_X$ (i.e. $\cF
+\mapsto \cF(X)$). For us, \v Cech and sheaf cohomology are
+indistinguishable as long as we work with sheaves.
+
+\begin{theorem}[{\cite[Theorem 5.10.1]{Godement1997}}]
+  If $X$ is a paracompact topological space, then \v Cech cohomology
+  $\chH^n(X, \cF)$ and sheaf cohomology $H^n(X, \cF)$ are isomorphic
+  for any sheaf $\cF$.
+\end{theorem}
+
+\v Cech cohomology is also directly related to de Rham cohomology,
+and, as we shall see, Dolbeault cohomology in the complex case. So we
+can think of \v Cech cohomology classes as forms.
+
+\begin{theorem}[\v Cech--de Rham isomorphism]
+  Let $\bR$ denote the constant sheaf. There is a canonical
+  isomorphism $\chH^k(X, \bR) \cong H_{\dR}^k(X)$ for each $k$.
+\end{theorem}
+
+\begin{proof}
+  By the Poincar\'e lemma, the {\bf de Rham complex} of sheaves
+  \[ 0 \to \bR \xrightarrow{\subset} \Omega^0(X) \xrightarrow{d} \Omega^1(X) \xrightarrow{d} \Omega^2(X) \xrightarrow{d} \cdots \]
+  is exact (by checking exactness on the stalks). Let $Z^n \coloneqq
+  \ker(d\colon \Omega^k \to \Omega^{k+1})$. The de Rham complex splits
+  into a bunch of short exact sequences:
+  \[ 0 \to d\Omega^{k-1} \cong Z^k \xrightarrow{\subset} \Omega^k \xrightarrow{d} Z^{k+1} \to 0. \]
+  To each such short exact sequence is associated a long exact
+  sequence of (sheaf) cohomology:
+  \[ 0 \to H^0(X, Z^k) \to H^0(X, \Omega^k) \to H^0(X, Z^{k+1}) \to H^1(X, Z^k) \to H^1(X, \Omega^k) \to H^1(X, Z^{k+1}) \to \cdots. \]
+  Fact: $H^i(X, \Omega^k) = 0$ for every $k$ and $i > 0$ (since
+  $\Omega^k$ is a fine sheaf). Hence we obtain isomorphisms
+  \[ H^{i+1}(X, Z^0) \cong H^i(X, Z^1) \cong \cdots \cong H^1(X, Z^i). \]
+  But $Z^0 \cong \bR$ and we more commonly write
+  \[ H^1(X, Z^i) = \coker(H^0(X, \Omega^i) \to H^0(X, Z^{i+1})) = Z^{i+1}(X)/d\Omega^k(X) = H^{i+1}_{\dR}(X). \]
+  Hence $\chH^{i+1}(X, \bR) \cong H^{i+1}_{\dR}(X)$.
+\end{proof}
+
+\begin{definition}
+  Let $E$ be a holomorphic vector bundle on $X$ and $\Omega^{0,q}(E)
+  \coloneqq \Omega^{0,q}(X) \otimes \Gamma(E)$ denote the space of
+  $E$-valued $(0,q)$-forms. {\bf Dolbeault cohomology} $H^{p,q}(E)$ is
+  the cohomology of the complex
+  \[ \cdots \xrightarrow{\bdi} \Omega^{0,q}(E) \xrightarrow{\bdi} \Omega^{0,q+1}(E) \xrightarrow{\bdi} \Omega^{0,q+2}(E) \xrightarrow{\bdi} \cdots. \]
+  We write $H^{p,q}(X)$ for $E = \Lambda^pT^{1,0}X$. The dimensions
+  $h^{p,q}(E) \coloneqq \dim_{\bC} H^{p,q}(E)$ are the {\bf Hodge
+    numbers} of $X$ with respect to $E$.
+\end{definition}
+
+\begin{lemma}[$\bdi$-Poincar\'e lemma]
+  $\bdi$-closed, i.e. holomorphic, implies $\bdi$-exact on $\bC^n$.
+\end{lemma}
+
+\begin{theorem}[\v Cech--Dolbeault isomorphism]
+  Let $\Omega^{p,0}$ denote the sheaf of holomorphic $p$-forms on $X$.
+  There is a natural isomorphism $\chH^q(X, \Omega^{p,0}) \cong
+  H^{p,q}(X)$.
+\end{theorem}
+
+\begin{proof}
+  Analogous to the proof of the \v Cech--de Rham isomorphism, except
+  now using the $\bdi$-Poincar\'e lemma to establish the exactness of
+  the complex
+  \[ 0 \to \ker(\bdi\colon\Omega^{p,0}(X) \to \Omega^{p,1}(X)) \xrightarrow{\subset} \Omega^{p,0}(X) \xrightarrow{\bdi} \Omega^{p,1}(X) \xrightarrow{\bdi} \cdots. \qedhere \]
+\end{proof}
+
+\begin{definition}
+  Consider the double complex $\Omega^{\bullet,\bullet}$ with
+  differentials $\di$ and $\bdi$. The {\bf Fr\"olicher spectral
+    sequence} is the spectral sequence of a double complex associated
+  to $\Omega^{\bullet,\bullet}$. Since the total complex of
+  $\Omega^{\bullet,\bullet}$ is $\Omega^\bullet(X)$, the Fr\"olicher
+  spectral sequence converges to complex de Rham cohomology
+  $H^\bullet_{\dR}(X, \bC)$.
+\end{definition}
+
+\subsection{Morse Homology}
+
+Throughout this subsection, $f\colon X \to \bR$ is a smooth function,
+and we equip $X$, viewed as a real manifold, with a Riemannian metric
+$g$. We also assume $(f, g)$ is Morse--Smale, defined below.
+
+\begin{definition}
+  A {\bf critical point} of $f$ is a point $p \in X$ with $df_p = 0$.
+  Define the {\bf Hessian}
+  \[ H(f)_p\colon T_pX \to T_p^*X, \quad v \mapsto \nabla_v(df), \]
+  which is independent of the choice of connection $\nabla$. (In
+  coordinates, we recover the usual $\di^2f/\di x_i \di x_j$.) The
+  critical point $p$ is {\bf non-degenerate} if the Hessian does not
+  have zero eigenvalues. A non-degenerate critical point $p$ has {\bf
+    Morse index} $\ind(p)$ the number of negative eigenvalues of the
+  Hessian. The function $f$ is {\bf Morse} if all of its critical
+  points are non-degenerate.
+\end{definition}
+
+\begin{definition}
+  Recall that the {\bf gradient} of $f$ with respect to a metric $g$
+  is the vector field $\grad f$ such that $g(\grad f, X) = Xf$.
+  Equivalently, $\grad f = (df)^\sharp$. Let $\psi_t\colon X \to X$ be
+  the one-parameter group of diffeomorphisms associated to the flow of
+  $-\grad f$. The {\bf descending manifold} $D(p)$ and {\bf ascending
+    manifold} $A(p)$ at a critical point $p$ are
+  \begin{align*}
+    D(p) &\coloneqq \{x \in X : \lim_{t \to -\infty} \psi_t(x) = p\} \\
+    A(p) &\coloneqq \{x \in X : \lim_{t \to +\infty} \psi_t(x) = p\}.
+  \end{align*}
+  The pair $(f, g)$ is {\bf Morse--Smale} if $f$ is Morse and $D(p)$
+  is transverse to $A(q)$ for every pair of critical points $p$ and
+  $q$ (i.e. tangent spaces of $D(p)$ and $A(q)$ generate the tangent
+  space at every intersection point).
+\end{definition}
+
+Here are two useful and easy-to-prove facts: every flow line
+asymptotically approaches critical points, and $\dim D(p) = \ind(p)$
+(so $\dim A(p) = \dim X - \ind p$ by the Morse--Smale condition).
+
+\begin{definition}
+  Fix critical points $p$ and $q$. A {\bf flow line} from $p$ to $q$
+  is an integral curve $\gamma(t)$ of $-\grad f$ with $\lim_{t \to
+    -\infty} \gamma(t) = p$ and $\lim_{t \to +\infty} \gamma(t) = q$.
+  The {\bf moduli space of flow lines} from $p$ to $q$ is
+  \begin{align*}
+    \cM(p, q) &\coloneqq \{\text{flow lines from } p \text{ to } q\}/\sim,
+    \quad \alpha \sim \beta \text{ if } \exists c \in \bR : \alpha(t) = \beta(t + c) \\
+    &= (D(p) \cap A(q)) / \bR.
+  \end{align*}
+  A {\bf broken flow line} consists, piecewise, of flow lines.
+\end{definition}
+
+The Morse--Smale condition implies $D(p) \cap A(q)$ is a submanifold
+of $X$ with dimension $\ind(p) - \ind(q)$. Since $\sim$ is a smooth,
+proper, free $\bR$-action, $\cM(p, q)$ is a manifold of dimension
+$\ind(p) - \ind(q) - 1$ when $p \neq q$ (otherwise the $\bR$-action is
+trivial). Note that if $\ind(p) = k$ and $\ind(q) = k-1$ then $\cM(p,
+q)$ is zero-dimensional. In fact, in this case, $\cM(p, q)$ is compact
+as a corollary of the following theorem, and therefore is a finite set
+of points.
+
+\begin{theorem}[{\cite[Theorem 2.1]{Hutchings2012}}]
+  Let $X$ be closed and $(f, g)$ Morse--Smale. Then $\cM(p, q)$ has a
+  natural compactification to a smooth manifold with corners
+  $\overline{\cM(p, q)}$ where
+  \[ \overline{\cM(p, q)} \setminus \cM(p, q) = \bigcup_{k \ge 1} \bigcup_{\substack{p,r_1,\ldots,r_k,q\\\text{distinct crit pts}}} \cM(p, r_1) \times \cM(r_1, r_2) \times \cdots \times \cM(r_{k-1}, r_k) \times \cM(r_k, q). \]
+\end{theorem}
+
+\begin{corollary}
+  If $\ind(p) - \ind(q) = 1$, then $\overline{\cM(p, q)} = \cM(p, q)$
+  is compact. If $\ind(p) - \ind(q) = 2$, then
+  \[ \di \overline{\cM(p, q)} = \bigcup_{\ind(r) = \ind(p)-1} \cM(p, r) \times \cM(r, q). \]
+\end{corollary}
+
+\begin{proof}
+  Since $\dim \cM(r, s) = \ind(r) - \ind(s) - 1$, the space $\cM(r,
+  s)$ is non-empty only if $\ind(r) - \ind(s) \ge 1$. Hence
+  $\overline{\cM(p, q)}\setminus \cM(p, q) = \emptyset$ when $\ind(p)
+  - \ind(q) = 1$. Similar reasoning shows the $\ind(p) - \ind(q) = 2$
+  case.
+\end{proof}
+
+\begin{definition}
+  Fix orientations for $D(p)$ at every critical point $p$. There is an
+  isomorphism at $x \in \gamma \in \cM(p, q)$ given by
+  \begin{align*}
+    T_xD(p) &\cong T_x(D(p) \cap A(q)) \oplus (T_xX/T_xA(q)) && \text{transversality from Morse--Smale} \\
+    &\cong T_\gamma \cM(p, q) \oplus T_x\gamma \oplus (T_xX/T_xA(q)) && \text{definition of $\cM(p, q)$} \\
+    &\cong T_\gamma \cM(p, q) \oplus T_x\gamma \oplus T_qD(q) && \text{translating $T_qD(q)$ along $\gamma$.}
+  \end{align*}
+  The {\bf orientation} on $\cM(p, q)$ is such that this isomorphism
+  is orientation-preserving. Let $C_k$ be the free abelian group
+  generated by critical points of index $k$, and define the {\bf
+    Morse--Smale--Witten boundary map}
+  \[ \di_k^{\Morse}\colon C_k \to C_{k-1}, \quad p \mapsto \sum_{\ind q = k-1} \# \cM(p, q) q \]
+  where $\# \cM(p, q) \in \bZ$ is counted with sign according to the
+  orientation of $\cM(p, q)$, which here is a discrete set of points.
+\end{definition}
+
+\begin{lemma}
+  $(\di_k^\Morse)^2 = 0$, so $(C_\bullet, \di^\Morse)$ is a chain
+  complex.
+\end{lemma}
+
+\begin{proof}
+  Let $\ind(p) - \ind(q) = 2$. The coefficient of $q$ in
+  $(\di^\Morse)^2p$ is
+  \[ \sum_{\ind(r) = \ind(p)-1} \# \cM(p, r) \cdot \# \cM(r, q) = \# \bigcup_{\ind(r) = \ind(p)-1} \cM(p, r) \times \cM(r, q) = \# \di \overline{\cM(p, q)}. \]
+  Since $\overline{\cM(p, q)}$ is an oriented $1$-manifold with
+  boundary, this quantity, the number of boundary points, is
+  zero.
+\end{proof}
+
+\begin{definition}
+  {\bf Morse homology} $H_\bullet^\Morse(f, g)$ is the homology of the
+  {\bf Morse--Smale--Witten complex} $(C_\bullet, \di^{\Morse})$.
+\end{definition}
+
+\begin{example}
+  The (upright) torus $T^2$ has four critical points with $f$ the
+  height function: $p$ (index 2), $q$ and $r$ (index 1), and $s$
+  (index 0). This choice of $f$ is Morse, but with the induced metric
+  $g$ from $\bR^3$, the pair $(f, g)$ is not Morse--Smale: $D(q) \cap
+  A(r)$ is non-empty, but transversality forces it to be. The solution
+  is to tilt the torus a little; equivalently, perturb $g$. There are
+  two flow lines, of opposite sign, for each relevant pair of critical
+  points. Hence $\di_k^\Morse = 0$ for $k = 1, 2$. It follows that
+  \[ H_2^\Morse(f, g) = \bZ, \quad H_1^\Morse(f,g) = \bZ^2, \quad H_0^\Morse(f, g) = \bZ. \]
+\end{example}
+
+\begin{theorem}[{\cite[Theorem 3.1]{Hutchings2012}}]
+  Let $X$ be a closed smooth manifold, $H_\bullet(X)$ denote singular
+  homology on $X$, and $(f, g)$ be a Morse--Smale pair on $X$. Then
+  there is a canonical isomorphism $H_n^\Morse(f, g) \cong H_n(X)$.
+\end{theorem}
+
+\begin{corollary}
+  The number of critical points of a Morse function is at least the
+  sum $\sum_k \dim H_k(X)$ of the Betti numbers.
+\end{corollary}
+
+\begin{proof}
+  The number of critical points is the sum of the dimensions of the
+  Morse chain groups, which is at least the sum of the dimensions of
+  the Morse homology groups, which is equal to the sum of the
+  dimensions of the singular homology groups.
+\end{proof}
+
+The infinite-dimensional analogue of Morse homology is known as {\bf
+  Floer homology}. We shall primarily be concerned with Floer homology
+for mirror symmetry.
+
+\subsection{Equivariant Cohomology}
+
+
+
+\section{Differential Topology}
+
+We stop distinguishing between isomorphic cohomology theories now. In
+particular, since $X$ is always at least a smooth manifold, we think
+of singular cohomology $H^k(X)$ as de Rham cohomology.
+
+\subsection{Poincar\'e Duality}
+
+Unless otherwise stated, $X$ in this section is a compact oriented
+$n$-manifold.
+
+\begin{theorem}[Poincar\'e duality, \cite{Bott1982}]
+  Let $X$ be a compact oriented $n$-manifold. The map
+  \[ \int_X\colon H^k(X) \otimes H^{n-k}(X) \to \bR, \quad \omega \otimes \eta \mapsto \int_X \omega \wedge \eta \]
+  is a perfect pairing, and hence $H^k(X) \cong H^{n-k}(X)^*$.
+\end{theorem}
+
+If we relax the assumption that $X$ is compact, then the issue is that
+$\int_X$ may not be well-defined. We work around this by using
+de Rham cohomology with compact support.
+
+\begin{definition}
+  Let $\Omega_c^k(X)$ denote the $k$-forms on $X$ with compact
+  support. The {\bf de Rham cohomology groups with compact support}
+  $H^n_c(X)$ are the cohomology of the chain complex
+  $(\Omega_c^\bullet(X), d)$.
+\end{definition}
+
+\begin{theorem}[Poincar\'e duality for non-compact manifolds, \cite{Bott1982}]
+  Let $X$ be an oriented $n$-manifold without boundary. The map
+  \[ \int_X\colon H^k(X) \otimes H^{n-k}_c(X) \to \bR, \quad \omega \otimes \eta \mapsto \int_X \omega \wedge \eta \]
+  is a perfect pairing, and hence $H^k(X) \cong H^{n-k}_c(X)^*$.
+\end{theorem}
+
+\begin{definition}
+  Fix $C \subset X$ a closed $(n-k)$-submanifold. Then Poincar\'e
+  duality identifies the map $\int_C\colon H^{n-k}(X) \to \bR$
+  with a $k$-form $\eta_C \in H^k(X)$, called the {\bf
+    Poincar\'e dual class}. Explicitly, $\int_C \omega = \int_X \omega
+  \wedge \eta_C$.
+\end{definition}
+
+There is a relation between the Poincar\'e dual class and the Thom
+class, which we define below. Namely, the Poincar\'e dual class of $C$
+can be constructed as the Thom class of the normal bundle of $C$ in
+$X$.
+
+\begin{theorem}[{\cite[Theorem 10.4]{Milnor1974}}]
+  Let $\pi\colon E \to B$ be an oriented rank-$n$ real vector bundle
+  and $B$ is embedded into $E$ as the zero section. Then
+  \begin{enumerate}
+  \item there exists a unique cohomology class $\Phi \in H^n(E, E
+    \setminus B)$ called the {\bf Thom class} such that for every
+    $x \in B$, the restriction of $u$ to $H^n(E_x, E_x \setminus
+    \{0\})$ is the preferred generator specified by the
+    orientation of $E_x$ in $E$;
+  \item the {\bf Thom isomorphism} $\colon H^k(E) \to H^{k+n}(E, E
+    \setminus B)$, given by $\omega \mapsto \omega \wedge \Phi$, is an
+    isomorphism for every $k$.
+  \end{enumerate}
+\end{theorem}
+
+Note that since $B$ is a deformation retract of $E$, the rings
+$H^*(E)$ and $H^*(B)$ are isomorphic. Hence $\pi^*\Phi = 1 \in H^*(B)$,
+which shall be very important in the upcoming proof.
+
+\begin{theorem}[Tubular neighborhood theorem, {\cite[Theorem 11.1]{Milnor1974}}]
+  Let $C \subset X$ be a $k$-submanifold embedded in $X$. There exists
+  an open neighborhood, called a {\bf tubular neighborhood}, of $C$ in
+  $X$ diffeomorphic to the total space of the normal bundle of $C$.
+  This diffeomorphism maps points in $C$ to zero vectors.
+\end{theorem}
+
+\begin{proposition}[{\cite[Proposition 6.24a]{Bott1982}}]
+  Let $C \subset X$ be a closed $(n-k)$-submanifold. The Poincar\'e
+  dual class $\eta_C \in H^k(X)$ of $C$ is the Thom class of the
+  normal bundle of $C$ in $X$.
+\end{proposition}
+
+\begin{proof}
+  Let $NC$ denote the normal bundle of $C$ in $X$, which has rank $k$
+  because $C$ is codimension $k$. Use the tubular neighborhood theorem
+  to identify $NC$ with an open neighborhood $T$ of $C$ in $X$, and
+  then extend by zero to get $\Phi \in H^k(X)$ supported on $T$.
+
+  We shall show that $\int_X \omega \wedge \Phi = \int_C \omega$ for
+  any $\omega \in H^{n-k}_c(X)$. The maps $\pi\colon T \to C$ and
+  $\iota\colon C \to T$ induce isomorphisms of cohomology, so on forms
+  $\omega$ and $\pi^*\iota^*\omega$ differ by at most an exact form
+  $d\tau$. Then
+  \begin{align*}
+    \int_X \omega \wedge \Phi
+    &= \int_T \omega \wedge \Phi = \int_T (\pi^*\iota^*\omega + d\tau) \wedge \Phi \\
+    &= \int_T \pi^*\iota^*\omega \wedge \Phi = \int_C \iota^*\omega \wedge \pi^* \Phi = \int_C \iota^*\omega. \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Transverse intersection is Poincar\'e dual to the wedge product,
+  i.e. for $C, D \subset X$ closed submanifolds intersecting
+  transversally, $\eta_{C \cap D} = \eta_C \wedge \eta_D$.
+\end{corollary}
+
+\begin{proof}
+  For transversal intersections, codimension is additive: $\codim C
+  \cap D = \codim C + \codim D$. So the normal bundle of the
+  intersection is $N(C \cap D) = NC \oplus ND$. Let $\Phi(E)$ denote
+  the Thom class associated to the vector bundle $E$. By the
+  characterization of the Thom class, for vector bundles $E$ and $F$
+  we have $\Phi(E \oplus F) = \Phi(E) \wedge \Phi(F)$; check that
+  $\Phi(E) \oplus \Phi(F)$ restricts on each fiber to the preferred
+  generator. Hence
+  \[ \eta_{C \cap D} = \Phi(N_{C \cap D}) = \Phi(NC \oplus ND) = \Phi(NC) \wedge \Phi(ND) = \eta_C \wedge \eta_D. \qedhere \]
+\end{proof}
+
+\subsection{Serre Duality}
+
+
+\subsection{Characteristic Classes}
+
+\subsection{The Grothendieck--Riemann--Roch Formula}
+
+\section{Calabi--Yau Manifolds}
+
+\section{Toric Geometry}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{unsrt}
+\bibliography{mirrorsym-notes}
+
+\end{document}
