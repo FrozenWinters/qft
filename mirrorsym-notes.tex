@@ -11,7 +11,7 @@
 \usepackage{verbatim}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
-\usepackage{todonotes}
+\usepackage{todo}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -45,11 +45,17 @@
 \DeclareMathOperator{\id}{id}
 \newcommand{\Morse}{\mathrm{Morse}}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\grad}{grad}
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\td}{td}
 \DeclareMathOperator{\ind}{ind}
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Ad}{Ad}
 \newcommand{\chH}{\check{H}}
 \newcommand{\dR}{\mathrm{dR}}
 \newcommand{\dder}[2]{\frac{d #1}{d #2}}
@@ -259,22 +265,22 @@ can think of \v Cech cohomology classes as forms.
 \begin{definition}
   Let $E$ be a holomorphic vector bundle on $X$ and $\Omega^{0,q}(E)
   \coloneqq \Omega^{0,q}(X) \otimes \Gamma(E)$ denote the space of
-  $E$-valued $(0,q)$-forms. {\bf Dolbeault cohomology} $H^{p,q}(E)$ is
-  the cohomology of the complex
+  $E$-valued $(0,q)$-forms. {\bf Dolbeault cohomology} $H^q_{\bdi}(E)$
+  is the cohomology of the complex
   \[ \cdots \xrightarrow{\bdi} \Omega^{0,q}(E) \xrightarrow{\bdi} \Omega^{0,q+1}(E) \xrightarrow{\bdi} \Omega^{0,q+2}(E) \xrightarrow{\bdi} \cdots. \]
-  We write $H^{p,q}(X)$ for $E = \Lambda^pT^{1,0}X$. The dimensions
-  $h^{p,q}(E) \coloneqq \dim_{\bC} H^{p,q}(E)$ are the {\bf Hodge
-    numbers} of $X$ with respect to $E$.
+  We write $H^{p,q}_{\bdi}(X)$ for $E = \Lambda^pT^{1,0}X$. The
+  dimensions $h^{p,q}(X) \coloneqq \dim_{\bC} H^{p,q}_{\bdi}(X)$ are
+  the {\bf Hodge numbers} of $X$.
 \end{definition}
 
 \begin{lemma}[$\bdi$-Poincar\'e lemma]
   $\bdi$-closed, i.e. holomorphic, implies $\bdi$-exact on $\bC^n$.
 \end{lemma}
 
-\begin{theorem}[\v Cech--Dolbeault isomorphism]
+\begin{theorem}[\v Cech--Dolbeault isomorphism] \label{thm:cech-dolbeault}
   Let $\Omega^{p,0}$ denote the sheaf of holomorphic $p$-forms on $X$.
   There is a natural isomorphism $\chH^q(X, \Omega^{p,0}) \cong
-  H^{p,q}(X)$.
+  H^{p,q}_{\bdi}(X)$.
 \end{theorem}
 
 \begin{proof}
@@ -451,13 +457,14 @@ for mirror symmetry.
 
 
 
-\section{Differential Topology}
+\section{Algebraic Topology}
 
 We stop distinguishing between isomorphic cohomology theories now. In
 particular, since $X$ is always at least a smooth manifold, we think
-of singular cohomology $H^k(X)$ as de Rham cohomology.
+of singular cohomology $H^k(X)$ as de Rham cohomology. For a bundle
+$E$, $H^k(E)$ refers to sheaf cohomology.
 
-\subsection{Poincar\'e Duality}
+\subsection{Poincar\'e and Serre Duality}
 
 Unless otherwise stated, $X$ in this section is a compact oriented
 $n$-manifold.
@@ -498,15 +505,15 @@ class, which we define below. Namely, the Poincar\'e dual class of $C$
 can be constructed as the Thom class of the normal bundle of $C$ in
 $X$.
 
-\begin{theorem}[{\cite[Theorem 10.4]{Milnor1974}}]
-  Let $\pi\colon E \to B$ be an oriented rank-$n$ real vector bundle
+\begin{theorem}[{\cite[Theorem 10.4]{Milnor1974}}] \label{thm:thom}
+  Let $\pi\colon E \to B$ be an oriented rank $n$ real vector bundle
   and $B$ is embedded into $E$ as the zero section. Then
   \begin{enumerate}
   \item there exists a unique cohomology class $\Phi \in H^n(E, E
-    \setminus B)$ called the {\bf Thom class} such that for every
-    $x \in B$, the restriction of $u$ to $H^n(E_x, E_x \setminus
-    \{0\})$ is the preferred generator specified by the
-    orientation of $E_x$ in $E$;
+    \setminus B)$ called the {\bf Thom class} such that for every $x
+    \in B$, the restriction of $\Phi$ to $H^n(E_x, E_x \setminus
+    \{0\})$ is the preferred generator specified by the orientation of
+    $E_x$ in $E$;
   \item the {\bf Thom isomorphism} $\colon H^k(E) \to H^{k+n}(E, E
     \setminus B)$, given by $\omega \mapsto \omega \wedge \Phi$, is an
     isomorphism for every $k$.
@@ -524,7 +531,7 @@ which shall be very important in the upcoming proof.
   This diffeomorphism maps points in $C$ to zero vectors.
 \end{theorem}
 
-\begin{proposition}[{\cite[Proposition 6.24a]{Bott1982}}]
+\begin{proposition}[{\cite[Proposition 6.24a]{Bott1982}}] \label{thm:thom-normal}
   Let $C \subset X$ be a closed $(n-k)$-submanifold. The Poincar\'e
   dual class $\eta_C \in H^k(X)$ of $C$ is the Thom class of the
   normal bundle of $C$ in $X$.
@@ -548,7 +555,7 @@ which shall be very important in the upcoming proof.
   \end{align*}
 \end{proof}
 
-\begin{corollary}
+\begin{corollary} \label{thm:wedge-dual}
   Transverse intersection is Poincar\'e dual to the wedge product,
   i.e. for $C, D \subset X$ closed submanifolds intersecting
   transversally, $\eta_{C \cap D} = \eta_C \wedge \eta_D$.
@@ -566,16 +573,470 @@ which shall be very important in the upcoming proof.
   \[ \eta_{C \cap D} = \Phi(N_{C \cap D}) = \Phi(NC \oplus ND) = \Phi(NC) \wedge \Phi(ND) = \eta_C \wedge \eta_D. \qedhere \]
 \end{proof}
 
-\subsection{Serre Duality}
+Let $X$ be a complex $n$-fold now. In the complex setting, we can
+refine Poincar\'e duality. The \v Cech--Dolbeault isomorphism
+\ref{thm:cech-dolbeault} works for the more general setting in which
+we defined Dolbeault cohomology: if $E$ is a holomorphic vector bundle
+over $X$, then $H^k(X, E) \cong H^k_{\bdi}(E)$. So we think of \v Cech
+cohomology classes $H^k(X, E)$ as $E$-valued $(0,k)$-forms.
 
+\begin{definition}
+  The {\bf canonical bundle} $K_X$ of a complex $n$-fold $X$ is the
+  vector bundle of $(n, 0)$-forms. (Also commonly denoted
+  $\Omega^n(X)$.)
+\end{definition}
 
-\subsection{Characteristic Classes}
+Hence $H^{n-k}(X, E^* \otimes K_X)$ consists of $E^*$-valued $(n,
+n-k)$-forms. Given such a form $\omega$ and another form $\eta \in
+H^k(X, E)$, the form $\omega \wedge \eta$ is an $(n, n)$-form with
+complex coefficients. We can integrate it to get something in $\bC$.
+At this point it is impossible not to wonder about whether the pairing
+$H^k(E) \otimes H^{n-k}(X, E^* \otimes K_X) \to \bC$ given by wedging
+and then integrating is perfect.
 
-\subsection{The Grothendieck--Riemann--Roch Formula}
+\begin{theorem}[Serre duality, {\cite[Corollary III.7.13]{Hartshorne1997}}]
+  The pairing $H^k(X, E) \otimes H^{n-k}(X, E^* \otimes K_X) \to \bC$
+  is perfect, so $H^k(X, E) \cong H^{n-k}(X, E^* \otimes K_X)^*$.
+\end{theorem}
+
+Poincar\'e duality combined with Hodge decomposition gives
+\[ \bigoplus_{p+q=k} H^q(X, \Omega^p) = H^k(X, \bC) \cong H^{2n-k}(X, \bC) = \bigoplus_{p'+q'=2n-k} H^{q'}(X, \Omega^{p'}) = \bigoplus_{p+q=k} H^{n-q}(X, \Omega^{n-p}). \]
+Serre duality says that in fact, each of the terms in the sum are
+isomorphic: $H^q(X, \Omega^p) \cong H^{n-q}(X, \Omega^{n-p})$.
+
+\subsection{Chern Classes via Chern--Weil Theory}
+
+For this subsection, we work over $\bC$, and every vector bundle we
+consider is smooth and complex. We define Chern classes using the
+Chern--Weil approach. There are other equivalent approaches in more
+general settings. But for us, we take $\pi\colon E \to X$ to be a
+rank-$n$ smooth complex vector bundle over a smooth manifold $X$. A
+connection $A \in \Omega^1(X, \Ad E)$ on $E$ gives a curvature $F_A
+\coloneqq dA + A \wedge A \in \Omega^2(X, \Ad E)$.
+
+\begin{definition}
+  The {\bf total Chern class} of $E$ is
+  \begin{align*}
+    c(E) \coloneqq \det\left(1 + \frac{i}{2\pi}F\right)
+    &= 1 + \frac{i}{2\pi} \tr(F) + \frac{1}{8\pi}(\tr(F^2) - \tr(F)^2) + \cdots \\
+    &= 1 + c_1(E) + c_2(E) + \cdots \in H^0(X, \bR) \oplus H^2(X, \bR) \oplus \cdots.
+  \end{align*}
+  Its terms $c_k(E) \in H^{2k}(X, \bR)$ are the {\bf Chern classes}.
+  The total Chern class $c(X)$ of $X$ is defined as $c(X) \coloneqq
+  c(T^{1,0}X)$.
+\end{definition}
+
+\begin{theorem}[Chern--Weil theorem, {\cite[Corollary 4.4.5, Lemma 4.4.6]{Huybrechts2005}}]
+  The total Chern class $c(E)$ is closed and independent of the choice
+  of connection $A$ on $E$.
+\end{theorem}
+
+\begin{example}
+  A magnetic monopole at the origin in $U(1)$ Maxwell theory is given
+  by the trivial line bundle on $\bR^3$ with connection $A =
+  i\frac{1}{2r} \frac{1}{z-r} (x dy - y dx)$, where $r$ is the
+  coordinate on the fibers of the bundle. Then
+  \[ F_A = i\frac{1}{2r^3} (x dy \wedge dz + y dz \wedge dx + z dx \wedge dy) = -\frac{i}{2r^2}(r^2 \sin \theta d\theta \wedge d\phi). \]
+  We easily check that $\int_{S^2} c_1 = \frac{i}{4\pi} \int_{S^2} F_A
+  = 1$ for any $2$-sphere around the origin.
+\end{example}
+
+\begin{theorem} \label{thm:chern-axioms}
+  The Chern classes satisfy and are uniquely determined by the
+  following properties:
+  \begin{enumerate}
+  \item $c_0(E) = 1$ and $c_k(E) = 0$ if $k > \dim E$;
+  \item (Naturality) if $f\colon Y \to X$ is continuous, then $f^*c(E)
+    = c(f^*E)$;
+  \item (Whitney product formula) $c(E \oplus F) = c(E) \wedge c(F)$;
+  \item $c_1(\cO_{\bP^1}(-1))$ is minus the preferred generator (given
+    by the orientation) of $H^2(\bP^1)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Property 1 is clear from the definition of $c_k(E)$. Property 2
+  follows from the multiplicative property of the determinant for
+  block diagonal matrices; the curvature on $E \oplus F$ splits as a
+  curvature on $E$ and a curvature on $F$. Property 3 follows from
+  pulling back a connection $A$ on $E$ to a connection $f^*A$ on
+  $f^*E$, and then using that pullbacks commute with everything.
+
+  Property 4 is more tedious and serves as our second explicit
+  calculation of a Chern class. On $\bP^1$, take the usual charts $(U,
+  u)$ and $(V, v)$ with $u = v^{-1}$ on $U \cap V$. The local
+  $1$-forms
+  \[ A_U = \frac{\bar{u} du}{1 + u\bar{u}}, \quad A_V = \frac{\bar{v} dv}{1 + v \bar{v}} \]
+  form the globally-defined {\bf Chern connection} on
+  $\cO_{\bP^1}(-1)$, the tautological bundle. We cheat a little and
+  work only over $U$ instead of all of $\bP^1$. The curvature is
+  \[ F_{A_U} = \frac{(1 + u\bar{u}) d\bar{u} \wedge du - \bar{u} (\bar{u} du + u d\bar{u}) \wedge du}{(1 + u\bar{u})^2} = -\frac{du \wedge d\bar{u}}{(1 + u\bar{u})^2}. \]
+  Hence, in real coordinates, $c_1(\cO_{\bP^1}(-1)) = -\frac{dx \wedge
+    dy}{\pi(1 + x^2 + y^2)^2}$. To compare this with the preferred
+  generator, we simply integrate both and compare the result. (This is
+  valid since $\dim H^2(\bP^1) = 1$.) We know the preferred generator
+  integrates to $1$, whereas
+  \[ \int_{\bP^1} c_1(\cO_{\bP^1}(-1)) = -\frac{1}{\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty \frac{dx \wedge dy}{(1 + x^2 + y^2)^2} = -\frac{1}{\pi} \int_0^\infty \int_0^{2\pi} \frac{r d\theta \wedge dr}{(1 + r^2)^2} = -1. \qedhere \]
+\end{proof}
+
+\begin{proposition}[Splitting principle]
+  If $0 \to A \to B \to C \to 0$ is a short exact sequence, then $c(B)
+  = c(A) \wedge c(C)$.
+\end{proposition}
+
+\begin{proof}
+  Short exact sequences of smooth vector bundles always split: pick a
+  metric on $B$ and show that $C \cong A^\perp$. Hence $c(B) = c(A
+  \oplus C)$, and then we use the Whitney product formula.
+\end{proof}
+
+Note: this is {\bf not} the usual ``splitting principle''. The usual
+splitting principle says that to prove an identity on Chern classes,
+it suffices to pretend that the bundle completely splits into line
+bundles and prove the identity for that case. For more detail, see
+\cite[Section 21]{Bott1982}.
+
+\begin{example} \label{ex:chern-proj}
+  We compute the total Chern class of $\bP^n$. We first construct the
+  {\bf Euler sequence} on $\bP^n$, given by
+  \[ 0 \to \bC \to \cO_{\bP^n}(1)^{n+1} \to T^{1,0}\bP^n \to 0. \]
+  Since $X = \bP^n$ is $Y = \bC^{n+1} \setminus \{0\}$ mod a $\bC^*$
+  action, given $n+1$ linear functionals $v_i$ on $\bC^{n+1}$, the
+  vector field $\sum_i v_i \di_i$ on $X$ is invariant under this
+  $\bC^*$ action and descends to a vector field on $\bP^n$. The $v_i$
+  are sections of $\cO_{\bP^n}(1)$, so this construction is the map
+  $\cO_{\bP^n}(1)^{n+1} \to T^{1,0}\bP^n$. Its kernel is the line
+  bundle associated to $Z = \sum_i x_i \di_i$ (here $x_i$ are the
+  coordinates on $Y$): for homogeneous polynomials $f$, we have
+  $\frac{1}{d} \sum_i x_i \di_i f = f$. Another way to see this is to
+  visualize $\bP^n$ as a sphere in $Y$, so when we project, the radial
+  vector field $Z$ and its multiples are precisely the kernel.
+
+  Clearly $c(\bC) = 1$, so by the splitting principle, $c(\bP^n) =
+  c(\cO_{\bP^n}(1)^{n+1}) = c(\cO_{\bP^n}(1))^{n+1}$. Let $x =
+  c_1(\cO_{\bP^n}(1))$. Then $c(\bP^n) = (1 + x)^{n+1}$.
+\end{example}
+
+Using the symbol $x$ to stand for $c_1(\cO_{\bP^n}(1))$ is fairly
+common. We shall do so from now on. (The reason is that $x$ generates
+the cohomology ring $H^*(\bP^n)$.)
+
+\begin{example} \label{ex:chern-hypersurface}
+  Let $X = V(p)$ be a smooth projective variety in $\bP^n$ with $p$ a
+  degree $d$ homogeneous polynomial, i.e. a section of
+  $\cO_{\bP^n}(d)$. To compute the Chern class of $X$, we use the {\bf
+    adjunction formula} $NX \cong \cO(d)|_X$ (see \cite[Proposition
+    2.2.17]{Huybrechts2005} for details), so that
+  \[ 0 \to TX \to T\bP^n|_X \to NX \cong \cO(d)|_X \to 0 \]
+  is a short exact sequence. Since $\cO(d) = \cO(1)^{\otimes d}$, we
+  can't use the Whitney sum property of the Chern class, but we can
+  use the Chern character:
+  \[ \ch(\cO(d)) = \ch(\cO(1))^d = \exp(x)^d = \exp(dx), \]
+  so $c(\cO(d)) = 1 + dx$. Hence $c(X) = (1 + x)^{n+1}/(1 + dx)$.
+\end{example}
+
+\begin{definition}
+  If we formally factorize the total Chern class as $c(E) =
+  \prod_{k=1}^r (1 + a_k)$, then the {\bf Chern character class} is
+  \[ \ch(E) \coloneqq \sum_{k=1}^r \exp(a_i) = r + c_1(E) + \frac{1}{2}(c_1(E)^2 - 2c_2(E)) + \cdots. \]
+\end{definition}
+
+\begin{proposition}
+  In the Chern--Weil setting, $\ch(E) = \tr \exp(iF/2\pi)$.
+\end{proposition}
+
+Of course, the Chern character class, being a combination of Chern
+classes, does not contain more information than the Chern class. The
+reason we work with it instead of the Chern class is the following
+proposition.
+
+\begin{proposition}
+  The Chern character satisfies
+  \[ \ch(E \oplus F) = \ch(E) + \ch(F), \quad \ch(E \otimes F) = \ch(E) \wedge \ch(F). \]
+\end{proposition}
+
+Finally, we need to connect the theory of Chern classes with sheaf
+cohomology. Consider the short exact sequence of sheaves given by
+\[ 0 \to \bZ \to \cO \xrightarrow{\exp} \cO^* \to 0. \]
+Its associated long exact sequence of cohomology contains
+\[ \cdots \to H^1(X, \bZ) \to H^1(X, \cO) \to H^1(X, \cO^*) \xrightarrow{\delta} H^2(X, \bZ) \to \cdots. \]
+
+\begin{definition}
+  The {\bf Picard group} of $X$ is the group of isomorphism classes of
+  holomorphic line bundles under tensor product.
+\end{definition}
+
+\begin{theorem}[{\cite[Corollary 2.2.10]{Huybrechts2005}}]
+  Let $\cO^*$ be the sheaf of nowhere-zero holomorphic functions. Then
+  $\Pic(X) \cong H^1(X, \cO^*)$.
+\end{theorem}
+
+\begin{theorem}[{\cite[Proposition 4.4.12]{Huybrechts2005}}]
+  Under the identification of elements of $H^1(X, \cO^*)$ with
+  isomorphism classes of holomorphic line bundles, the connecting map
+  $\delta\colon H^1(X, \cO^*) \to H^2(X, \bZ)$ is the first Chern
+  class $c_1$.
+\end{theorem}
+
+\subsection{The Euler Class and Euler Characteristic}
+
+Recall that the (holomorphic) Euler characteristic of a sheaf $\cF$ is
+$\chi(\cF) \coloneqq \sum_k (-1)^k \dim H^k(X, \cF)$.
+
+\begin{definition}
+  Let $\pi\colon E \to B$ be an oriented rank $n$ vector bundle over a
+  smooth $n$-fold $B$. In \ref{thm:thom} we defined its Thom class
+  $\Phi \in H^n(E, E \setminus B)$. The inclusion $(E, \emptyset)
+  \subset (E, E \setminus B)$ gives a homomorphism $H^k(E, E \setminus
+  B) \to H^k(E)$ which we denote by $\omega \mapsto \omega|_E$. The
+  {\bf Euler class} $e(E)$ of $E$ is the image of the Thom class
+  $\Phi$ under the composition
+  \[ H^n(E, E \setminus B) \xrightarrow{-|_E} H^n(E) \xrightarrow{(\pi^*)^{-1}} H^n(B) \]
+  where the last isomorphism is canonical and comes from $B$ being a
+  deformation retract of $E$. Again, if $X$ is a manifold, $e(X)
+  \coloneqq e(TX)$.
+\end{definition}
+
+\begin{proposition} \label{thm:euler-chern}
+  Whenever both are defined, $e(E) = c_n(E)$ for $E$ of rank $n$.
+\end{proposition}
+
+\begin{proof}[Proof sketch.]
+  Given $E$ a smooth complex vector bundle, $e(E)$ is well-defined
+  because the complex structure on $E$ induces an orientation. We can
+  use the Euler class to construct the Chern classes \cite[Section
+    14]{Milnor1974}. Then it suffices to verify that the Chern classes
+  we constructed this way satisfy the four axioms
+  \ref{thm:chern-axioms} of Chern classes. For example, the Whitney
+  sum formula comes from $\Phi(E \oplus F) = \Phi(E) \wedge \Phi(F)$
+  being preserved throughout the construction.
+\end{proof}
+
+We like to distinguish between the Euler class and the top Chern class
+for several reasons. One is that the Euler class is topological,
+whereas the Chern classes are differential geometric. Another is that
+it is sometimes easier to prove properties of the Euler class using
+properties of the Thom class rather than all the Chern classes,
+especially from the Chern--Weil approach.
+
+\begin{proposition}[{\cite[Property 9.3, Property 9.7]{Milnor1974}}]
+  Properties of the Euler class $e(E)$ that do not directly follow
+  from $e(E) = c_n(E)$:
+  \begin{enumerate}
+  \item if the orientation of $E$ is flipped, $e(E)$ changes sign;
+  \item if $E$ has a nowhere zero global section, then $e(E) = 0$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Property 1 is obvious: flipping the orientation of $E$ flips the
+  sign of the Thom class $\Phi$, since $\Phi|_{E_x}$ is the preferred
+  generator. Property 2 comes from $B \xrightarrow{s} E \setminus B
+  \subset E \xrightarrow{\pi} B$ being the identity for a non-zero
+  global section $s$. Then
+  \[ H^n(B) \xrightarrow{\pi^*} H^n(E) \to H^n(E \setminus B) \xrightarrow{s^*} H^n(B) \]
+  is the identity on $H^n(B)$. But $\pi^*e(E) = \Phi|_E$, the
+  restriction of the Thom class, by definition, so we have
+  $s^*((\Phi|_E)|_{E \setminus B}) = e(E)$. Since $\Phi \in H^n(E, E
+  \setminus B)$, the composition of these two restrictions is zero.
+  Hence $e(E) = s^*0 = 0$.
+\end{proof}
+
+\begin{proposition} \label{thm:euler-dual}
+  Let $E \to M$ be a smooth oriented real vector bundle of rank $r$
+  over the smooth compact oriented manifold $M$ of dimension $n \ge
+  r$. Let $Z$ be the zero set of a smooth section $s\colon M \to E$
+  that is transversal to the zero section $\iota\colon M \to E$. Then
+  $Z$ is a smooth submanifold of $M$ of codimension $r$ and there is a
+  natural bundle isomorphism $T_ZM \cong E|_M$. Consequently, $e(E)$
+  is Poincar\'e dual to $Z$.
+\end{proposition}
+
+\begin{proof}
+  A straightforward exercise. Hint: remember that $e(E)$ is the
+  restriction of the Thom class, and then use \ref{thm:thom-normal}
+  and \ref{thm:wedge-dual}.
+\end{proof}
+
+The main purpose of this subsection is the following generalization of
+the Gauss--Bonnet theorem. We shall use it extensively when
+calculating Euler characteristic. To determine the Euler class
+explicitly, we often use many of the preceding results identifying it
+with various other objects.
+
+\begin{theorem}[Generalized Gauss--Bonnet]
+  Let $X$ be a compact complex manifold. Then
+  \[ \int_X e(X) = \chi(X). \]
+\end{theorem}
+
+\begin{proof}
+  We shall prove this in the next subsection, as a consequence of the
+  Hirzebruch--Riemann--Roch formula. (There are much easier proofs,
+  though.)
+\end{proof}
+
+\begin{example}
+  We can continue \ref{ex:chern-proj} to compute the Euler
+  characteristic of $\bP^n$. Note that every hyperplane $H \cong
+  \bP^{n-1} \subset \bP^n$ is Poincar\'e dual to $x$. So $x^n$ is
+  Poincar\'e dual to the intersection of $n$ generic hyperplanes,
+  which is a point. In other words, $x^n$ is the preferred generator
+  given by the orientation, and hence $\int_{\bP^n} x^n = 1$. (For a
+  more explicit calculation of this, see \cite[Theorem
+    14.10]{Milnor1974}. The explicit form for $x$ is the obvious
+  generalization of $-c_1(\cO_{\bP^1}(-1))$, which we computed in
+  \ref{thm:chern-axioms}.)
+
+  Since $c(\bP^n) = (1 + x)^{n+1}$, we have $c_n = (n+1) x^n$. Hence
+  $\int_{\bP^n} c_n = n+1$. By the generalized Gauss--Bonnet theorem,
+  $\chi(\bP^n) = n+1$.
+\end{example}
+
+\begin{example}
+  Recall that the {\bf degree} of a curve in $\bP^2$ is just the
+  degree of the defining homogeneous polynomial. (For a more general
+  definition of the degree of a variety, see \cite[Section
+    I.7]{Hartshorne1997}.) Fact: A degree $d$ curve $X$ in $\bP^2$ has
+  Chern class $1 + (3 - d)x$. (Remember we write $x$ for
+  $c_1(\cO_{\bP^n}(1))$.) Then
+  \[ \chi(X) = \int_X c_1(X) = \int_{\bP^2} c_1(X) (xd) = \int_{\bP^2} d(3-d)x^2 = d(3-d). \]
+  But for nonsingular curves $X$, we have $\chi(X) = 2 - 2g$. Hence $g
+  = (d-1)(d-2)/2 = \binom{d-1}{2}$.
+\end{example}
+
+\begin{example}
+  By \ref{ex:chern-hypersurface}, a quintic hypersurface $Q$ in
+  $\bP^4$ has total Chern class $c(Q) = (1 + x)^5/(1 + 5x) = 1 + 10x^2
+  - 40x^3$. (Note that $c_1(Q) = 0$, so $Q$ is Calabi--Yau.) We want
+  to compute its Euler characteristic using HRR, but integrating over
+  $Q$ is hard. Instead, we use \ref{thm:euler-dual}: $Q$ is defined as
+  the zero set of a section of $\cO(5) \to \bP^4$, so $e(\cO(5))$ is
+  Poincar\'e dual to $Q$. The Euler class is just the top Chern class
+  (see \ref{thm:euler-chern}), so $e(\cO(5)) = c_1(\cO(5))$,
+  \[ \chi(Q) = \int_Q e(Q) = \int_Q c_3(Q) = \int_{\bP^4} c_3(Q) \wedge c_1(\cO(5)) = \int_{\bP^4} (-40x^3)(5x) = -200 \int_{\bP^4} x^4 = -200. \]
+\end{example}
+
+\subsection{The Hirzebruch--Riemann--Roch Formula}
+
+Here $E$ is a rank $r$ holomorphic vector bundle over a compact
+complex $n$-fold $X$. The Hirzebruch--Riemann--Roch formula is part of
+a long sequence of generalizations of Gauss--Bonnet, relating
+geometric quantities to topological quantities.
+
+\begin{definition}
+  Again, formally factor $c(E) = \prod_{k=1}^r (1 + a_k)$. The {\bf
+    Todd class} is
+  \[ \td(E) \coloneqq \prod_{i=1}^r \frac{a_i}{1 - \exp(-a_i)} = 1 + \frac{1}{2}c_1(E) + \frac{1}{2}(c_1(E)^2 + c_2(E)) + \cdots. \]
+  The Todd class $\td(X)$ of $X$ is defined as $\td(X) \coloneqq
+  \td(TX)$.
+\end{definition}
+
+\begin{theorem}[Hirzebruch--Riemann--Roch, {\cite[Theorem A.4.1]{Hartshorne1997}}]
+  Let $E$ be a holomorphic vector bundle over a compact complex
+  manifold $X$. Then
+  \[ \chi(E) = \int_X \ch(E) \wedge \td(X). \]
+  where on the right hand side we only integrate the top form, i.e.
+  $\sum_k \ch_k \wedge \td_{n-k}$.
+\end{theorem}
+
+We can often use the Hirzebruch--Riemann--Roch (HRR) formula to
+compute the dimension of a specific cohomology group, either because
+some other cohomology groups vanish, or because we know their
+dimensions. Before we begin calculating anything, we need the
+following helpful result.
+
+\begin{theorem}[Grothendieck's vanishing theorem, {\cite[Theorem 2.7]{Hartshorne1997}}]
+  Let $X$ be a Noetherian topological space of dimension $n$. Then
+  $H^i(X, \cF) = 0$ for $i > n$ and any sheaf of abelian groups $\cF$.
+\end{theorem}
+
+The remainder of this section is examples of the HRR formula. Keep in
+mind that we are always working with sheaf cohomology, not de Rham
+cohomology. For example, $H^0(TX)$ is by no means equal to $H^0(X)$,
+and is not freely generated by connected components of $TX$. Instead,
+$H^0(TX) = \Gamma(TX)$, and since global sections generate
+automorphisms, $H^0(TX)$ consists of holomorphic automorphisms of $X$.
+
+\begin{example}
+  Let $\cM_g$ denote the {\bf moduli space of complex structures} on a
+  genus $g$ closed surface. We shall see later (or recall from
+  Teichm\"uller theory) that $\dim \cM_g = \dim_{\bC} H^1(TX)$ where
+  $X$ is a genus $g$ closed Riemann surface. HRR gives
+  \begin{align*}
+    \dim_{\bC} H^0(TX) - \dim_{\bC} H^1(TX)
+    &= \chi(TX) = \int_X \ch(TX) \wedge \td(TX) \\
+    &= \int_X (1 + c_1(TX)) \wedge (1 + (1/2)c_1(TX))
+    = \frac{3}{2} \int_X c_1(TX) = 3 - 3g.
+  \end{align*}
+  The last equality comes from $c_1$ being the top Chern class for
+  $X$, i.e. the Euler class, so applying generalized Gauss--Bonnet
+  gives $\int_X c_1(TX) = \chi(X) = 2 - 2g$. For $g \ge 2$, the
+  Riemann surface $X$ has no non-trivial automorphisms, so $\dim_{\bC}
+  H^0(TX) = 0$. Hence $\dim \cM_g = 3g - 3$.
+\end{example}
+
+\begin{example}
+  An important object in mirror symmetry is the space of holomorphic
+  maps from a Riemann surface $\Sigma$ to a Calabi--Yau $n$-fold $M$,
+  i.e. a K\"ahler $n$-fold $M$ with $c_1(M) = 0$. (We'll be more
+  careful about the definition of Calabi--Yau later.) An infinitesimal
+  deformation of a holomorphic map, given by a vector field $\chi^i$,
+  must satisfy $\bdi \chi^i = 0$ if we want the deformed map to still
+  be holomorphic. Hence $\chi \in H^0_{\bdi}(\phi^* TM)$, the space of
+  such deformations. By HRR,
+  \begin{align*}
+    \dim_{\bC} H^0(\phi^*TM) - \dim_{\bC} H^1(\phi^*TM)
+    &= \int_X \ch(\phi^*TM) \wedge \td(\Sigma) \\
+    &= \int_X (n + \phi^*c_1(TM)) \wedge (1 + (1/2)c_1(\Sigma)) = n(1-g).
+  \end{align*}
+  We assume for now that $H^1(\phi^* TM) = 0$, so the space of
+  deformations is $n(1-g)$-dimensional. For $n = 3$ and $g = 0$, the
+  dimension is $3$, but there is also a $3$-dimensional group of
+  automorphisms of the genus-zero Riemann surface $\bP^1$ which does
+  not affect the image curve. Hence the space of genus $0$ holomorphic
+  curves inside a Calabi--Yau $3$-fold is zero, and we may be able to
+  count them!
+\end{example}
+
+\begin{example}
+  Let $X$ be a connected compact curve and $L$ a holomorphic line
+  bundle on $X$. Fact: the natural isomorphism $H^2(X, \bZ) = \bZ$ is
+  given by integration over $X$, and under this isomorphism we have
+  $c_1(L) \mapsto \deg(L)$ (\cite[Exercise 4.4.1]{Huybrechts2005}). By
+  HRR,
+  \[ \chi(L) = \int_X c_1(L) + \frac{1}{2} c_1(X) = \deg(L) + 1 - g. \]
+  For the case $L = \cO(D)$ for a divisor $D$ on $X$, we know
+  $\dim_{\bC} H^0(L) = \ell(D)$, and by Serre duality $\dim_{\bC}
+  H^1(L) = \dim_{\bC} H^0(\cO(K - D)) = \ell(K - D)$ where $K$ is the
+  canonical divisor. Hence we recover the classical {\bf Riemann--Roch
+    formula} $\ell(D) - \ell(K-D) = \deg D + 1 - g$.
+\end{example}
+
+\todo{Huybrecht def 5.1.3 of Hirzebruch $\chi_y$-genus}
+
+\todo{Prove Huybrecht cor 5.1.4 in detail to get generalized Gauss--Bonnet}
+
+\section{Fixed-Point Theorems}
+
+%% \begin{theorem}[Poincar\'e--Hopf index theorem]
+%%   Let $M$ be a compact differentiable manifold, and $X$ a vector field
+%%   on $M$ with isolated zeros pointing in the outward normal direction
+%%   along $\di M$. Then $\sum_i \ind_X(x_i) = \chi(M)$.
+%% \end{theorem}
+
+%% \begin{example}
+%%   Consider the holomorphic vector field $u \pder{}{u}$ on $\bP^1$.
+%%   Since $\pder{}{u} = -v^2 \pder{}{v}$, we have $u \pder{}{u} = -v
+%%   \pder{}{v}$. Hence this vector field has two zeros at $u = 0$ and $v
+%%   = 0$, and these zeros both have index $1$. Note that $\chi(\bP^1) =
+%%   2$.
+%% \end{example}
 
 \section{Calabi--Yau Manifolds}
 
 \section{Toric Geometry}
+
+\todos
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{unsrt}

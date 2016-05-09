@@ -1,4 +1,4 @@
-# Quantum Field Theory Learning Seminar
+# Mirror Symmetry Learning Seminar
 
 * Fall 2015: we covered the basics of QFT. See qft-notes.tex.
 * Winter 2016: we covered the basics of string theory and
@@ -21,4 +21,12 @@ progresses. For now, the plan is:
     introduce Morse homology, the finite-dimensional version of Floer
     homology, which shows up in the statement of homological mirror
     symmetry.
-* Week 2 (Monday May 9th): Mathematical Preliminaries II
+* Week 2 (Monday May 9th): Mathematical Preliminaries II; section 1.2
+  in notes.
+  - We will review Poincare and Serre duality, in particular
+    emphasizing the connection between Poincare duality and Thom
+    classes. Then we review Chern classes, and use this connection to
+    explore properties of the top Chern class, i.e. the Euler class.
+    Finally we introduce and practice using two big theorems:
+    generalized Gauss--Bonnet and Hirzebruch--Riemann--Roch. A lot of
+    the calculations today will be useful later on.
