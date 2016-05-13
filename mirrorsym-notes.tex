@@ -38,6 +38,8 @@
 \newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,}
 
 \newcommand{\bC}{\mathbb{C}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\bQ}{\mathbb{Q}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
@@ -45,9 +47,11 @@
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cU}{\mathcal{U}}
-\DeclareMathOperator{\id}{id}
+\newcommand{\fg}{\mathfrak{g}}
 \newcommand{\Morse}{\mathrm{Morse}}
+\DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Pic}{Pic}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\grad}{grad}
@@ -58,7 +62,11 @@
 \DeclareMathOperator{\ind}{ind}
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Frac}{Frac}
+\newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
 \newcommand{\dR}{\mathrm{dR}}
 \newcommand{\dder}[2]{\frac{d #1}{d #2}}
@@ -483,7 +491,149 @@ for mirror symmetry.
 
 \subsection{Equivariant Cohomology}
 
+In this subsection, $G$ is a topological group acting smoothly on $X$.
+All cohomology is taken with coefficients in $\bQ$.
 
+The usual cohomology theories fail to capture any information about
+this action. Equivariant cohomology is an extension of the usual
+cohomology for $X/G$ in order to account for the action. For example,
+if $G$ acts smoothly without fixed points, then $X/G$ is a smooth
+manifold, and equivariant cohomology agrees with $H^*(X/G)$. On the
+other end of the spectrum, if $X = \{\pt\}$, then any $G$-action fixes
+$\pt$, and we want equivariant cohomology to give a cohomological
+invariant of $G$. To construct equivariant cohomology we need the
+machinery of classifying spaces.
+
+\begin{definition}
+  A continuous map $f\colon X \to Y$ of topological spaces is a {\bf
+    weak homotopy equivalence} if the induced maps $\pi(f)\colon
+  \pi_*(X) \to \pi_*(Y)$ of homotopy groups are isomorphisms. A
+  topological space $X$ is {\bf weakly contractible} if $X \to \pt$ is
+  a {\bf weak equivalence}. If in addition there is a continuous map
+  $g\colon Y \to X$ such that $g \circ f$ and $f \circ g$ are
+  homotopic to the identity maps $\id_X$ and $\id_Y$ respectively,
+  then $X$ and $Y$ are {\bf homotopy equivalent}.
+\end{definition}
+
+\begin{theorem}[Hurewicz]
+  For any topological space $X$ there exists a group homomorphism
+  $h_k\colon \pi_k(X) \to H_k(X)$. If $X$ is $(n-1)$-connected, i.e.
+  $\pi_k(X) = 0$ for $1 \le k \le n-1$, then $h_k$ is an isomorphism
+  for $1 \le k \le n$, and $h_1$ is the abelianization map.
+\end{theorem}
+
+\begin{theorem}[Whitehead]
+  If two connected CW complexes $X$ and $Y$ are weakly homotopy
+  equivalent, then they are homotopy equivalent.
+\end{theorem}
+
+(This theorem of Whitehead's provided some of the initial
+justification for working with CW complexes.) It is true that all
+smooth manifolds are homotopy equivalent to CW-complexes. \todo{Cite
+  Milnor's Morse theory monograph for this; it's in there somewhere.}
+
+\begin{definition}
+  If $P \to B$ is a principal $G$-bundle with $P$ weakly contractible,
+  then $B$ is a {\bf classifying space} for $G$, denoted $BG$, and $P$
+  is a {\bf universal $G$-bundle}, denoted $EG$.
+\end{definition}
+
+\begin{theorem}[Milnor] \label{thm:classifying-space}
+  Let $G$ be any topological group. Then there exists a classifying
+  space for $G$ (and a universal $G$-bundle) unique up to canonical
+  homotopy equivalence.
+\end{theorem}
+
+\begin{proof}
+  \todo{Outline proof for $\GL(n)$ using the infinite Stiefel manifold
+    over the infinite Grassmannian, and therefore the proof for matrix
+    Lie groups. Then do $K(G, 1)$ for discrete groups.}
+\end{proof}
+
+The idea for equivariant cohomology is to start with the possibly
+not-free action of $G$ on $X$, find a homotopy equivalent space
+$\tilde{X}$ on which $G$ acts freely, and then look at
+$H^*(\tilde{X}/G)$. Here is an easy way to get such a space.
+
+\begin{definition}
+  Let $E$ be a $G$-bundle over $X$ (which has a $G$-action). For a
+  point $x \in X$, let $G_x \coloneqq \{g : gx = x\}$ be the
+  stabilizer. Define the product
+  \[ E \times_G X = E \times X / \sim, \quad (eg, x) \sim (e, gx) \quad \forall e \in E, x \in X, g \in G, \]
+  i.e. the fibered space over $X/G$ with the fiber over $[Gx]$ equal
+  to $E/G_x$.
+\end{definition}
+
+\begin{definition}
+  The {\bf homotopy quotient} $X_G$ of $X$ by $G$ is $X_G \coloneqq EG
+  \times_G X$. The {\bf equivariant cohomology} of $X$ is $H^*_G(X)
+  \coloneqq H^*(X_G)$, the cohomology of the homotopy quotient.
+\end{definition}
+
+\begin{example}
+  If $X = \{\pt\}$, then $EG \times_G X = (EG \times \{\pt\}) / G =
+  EG/G = BG$, so the equivariant cohomology of a point with a
+  $G$-action is the cohomology of $BG$, i.e. $H^*_G(\{\pt\}) =
+  H^*(BG)$. The equivariant map $X \to \{\pt\}$ induces an
+  $H^*(BG)$-module structure on $H^*_G(X)$ for any $X$. Since this
+  situation is important and comes up often, we have the notation
+  $H^*_G \coloneqq H^*_G(\{\pt\}) = H^*(BG)$.
+\end{example}
+
+\begin{example}
+  If $G$ acts freely on $X$, then $EG \times_G X = EG \times X/G$. By
+  the K\"unneth theorem,
+  \[ H^*_G(X) = H^*(EG \times X/G) = H^*(EG) \otimes H^*(X/G) = H^*(X/G) \]
+  since $EG$ is weakly contractible, so its cohomology vanishes by the
+  Hurewicz theorem. Hence when $X/G$ is a smooth manifold, equivariant
+  cohomology indeed agrees with regular cohomology. By the same
+  reasoning, if $G$ acts trivially, then $H^*_G(X) = H^*(X) \otimes
+  H^*(BG)$.
+\end{example}
+
+\begin{example}
+  Let $G = \bC^*$ act on $\bC^n$ by scalar multiplication. The
+  quotient map $\bC^{n+1} \setminus \{0\} \to \bC\bP^n$ is a principal
+  $\bC^*$-bundle. Since $\bC^{n+1} \setminus \{0\}$ is homotopy
+  equivalent to $S^{2n+1}$, the homotopy groups $\pi_k$ for $k \le 2n$
+  vanish, but the higher ones do not necessarily vanish. To fix this
+  we take the direct limit of the inclusions $\bC\bP^n \to
+  \bC\bP^{n+1} \to \cdots$ (which kills off the homotopy groups one by
+  one) to get the universal principal $\bC^*$-bundle $\bC^\infty \to
+  \bC\bP^\infty$. Hence $BS^1 = \bC\bP^\infty$, and
+  \[ H^*_{S^1}(\{\pt\}) = H^*(BS^1) = H^*(\bC\bP^\infty) = \bQ[x], \]
+  generated by the Chern class $x = c_1(\cO_{\bP^\infty}(1))$. For a
+  {\bf torus action} by $\bT \coloneqq (\bC^*)^{m+1}$,
+  \[ H^*_{\bT}(\{\pt\}) = H^*((\bC\bP^\infty)^{m+1}) = \bQ[x_0, \ldots, x_m]. \]
+  Since $H^*_{\bT}(X)$ is an $H^*_{\bT}(\{\pt\})$-module, we think of
+  elements of $H^*_{\bT}(X)$ as polynomial-valued forms.
+\end{example}
+
+It would be nice to have a de Rham-type construction in order to work
+with equivariant cohomology classes. This is possible for $G$ a Lie
+group: we just have to work with $G$-equivariant forms.
+
+\begin{definition}
+  A smooth {\bf $G$-equivariant form} on $X$ is a $G$-equivariant map
+  $\alpha\colon \fg \to \Omega^*(X)$, i.e.
+  \[ \alpha(Z) = g^{-1} \alpha(\Ad(g)Z) \quad \forall Z \in \fg, \, g \in G. \]
+  Equivalently, it is a $G$-invariant element of $\Sym(\fg^*) \otimes
+  \Omega^*(X)$. The space of $G$-equivariant forms is denoted
+  $\Omega^*_G(X)$.
+\end{definition}
+
+\begin{definition}
+  The {\bf equivariant exterior derivative} $d_{\fg}\colon
+  \Omega^{\text{odd}}_G(X) \leftrightarrow \Omega^{\text{even}}_G(X)$
+  is given by
+  \[ d_{\fg}\alpha\colon \fg \to \Omega^*(X), \quad (d_{\fg}\alpha)(Z) \coloneqq d(\alpha(Z)) - \iota_{Z^\#}(\alpha(Z)) \]
+  where $d$ is the usual exterior derivative, $\iota$ is contraction,
+  and $Z^\#$ is the fundamental vector field associated to $Z \in
+  \fg$.
+\end{definition}
+
+\todo{Finish off exposition of de Rham model for equivariant
+  cohomology.}
 
 \section{Algebraic Topology}
 
@@ -549,8 +699,8 @@ $X$.
 \end{theorem}
 
 Note that since $B$ is a deformation retract of $E$, the rings
-$H^*(E)$ and $H^*(B)$ are isomorphic. Hence $\pi^*\Phi = 1 \in H^*(B)$,
-which shall be very important in the upcoming proof.
+$H^*(E)$ and $H^*(B)$ are isomorphic. Hence $\pi^*\Phi = 1 \in
+H^*(B)$.
 
 \begin{theorem}[Tubular neighborhood theorem, {\cite[Theorem 11.1]{Milnor1974}}]
   Let $C \subset X$ be a $k$-submanifold embedded in $X$. There exists
@@ -579,8 +729,10 @@ which shall be very important in the upcoming proof.
   \begin{align*}
     \int_X \omega \wedge \Phi
     &= \int_T \omega \wedge \Phi = \int_T (\pi^*\iota^*\omega + d\tau) \wedge \Phi \\
-    &= \int_T \pi^*\iota^*\omega \wedge \Phi = \int_C \iota^*\omega \wedge \pi^* \Phi = \int_C \iota^*\omega. \qedhere
+    &= \int_T \pi^*\iota^*\omega \wedge \Phi = \int_C \iota^*\omega \wedge \pi_* \Phi = \int_C \iota^*\omega
   \end{align*}
+  where the last two steps involve the {\bf projection formula}
+  \cite[Proposition 6.15]{Bott1982} and noting that $\pi_* \Phi = 1$.
 \end{proof}
 
 \begin{corollary} \label{thm:wedge-dual}
@@ -707,6 +859,18 @@ connection $A \in \Omega^1(X, \Ad E)$ on $E$ gives a curvature $F_A
   \[ \int_{\bP^1} c_1(\cO_{\bP^1}(-1)) = -\frac{1}{\pi} \int_{-\infty}^\infty \int_{-\infty}^\infty \frac{dx \wedge dy}{(1 + x^2 + y^2)^2} = -\frac{1}{\pi} \int_0^\infty \int_0^{2\pi} \frac{r d\theta \wedge dr}{(1 + r^2)^2} = -1. \qedhere \]
 \end{proof}
 
+\begin{proposition} \label{thm:chern-dual}
+  Let $E$ be a complex vector bundle, and $\bar{E}$ be the same
+  underlying real vector bundle as $E$ but with conjugate complex
+  structure. Then $c_k(\bar{E}) = (-1)^k c_k(E)$. If $E$ has a
+  Hermitian metric, then $E^* \cong \bar{E}$ canonically.
+\end{proposition}
+
+\begin{proof}
+  Straightforward exercise: given a connection on $E$, what is the
+  connection on $\bar{E}$?
+\end{proof}
+
 \begin{proposition}[Splitting principle]
   If $0 \to A \to B \to C \to 0$ is a short exact sequence, then $c(B)
   = c(A) \wedge c(C)$.
@@ -811,7 +975,7 @@ Its associated long exact sequence of cohomology contains
 Recall that the (holomorphic) Euler characteristic of a sheaf $\cF$ is
 $\chi(\cF) \coloneqq \sum_k (-1)^k \dim H^k(X, \cF)$.
 
-\begin{definition}
+\begin{definition} \label{def:euler-class}
   Let $\pi\colon E \to B$ be an oriented rank $n$ vector bundle over a
   smooth $n$-fold $B$. In \ref{thm:thom} we defined its Thom class
   $\Phi \in H^n(E, E \setminus B)$. The inclusion $(E, \emptyset)
@@ -1040,25 +1204,190 @@ automorphisms, $H^0(TX)$ consists of holomorphic automorphisms of $X$.
     formula} $\ell(D) - \ell(K-D) = \deg D + 1 - g$.
 \end{example}
 
-\todo{Huybrecht def 5.1.3 of Hirzebruch $\chi_y$-genus}
+We now use HRR to derive two important and powerful formulas: the
+Hirzebruch signature theorem, and, as previously promised, the
+generalized Gauss--Bonnet theorem.
 
-\todo{Prove Huybrecht cor 5.1.4 in detail to get generalized Gauss--Bonnet}
+\begin{definition}
+  Let $X$ be a compact complex $n$-fold (and $h^{p,q} \coloneqq
+  \dim_{\bC} H^{p,q}_{\bdi}(X)$ be its Betti numbers). The {\bf
+    Hirzebruch $\chi_y$-genus} is
+    \[ \chi_y \coloneqq \sum_{p=0}^n \chi(X, \Omega^p) y^p = \sum_{p=0}^n \sum_{q=0}^n (-1)^q h^{p,q}(X) y^p. \]
+\end{definition}
 
-\section{Fixed-Point Theorems}
+\begin{corollary} \label{thm:chi-genus-formula}
+  Factorize $c(X) = \prod_{k=1}^n (1 + a_k)$. Then
+  \[ \chi_y = \int_X \prod_{k=1}^n (1 + y \exp(-a_k)) \frac{a_k}{1 - \exp(-a_k)} = \int_X \prod_{k=1}^n a_k \coth(a_k/2). \]
+\end{corollary}
 
-%% \begin{theorem}[Poincar\'e--Hopf index theorem]
-%%   Let $M$ be a compact differentiable manifold, and $X$ a vector field
-%%   on $M$ with isolated zeros pointing in the outward normal direction
-%%   along $\di M$. Then $\sum_i \ind_X(x_i) = \chi(M)$.
-%% \end{theorem}
+\begin{proof}
+  If $TX = \bigoplus_{p=0}^n L_i$, then $\bigoplus_{p=0}^n
+  \Omega^p(X)y^p = \bigotimes \Omega(yL_i)$. But $\Omega(yL_i)$ is
+  just $yT^*L_i$, so we use the fact \ref{thm:chern-dual} that
+  $c_1(T^*L_i) = -c_1(TL_i) = a_i$ to get
+  \[ \ch\left(\bigoplus_{p=0}^n \Omega^p y^p\right) = \prod_{p=0}^n \ch(\Omega(yL_i)) = \prod_{p=0}^n (1 + y \exp(-a_p)). \]
+  Hence by HRR and the definition of the Todd class, we are done.
+\end{proof}
 
-%% \begin{example}
-%%   Consider the holomorphic vector field $u \pder{}{u}$ on $\bP^1$.
-%%   Since $\pder{}{u} = -v^2 \pder{}{v}$, we have $u \pder{}{u} = -v
-%%   \pder{}{v}$. Hence this vector field has two zeros at $u = 0$ and $v
-%%   = 0$, and these zeros both have index $1$. Note that $\chi(\bP^1) =
-%%   2$.
-%% \end{example}
+We first prove the generalized Gauss--Bonnet theorem using this
+formula for $\chi_y$. To simplify the proof we restrict to the case of
+compact K\"ahler manifolds (in order to use Hodge decomposition),
+which shall be the main setting we work in anyway.
+
+\begin{theorem}[Generalized Gauss--Bonnet]
+  Let $X$ be a compact K\"ahler manifold. Then
+  \[ \int_X e(X) = \chi(X). \]
+\end{theorem}
+
+\begin{proof}
+  Note that $\chi(X) = \chi_{-1}$ since by Hodge decomposition,
+  $\sum_{p+q=k} h^{p,q}(X) = b_k(X)$, the $k$-th Betti number of $X$.
+  Applying the $\chi_y$ formula \ref{thm:chi-genus-formula}, we get
+  \[ \chi_{-1} = \int_X \prod_{k=1}^n a_k = \int_X c_n(X) = \int_X e(X) \]
+  where the last equality is from \ref{thm:euler-chern}.
+\end{proof}
+
+Now we prove the Hirzebruch signature theorem. The big picture is that
+on $X$ there is an operator $D$ called the {\bf signature operator}
+whose index we want to compute, and Hodge theory tells us that
+$\index(D) = \sgn(X)$. The signature theorem says the right hand side
+is a topological quantity.
+
+\begin{definition}
+  The {\bf signature} $\sgn(X)$ of a compact K\"ahler $n$-fold $X$ is
+  the signature of the bilinear form given by the intersection pairing
+  $H^n(X, \bR) \times H^n(X, \bR) \to \bR$.
+\end{definition}
+
+\begin{proposition}[{\cite[Corollary 3.3.18]{Huybrechts2005}}] \label{thm:signature-chi}
+  If a compact K\"ahler $n$-fold has $n = 2m$, then $\sgn(X) =
+  \sum_{p,q=0}^{2m} (-1)^p h^{p,q}(X)$.
+\end{proposition}
+
+\begin{theorem}[Hirzebruch signature theorem]
+  Let $L(X) \coloneqq \prod_{k=1}^n a_k \coth(a_k/2)$ be the {\bf
+    Hirzebruch L-genus}. Then $\sgn(X) = \int_X L(X)$.
+\end{theorem}
+
+\begin{proof}
+  By \ref{thm:signature-chi}, setting $y = 1$ in the Hirzebruch
+  $\chi_y$-genus gives the signature $\sgn(X)$. But using the formula
+  \ref{thm:chi-genus-formula} for the $\chi_y$-genus, we get $\sgn(X)
+  = \chi_1 = \int_X L(X)$.
+\end{proof}
+
+\subsection{Fixed-Point Theorems and Localization}
+
+\begin{theorem}[Poincar\'e--Hopf index theorem]
+  Let $M$ be a compact differentiable manifold, and $X$ a vector field
+  on $M$ with isolated zeros $x_i$ and pointing in the outward normal
+  direction along $\di M$. Then $\sum_i \ind_X(x_i) = \chi(M)$.
+\end{theorem}
+
+\begin{proof}
+  Assume $M$ is oriented. (Otherwise take the double cover $\tilde{M}
+  \to M$, satisfying $\chi(\tilde{M}) = 2\chi(M)$, and proceed with
+  $\tilde{M}$.) From \ref{thm:euler-dual} we see that $e(TM)$ is
+  Poincar\'e dual to the zeros of any vector field, in particular,
+  $X$. Hence $\int_M e(TM) = \sum_i \ind_X(x_i)$ where $x_i$ are the
+  isolated zeros of $X$. But generalized Gauss--Bonnet gives $\int_M
+  e(TM) = \chi(M)$.
+\end{proof}
+
+\begin{example}
+  Consider the holomorphic vector field $u \pder{}{u}$ on $\bP^1$.
+  Since $\pder{}{u} = -v^2 \pder{}{v}$, we have $u \pder{}{u} = -v
+  \pder{}{v}$. Hence this vector field has two zeros at $u = 0$ and $v
+  = 0$, and these zeros both have index $1$. Note that $\chi(\bP^1) =
+  2$.
+\end{example}
+
+Writing Poincar\'e--Hopf like $\int_M e(M) = \sum_i \ind_X(x_i)$ for a
+vector field tells us that some global integrals can be computed using
+local information at a finite set of (fixed) points. This kind of
+equation is called a {\bf localization formula}. We shall develop a
+localization formula for equivariant cohomology with far-reaching
+consequences.
+
+\begin{definition}
+  If $i\colon V \to X$ is a map of compact manifolds, then there is a
+  {\bf pushforward} or {\bf wrong way map} on cohomology $i_*\colon
+  H^*(V) \to H^{*+k}(X)$: use Poincar\'e duality on $V$, push forward
+  the homology cycle, then use Poincar\'e duality on $X$.
+\end{definition}
+
+\begin{example}
+  Let $i\colon V \to X$ be an inclusion of compact manifolds and let
+  $k$ be the codimension of $V$. Then $i_*1 = \Phi(NV)$, the Thom form
+  of the normal bundle of $V$. This is straightforward to check: the
+  Poincar\'e dual of $1$ is all of $V$, which sits in $X$ by the
+  inclusion $i$, which is dual, fiberwise, to the preferred generator
+  on each fiber, which is precisely the Thom class. The Thom form
+  $\Phi(NV)$ can be extended by zero so that it lives in $H^k(X)$, and
+  the pullback $i^*\colon H^k(X) \to H^k(V)$ then gives $i^*\Phi(NV) =
+  e(NV)$ (c.f. the definition \ref{def:euler-class} of the Euler
+  class). Hence
+  \[ i^* i_* 1 = e(NV). \]
+  The composition $i^*i_*$ is called the {\bf Gysin operation}.
+\end{example}
+
+Now we move to the setting for equivariant cohomology: $X$ has an
+action by a topological group $G$. The idea is that, compared to
+ordinary cohomology, the equivariant cohomology has a larger
+coefficient ring, namely the polynomial ring $H^*_G \coloneqq
+H^*_G(\{\pt\})$. In ordinary cohomology we cannot invert $e(NV)$, but
+in equivariant cohomology we can.
+
+\begin{definition}
+  A vector bundle $\pi\colon E \to X$ is {\bf equivariant} under the
+  $G$-action on $X$ if the action $G \times X \to X$ lifts to $G
+  \times E \to E$ in a way such that $\pi$ is equivariant. An
+  equivariant vector bundle $E$ induces a vector bundle $\tilde{E}$ on
+  the homotopy quotient $EG \times_G M$. An {\bf equivariant
+    characteristic class} of $E$ is an ordinary characteristic class
+  of $\tilde{E}$, which is an element of $H^*(EG \times_G X) =
+  H^*_G(X)$.
+\end{definition}
+
+\begin{theorem}[Atiyah--Bott]
+  Let $\bT$ be a torus acting on $X$, and split the locus of fixed
+  points $F$ into connected components $F_i$. The equivariant Euler
+  classes $e_{\bT}(NF_i) \in H^*(F_i) \otimes H^*_{\bT}$ are
+  invertible in the localized ring $H^*(F_i) \otimes_{\bQ}
+  \Frac(H^*_{\bT})$.
+\end{theorem}
+
+\begin{proof}
+  Terms of positive degree in $H^*(F_i)$ are nilpotent, so an element
+  in $H^*(F_i)$ is invertible if its $H^0$ component is nonzero. So
+  $e(NF_i)$ is invertible if its component in $H^0(F_i) \otimes
+  H^*_{\bT}$ is a non-zero polynomial. Some work shows that this
+  component is always non-zero. \todo{Cite or use Atiyah's paper ``The
+    Moment Map and Equivariant Cohomology''.}
+\end{proof}
+
+\begin{corollary}[Atiyah--Bott localization formula] \label{thm:equiv-localization}
+  For $\phi \in H_{\bT}^*(X)$ and working in
+  $H^*_{\bT}(X)[(H^*_{\bT})^{-1}]$,
+  \[ \phi = \sum_i i^*\left(\frac{i^* \phi}{e(NF_i)}\right). \]
+\end{corollary}
+
+To connect this formula to our previous notion of localization
+formulas, where we recover global information from local information
+at fixed points, we usually write it as
+\[ \int_M \phi = \sum_i \int_{F_i} \frac{i^*\phi}{e(NF_i)}. \]
+(This follows by recalling that $i_*$ is defined via Poincar\'e
+duality.) This formula is very powerful, as we shall see.
+
+\begin{proposition}
+  Let $\bT$ act on $X$ with fixed point loci $\bigcup_i F_i$. Then
+  \[ \chi(X) = \sum_i \chi(F_i). \]
+\end{proposition}
+
+\begin{proof}
+  The key is that the action of $\bT$ on $X$ lifts to an action of
+  $\bT$ on $TX$. \todo{Finish this proof.}
+\end{proof}
 
 \section{Calabi--Yau Manifolds}
 

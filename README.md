@@ -30,3 +30,6 @@ progresses. For now, the plan is:
     Finally we introduce and practice using two big theorems:
     generalized Gauss--Bonnet and Hirzebruch--Riemann--Roch. A lot of
     the calculations today will be useful later on.
+* Week 2 (Friday May 13th): Physical Preliminaries I; sections 2.1
+  and 2.2 in notes.
+
