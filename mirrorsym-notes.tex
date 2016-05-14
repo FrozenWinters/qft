@@ -50,6 +50,7 @@
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\Morse}{\mathrm{Morse}}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\vspan}{span}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Pic}{Pic}
@@ -65,6 +66,7 @@
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Gr}{Gr}
 \DeclareMathOperator{\Frac}{Frac}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
@@ -491,18 +493,19 @@ for mirror symmetry.
 
 \subsection{Equivariant Cohomology}
 
-In this subsection, $G$ is a topological group acting smoothly on $X$.
-All cohomology is taken with coefficients in $\bQ$.
+In this subsection, $G$ is a compact Lie group acting smoothly on $X$.
+Cohomology is taken with $\bQ$ coefficients.
 
 The usual cohomology theories fail to capture any information about
-this action. Equivariant cohomology is an extension of the usual
-cohomology for $X/G$ in order to account for the action. For example,
-if $G$ acts smoothly without fixed points, then $X/G$ is a smooth
-manifold, and equivariant cohomology agrees with $H^*(X/G)$. On the
-other end of the spectrum, if $X = \{\pt\}$, then any $G$-action fixes
-$\pt$, and we want equivariant cohomology to give a cohomological
-invariant of $G$. To construct equivariant cohomology we need the
-machinery of classifying spaces.
+this action of $G$ on $X$. Equivariant cohomology is an extension of
+the usual cohomology for $X/G$ in order to account for the action. For
+example, if $G$ acts smoothly without fixed points, then $X/G$ is a
+smooth manifold, and equivariant cohomology agrees with $H^*(X/G)$. On
+the other end of the spectrum, if $X = \{\pt\}$, then any $G$-action
+fixes $\pt$, and we want equivariant cohomology to give a
+cohomological invariant of $G$. To construct equivariant cohomology we
+need the machinery of classifying spaces. So we first review some
+homotopy theory.
 
 \begin{definition}
   A continuous map $f\colon X \to Y$ of topological spaces is a {\bf
@@ -515,22 +518,28 @@ machinery of classifying spaces.
   then $X$ and $Y$ are {\bf homotopy equivalent}.
 \end{definition}
 
-\begin{theorem}[Hurewicz]
+\begin{theorem}[Hurewicz, {\cite[Section 20.1]{Dieck2008}}]
   For any topological space $X$ there exists a group homomorphism
   $h_k\colon \pi_k(X) \to H_k(X)$. If $X$ is $(n-1)$-connected, i.e.
   $\pi_k(X) = 0$ for $1 \le k \le n-1$, then $h_k$ is an isomorphism
   for $1 \le k \le n$, and $h_1$ is the abelianization map.
 \end{theorem}
 
-\begin{theorem}[Whitehead]
+\begin{theorem}[{\cite[Section 10.8]{Dieck2008}}] \label{thm:homotopy-injlim}
+  For $\{X_\alpha\}$ a directed system of Hausdorff
+  spaces, $\pi_i (\varinjlim X_\alpha) = \varinjlim \pi_i(X_\alpha)$
+\end{theorem}
+
+\begin{theorem}[Whitehead, {\cite[Theorem 20.1.5]{Dieck2008}}]
   If two connected CW complexes $X$ and $Y$ are weakly homotopy
   equivalent, then they are homotopy equivalent.
 \end{theorem}
 
 (This theorem of Whitehead's provided some of the initial
 justification for working with CW complexes.) It is true that all
-smooth manifolds are homotopy equivalent to CW-complexes. \todo{Cite
-  Milnor's Morse theory monograph for this; it's in there somewhere.}
+smooth manifolds are homotopy equivalent to CW-complexes (see
+\cite[page 220]{Bott1982} for a proof for compact smooth manifolds,
+and discussion on the general case). The proof is Morse-theoretic.
 
 \begin{definition}
   If $P \to B$ is a principal $G$-bundle with $P$ weakly contractible,
@@ -538,16 +547,40 @@ smooth manifolds are homotopy equivalent to CW-complexes. \todo{Cite
   is a {\bf universal $G$-bundle}, denoted $EG$.
 \end{definition}
 
-\begin{theorem}[Milnor] \label{thm:classifying-space}
+\begin{theorem}[Milnor, {\cite[Section 14.4]{Dieck2008}}] \label{thm:classifying-space}
   Let $G$ be any topological group. Then there exists a classifying
   space for $G$ (and a universal $G$-bundle) unique up to canonical
   homotopy equivalence.
 \end{theorem}
 
-\begin{proof}
-  \todo{Outline proof for $\GL(n)$ using the infinite Stiefel manifold
-    over the infinite Grassmannian, and therefore the proof for matrix
-    Lie groups. Then do $K(G, 1)$ for discrete groups.}
+\begin{proof}[Proof sketch]
+  We show that $EG$ exists for closed subgroups of the Lie group
+  $\GL(n)$; this is sufficient for our purposes. First, we find
+  $E\GL(n)$. Define
+  \begin{align*}
+    V_n(\bR^k) &\coloneqq \{(v_1, \ldots, v_n) \in (\bR^k)^n \text{ linearly independent}\}, \\
+    V_n^O(\bR^k) &\coloneqq \{(v_1, \ldots, v_n) \in (\bR^k)^n \text{ orthonormal}\}.
+  \end{align*}
+  They are both referred to as the {\bf Stiefel manifold} associated
+  to $\Gr_n(\bR^k)$. Note that $\pi\colon V_n(\bR^k) \to \Gr_n(\bR^k)$
+  is a principal $\GL(n)$-bundle, where $\pi$ sends $(v_1, \ldots,
+  v_n)$ to $\vspan\{v_1, \ldots, v_n\} \in \Gr_n(\bR^k)$. We shall
+  show that $V_n(\bR^\infty) \coloneqq \varinjlim_k V_n(\bR^k)$ is a
+  universal $\GL(n)$-bundle over $\Gr_n(\bR^\infty)$.
+
+  By Gram--Schmidt, $V_n^O(\bR^k)$ is a deformation retract of
+  $V_n(\bR^k)$, so since homotopy commutes with direct limit (see
+  \ref{thm:homotopy-injlim}), it suffices to show that $V_n^O(\bR^k)$
+  is $(k-1)$-connected. There are fibrations
+  \[ V_{n-1}^O(\bR^{k-1}) \to V_n^O(\bR^k) \xrightarrow{(v_1, \ldots, v_n) \mapsto v_n} S^{k-1} \]
+  so for $i < k-1$, we have $\pi_i(V_{n-1}^O(\bR^{k-1})) \cong
+  \pi_i(V_n^O(\bR^k))$. Hence by induction these homotopy groups
+  vanish, as desired, and we have shown $E\GL(n) = V_n(\bR^\infty)$.
+
+  Now let $G \subset \GL(n)$ be a closed Lie subgroup. Take $EG
+  \coloneqq V_n(\bR^\infty)$ and let $BG \coloneqq EG/G$. Then $EG \to
+  BG$ is a principal $G$-bundle, and by the same argument as above it
+  is universal.
 \end{proof}
 
 The idea for equivariant cohomology is to start with the possibly
@@ -556,31 +589,43 @@ $\tilde{X}$ on which $G$ acts freely, and then look at
 $H^*(\tilde{X}/G)$. Here is an easy way to get such a space.
 
 \begin{definition}
-  Let $E$ be a $G$-bundle over $X$ (which has a $G$-action). For a
-  point $x \in X$, let $G_x \coloneqq \{g : gx = x\}$ be the
-  stabilizer. Define the product
-  \[ E \times_G X = E \times X / \sim, \quad (eg, x) \sim (e, gx) \quad \forall e \in E, x \in X, g \in G, \]
-  i.e. the fibered space over $X/G$ with the fiber over $[Gx]$ equal
-  to $E/G_x$.
-\end{definition}
-
-\begin{definition}
+  Let $E$ be a $G$-bundle over $X$ (which has a $G$-action). Define
+  the product
+  \[ E \times_G X = E \times X / \sim, \quad (eg, x) \sim (e, gx) \quad \forall e \in E, x \in X, g \in G. \]
   The {\bf homotopy quotient} $X_G$ of $X$ by $G$ is $X_G \coloneqq EG
   \times_G X$. The {\bf equivariant cohomology} of $X$ is $H^*_G(X)
   \coloneqq H^*(X_G)$, the cohomology of the homotopy quotient.
 \end{definition}
 
-\begin{example}
+\begin{definition}
+  The projection maps from $EG \times X$ induce maps $\sigma\colon X_G
+  \to X/G$ and $\pi\colon X_G \to BG$ which fit into the {\bf mixing
+    diagram} of Borel and Cartan:
+  \[ \begin{CD}
+    EG @<<< EG \times X @>>> X   \\
+    @VVV        @VVV        @VVV \\
+    BG @<\sigma<< X_G @>\pi>> X/G.
+  \end{CD} \]
+  So there are two ways to view $X_G$:
+  \begin{enumerate}
+  \item $\pi\colon X_G \to X/G$ is a fibered space with the fiber over
+    $[Gx]$ being $EG/\{g : gx = x\}$;
+  \item $\sigma\colon X_G \to BG$ is a bundle with fiber $X$
+  \end{enumerate}
+  Using the second perspective, the inclusion of the fiber $i\colon X
+  \to X_G$ induces a map $i^*\colon H^*_G(X) \to H^*(X)$.
+\end{definition}
+
+\begin{example} \label{ex:eqcoh-point}
   If $X = \{\pt\}$, then $EG \times_G X = (EG \times \{\pt\}) / G =
   EG/G = BG$, so the equivariant cohomology of a point with a
   $G$-action is the cohomology of $BG$, i.e. $H^*_G(\{\pt\}) =
-  H^*(BG)$. The equivariant map $X \to \{\pt\}$ induces an
-  $H^*(BG)$-module structure on $H^*_G(X)$ for any $X$. Since this
-  situation is important and comes up often, we have the notation
-  $H^*_G \coloneqq H^*_G(\{\pt\}) = H^*(BG)$.
+  H^*(BG)$. For a general space $X$, the equivariant map $X \to
+  \{\pt\}$ induces an $H^*(BG)$-module structure on $H^*_G(X)$ for any
+  $X$. We use the notation $H^*_G \coloneqq H^*_G(\{\pt\}) = H^*(BG)$.
 \end{example}
 
-\begin{example}
+\begin{example} \label{ex:eqcoh-free}
   If $G$ acts freely on $X$, then $EG \times_G X = EG \times X/G$. By
   the K\"unneth theorem,
   \[ H^*_G(X) = H^*(EG \times X/G) = H^*(EG) \otimes H^*(X/G) = H^*(X/G) \]
@@ -591,7 +636,7 @@ $H^*(\tilde{X}/G)$. Here is an easy way to get such a space.
   H^*(BG)$.
 \end{example}
 
-\begin{example}
+\begin{example} \label{ex:eqcoh-torus}
   Let $G = \bC^*$ act on $\bC^n$ by scalar multiplication. The
   quotient map $\bC^{n+1} \setminus \{0\} \to \bC\bP^n$ is a principal
   $\bC^*$-bundle. Since $\bC^{n+1} \setminus \{0\}$ is homotopy
@@ -599,8 +644,9 @@ $H^*(\tilde{X}/G)$. Here is an easy way to get such a space.
   vanish, but the higher ones do not necessarily vanish. To fix this
   we take the direct limit of the inclusions $\bC\bP^n \to
   \bC\bP^{n+1} \to \cdots$ (which kills off the homotopy groups one by
-  one) to get the universal principal $\bC^*$-bundle $\bC^\infty \to
-  \bC\bP^\infty$. Hence $BS^1 = \bC\bP^\infty$, and
+  one; see \ref{thm:homotopy-injlim}) to get the universal principal
+  $\bC^*$-bundle $\bC^\infty \to \bC\bP^\infty$. Hence $BS^1 =
+  \bC\bP^\infty$, and
   \[ H^*_{S^1}(\{\pt\}) = H^*(BS^1) = H^*(\bC\bP^\infty) = \bQ[x], \]
   generated by the Chern class $x = c_1(\cO_{\bP^\infty}(1))$. For a
   {\bf torus action} by $\bT \coloneqq (\bC^*)^{m+1}$,
@@ -614,26 +660,44 @@ with equivariant cohomology classes. This is possible for $G$ a Lie
 group: we just have to work with $G$-equivariant forms.
 
 \begin{definition}
-  A smooth {\bf $G$-equivariant form} on $X$ is a $G$-equivariant map
-  $\alpha\colon \fg \to \Omega^*(X)$, i.e.
-  \[ \alpha(Z) = g^{-1} \alpha(\Ad(g)Z) \quad \forall Z \in \fg, \, g \in G. \]
-  Equivalently, it is a $G$-invariant element of $\Sym(\fg^*) \otimes
-  \Omega^*(X)$. The space of $G$-equivariant forms is denoted
-  $\Omega^*_G(X)$.
+  Interpret the symmetric algebra $\Sym(\fg^*)$ as polynomials on
+  $\fg$, and therefore $\Sym(\fg^*) \otimes \Omega^*(X)$ as
+  polynomials on $\fg$ with coefficients in $\Omega^*(X)$. There is a
+  natural $G$-action where $G$ acts on $\fg^*$ by the {\bf coadjoint
+    action} $(g \cdot \xi)(Z) \coloneqq X(\Ad_{g^{-1}}Z)$, and $G$
+  acts on $\Omega^*(X)$ by pullback. Using this action, the space of
+  smooth {\bf $G$-equivariant forms} on $X$ is
+  \[ \Omega^*_G(X) \coloneqq (\Sym(\fg^*) \otimes \Omega^*(X))^G, \]
+  i.e. $G$-invariant elements of $\Sym(\fg^*) \otimes \Omega^*(X)$.
+  Equivalently, they are $G$-equivariant maps $\alpha\colon \fg \to
+  \Omega^*(X)$, i.e. $\alpha(Z) = g^{-1}\cdot\alpha(\Ad(g)Z)$.
 \end{definition}
 
 \begin{definition}
-  The {\bf equivariant exterior derivative} $d_{\fg}\colon
-  \Omega^{\text{odd}}_G(X) \leftrightarrow \Omega^{\text{even}}_G(X)$
-  is given by
-  \[ d_{\fg}\alpha\colon \fg \to \Omega^*(X), \quad (d_{\fg}\alpha)(Z) \coloneqq d(\alpha(Z)) - \iota_{Z^\#}(\alpha(Z)) \]
+  Define a grading on $\Omega^*_G(X)$ by
+  \[ \deg\colon \Omega^*_G(X) \to \bZ_{\ge 0}, \quad \theta \otimes \omega \mapsto 2\deg_{\text{poly}}(\theta) + \deg_{\text{form}}\omega. \]
+  The {\bf equivariant exterior derivative} $d_G\colon \Omega^*_G(X)
+  \to \Omega^{*+1}_G(X)$ is given by extending the following map by
+  linearity:
+  \[ d_G|_{\fg^*}\alpha\colon \fg \to \Omega^*(X), \quad (d_{\fg}\alpha)(Z) \coloneqq d(\alpha(Z)) - \iota_{Z^\#}(\alpha(Z)) \]
   where $d$ is the usual exterior derivative, $\iota$ is contraction,
   and $Z^\#$ is the fundamental vector field associated to $Z \in
-  \fg$.
+  \fg$. The complex $(\Omega^*_G(X), d_G)$ is called the {\bf
+    equivariant de Rham complex}.
 \end{definition}
 
-\todo{Finish off exposition of de Rham model for equivariant
-  cohomology.}
+\begin{theorem}[Equivariant de Rham theorem, {\cite[Section 0.2]{Guillemin1999}}]
+  Let $G$ be a compact Lie group acting on a compact smooth manifold
+  $X$. Then there is an isomorphism between equivariant cohomology and
+  the cohomology of the twisted de Rham complex:
+  \[ H^*_G(X) \cong H^*(\Omega^*_G(X), d_G). \]
+\end{theorem}
+
+This proof should be done from a supersymmetric perspective. In the
+literature the result is known as the equivalence between the {\bf
+  Borel model} (i.e. our topological definition of equivariant
+cohomology) and the {\bf Cartan--Weil model} (i.e. the de Rham
+definition).
 
 \section{Algebraic Topology}
 
@@ -1234,7 +1298,7 @@ formula for $\chi_y$. To simplify the proof we restrict to the case of
 compact K\"ahler manifolds (in order to use Hodge decomposition),
 which shall be the main setting we work in anyway.
 
-\begin{theorem}[Generalized Gauss--Bonnet]
+\begin{theorem}[Generalized Gauss--Bonnet] \label{thm:generalized-gauss-bonnet}
   Let $X$ be a compact K\"ahler manifold. Then
   \[ \int_X e(X) = \chi(X). \]
 \end{theorem}
@@ -1310,25 +1374,26 @@ localization formula for equivariant cohomology with far-reaching
 consequences.
 
 \begin{definition}
-  If $i\colon V \to X$ is a map of compact manifolds, then there is a
-  {\bf pushforward} or {\bf wrong way map} on cohomology $i_*\colon
-  H^*(V) \to H^{*+k}(X)$: use Poincar\'e duality on $V$, push forward
-  the homology cycle, then use Poincar\'e duality on $X$.
+  If $\iota\colon V \to X$ is a map of compact manifolds, then there
+  is a {\bf pushforward} or {\bf wrong way map} on cohomology
+  $\iota_*\colon H^*(V) \to H^{*+k}(X)$: use Poincar\'e duality on
+  $V$, push forward the homology cycle, then use Poincar\'e duality on
+  $X$.
 \end{definition}
 
 \begin{example}
-  Let $i\colon V \to X$ be an inclusion of compact manifolds and let
-  $k$ be the codimension of $V$. Then $i_*1 = \Phi(NV)$, the Thom form
-  of the normal bundle of $V$. This is straightforward to check: the
-  Poincar\'e dual of $1$ is all of $V$, which sits in $X$ by the
-  inclusion $i$, which is dual, fiberwise, to the preferred generator
-  on each fiber, which is precisely the Thom class. The Thom form
-  $\Phi(NV)$ can be extended by zero so that it lives in $H^k(X)$, and
-  the pullback $i^*\colon H^k(X) \to H^k(V)$ then gives $i^*\Phi(NV) =
-  e(NV)$ (c.f. the definition \ref{def:euler-class} of the Euler
-  class). Hence
-  \[ i^* i_* 1 = e(NV). \]
-  The composition $i^*i_*$ is called the {\bf Gysin operation}.
+  Let $\iota\colon V \to X$ be an inclusion of compact manifolds and
+  let $k$ be the codimension of $V$. Then $\iota_*1 = \Phi(NV)$, the
+  Thom form of the normal bundle of $V$. This is straightforward to
+  check: the Poincar\'e dual of $1$ is all of $V$, which sits in $X$
+  by the inclusion $i$, which is dual, fiberwise, to the preferred
+  generator on each fiber, which is precisely the Thom class. The Thom
+  form $\Phi(NV)$ can be extended by zero so that it lives in
+  $H^k(X)$, and the pullback $\iota^*\colon H^k(X) \to H^k(V)$ then
+  gives $\iota^*\Phi(NV) = e(NV)$ (c.f. the definition
+  \ref{def:euler-class} of the Euler class). Hence
+  \[ \iota^* \iota_* 1 = e(NV). \]
+  The composition $\iota^*\iota_*$ is called the {\bf Gysin operation}.
 \end{example}
 
 Now we move to the setting for equivariant cohomology: $X$ has an
@@ -1336,20 +1401,41 @@ action by a topological group $G$. The idea is that, compared to
 ordinary cohomology, the equivariant cohomology has a larger
 coefficient ring, namely the polynomial ring $H^*_G \coloneqq
 H^*_G(\{\pt\})$. In ordinary cohomology we cannot invert $e(NV)$, but
-in equivariant cohomology we can.
+in equivariant cohomology we can. However we first need to define
+characteristic classes in equivariant cohomology.
 
 \begin{definition}
   A vector bundle $\pi\colon E \to X$ is {\bf equivariant} under the
   $G$-action on $X$ if the action $G \times X \to X$ lifts to $G
   \times E \to E$ in a way such that $\pi$ is equivariant. An
-  equivariant vector bundle $E$ induces a vector bundle $\tilde{E}$ on
-  the homotopy quotient $EG \times_G M$. An {\bf equivariant
-    characteristic class} of $E$ is an ordinary characteristic class
-  of $\tilde{E}$, which is an element of $H^*(EG \times_G X) =
-  H^*_G(X)$.
+  equivariant vector bundle $E$ induces a vector bundle $E_G \coloneqq
+  EG \times_G E$ on the homotopy quotient $EG \times_G X$. An {\bf
+    equivariant characteristic class} of $E$ is an ordinary
+  characteristic class of $E_G$, which is an element of $H^*(EG
+  \times_G X) = H^*_G(X)$. A cohomology class $\alpha \in H^*(X)$ has
+  a {\bf equivariant extension} if there exists $\alpha^G \in
+  H^*_G(X)$ with $\iota^*\alpha^G = \alpha$ where $\iota\colon X \to
+  X_G$ is fiber-wise inclusion.
 \end{definition}
 
-\begin{theorem}[Atiyah--Bott]
+\begin{example}
+  The {\bf equivariant Chern classes} of a $G$-equivariant rank $n$
+  complex vector bundle $\pi\colon E \to X$ are the regular Chern
+  classes of $E_G \to X_G$, i.e.
+  \[ c_k^G(E) \coloneqq c_k(E_G) = c_k(EG \times_G E) \in H^*(X_G) = H^*_G(X). \]
+  In particular the {\bf equivariant Euler class} is the top
+  equivariant Chern class $e^G(E) \coloneqq c_n^G(E)$.
+\end{example}
+
+For the remainder of this subsection we are always working with
+equivariant cohomology, so we omit the superscript $G$ on
+characteristic classes. Since we are usually concerned with a torus
+action for equivariant cohomology, let $\bT \coloneqq (\bC^*)^m$ be an
+algebraic torus acting on $X$. Recall from \ref{ex:eqcoh-torus} that
+in this case we can view equivariant cohomology classes as represented
+by $H^*_{\bT} = \bQ[x_0, \ldots, x_m]$-valued forms.
+
+\begin{theorem}[Atiyah--Bott, \cite{Atiyah1984}]
   Let $\bT$ be a torus acting on $X$, and split the locus of fixed
   points $F$ into connected components $F_i$. The equivariant Euler
   classes $e_{\bT}(NF_i) \in H^*(F_i) \otimes H^*_{\bT}$ are
@@ -1357,36 +1443,71 @@ in equivariant cohomology we can.
   \Frac(H^*_{\bT})$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Proof sketch]
   Terms of positive degree in $H^*(F_i)$ are nilpotent, so an element
   in $H^*(F_i)$ is invertible if its $H^0$ component is nonzero. So
   $e(NF_i)$ is invertible if its component in $H^0(F_i) \otimes
-  H^*_{\bT}$ is a non-zero polynomial. Some work shows that this
-  component is always non-zero. \todo{Cite or use Atiyah's paper ``The
-    Moment Map and Equivariant Cohomology''.}
+  H^*_{\bT}$ is a non-zero polynomial. Some work shows this is always
+  the case; see page 9 in the cited paper.
 \end{proof}
 
+View $X_{\bT}$ as a bundle over $B\bT$ with fiber $X$. Then the
+projection $\pi^X\colon X_{\bT} \to B\bT$ induces a wrong-way map
+$\pi^X_*\colon H^*_{\bT}(X) \to H^*_{\bT}$ which is precisely
+integration over the fibers. To disambiguate, we write integration
+over the fibers as $\int_{X_{\bT}/B\bT}$ and integration over $X$ as
+  $\int_X$. The relation between the two is given by
+\[ \begin{CD}
+  X @>\iota>> X_{\bT} \\
+  @VVV  @V\pi VV \\
+  p @>\iota_p>> B\bT
+\end{CD} \qquad\qquad
+\iota^*_p\int_{X_{\bT}/B\bT} \tilde{\alpha} = \int_X \iota^*\tilde{\alpha} = \int_X \alpha. \]
+Here $\iota^*_p\colon H^*_{\bT} \cong \bQ[x_0, \ldots, x_m] \to
+H^*(\{\pt\}) = \bQ$ is essentially the evaluation at zero map.
+
 \begin{corollary}[Atiyah--Bott localization formula] \label{thm:equiv-localization}
-  For $\phi \in H_{\bT}^*(X)$ and working in
-  $H^*_{\bT}(X)[(H^*_{\bT})^{-1}]$,
-  \[ \phi = \sum_i i^*\left(\frac{i^* \phi}{e(NF_i)}\right). \]
+  Let $\iota^{F_i}\colon F_i \to X$ be the inclusions of the connected
+  components of the fixed point locus. For $\phi \in H_{\bT}^*(X)$
+  and working in $H^*_{\bT}(X)[(H^*_{\bT})^{-1}]$,
+  \[ \int_{X_{\bT}/B\bT} \phi = \sum_i \int_{(F_i)_{\bT}/B\bT} \frac{\iota^* \phi}{e(NF_i)} \in \Frac(H^*_{\bT}). \]
 \end{corollary}
 
-To connect this formula to our previous notion of localization
-formulas, where we recover global information from local information
-at fixed points, we usually write it as
-\[ \int_M \phi = \sum_i \int_{F_i} \frac{i^*\phi}{e(NF_i)}. \]
-(This follows by recalling that $i_*$ is defined via Poincar\'e
-duality.) This formula is very powerful, as we shall see.
+\begin{proof}
+  From the identity $(\iota^{F_i})^* \iota^{F_i}_* 1 = e(NF_i)$ and
+  the Atiyah--Bott theorem, we can invert $e(NF_i)$ and write $\phi =
+  \sum_i \iota_*(\iota^* \phi/e(NF_i))$. We can apply $\pi^X_*$ to
+  both sides. But $\pi^X_* \circ \iota^{F_i}_* = \pi^{F_i}_*$, i.e.
+  integration over $F_i$. Hence
+  \[ \int_{X_{\bT}/B\bT} \phi = \pi^X_*\phi = \sum_i \pi^{F_i}_* \frac{\iota^*\phi}{e(NF_i)} = \sum_i \int_{(F_i)_{\bT}/B\bT} \frac{\iota^*\phi}{e(NF_i)}. \qedhere \]
+\end{proof}
+
+The idea is that the Atiyah--Bott localization formula simplifies many
+equivariant cohomology integrals by letting us only calculate over
+fixed points. It also allows us prove many fixed-point theorems. We do
+one such theorem as an example of localization.
 
 \begin{proposition}
-  Let $\bT$ act on $X$ with fixed point loci $\bigcup_i F_i$. Then
+  Let $\bT$ act on $X$ with fixed point locus $\bigcup_i F_i$. Then
   \[ \chi(X) = \sum_i \chi(F_i). \]
 \end{proposition}
 
 \begin{proof}
+  From the generalized Gauss--Bonnet theorem
+  \ref{thm:generalized-gauss-bonnet} we know $\chi(X) = \int_X e(X)$.
   The key is that the action of $\bT$ on $X$ lifts to an action of
-  $\bT$ on $TX$. \todo{Finish this proof.}
+  $\bT$ on $TX$, so the same statement holds in equivariant cohomology
+  with $\int_{X_{\bT}/B\bT}\colon H^*_{\bT}(X) \to H^*_{\bT}$ being
+  integration over the fiber (or the wrong-way map $\pi^X_*$).
+  Localizing,
+  \[ \int_{X_{\bT}/B\bT} e(X) = \sum_i \int_{(F_i)_{\bT}/B\bT} \frac{\iota^* e(X)}{e(NF_i)}. \]
+  Remember here $\iota\colon F_i \to X$ are inclusions. Recall that
+  $e(X) = c_n(X)$ and note that there is an exact sequence of
+  equivariant bundles $TF_i \to \iota^* TX \to NF_i$, so by
+  naturality \ref{thm:chern-axioms} and the splitting principle,
+  \[ \iota^* e(X) = \iota^* c_n(X) = c_n(\iota^* TX) = c_n(TF_i) c_n(NF_i). \]
+  Hence when we plug this back into the localized expression,
+  \[ \chi(X) = \int_{X_{\bT}/B\bT} e(X) = \sum_i \int_{(F_i)_{\bT}/B\bT} c_n(TF_i) = \sum_i \chi(F_i). \qedhere \]
 \end{proof}
 
 \section{Calabi--Yau Manifolds}
@@ -1460,7 +1581,7 @@ duality.) This formula is very powerful, as we shall see.
             \item Superspace review and a tickle of Mirror Symmetry.
         \end{enumerate}
 \end{enumerate}
-\section{QFT with $d=0$}
+\section{QFT with \texorpdfstring{$d=0$}{d=0}}
 First, let us discuss the fields. For a real-valued theory with $\dim M=0$, 
 we may identify functions $X:M\to\bR$ with just an element $X\in\bR$. To
 model fermions we shall ask our variables to anti-commute:
@@ -1687,7 +1808,7 @@ cohomology ring $\FR{\ker\bar\delta}{\im\,\bar\delta}$ is often called the
 %describes some of the structure on the chiral ring.
 %\end{ex}
 
-\section{QFT with $d=1$}
+\section{QFT with \texorpdfstring{$d=1$}{d=1}}
 Let $M$ be a $1$-dimensional manifold. We know that there are only two
 diffeomorphism classes of $1$-manifolds without boundary: $\bR$ and $S^1$.
 For simplicity, the only manifold with boundary that we will consider is
@@ -1910,7 +2031,7 @@ out the $\mc O(\lam)$ term to get the ground state:
 \right).\] In particular, if we denote the Morse indices of $h$ by $\mu_i$,
 the Witten index is given by $\Tr(-1)^F = \sum_{i=1}^N (-1)^{\mu_i}$.
 
-\subsection{Landau--Ginzburg, $n=2m$}
+\subsection{Landau--Ginzburg, \texorpdfstring{$n=2m$}{n=2m}}
 The Landau--Ginzburg model is complex analogue of our discussion above.
 The target space will now be $\bC^m \equiv \bR^{2m}$ and we will take the
 Lagrangian to be: \[ L = \sum_{i=1}^m \left(|\dot
