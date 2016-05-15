@@ -10,7 +10,8 @@
 
 Unless otherwise announced on this page, the seminar will run twice a
 week:
-* Mondays 2:30pm - 4:00pm in M3 2134, and
+* (**until May 16th**) Mondays 2:30pm - 4:00pm in M3 2134,
+* (**starting May 24th**) Tuesdays 12:30pm - 2:00pm in M3 3103.
 * Fridays 12:00pm - 1:30pm in M3 2134.
 
 Details about upcoming talks will be added incrementally as time
@@ -32,4 +33,24 @@ progresses. For now, the plan is:
     the calculations today will be useful later on.
 * Week 2 (Friday May 13th): Physical Preliminaries I; sections 2.1
   and 2.2 in notes.
-
+* Week 3 (Monday May 16th): Mathematical Preliminaries III;
+  section 1.2 in notes.
+  - A continuation of Mathematical Preliminaries II. We'll finish up
+    the discussion of characteristic classes, introduce
+    Hirzebruch--Riemann--Roch, and do some example calculations and
+    usages, e.g. using it to prove the generalized Gauss--Bonnet
+    formula.
+* Week 3 (Friday May 20th): **canceled** due to [GAP](http://www.fields.utoronto.ca/activities/15-16/gap).
+* Week 4 (Tuesday May 24rd): Mathematical Preliminaries IV:
+  sections 1.1.3 and 1.2.5 in notes.
+  - We introduce equivariant cohomology, which is a cohomology theory
+    that captures the group action on a space, and the localization
+    principle from a mathematical perspective. Our main goal is to
+    state and justify the Atiyah--Bott localization formula, which
+    will be our main tool for integrating equivariant cohomology
+    classes. These tools form the basis for Gromov--Witten theory and
+    have many other applications in mathematical physics whenever
+    there is a gauge group.
+* Week 4 (Friday May 27th): Physics Preliminaries II; section 2.3 in
+  notes.
+* Week 5 (Tuesday May 31st): Deformations of Calabi--Yau manifolds

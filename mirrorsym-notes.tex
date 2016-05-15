@@ -977,20 +977,6 @@ Using the symbol $x$ to stand for $c_1(\cO_{\bP^n}(1))$ is fairly
 common. We shall do so from now on. (The reason is that $x$ generates
 the cohomology ring $H^*(\bP^n)$.)
 
-\begin{example} \label{ex:chern-hypersurface}
-  Let $X = V(p)$ be a smooth projective variety in $\bP^n$ with $p$ a
-  degree $d$ homogeneous polynomial, i.e. a section of
-  $\cO_{\bP^n}(d)$. To compute the Chern class of $X$, we use the {\bf
-    adjunction formula} $NX \cong \cO(d)|_X$ (see \cite[Proposition
-    2.2.17]{Huybrechts2005} for details), so that
-  \[ 0 \to TX \to T\bP^n|_X \to NX \cong \cO(d)|_X \to 0 \]
-  is a short exact sequence. Since $\cO(d) = \cO(1)^{\otimes d}$, we
-  can't use the Whitney sum property of the Chern class, but we can
-  use the Chern character:
-  \[ \ch(\cO(d)) = \ch(\cO(1))^d = \exp(x)^d = \exp(dx), \]
-  so $c(\cO(d)) = 1 + dx$. Hence $c(X) = (1 + x)^{n+1}/(1 + dx)$.
-\end{example}
-
 \begin{definition}
   If we formally factorize the total Chern class as $c(E) =
   \prod_{k=1}^r (1 + a_k)$, then the {\bf Chern character class} is
@@ -1010,6 +996,20 @@ proposition.
   The Chern character satisfies
   \[ \ch(E \oplus F) = \ch(E) + \ch(F), \quad \ch(E \otimes F) = \ch(E) \wedge \ch(F). \]
 \end{proposition}
+
+\begin{example} \label{ex:chern-hypersurface}
+  Let $X = V(p)$ be a smooth projective variety in $\bP^n$ with $p$ a
+  degree $d$ homogeneous polynomial, i.e. a section of
+  $\cO_{\bP^n}(d)$. To compute the Chern class of $X$, we use the {\bf
+    adjunction formula} $NX \cong \cO(d)|_X$ (see \cite[Proposition
+    2.2.17]{Huybrechts2005} for details), so that
+  \[ 0 \to TX \to T\bP^n|_X \to NX \cong \cO(d)|_X \to 0 \]
+  is a short exact sequence. Since $\cO(d) = \cO(1)^{\otimes d}$, we
+  can't use the Whitney sum property of the Chern class, but we can
+  use the Chern character:
+  \[ \ch(\cO(d)) = \ch(\cO(1))^d = \exp(x)^d = \exp(dx), \]
+  so $c(\cO(d)) = 1 + dx$. Hence $c(X) = (1 + x)^{n+1}/(1 + dx)$.
+\end{example}
 
 Finally, we need to connect the theory of Chern classes with sheaf
 cohomology. Consider the short exact sequence of sheaves given by
@@ -1104,7 +1104,7 @@ especially from the Chern--Weil approach.
   r$. Let $Z$ be the zero set of a smooth section $s\colon M \to E$
   that is transversal to the zero section $\iota\colon M \to E$. Then
   $Z$ is a smooth submanifold of $M$ of codimension $r$ and there is a
-  natural bundle isomorphism $T_ZM \cong E|_M$. Consequently, $e(E)$
+  natural bundle isomorphism $NZ \cong E|_Z$. Consequently, $e(E)$
   is Poincar\'e dual to $Z$.
 \end{proposition}
 
@@ -1281,7 +1281,7 @@ generalized Gauss--Bonnet theorem.
 
 \begin{corollary} \label{thm:chi-genus-formula}
   Factorize $c(X) = \prod_{k=1}^n (1 + a_k)$. Then
-  \[ \chi_y = \int_X \prod_{k=1}^n (1 + y \exp(-a_k)) \frac{a_k}{1 - \exp(-a_k)} = \int_X \prod_{k=1}^n a_k \coth(a_k/2). \]
+  \[ \chi_y = \int_X \prod_{k=1}^n (1 + y \exp(-a_k)) \frac{a_k}{1 - \exp(-a_k)}. \]
 \end{corollary}
 
 \begin{proof}
