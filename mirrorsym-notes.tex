@@ -44,6 +44,9 @@
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cG}{\mathcal{G}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cU}{\mathcal{U}}
@@ -66,8 +69,13 @@
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\Gr}{Gr}
 \DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Hol}{Hol}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
 \newcommand{\dR}{\mathrm{dR}}
@@ -79,6 +87,7 @@
 \newcommand{\bu}{\bar{u}}
 \newcommand{\bdi}{\bar{\di}}
 \newcommand{\rep}[1]{\mathbf{#1}}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
 
 
 \newcommand{\mc}{\mathcal}
@@ -229,7 +238,7 @@ presheaf on $X$.
   theorem shows that $\cO(\bP^1)$ can only contain constant functions.
 \end{example}
 
-\begin{example}
+\begin{example} \label{ex:quintics-dim}
   Recall the tautological line bundle $\cO(-1)$ and its dual $\cO(1)$
   on $\bP^n$; we have $\cO(n) = \cO(1)^n$. On the same charts on
   $\bP^1$, since $\cO(1)$ has transition function $u = v^{-1}$, we
@@ -843,7 +852,8 @@ and then integrating is perfect.
   is perfect, so $H^k(X, E) \cong H^{n-k}(X, E^* \otimes K_X)^*$.
 \end{theorem}
 
-Poincar\'e duality combined with Hodge decomposition gives
+Poincar\'e duality combined with Hodge decomposition
+\ref{thm:hodge-decomposition} gives
 \[ \bigoplus_{p+q=k} H^q(X, \Omega^p) = H^k(X, \bC) \cong H^{2n-k}(X, \bC) = \bigoplus_{p'+q'=2n-k} H^{q'}(X, \Omega^{p'}) = \bigoplus_{p+q=k} H^{n-q}(X, \Omega^{n-p}). \]
 Serre duality says that in fact, each of the terms in the sum are
 isomorphic: $H^q(X, \Omega^p) \cong H^{n-q}(X, \Omega^{n-p})$.
@@ -1160,7 +1170,7 @@ with various other objects.
   = (d-1)(d-2)/2 = \binom{d-1}{2}$.
 \end{example}
 
-\begin{example}
+\begin{example} \label{ex:quintic-hypersurface-chern-class}
   By \ref{ex:chern-hypersurface}, a quintic hypersurface $Q$ in
   $\bP^4$ has total Chern class $c(Q) = (1 + x)^5/(1 + 5x) = 1 + 10x^2
   - 40x^3$. (Note that $c_1(Q) = 0$, so $Q$ is Calabi--Yau.) We want
@@ -1304,9 +1314,10 @@ which shall be the main setting we work in anyway.
 \end{theorem}
 
 \begin{proof}
-  Note that $\chi(X) = \chi_{-1}$ since by Hodge decomposition,
-  $\sum_{p+q=k} h^{p,q}(X) = b_k(X)$, the $k$-th Betti number of $X$.
-  Applying the $\chi_y$ formula \ref{thm:chi-genus-formula}, we get
+  Note that $\chi(X) = \chi_{-1}$ since by Hodge decomposition
+  \ref{thm:hodge-decomposition}, $\sum_{p+q=k} h^{p,q}(X) = b_k(X)$,
+  the $k$-th Betti number of $X$. Applying the $\chi_y$ formula
+  \ref{thm:chi-genus-formula}, we get
   \[ \chi_{-1} = \int_X \prod_{k=1}^n a_k = \int_X c_n(X) = \int_X e(X) \]
   where the last equality is from \ref{thm:euler-chern}.
 \end{proof}
@@ -1511,6 +1522,689 @@ one such theorem as an example of localization.
 \end{proof}
 
 \section{Calabi--Yau Manifolds}
+
+In this section we develop the theory of Calabi--Yau manifolds, the
+main objects of mirror symmetry.
+
+\subsection{K\"ahler Geometry}
+
+We briefly review K\"ahler geometry in this subsection. Let $X$ be a
+complex $n$-fold with complex structure $J$ and coordinates $(z^1,
+\ldots, z^n, \bz^1, \ldots, \bz^n)$. Let $g = g_{i\bar{j}}(z)$ be a
+Hermitian metric on $X$.
+
+\begin{definition}
+  The $2$-form $\omega(X, Y) \coloneqq g(X, JY)$ is the {\bf
+    associated K\"ahler form}. We say $g$ is a {\bf K\"ahler metric}
+  and $(M, g)$ is a {\bf K\"ahler manifold} if $d\omega = 0$. In
+  coordinates, if $g = g_{i\bar{j}}(z) dz^i \odot d\bz^{\bar{j}}$,
+  then $\omega = (i/2)g_{i\bar{j}}(z) dz^i \wedge d\bz^{\bar{j}}$.
+\end{definition}
+
+\begin{proposition} \label{thm:lefschetz-nonzero}
+  The volume form associated to a Hermitian metric $g$ is equal to
+  $\omega^n/n!$. Hence if $X$ is a closed K\"ahler manifold, $\omega^k
+  \in H^{2k}_{\dR}(X)$ is non-zero for every $1 \le k \le n$.
+\end{proposition}
+
+\begin{proof}
+  Let $e_1, \ldots, e_n$ be a complex orthonormal basis of $T_{X,x}$,
+  so that the corresponding real basis is $e_1, Je_1, \ldots, e_n,
+  Je_n$ and it suffices to check $(\omega^n/n!)(e_1 \wedge Je_1 \wedge
+  \cdots \wedge e_n \wedge Je_n) = 1$. But this is obvious, since
+  $\omega = (i/2)\sum_i dz^i \wedge d\bz^{\bar{i}}$ in orthonormal
+  coordinates.
+
+  If $\omega^k = d\eta$, then $\omega^n = d(\omega^{n-k} \wedge \eta)$
+  by the K\"ahler condition. By Stokes', $\int_X \omega^n = 0$ since
+  $X$ is closed. But this is supposed to be the volume of $X$.
+\end{proof}
+
+So it is easy to give examples of non-K\"ahler complex manifolds: just
+pick a closed complex $n$-fold whose $H^{2k}_{\dR}$ is zero for some
+$1 \le k \le n$, e.g. Hopf surfaces.
+
+\begin{definition}
+  Let $E$ be a Hermitian vector bundle over $X$ with Hermitian metric
+  $h$. A connection $\nabla$ on $E$ is {\bf compatible} with $h$ if
+  \[ d(h(\sigma, \tau)) = h(\nabla \sigma, \tau) + h(\sigma, \nabla \tau). \]
+  Here we define $h(\sigma \otimes \eta, \tau) \coloneqq h(\sigma,
+  \tau) \eta$ where $\eta \in \Omega^*(X)$. But $h$ is sesquilinear,
+  so $h(\sigma, \tau \otimes \eta) = h(\sigma, \tau) \overline{\eta}$.
+\end{definition}
+
+\begin{proposition}
+  Let $E$ be a holomorphic vector bundle with holomorphic structure
+  $\bdi_E$. Then there exists a unique connection $\nabla$ on $E$,
+  called the {\bf Chern connection}, compatible with $h$ and with
+  $\nabla^{0,1} = \bdi_E$.
+\end{proposition}
+
+\begin{proof}
+  Writing down the $(1,0)$-part of the condition for compatibility, we
+  get
+  \[ \di(h(\sigma, \tau)) = h(\nabla^{1,0}\sigma, \tau) + h(\sigma, \nabla^{0,1}\tau) = h(\nabla^{1,0}\sigma, \tau) \]
+  where the last equality follows from $\nabla^{0,1} = \bdi_E$ and
+  $\sigma, \tau$ being holomorphic sections. Since $h$ is
+  non-degenerate, this equality uniquely specifies $\nabla^{1,0}$.
+\end{proof}
+
+\begin{theorem}[{\cite[Theorem 3.13, Proposition 3.14]{Voisin2002}}, {\cite[Proposition 4.A.17]{Huybrechts2005}}] \label{thm:kahler-defs}
+  The following are equivalent:
+  \begin{enumerate}
+  \item the metric $h$ is K\"ahler, i.e. $\di_i h_{j\bar{k}} = \di_j
+    h_{i\bar{k}}$,
+  \item the Christoffel symbols $\Gamma^i_{jk}$ of the Levi--Civita
+    connection are {\bf pure}, i.e. $\Gamma^i_{jk}$ and
+    $\Gamma^{\bar{i}}_{\bar{j}\bar{k}}$ may be non-zero, but ``mixed''
+    symbols like $\Gamma^{\bar{i}}_{jk}$ vanish,
+  \item the complex structure $J$ is {\bf parallel} with respect to
+    the Levi--Civita connection of $h$, i.e. $\nabla J = 0$,
+  \item the Chern connection and the Levi--Civita connection coincide,
+  \item there exists {\bf normal coordinates} in a neighborhood of any
+    $x \in X$, i.e. holomorphic coordinates $z_1, \ldots, z_n$ such
+    that $h_{i\bar{j}} = \delta_{ij} + O(\sum_i |z_i|^2)$,
+  \item $X$ is a $2n$-dimensional Riemannian manifold with holonomy in
+    $U(n)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  The K\"ahler condition $d\omega = 0$ implies that for any point $x
+  \in X$ there exists an open neighborhood $U$ and a function
+  $\Phi\colon U \to \bR$ on $U$ with $\omega|_U = (i/2)\di\bdi\Phi$.
+  Namely, it suffices to pick the domain $U \cong \bC^n$ of a chart:
+  by the $\bdi$-Poincar\'e lemma, $\omega$ is $\bdi$-exact on $U$, and
+  then we apply the global $\di\bdi$-lemma \ref{thm:deldelbar-lemma}
+  (which we shall use Hodge theory to prove in the next subsection).
+  The function $\Phi$ is the {\bf K\"ahler potential}. Note that
+  $\Phi$ is not uniquely determined: $\Phi + f(z) + g(\bz)$ defines
+  the same $\omega$.
+\end{definition}
+
+The K\"ahler potential is local and cannot be defined globally! For if
+$\omega = (i/2)\di\bdi\Phi$ globally, then $\omega$ is exact,
+violating \ref{thm:lefschetz-nonzero}.
+
+\begin{definition}
+  Let $X$ be a compact K\"ahler manifold. The {\bf K\"ahler class} of
+  a K\"ahler structure on $X$ is the cohomology class $[\omega] \in
+  H^{1,1}(X)$ of its K\"ahler form. The {\bf K\"ahler cone}
+  \[ \cK_X \subset H^{1,1}(X) \cap H^2(X, \bR) \]
+  is the set of all K\"ahler classes associated to any K\"ahler
+  structure on $X$. (Clearly $\cK_X$ is closed under positive
+  rescaling, so this is indeed a cone.)
+\end{definition}
+
+Later when we look at deformations of Calabi--Yau manifolds, we shall
+see that any class in $H^{1,1}(X)$ can be used to deform the metric
+slightly. So $h^{1,1}$ classifies infinitesimal deformations of the
+metric (c.f. \ref{thm:h11-kahler-deformation}).
+
+\subsection{Hodge Theory of K\"ahler Manifolds}
+
+We now look at the Hodge theory of K\"ahler manifolds, which is more
+interesting than the Hodge theory of Riemannian manifolds. For
+completeness we first review the Riemannian case.
+
+\begin{definition}
+  Let $X$ be a compact oriented Riemannian $n$-fold with Riemannian
+  metric $g$. Define the {\bf $L^2$ inner product} on $\Omega^k(X)$ by
+  $(\alpha, \beta)_{L^2} \coloneqq \int \alpha \wedge \star \beta$
+  where $\star$ is the {\bf Hodge star}. The (formal) adjoint of the
+  exterior derivative $d\colon \Omega^k(X) \to \Omega^{k+1}(X)$ under
+  $(\cdot, \cdot)_{L^2}$ is denoted $d^*\colon \Omega^{k+1}(X) \to
+  \Omega^k(X)$ and called the {\bf codifferential}. A quick
+  calculation shows $d^* = (-1)^{n(k-1)+1}\star d \star = (-1)^k
+  \star^{-1} d \star$, which commutes with $d$. Define the space
+  $\cH^k_\Delta(X)$ of {\bf harmonic forms} to be the kernel of the
+       {\bf Laplacian} $\Delta$:
+  \[ \cH^k_\Delta(X) \coloneqq \{\alpha \in \Omega^k(X) : \Delta \alpha = 0\}, \quad \Delta \coloneqq dd^* + d^*d\colon \Omega^k(X) \to \Omega^k(X). \]
+  The {\bf Hodge decomposition} is an orthogonal decomposition (with
+  respect to the $L^2$ inner product)
+  \[ \Omega^k(X) \cong \im(\Omega^{k-1} \xrightarrow{d} \Omega^k) \oplus \im(\Omega^{k+1} \xrightarrow{d^*} \Omega^k) \oplus \cH^k_{\Delta}. \]
+  Since $d^*$ and therefore $\Delta$ commutes with $d$, we have
+  $d\cH^k_\Delta = 0$, so there is a canonical map $\varphi\colon
+  \cH^k_\Delta(X) \to H^k_{\dR}(X)$. The {\bf Hodge theorem} says
+  $\varphi$ is an isomorphism of vector spaces, i.e. every cohomology
+  class has a unique harmonic representative.
+\end{definition}
+
+\begin{definition}
+  For $X$ a complex manifold now with a Hermitian metric, $d = \di +
+  \bdi$. Denoting the $L^2$ adjoint of $\di$ and $\bdi$ by $\di^*$ and
+  $\bdi^*$ respectively, define the {\bf $\bdi$-laplacian}
+  $\Delta_{\bdi} \coloneqq \bdi \bdi^* + \bdi^* \bdi$ and similarly
+  for the $\di$-laplacian. Similarly if $E$ is a holomorphic vector
+  bundle with holomorphic structure $\bdi_E$ then $\Delta_E \coloneqq
+  \bdi_E \bdi_E^* + \bdi_E^* \bdi_E$. Define the {\bf $\bdi$-harmonic
+    forms}
+  \[ \cH^{p,q}_{\bdi}(X) \coloneqq \{\alpha \in \Omega^{p,q}(X) : \Delta_{\bdi}\alpha = 0\} \]
+  and similarly for {\bf $\di$-harmonic forms}.
+\end{definition}
+
+\begin{lemma} \label{thm:harmonic-implies-closed}
+  Let $X$ be a compact complex manifold with Hermitian metric. Then
+  $\alpha$ is $\bdi$-harmonic iff $\alpha$ is both $\bdi$- and
+  $\bdi^*$-closed.
+\end{lemma}
+
+\begin{proof}
+  Note that $(\Delta_{\bdi}\alpha, \alpha) = \|\bdi^*\alpha\|^2 +
+  \|\bdi\alpha\|^2 = 0$ implies $\bdi^*\alpha = \bdi\alpha = 0$. The
+  converse is trivial.
+\end{proof}
+
+\begin{definition}
+  Let $\omega$ be the associated K\"ahler form. The {\bf Lefschetz
+    operator} $L\colon \Omega^{p,q} \to \Omega^{p+1,q+1}$ is given by
+  $\alpha \mapsto \alpha \wedge \omega$. The {\bf dual Lefschetz
+    operator} $\Lambda\colon \Omega^{p+1,q+1} \to \Omega^{p,q}$ is the
+  $L^2$ adjoint of the Lefschetz operator $L$. Note that by
+  \ref{thm:lefschetz-nonzero}, $L^k \neq 0$ for $1 \le k \le n$.
+\end{definition}
+
+\begin{theorem}[K\"ahler identities, {\cite[Section 6.1]{Voisin2002}}] \label{thm:kahler-identities}
+  If $(X, h)$ is a K\"ahler manifold, then
+  \[ [\bdi^*, L] = i\di, \quad \bdi^* \di + \di \bdi^* = 0, \quad \Delta_d = 2\Delta_\di = 2\Delta_{\bdi}. \]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+  Bash the first equation out locally in $\bC$, and then use
+  (holomorphic) normal coordinates to put it onto $X$. Then bash some
+  more for the other two equations.
+\end{proof}
+
+\begin{corollary} \label{thm:harmonic-components}
+  If $\alpha \in \Omega^k$ is harmonic, then its components
+  $\alpha^{p,q} \in \Omega^{p,q}$ are harmonic.
+\end{corollary}
+
+Note that by the K\"ahler identities, we do not need to specify the
+Laplacian with respect to which a form is harmonic. In particular,
+$(p,q)$-forms harmonic for $\Delta_d$ are also harmonic for
+$\Delta_{\bdi}$.
+
+\begin{theorem}[Hodge decomposition, {\cite[Theorem 3.2.8]{Huybrechts2005}}] \label{thm:hodge-decomposition}
+  Let $X$ be a compact K\"ahler manifold. There exists orthogonal {\bf
+    Hodge decompositions}
+  \[ \Omega^{p,q} = \di \Omega^{p-1,q} \oplus \di^* \Omega^{p+1,q} \oplus \cH^{p,q}_{\di} = \bdi \Omega^{p,q-1} \oplus \bdi^* \Omega^{p,q+1} \oplus \cH^{p,q}_{\bdi}. \]
+  Furthermore $\cH^{p,q}_{\di} = \cH^{p,q}_{\bdi}$, and the canonical
+  projection $\cH^{p,q}_{\bdi} \to H^{p,q}(X, \bC)$ given by
+  \ref{thm:harmonic-implies-closed} is an isomorphism. Hence by
+  \ref{thm:harmonic-components}, $H^k(X, \bC) = \bigoplus_{p+q=k}
+  H^{p,q}$.
+\end{theorem}
+
+\begin{corollary}
+  The odd Betti numbers $b_{2k+1} \coloneqq \dim_{\bC} H^{2k+1}(X,
+  \bC)$ of a compact K\"ahler manifold $X$ are even.
+\end{corollary}
+
+\begin{proof}
+  Complex conjugation acts naturally on $H^{p+q}(X, \bC)$ with
+  $\overline{H^{p,q}} = H^{q,p}$.
+\end{proof}
+
+\begin{corollary}[Global $\di\bdi$ lemma, {\cite[Corollary 3.2.10]{Huybrechts2005}}] \label{thm:deldelbar-lemma}
+  Let $X$ be a compact K\"ahler manifold. If $\alpha \in
+  \Omega^{p,q}(X)$ and $d\alpha = 0$ then
+  \[ \alpha \text{ is } d\text{-exact} \iff \alpha \text{ is } \di\text{-exact} \iff \alpha \text{ is } \di\bdi\text{-exact} \iff \alpha \text{ is } \di\bdi\text{-exact}. \]
+\end{corollary}
+
+\begin{proof}
+  By the Hodge decomposition theorem \ref{thm:hodge-decomposition},
+  any of the four conditions above implies $\alpha$ is orthogonal to
+  $\cH^{p,q}$ (where since $X$ is K\"ahler we do not need to specify
+  which Laplacian we are considering for harmonicity). We shall show
+  this implies $\alpha$ is $\di\bdi$-exact.
+
+  Since $\alpha$ is $d$-closed and therefore $\di$-closed, $(\di
+  \alpha, \beta) = (\alpha, \di^*\beta) = 0$, so $\alpha$ is also
+  orthogonal to $\di^*\Omega^{p+1,q}$. By the Hodge decomposition with
+  respect to $\di$, it follows that $\alpha \in \di\Omega^{p-1,q}$,
+  i.e. $\alpha = \di \gamma$ for some $\gamma \in \Omega^{p-1,q}$. By
+  Hodge decomposition with respect to $\bdi$ on $\gamma$,
+  \[ \gamma = \bdi\beta + \bdi^*\beta' + \beta'', \quad \alpha = \di\gamma = \di\bdi\beta + \di\bdi^*\beta' \]
+  where \ref{thm:harmonic-implies-closed} implies that $\di\beta'' =
+  0$. We use the K\"ahler identity $\di\bdi^* = -\bdi^*\di$ from
+  \ref{thm:kahler-identities} to get
+  \[ 0 = \bdi\alpha = \bdi\di\bdi\beta + \bdi\di\bdi^*\beta' = 0 - \bdi\bdi^*\di\beta'. \]
+  But $0 = (\bdi\bdi^*\di\beta', \di\beta') = \|\bdi^*\di\beta'\|^2$,
+  so the term $\di\bdi^*\beta'$ in $\alpha$ vanishes and we are left
+  with $\alpha = \di\bdi\beta$.
+\end{proof}
+
+There is a different orthogonal decomposition of cohomology that is
+useful in computations. This decomposition arises from the Lefschetz
+operator $L$ rather than Hodge theory.
+
+\begin{theorem}[Hard Lefschetz theorem, {\cite[Theorem 6.25]{Voisin2002}}]
+  Let $X$ be a compact K\"ahler manifold. For $k \le n$, the
+  $(n-k)$-th power of the Lefschetz operator gives an isomorphism
+  \[ L^{n-k}\colon H^k(X, \bC) \xrightarrow{\sim} H^{2n-k}(X, \bC). \]
+  Equivalently, since $\omega$ is a $(1,1)$-form, $H^{p,q}(X, \bC)
+  \cong H^{n-q,n-p}(X, \bC)$.
+\end{theorem}
+
+\begin{theorem}[Lefschetz hyperplane theorem, {\cite[Theorem 1.23]{Voisin2003}}] \label{thm:lefschetz-hyperplane}
+  Let $X \subseteq \bP^N$ be a (not necessarily smooth)
+  $n$-dimensional algebraic subvariety, and $Y = \bP^{N-1} \cap X$ be
+  a hyperplane section such that $X \setminus Y$ is smooth. Then the
+  restriction $H^k(X, \bZ) \to H^k(Y, \bZ)$ is an isomorphism for $k <
+  n-1$ and injective for $k = n-1$.
+\end{theorem}
+
+\begin{theorem}[Lefschetz decomposition, {\cite[Corollary 6.26, Lemma 6.31]{Voisin2002}}]
+  Writing $H^r(X, \bC)_{\text{prim}} \coloneqq \ker L^{n-r+1} \subset
+  H^r(X, \bC)$ for the {\bf primitive forms}, we have the (orthogonal
+  with respect to the $L^2$ inner product) Lefschetz decomposition
+  \[ H^k(X, \bC) \cong \bigoplus_{k-2r \ge 0} L^r H^{k-2r}(X, \bC)_{\text{prim}}. \]
+\end{theorem}
+
+The {\bf Hodge diamond} is the collection of Hodge numbers $h^{p,q}$
+arranged in a diamond with rows of increasing $p+q$. Its symmetries
+for a compact K\"ahler manifold are:
+\begin{enumerate}
+\item reflection across the vertical axis $h^{p,q} = h^{q,p}$, from
+  complex conjugation;
+\item reflection across the horizontal axis $h^{p,q} = h^{n-q,n-p}$,
+  from the Hodge star or the hard Lefschetz theorem;
+\item $180^{\circ}$ rotation $h^{p,q} = h^{n-p,n-q}$, from Serre duality;
+\end{enumerate}
+
+\subsection{Calabi--Yau Manifolds}
+
+Throughout this subsection, $X$ is a compact K\"ahler manifold with
+all the notation of the previous subsections, and also with
+Levi--Civita connection $\nabla$. We use $\nabla^K$ to denote the
+induced connection on the canonical bundle $K_X \coloneqq
+\Lambda^{n,0}X$.
+
+\begin{definition}
+  Recall the {\bf Riemann curvature tensor} and {\bf Ricci curvature
+    tensor}
+  \[ R(X,Y)Z \coloneqq \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{[X,Y]}Z, \quad \Ric(X,Y) \coloneqq \tr(Z \mapsto R(Z,X)Y). \]
+  In coordinates, if ${R^l}_{ijk}$ is the Riemann curvature tensor,
+  then $R_{ij}\coloneqq {R^k}_{ikj}$ is the Ricci curvature tensor. By
+  \ref{thm:kahler-defs}, $\nabla J = 0$, so $R(X,Y)JZ = JR(X,Y)Z$,
+  which gives $\Ric(JX, JY) = \Ric(X, Y)$ after some work. Hence
+  $\Ric(JX, Y)$ is skew-symmetric in $X$ and $Y$. The {\bf Ricci form}
+  $\rho$ of $X$ is defined by $\rho(X, Y)\coloneqq \Ric(JX, Y)$.
+\end{definition}
+
+\begin{proposition}[{\cite[Proposition 12.2]{Moroianu2007}}] \label{thm:ricci-form-closed}
+  The Ricci tensor of a K\"ahler manifold satisfies
+  \[ \Ric(X, Y) = (1/2)\tr(R(X, JY) \circ J). \]
+  It follows that the Ricci form $\rho$ is $d$-closed.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+  The identity for the Ricci tensor is just a short calculation using
+  the first Bianchi identity $R(X,Y)Z + R(Y,Z)X + R(Z,X)Y = 0$. Then
+  \[ 2d\rho(X, Y, Z) = 2((\nabla_X \rho)(Y, Z) + \text{cyclic perms}) = \tr(((\nabla_X R)(Y, Z) + \text{cyclic perms}) \circ J) = 0 \]
+  by the second Bianchi identity $(\nabla_X R)(Y, Z) + \text{cyclic
+    perms} = 0$.
+\end{proof}
+
+\begin{proposition}[{\cite[Proposition 17.4]{Moroianu2007}}] \label{thm:chern-curvature-is-ricci}
+  Let $X$ be a K\"ahler manifold. Then $c_1(X) = (1/2\pi)[\tr \rho]$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+  By Chern--Weil, $c_1(X) = -c_1(K_X)$. Let $F_\nabla$ be the
+  curvature operator $F_\nabla \in \Gamma(\Lambda^2 X
+  \otimes \End(TX))$ of the Chern connection on $X$ and $R$ be the
+  Riemannian curvature tensor of the Levi--Civita connection on $X$.
+  Then a straightforward calculation shows $F_\nabla(X,Y) = R(X,Y)$ on
+  $TX$. Writing $\nabla^K$ for the induced connection on $K_X$, we
+  have $F_{\nabla^K} = \tr F_\nabla = \tr R$. But then using
+  \ref{thm:ricci-form-closed},
+  \[ i\rho(X, Y) = i\Ric(JX, Y) = \frac{i}{2} \tr_{\bR}(R(X, Y) \circ J) = \frac{i}{2}(2i \tr_{\bC}(R(X, Y))) = -\tr_{\bC}(R(X, Y)) = F_{\nabla^K}(X, Y). \qedhere \]
+\end{proof}
+
+\begin{theorem}[{\cite[Theorem 17.5]{Moroianu2007}}] \label{def:calabi-yau}
+  Let $X$ be a compact K\"ahler manifold. The following are
+  equivalent:
+  \begin{enumerate}
+  \item $X$ is Ricci-flat, i.e. $\Ric = 0$,
+  \item the Chern connection of the canonical bundle $K_X$ is flat,
+  \item there exists a (local) section of the canonical bundle
+    parallel to the Levi--Civita connection $\nabla$,
+  \item $X$ has holonomy in $\SU(n)$,
+  \end{enumerate}
+  If $X$ satisfies any of these conditions, we say $X$ is a {\bf
+    Calabi--Yau manifold}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+  $(2) \iff (4)$ Let $\nabla$ be the Levi--Civita connection on
+  $X$. The holonomy of the induced connection $\nabla^K$ on $K_X$
+  satisfies $\Hol_0(\nabla^K) = \det(\Hol_0(\nabla))$, so
+  $\Hol_0(\nabla^K) = \{1\}$ iff the original holonomy is in $\SU(n)$.
+  By the Ambrose--Singer theorem, $\Hol_0(\nabla^K = \{1\}$ iff
+  $\nabla^K$ is flat.
+
+  $(2) \iff (1)$ By \ref{thm:chern-curvature-is-ricci}, the vanishing
+  of the curvature of $\nabla^K$ is equivalent to the vanishing of
+  $\rho$.
+
+  $(2) \iff (3)$ This is the general principle that a connection on a
+  line bundle is flat iff there exists a (locally defined) parallel
+  section (which is global if $\pi_1(X) = 0$).
+\end{proof}
+
+Note that by \ref{thm:chern-curvature-is-ricci}, $c_1(X) = 0$ is a
+necessary condition for there to be a Ricci-flat K\"ahler metric on
+$X$. The following deep theorem of Calabi and Yau shows this condition
+is also sufficient when $X$ is compact, i.e. $c_1$ is the only
+topological obstruction.
+
+\begin{theorem}[Calabi--Yau, {\cite[Theorem 18.1]{Moroianu2007}}]
+  Let $X$ be a compact K\"ahler manifold with K\"ahler form $\omega$
+  and Ricci form $\rho$. For every $\rho_1$ in the cohomology class of
+  $2\pi c_1(X) \in H^{1,1}(X) \cap H^2(X, \bR)$, there exists a unique
+  K\"ahler metric with K\"ahler form $\omega_1$ in the cohomology
+  class of $\omega$ and with Ricci form $\rho_1$.
+\end{theorem}
+
+\begin{corollary} \label{thm:h11-kahler-deformation}
+  Let $M$ be a compact complex manifold with $c_1(X) = 0 \in
+  H^{1,1}(X) \cap H^2(X, \bR)$. Then there is a unique Ricci-flat
+  K\"ahler metric in each K\"ahler class on $X$. The family of
+  Ricci-flat K\"ahler metrics on $X$ is therefore isomorphic to the
+  K\"ahler cone of $X$.
+\end{corollary}
+
+The Hodge numbers of Calabi--Yau manifolds are special. Since the
+canonical bundle $K_X$ of a Calabi--Yau manifold $X$ is trivial, it is
+generated by a nowhere-vanishing global holomorphic $(n,0)$-form $f(z)
+dz^1 \wedge \cdots \wedge dz^n$. But $M$ is compact, so $f$ is
+therefore constant, and $h^{n,0} = 1$. By the symmetries of the Hodge
+diamond for K\"ahler manifolds, $h^{n,0} = h^{0,n} = h^{0,0} = h^{n,n}
+= 1$.
+
+\begin{proposition}
+  Let $X$ be Calabi--Yau. If $\chi(X) \neq 0$, then $b_1 = 0$,
+  i.e. $h^{1,0} = h^{0,1} = 0$.
+\end{proposition}
+
+\begin{proof}
+  It suffices to find $b_1$ for the Ricci-flat metric since $b_1$ is a
+  topological invariant. Let $\alpha$ be a harmonic $1$-form. The
+  Weitzenb\"ock formula says $\Delta \alpha = \nabla^*\nabla\alpha +
+  \tilde{R}\alpha$ where $\tilde{R}$ depends only on the curvature.
+  Hence $\nabla^*\nabla\alpha = 0$, which when integrated by parts
+  gives $\nabla\alpha = 0$. In other words, $\alpha$ is constant. But
+  $\chi(X) \neq 0$, so $\alpha$ must have a zero somewhere (c.f.
+  \ref{thm:euler-dual}). Hence $\alpha = 0$. By the Hodge theorem
+  \ref{thm:hodge-decomposition}, $H^1 = \cH^1_{\Delta} = 0$.
+\end{proof}
+
+We are generally interested in Calabi--Yau $3$-folds. It follows by
+the discussion above that the Hodge diamond of Calabi--Yau $3$-folds
+is almost fully determined:
+\[ \begin{array}{ccccccc}
+  & && 1 && & \\
+  && 0 && 0 && \\
+  & 0 && h^{1,1} && 0 & \\
+  1 && h^{2,1} && h^{2,1} && 1 \\
+  & 0 && h^{1,1} && 0 & \\
+  && 0 && 0 && \\
+  & && 1 && & \\
+\end{array} \]
+By \ref{thm:h11-kahler-deformation}, we interpret $h^{1,1}$ as the
+number of linearly independent infinitesimal deformations of the
+K\"ahler structure of $X$. The next subsection interprets $h^{2,1}$.
+
+\subsection{Calabi--Yau Moduli Space}
+
+In this subsection we explore the moduli space of Calabi--Yau
+manifolds following \cite{Candelas1991}. A lot of bashing is omitted.
+
+Let $X$ be a Calabi--Yau $3$-fold with (holomorphically) trivial
+canonical bundle $K_X$. ({\bf Note}: this is stronger than just being
+Calabi--Yau according to our definition \ref{def:calabi-yau}, and is
+our setting from now on). Let $g$ and $g + \delta g$ be two Ricci-flat
+metrics. Then, working in the gauge $\nabla^j g_{ij} = 0$, some work
+shows
+\[ \Ric(g + \delta g) = 0 + O((\delta g)^2) \implies \nabla^a\nabla_a\delta g_{ij} + 2R_i{}^a{}_j{}^b \delta g_{ab} = 0, \]
+
+\begin{definition}
+  The equation $\nabla^a\nabla_a\delta g_{ij} + 2R_i{}^a{}_j{}^b
+  \delta g_{ab} = 0$ is called the {\bf Lichnerowicz equation}.
+\end{definition}
+
+\begin{proposition}
+  The solutions of the Lichnerowicz equation are in one-to-one
+  correspondence with $H^{1,1}(X) \oplus H^{2,1}(X)$, where $H^{1,1}$
+  corresponds to variations of K\"ahler structure, and $H^{2,1}$
+  corresponds to variations of complex structure.
+\end{proposition}
+
+\begin{proof}
+  Since $X$ is Kahler, \ref{thm:kahler-defs} tells us the Christoffel
+  symbols are ``pure'', i.e. only $\Gamma^i_{jk}$ and
+  $\Gamma^{\bar{i}}_{\bar{j}\bar{k}}$ are nonzero, and other symbols
+  with mixed indices are zero. This fact and some more work then shows
+  that $\delta g_{i\bar{j}}$, which we call variations of {\bf mixed
+    type}, and $\delta g_{ij}$, which we call variations of {\bf pure
+    type}, individually satisfy the Lichnerowicz equation.
+
+  Let $\Omega_{abc} \in H^{3,0}$ be the preferred holomorphic
+  $(3,0)$-form. Both types of variations can be associated to forms:
+  \[ i\delta g_{i\bar{j}} dz^i \wedge d\bz^{\bar{j}} \in H^{1,1}(X, \bR), \quad \Omega_{ab}{}^{\bar{j}} \delta g_{\bar{i}\bar{j}} dz^a \wedge dz^b \wedge d\bz^{\bar{i}} \in H^{2,1}(X, \bR). \]
+  Using a Weitzenb\"ock formula, these forms are harmonic iff their
+  associated variations $g_{i\bar{j}}$ and $g_{ij}$ satisfy the
+  Lichnerowicz equation.
+
+  The mixed variation $\delta g_{i\bar{j}}$ gives a new K\"ahler form
+  since $i \delta g_{i\bar{j}} dz^i \wedge d\bz^{\bar{j}}$ is harmonic
+  and therefore $d$-closed:
+  \[ \tilde{\omega} \coloneqq i(g_{i\bar{j}} + \delta g_{i\bar{j}}) dz^i \wedge d\bz^{\bar{j}} = \omega + i\delta g_{i\bar{j}} dz^i \wedge d\bz^{\bar{j}}. \]
+  The pure variation $\delta g_{ij}$ gives a new metric
+  $\tilde{g}_{ij} = g_{ij} + \delta g_{ij}$. We want the pure indices
+  to vanish in some new coordinate system $x^i \mapsto x'^i \coloneqq
+  x^i + f^i(x)$, where
+  \[ \tilde{g}_{ij}' = \tilde{g}_{ij} - (\di_i f^k) g_{kj} - (\di_j f^k) g_{ik}. \]
+  Hence $\delta g_{\bar{i}\bar{j}} - (\di_{\bar{i}} f^k) g_{k\bar{j}}
+  - (\di_{\bar{j}} f^k)g_{\bar{i}k} = 0$. Since $\delta
+  g_{\bar{i}\bar{j}} \neq 0$ is our variation, $f$ cannot be
+  holomorphic. So pure variations change the complex structure.
+\end{proof}
+
+It is not surprising that pure variations, represented by
+$H^{2,1}(X)$, correspond to variations in complex structure:
+Kodaira--Spencer deformation theory tells us infinitesimal
+deformations of complex structure for a compact complex manifold are
+represented by $H^1(TX)$ \cite[Section 9.1.2]{Voisin2002}, and for
+Calabi--Yau manifolds we have the identification $H^1(TX) \cong
+H^1(\Lambda^2 T^*X) = H^{2,1}(X)$ via the pairing $\wedge\colon TM
+\otimes \Lambda^2 TM \to \Lambda^3TM = 1$.
+
+\begin{theorem}[Tian--Todorov, \cite{Tian1987}]
+  Deformations of Calabi--Yau manifolds is {\bf unobstructed}, i.e.
+  every infinitesimal deformation of a Calabi--Yau manifold lifts to
+  an actual deformation. In particular, the family of Ricci-flat
+  K\"ahler metrics, i.e. the K\"ahler cone, is smooth of dimension
+  $h^{1,1}$.
+\end{theorem}
+
+\begin{example}
+  We saw in \ref{ex:quintic-hypersurface-chern-class} that the first
+  Chern class $c_1(Q)$ of the quintic hypersurface $Q$ in $\bP^4$
+  vanishes, so $Q$ can be given a Calabi--Yau structure. By the
+  Lefschetz hyperplane theorem \ref{thm:lefschetz-hyperplane},
+  $h^{1,1}(Q) = h^{1,1}(\bP^4)$, which is just $1$ since the
+  cohomology ring of $\bP^N$ is generated by $x$, a generic
+  hyperplane. We also know $\chi(Q) = -200$, but from the Hodge
+  diamond of Calabi--Yau manifolds we see $\chi(Q) = 2(h^{1,1}(Q) -
+  h^{1,2}(Q))$. Hence $h^{1,2}(Q) = 101$.
+
+  A quick sanity check for $h^{1,2}(Q) = 101$ goes as follows. From
+  \ref{ex:quintics-dim}, there are $126$ ways to deform the defining
+  equation for $Q$ inside $\cO_{\bP^4}(5)$. One of these vanishes on
+  $Q$, being $Q$ itself. So there are $125$ infinitesimal deformations
+  of complex structure, but $\bP^4$ has automorphism group $\PGL(5)$,
+  which is of dimension $5^2 - 1$, leaving $125 - 24 = 101$ distinct
+  deformations.
+\end{example}
+
+\begin{definition}
+  The {\bf moduli space of complex structures} for the Calabi--Yau
+  $3$-fold $X$ is denoted $\cM_X$. We write $X_z$ for the Calabi--Yau
+  $3$-fold at $z$ in $\cM_X$ and set $X_0 \coloneqq X$. (The
+  coordinates $z$ are coming up soon.)
+\end{definition}
+
+We now look at the structure of the moduli space of complex structures
+$\cM_X$, by investigating how the generating $(3,0)$-form $\Omega
+\coloneqq (1/3!)\Omega_{ijk} dz^i \wedge dz^j \wedge dz^k$ of $X$
+moves inside $H^{3,0}(X)$ as we move around in $\cM_X$. First we need
+to define coordinates on $\cM_X$.
+
+\begin{definition}
+  Let $(A^a, B_b)$ with $a, b = 0, 1, \ldots, h^{2,1}$ be a symplectic
+  homology basis of $H_3(X)$, i.e. under the intersection pairing,
+  $\inner{A^a, B_b} = \delta^a_b$. Let $(\alpha_a, \beta^b)$ the
+  Poincar\'e dual cohomology basis. (Such a basis is unique up to a
+  $\Sp(b_3, \bZ)$ transformation, i.e. up to preservation of the
+  intersection form that defines Poincar\'e duality.) Writing $\Omega
+  = z^a \alpha_a - w_b \beta^b$, we have $z^a = \int_{A^a} \Omega$ and
+  $w_b = \int_{B_b} \Omega$, called the {\bf periods} of $\Omega$.
+\end{definition}
+
+\begin{theorem}[Bryant--Griffiths, \cite{Bryant1983}]
+  Locally, $\{z^a\}$ is sufficient to determine the complex structure
+  of $X$, and the $\{w_b\}$ are redundant, i.e. they can be computed
+  as functions of $z^a$.
+\end{theorem}
+
+The $\{z^a\}$ are {\bf projective coordinates}, since under $\Omega
+\mapsto \lambda \Omega$ they scale as $z^a \mapsto \lambda z^a$, but
+we only care about $\Omega$ up to scalar multiples. So we view $(z^0,
+\ldots, z^{h^{2,1}}) \in \bP^{h^{2,1}}$, and the scaling $\Omega
+\mapsto e^{f(z)}\Omega$ is a gauge redundancy. ({\bf Note}: we use $a,
+b, c$ to index coordinates on the moduli space, and $i, j, k$ to index
+coordinates on each $X_z$.)
+
+\begin{definition}
+  The {\bf Hodge bundle} $\cH$ is the bundle over $\cM_X$ with fiber
+  $H^3(X_z; \bC)$ at the point $z \in \cM_X$. On $\cH$, the
+  intersection pairing $(\theta, \eta) = i\int_{X_z} \theta \wedge
+  \bar{\eta}$ provides a natural Hermitian metric. There is a natural
+  flat connection on $\cH$ called the {\bf Gauss--Manin connection}.
+  (We shall see it in more detail later when we discuss the $tt^*$
+  equations.) The $3$-form $\Omega$ (and its scalar multiples) defines
+  the {\bf vacuum line bundle} inside the Hodge bundle $\cH$. The
+  intersection pairing on $\cH$ induces an $h \coloneqq i\int_{X_z}
+  \Omega \wedge \bar{\Omega}$. Note that under $\Omega \mapsto
+  e^{f(z)} \Omega$, the quantity $h$ transforms as $h \mapsto h e^f
+  e^{\bar{f}}$.
+\end{definition}
+
+\begin{definition}
+  On $\cM_X$, fix local affine coordinates $\{t^a\}$ with $a=1,
+  \ldots, h^{2,1}$. The {\bf K\"ahler potential} $K$ on $\cM_X$ is
+  given by
+  \[ K \coloneqq -\log \int_X \Omega \wedge \bar{\Omega}, \]
+  which does indeed transform as a K\"ahler potential: under $\Omega
+  \mapsto e^{f(z)} \Omega$, we have $K \mapsto K - f - \bar{f}$,
+  defining the same K\"ahler form. The {\bf Weil--Petersson metric} on
+  $\cM_X$ is the metric associated to the K\"ahler potential:
+  $g_{a\bar{b}} \coloneqq \di_a \bdi_{\bar{b}} K$.
+\end{definition}
+
+\begin{proposition}[Griffiths transversality] \label{thm:griffiths-transversality}
+  The variation $\di_a\Omega$ of $\Omega$ with respect to the
+  coordinate $z^a$ satisfies
+  \[ \di_a\Omega = k_a \Omega + \chi_a \in H^{3,0}(X_z) \oplus H^{2,1}(X_z) \]
+  where $k_a$ may depend on $z^a$ but not on the coordinates
+  of $X_z$. Consequently $\int_{X_z} \Omega \wedge \di_a\Omega = 0$.
+\end{proposition}
+
+\begin{proof}
+  Let $\zeta^i(x, z)$ be a system of holomorphic coordinates on $X_z$
+  varying with $z$, with $\zeta^i(x, 0) = x^i$, the original
+  coordinates on $X_0$. Then $\Omega = (1/3!) \Omega_{ijk}(\zeta)
+  d\zeta^i \wedge d\zeta^j \wedge d\zeta^k$, and
+  \[ \di_a\Omega = \frac{1}{3!} \di_a \Omega_{ijk} d\zeta^i \wedge d\zeta^j \wedge d\zeta^k + \frac{1}{2!} \Omega_{ijk} d\zeta^i \wedge d\zeta^j \wedge \di_a(d\zeta^k). \]
+  Clearly $d\zeta^k$ is a $(1,0)$-form with respect to the complex
+  structure at $z^a$. With a variation of complex structure, it
+  moves into $H^{1,0}(X_z) \oplus H^{0,1}(X_z)$. Hence
+  $\di_a\Omega \in \Omega^{3,0}(X_z) \oplus \Omega^{2,1}(X_z)$.
+  Since $d$ is independent of complex structure, $\di_a\Omega$ is
+  still $d$-closed, and therefore in $H^{3,0}(X_z) \oplus
+  H^{2,1}(X_z)$.
+\end{proof}
+
+\begin{corollary}
+  If $\Omega = z^a \alpha_a - w_b \beta^b$ in the symplectic
+  cohomology basis $(\alpha_a, \beta^b)$, then $2w_c = \di_c(z^a
+  w_a)$.
+\end{corollary}
+
+\begin{proof}
+  By Griffiths transversality, $\int_{X_z} \Omega \wedge \di_c\Omega =
+  0$. Writing this out in coordinates,
+  \[ (z^a \alpha_a - w_b \beta^b, \alpha_c - \di_c w_b \beta^b) = w_c - z^a \di_c w_a = 0. \]
+  Then $w_c = z^a \di_c w_a = \di_c(z^a w_a) - w_c$.
+\end{proof}
+
+\begin{definition}
+  Define the {\bf prepotential} $\cG \coloneqq z^aw_a$. Since $2w_c =
+  \di_c\cG$, summing with $z^c$ on both sides gives $z^c \di_c \cG =
+  2\cG$, so $\cG$ is homogeneous of degree $2$ in the $z^a$. The
+  prepotential $\cG$ fully specifies the K\"ahler structure of $\cM_X$
+  by
+  \[ i \int_{X_z} \Omega \wedge \bar{\Omega} = i(\bz^a \di_a \cG - z^a \bdi_a \bar{\cG}). \]
+  We call a K\"ahler structure with holomorphic prepotential {\bf
+    special K\"ahler}. The prepotential encodes all the important data
+  for mirror symmetry and is quite an important object!
+\end{definition}
+
+It may be useful at this point to get used to all these new objects by
+verifying the following useful formulas. Writing $\di_a\Omega = k_a
+\Omega + \chi_a$, we have:
+\begin{enumerate}
+\item $g_{a\bar{b}} = -ie^K \int_{X_z} \chi_a \wedge \bar{\chi}_{\bar{b}}$;
+\item $k_a = -\di_a K$, the K\"ahler potential.
+\end{enumerate}
+
+\begin{proposition}
+  By the same arguments as for Griffiths transversality in
+  \ref{thm:griffiths-transversality},
+  \[ \di_a \di_b \Omega \in H^{3,0} \oplus H^{2,1} \oplus H^{2,1}, \quad \int_{X_z} \Omega \wedge \di_a\di_b\Omega = 0, \quad \int_{X_z} \di_a \Omega \wedge \di_b \Omega = 0. \]
+  However these equalities give no new relations on the prepotential
+  $\cG$.
+\end{proposition}
+
+\begin{definition}
+  Note that the same argument fails for $\di_a\di_b\di_c\Omega$. The
+  {\bf Yukawa coupling}
+  \[ \kappa_{abc} \coloneqq -\int_{X_z} \Omega \wedge \di_a\di_b\di_c\Omega = \di_a\di_b\di_c\cG \]
+  is in general non-zero.
+\end{definition}
+
+\begin{proposition}
+  Identify $\chi_a \in H^{2,1}(X_z)$ in the expansion $\di_a\Omega =
+  k_a \Omega + \chi_a$ with $\chi_a^i \in H^1(TX_z) \cong
+  H^{2,1}(X_z)$. Then
+  \[ \kappa_{abc} = -\int_{X_z} \Omega \wedge (\Omega_{ijk} \chi^i_a \wedge \chi^j_b \wedge \chi^k_c). \]
+\end{proposition}
+
+\begin{proof}
+  Note that, up to the identification $H^1(TX_z) \cong H^{2,1}(X_z)$,
+  the form $\chi_a \wedge \chi_b \wedge \chi_c$ is precisely the
+  $(0,3)$-component of $\di_a\di_b\di_c\Omega$ by Griffiths
+  transversality \ref{thm:griffiths-transversality}. The
+  identification, however, is easily worked out as $\chi_a^i =
+  (1/2\|\Omega\|^2) \bar{\Omega}^{ijk}(\chi_a)_{ij\bar{k}}
+  d\bar{z}^{\bar{k}}$. (Note here $\bar{z}^{\bar{k}}$ is a coordinate
+  on $X_z$, not a moduli space coordinate.)
+\end{proof}
+
+\subsection{Mirror Symmetry for the Quintic Hypersurface}
 
 \section{Toric Geometry}
 
