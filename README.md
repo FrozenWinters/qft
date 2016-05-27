@@ -51,6 +51,9 @@ progresses. For now, the plan is:
     classes. These tools form the basis for Gromov--Witten theory and
     have many other applications in mathematical physics whenever
     there is a gauge group.
-* Week 4 (Friday May 27th): Physics Preliminaries II; section 2.3 in
+* Week 4 (Friday May 27th): **canceled**
+* Week 5 (Tuesday May 31st): **canceled**
+* Week 5 (Friday June 3rd): Physics Preliminaries II; section 2.3 in
   notes.
-* Week 5 (Tuesday May 31st): Deformations of Calabi--Yau manifolds
+* Week 5 (Tuesday June 7th): Deformations of Calabi--Yau manifolds;
+  section 1.3 in notes.
