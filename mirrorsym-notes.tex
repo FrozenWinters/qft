@@ -2057,11 +2057,13 @@ H^1(\Lambda^2 T^*X) = H^{2,1}(X)$ via the pairing $\wedge\colon TM
   coordinates $z$ are coming up soon.)
 \end{definition}
 
-We now look at the structure of the moduli space of complex structures
-$\cM_X$, by investigating how the generating $(3,0)$-form $\Omega
-\coloneqq (1/3!)\Omega_{ijk} dz^i \wedge dz^j \wedge dz^k$ of $X$
-moves inside $H^{3,0}(X)$ as we move around in $\cM_X$. First we need
-to define coordinates on $\cM_X$.
+For the rest of this subsection, we focus on the moduli space of
+complex structures $\cM_X$. The moduli space of K\"ahler structures is
+much more involved, and we shall investigate it later. To understand
+the structure of $\cM_X$, we investigate how the generating
+$(3,0)$-form $\Omega \coloneqq (1/3!)\Omega_{ijk} dz^i \wedge dz^j
+\wedge dz^k$ of $X$ moves inside $H^{3,0}(X)$ as we move around in
+$\cM_X$. First we need to define coordinates on $\cM_X$.
 
 \begin{definition}
   Let $(A^a, B_b)$ with $a, b = 0, 1, \ldots, h^{2,1}$ be a symplectic
@@ -2178,11 +2180,14 @@ verifying the following useful formulas. Writing $\di_a\Omega = k_a
   $\cG$.
 \end{proposition}
 
-\begin{definition}
+\begin{definition} \label{def:yukawa-coupling}
   Note that the same argument fails for $\di_a\di_b\di_c\Omega$. The
   {\bf Yukawa coupling}
   \[ \kappa_{abc} \coloneqq -\int_{X_z} \Omega \wedge \di_a\di_b\di_c\Omega = \di_a\di_b\di_c\cG \]
-  is in general non-zero.
+  is in general non-zero. We usually {\bf normalize} the Yukawa
+  coupling by normalizing $\Omega$ to satisfy $z^0 = \int_{A^0}\Omega
+  = 1$, i.e. replacing $\Omega$ with $\Omega/z^0$. Consequently, the
+  {\bf normalized Yukawa coupling} is $\kappa_{abc}/(z^0)^2$.
 \end{definition}
 
 \begin{proposition}
@@ -2278,6 +2283,145 @@ Along the way we shall see more predictions of mirror symmetry.
   $\{\tilde{X}_{\psi}\} \to \{\psi^5\} \cong \bC$ is the {\bf quintic
     mirror family}.
 \end{definition}
+
+We can keep track of the exceptional divisors introduced when blowing
+up the singularities (which is what we do to get the crepant
+resolution):
+\begin{enumerate}
+\item blowing up (twice) the $10$ curves $\tilde{C}_{ij}$ of $A_4$
+  singularities introduces $2 \cdot 10 + 2 \cdot 10 = 40$ divisors,
+\item blowing up (twice) the $10$ points $\tilde{C}_{ijk}$ introduces
+  $3 \cdot 10 + 1 \cdot 30 = 60$ divisors.
+\end{enumerate}
+Hence there are $100$ new divisors in $\tilde{X}_\psi$ aside from the
+hyperplane coming from $X_\psi$. We have shown the following.
+
+\begin{proposition}
+  $h^{1,1}(\tilde{X}_\psi) = 101$.
+\end{proposition}
+
+However, mirror symmetry makes stronger predictions than just the
+symmetry of the Hodge diamond. The remainder of this section outlines
+these predictions. We want to understand the moduli space
+$\cM_{\tilde{X}_{\psi}}$. To do so we first explicitly write down the
+generator $\Omega$ of $H^{3,0}(\tilde{X}_\psi)$, and then find its
+periods.
+
+\begin{definition}
+  Define the form $\Xi$ on $\bC^5$ by
+  \[ \Xi \coloneqq \sum_{k=0}^4 (-1)^k x_k dx_0 \wedge \cdots \wedge \widehat{dx_k} \wedge \cdots \wedge dx_4. \]
+  For a homogeneous degree-$5$ polynomial $P$, the form $\Xi/P$
+  descends to $\bP^4$. If $\gamma_P$ is a small loop around $P=0$ in
+  $\bP^4$, then
+  \[ \Omega \coloneqq \int_{\gamma_P} \frac{\Xi}{P} \]
+  is a well-defined holomorphic $(3,0)$-form on $P=0$. By considering
+  $P$ as a local coordinate normal to $P=0$, we can write $dx_4 =
+  (\di_P x_4) dP$. Since $\int_{\gamma_P} dP/P = 2\pi i$, in $\bP^4$
+  we have
+  \[ \int_{\gamma_P} \frac{\Xi}{P} = \sum_{k=0}^3 (-1)^k x_k (\di_P x_4) dx_0 \wedge \cdots \wedge \widehat{dx_k} \wedge \cdots \wedge dx_4. \]
+  In affine coordinates, we can set $x_0 = 1$ and take $x_1, x_2, x_3$
+  to be coordinates on $P = 0$. Note that $x_4$ is fully determined by
+  $P=0$. For $P = f_\psi$, we get $\Omega$ for the mirror quintic.
+\end{definition}
+
+\begin{proposition}[Picard--Fuchs equation]
+  Let $z \coloneqq 1/(5\psi)^5$ and $\Theta \coloneqq z\di_z$. The
+  periods $\Omega_i$ of $\Omega$ satisfy the {\bf Picard--Fuchs
+    equation}
+  \[ [\Theta^4 - 5z(5\Theta+4)\cdots(5\Theta+1)](5\psi\Omega_i) = 0. \]
+\end{proposition}
+
+\begin{proof}
+  If $\{\Gamma_i\}$ is a basis for $H_3(\tilde{X}_\psi)$, then
+  $\Omega_i = \int_{\Gamma_i} \int_{\gamma_P} \Xi/P$. Introduce new
+  variables $a_i$ into $f_\psi$, the defining equation for the mirror
+  quintic: $f_\psi = \sum_i a_i x_i^5 - 5\psi \prod_i x_i$. Then
+  $\Omega_i$ is a function of $a_1, \ldots, a_5$ and $\psi$.
+  \begin{enumerate}
+  \item Let $(s_i) = (a_1, \ldots, a_5, \psi)$. For $\lambda$ a fifth
+    root of unity, using the equation for $\Omega_i$ above,
+    \[ \Omega_i(\lambda a_1, \ldots, \lambda a_5, \lambda \psi) = \lambda^{-1}\Omega_i(a_1, \ldots, a_5, \psi). \]
+    Taking $\di_\lambda$ at $\lambda = 1$ gives $(\sum_i s_i \di_{s_i}
+    + 1)\Omega_i = 0$, i.e. $\Omega_i$ is homogeneous of degree $-1$
+    in $a_1, \ldots, a_5, \psi$.
+  \item Under the $\PGL(5, \bC)$ transformation $x_j \mapsto \lambda
+    x_j$ and $x_5 \mapsto \lambda^{-1}x_5$,
+    \[ \Omega_i(a_1, \ldots, \lambda^5a_j, \ldots, \lambda^{-5}a_5, \psi) = \Omega_i(a_1, \ldots, a_5, \psi). \]
+    Now $\di_\lambda$ at $\lambda = 1$ gives $(a_i \di_{a_i} - a_5
+    \di_{a_5})\Omega = 0$, i.e. $\Omega_i$ is a function of $a_1
+    \cdots a_5$.
+  \end{enumerate}
+  We conclude that $\Omega_i = \frac{1}{5\psi} \omega_i(a_1\cdots
+  a_5/(5\psi)^5)$. Hence we put $z = a_1\cdots a_5/(5\psi)^5$. Note
+  that if $\Theta \coloneqq z\di_z$ then the identities
+  \[ \di_{a_i} = \frac{\Theta}{a_i}, \quad \frac{1}{5}\di_\psi \frac{1}{(5\psi)^N} f(z) = -\frac{1}{(5\psi)^{N+}} (5\Theta + N) f(z), \quad z(\Theta+1) = \Theta z \]
+  hold. Hence, from $f_\psi = 0$, we get
+  \begin{align*}
+    0
+    &= \left(\prod \di_{a_i} - (\di_\psi/5)^5\right) \Omega_i \\
+    &= \left(\frac{1}{a_1 \cdots a_5} \Theta^5 + \frac{1}{(5\psi)^6}(5\Theta+5) \cdots (5\Theta+1)\right) \omega_i \\
+    &= \Theta(\Theta^4 - 5z(5\Theta+4)\cdots (5\Theta+1)) \omega_i.
+  \end{align*}
+  The fourth-order equation $(\Theta^4 - 5z(5\Theta+4)\cdots
+  (5\Theta+1)) \omega_i = 0$ is equivalent.
+\end{proof}
+
+\begin{corollary}
+  The Yukawa coupling $Y \coloneqq \kappa_{000} =
+  -\int_{\tilde{X}_\psi} \Omega \wedge \Theta \Theta \Theta \Omega$
+  satisfies the differential equation
+  \[ \Theta Y = \frac{-5^5 z}{1 + 5^5z} Y. \]
+\end{corollary}
+
+\begin{proof}
+  Expand the Picard--Fuchs equation in terms of $z$, wedge it with
+  $\Omega$, and apply Griffiths transversality $\int \Omega \wedge
+  \Theta \Omega = \int \Omega \wedge \Theta\Theta\Omega = 0$.
+\end{proof}
+
+(The reason why $\Theta$ is the Gauss--Manin connection on the Hodge
+bundle is not trivial. Later on we shall discuss it more rigorously in
+terms of the mirror map.)
+
+If we look for a holomorphic solution $y_0(z) = \sum_{n=0}^\infty c_n
+z^n$ of the Picard--Fuchs equation, then we get the recursion
+\[ n^4 c_n = -5(5(n-1)+4) \cdots (5(n-1)+1) c_{n-1} \]
+and therefore $c_n = (-1)^n(5n)!/(n!)^5$. General methods from the
+theory of hypergeometric DEs assures us this is the unique (up to a
+constant) holomorphic solution. There is also the solution
+\[ y_1(z) = y_0(z) \log(-z) + 5 \sum_{n=1}^\infty (-1)^n\frac{(5n)!}{(n!)^5} \left(\sum_{j=n+1}^{5n} \frac{1}{j}\right) x^n \]
+which has a logarithmic singularity.
+
+We can also solve the DE for the Yukawa coupling to get $Y = 5/(1 +
+5^5z)$. Note that the constant $5$ is not determined by the DE and is
+obtained through other methods. The normalized Yukawa coupling (c.f.
+\ref{def:yukawa-coupling}) is therefore
+\[ Y = \frac{5}{(1 + 5^5x) y_0(x)^2}. \]
+This is called the {\bf B-model correlation function} by physicists.
+
+Mirror symmetry predicts an equality of the B-model correlation
+function, which comes from the complex structure moduli, with the {\bf
+  A-model correlation function}, which comes from the K\"ahler moduli
+(which we have not discussed yet), via the {\bf mirror map} between
+the complex and K\"ahler moduli of the Calabi--Yau manifold and its
+mirror. The A-model correlation function is much harder to compute and
+involves objects called Gromov--Witten invariants; suffice it to say
+for now that they are numbers $n_d$ counting rational curves of degree
+$d$ in the Calabi--Yau manifold. In the case of the mirror quintic,
+the map from the complex moduli of the mirror, given by the coordinate
+$z$, and the K\"ahler moduli of the quintic, given by the coordinate
+$q$, is
+\[ q = \exp(y_1(z)/y_0(z)) = -z \exp\left(\frac{5}{y_0(z)} \sum_{n=1}^\infty \frac{(5n)!}{(n!)^5} \left(\sum_{j=n+1}^{5n} \frac{1}{j}\right) x^n\right). \]
+The equality of the B-model and A-model correlation functions is
+expressed by
+\begin{align*}
+  5 + \sum_{d=1}^\infty n_d d^3 \frac{q^d}{1 - q^d}
+  &= \frac{5}{(1 + 5^5z) y_0(z)^2} \left(\frac{q}{z} \frac{dz}{q}\right)^3 \\
+  &= 5 + 2875 \frac{q}{1-q} + 609250 \cdot 2^3 \frac{q^2}{1 - q^2} + 317206375 \cdot 3^3 \frac{q^3}{1 - q^3} + \cdots.
+\end{align*}
+The enumerative prediction $n_3 = 317206375$ (and of course the higher
+coefficients) in \cite{Candelas1991a} sparked much of the initial
+mathematical interest in mirror symmetry.
 
 \section{Toric Geometry}
 
