@@ -43,12 +43,15 @@
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\cD}{\mathcal{D}}
 \newcommand{\cF}{\mathcal{F}}
 \newcommand{\cK}{\mathcal{K}}
 \newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
 \newcommand{\cG}{\mathcal{G}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
+\newcommand{\cR}{\mathcal{R}}
 \newcommand{\cU}{\mathcal{U}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\Morse}{\mathrm{Morse}}
@@ -366,7 +369,7 @@ $g$. We also assume $(f, g)$ is Morse--Smale, defined below.
   points are non-degenerate.
 \end{definition}
 
-\begin{definition}
+\begin{definition} \label{def:morse-smale}
   Recall that the {\bf gradient} of $f$ with respect to a metric $g$
   is the vector field $\grad f$ such that $g(\grad f, X) = Xf$.
   Equivalently, $\grad f = (df)^\sharp$. Let $\psi_t\colon X \to X$ be
@@ -387,7 +390,7 @@ Here are two useful and easy-to-prove facts: every flow line
 asymptotically approaches critical points, and $\dim D(p) = \ind(p)$
 (so $\dim A(p) = \dim X - \ind p$ by the Morse--Smale condition).
 
-\begin{definition}
+\begin{definition} \label{def:morse-theory-flow-line}
   Fix critical points $p$ and $q$. A {\bf flow line} from $p$ to $q$
   is an integral curve $\gamma(t)$ of $-\grad f$ with $\lim_{t \to
     -\infty} \gamma(t) = p$ and $\lim_{t \to +\infty} \gamma(t) = q$.
@@ -430,7 +433,7 @@ of points.
   case.
 \end{proof}
 
-\begin{definition}
+\begin{definition} \label{def:morse-theory-flow-line-orientation}
   Fix orientations for $D(p)$ at every critical point $p$. There is an
   isomorphism at $x \in \gamma \in \cM(p, q)$ given by
   \begin{align*}
@@ -478,7 +481,7 @@ of points.
   \[ H_2^\Morse(f, g) = \bZ, \quad H_1^\Morse(f,g) = \bZ^2, \quad H_0^\Morse(f, g) = \bZ. \]
 \end{example}
 
-\begin{theorem}[{\cite[Theorem 3.1]{Hutchings2012}}]
+\begin{theorem}[{\cite[Theorem 3.1]{Hutchings2012}}] \label{thm:morse-homology-iso}
   Let $X$ be a closed smooth manifold, $H_\bullet(X)$ denote singular
   homology on $X$, and $(f, g)$ be a Morse--Smale pair on $X$. Then
   there is a canonical isomorphism $H_n^\Morse(f, g) \cong H_n(X)$.
@@ -847,7 +850,7 @@ At this point it is impossible not to wonder about whether the pairing
 $H^k(E) \otimes H^{n-k}(X, E^* \otimes K_X) \to \bC$ given by wedging
 and then integrating is perfect.
 
-\begin{theorem}[Serre duality, {\cite[Corollary III.7.13]{Hartshorne1997}}]
+\begin{theorem}[Serre duality, {\cite[Corollary III.7.13]{Hartshorne1997}}] \label{thm:serre-duality}
   The pairing $H^k(X, E) \otimes H^{n-k}(X, E^* \otimes K_X) \to \bC$
   is perfect, so $H^k(X, E) \cong H^{n-k}(X, E^* \otimes K_X)^*$.
 \end{theorem}
@@ -1749,7 +1752,7 @@ $\Delta_{\bdi}$.
 \begin{corollary}[Global $\di\bdi$ lemma, {\cite[Corollary 3.2.10]{Huybrechts2005}}] \label{thm:deldelbar-lemma}
   Let $X$ be a compact K\"ahler manifold. If $\alpha \in
   \Omega^{p,q}(X)$ and $d\alpha = 0$ then
-  \[ \alpha \text{ is } d\text{-exact} \iff \alpha \text{ is } \di\text{-exact} \iff \alpha \text{ is } \di\bdi\text{-exact} \iff \alpha \text{ is } \di\bdi\text{-exact}. \]
+  \[ \alpha \text{ is } d\text{-exact} \iff \alpha \text{ is } \di\text{-exact} \iff \alpha \text{ is } \bdi\text{-exact} \iff \alpha \text{ is } \di\bdi\text{-exact}. \]
 \end{corollary}
 
 \begin{proof}
@@ -1810,7 +1813,8 @@ for a compact K\"ahler manifold are:
   complex conjugation;
 \item reflection across the horizontal axis $h^{p,q} = h^{n-q,n-p}$,
   from the Hodge star or the hard Lefschetz theorem;
-\item $180^{\circ}$ rotation $h^{p,q} = h^{n-p,n-q}$, from Serre duality;
+\item $180^{\circ}$ rotation $h^{p,q} = h^{n-p,n-q}$, from Serre
+  duality \ref{thm:serre-duality};
 \end{enumerate}
 
 \subsection{Calabi--Yau Manifolds}
@@ -2426,77 +2430,69 @@ mathematical interest in mirror symmetry.
 \section{Toric Geometry}
 
 \chapter{Physics Preliminaries}
-\section{Overview}
-\todo{Make a shorter introduction.}
-\begin{enumerate}
-    \item Choose Manifold $(M,g)$ with or without boundary. If with, then
-        specify additional data. $g$ may be Riemannian or Lorentzian.
-    \item \textbf{Objects:} fields. Here are some examples:
-        \begin{itemize}
-        \item Gauge fields: connections over a principal bundle over $M$.
-        \item Matter fields: sections of a vector bundle over $M$.
-        \end{itemize}
-        A \textbf{quantum gauge theory} has fields which are sections of
-        associated vector bundles.
-        \begin{itemize}
-        \item Sigma-model fields: $\phi\colon M \to X$, for some target
-            manifold $X$.
-        \end{itemize}
-        A \textbf{quantum gravity theory} is obtained by integrating over
-        various choices of metrics on $M$.
-    \item The \textbf{action} allows us to define the path-integral by
-        weighting the fields with $e^{-S}$ or $e^{iS}$ depending on whether
-        or not $M$ is Riemannian or Lorentzian.
-    \item Boundaries. If $\di M = \bigcup_i B_i$ then the set of field
-        configurations on the boundary give rise to Hilbert spaces: $\mc
-        H_i$. 
-        The path integral can be viewed as a map $\bigotimes_i\mc H_i\to
-        \bC$.
-    \item Boundaries (evolution).
-        Suppose $M=N\times [0,t]$ where $\di N = \varnothing$.
-        This corresponds to a multi-linear map $\mc H^*\ten\mc H\to\bC$ or
-        equivalently a linear map $U(t):\mc H\to \mc H$. Moreover, by
-        gluing two manifolds together we get the following relation:
-        \[ U(t_1+t_2)=U(t_1)U(t_2).\] By a theorem from functional analysis
-        there exists a Hermitian operator $H$, which we call the
-        Hamiltonian, which is given by $U(t) = e^{-tH}$ or $U(t) =
-        e^{-itH}$ in the Euclidean or Minkowski case, respectively.
-    \item Dimensionality.
-        \begin{enumerate}
-            \item Kaluza--Klein reduction is one way to acheive the
-                effective 4-dimensional space-time that we see.
-            \item Damping non-constant modes with action $e^{-S}$ effective
-                path integral on the larger component.
 
-                ``Luckily for us, the study of mirror symmetry entails
-                studying QFTs with $d=2$, so our aim is to study mainly
-                low-dimensional QFTs.''
-        \end{enumerate}
-    \item $d=0$.
-        \begin{enumerate}
-            \item Old ingredients: fermionic fields, supersymmetry.
-            \item New ingredients: localization and deformation invariance.
-        \end{enumerate}
-    \item $d=1$, Quantum Mechanics.
-        \begin{enumerate}
-            \item New ingredients: SUSY $\sg$-models, Landau--Ginzburg
-                ($\sg$-models with extra potential functions on target)
-        \end{enumerate}
-    \item $d=2$
-        \begin{enumerate}
-            \item Almost free theories: $\sg$-models with a flat torus
-                being the target. We review T-duality here.
-            \item $\sg$-models on K\"ahler manifold: Gauge theoretic
-                description, connection to Landau--Ginzburg. (Toric
-                geometry is needed here.)
-            \item Superspace review and a tickle of Mirror Symmetry.
-        \end{enumerate}
+It is difficult to rigorously define what a quantum field theory (QFT)
+is. Instead, we provide some examples of the main classes of QFTs and
+their defining characteristics. In general, a {\bf quantum field
+  theory} (QFT) consists of three ingredients:
+\begin{enumerate}
+\item a choice of manifold $M$ of dimension $d$ (usually Riemannian or
+  Lorentzian), possibly with boundary,
+\item objects living on $M$, e.g.
+  \begin{enumerate}
+  \item {\bf gauge fields}: connections on a principal bundle over
+    $M$,
+  \item {\bf matter fields}: sections of a vector bundle over $M$,
+  \end{enumerate}
+\item a complex-valued functional $S$ depending on the objects of the
+  theory.
 \end{enumerate}
+For example, a \textbf{quantum gauge theory} has fields which are
+sections of associated vector bundles. A \textbf{quantum gravity
+  theory} is obtained by making the (choice of) metric on $M$ an
+object of the theory as well.
+
+If $\di M = \bigcup_i B_i$ then the set of field configurations on the
+boundary give rise to Hilbert spaces $\mc H_i$. The {\bf path
+  integral} can be viewed as a map $\bigotimes_i\mc H_i\to \bC$, and
+encodes the dynamics of the theory by weighing each possible field
+configuration by $e^{-S}$. Alternatively, suppose $M=N\times [0,t]$
+where $\di N = \varnothing$. This corresponds to a multi-linear map
+$\mc H^*\ten\mc H\to\bC$ or equivalently a linear map $U(t)\colon\mc
+H\to \mc H$. Moreover, by gluing two manifolds together we get the
+relation $U(t_1+t_2)=U(t_1)U(t_2)$. By a theorem from functional
+analysis there exists a Hermitian operator $H$, which we call the {\bf
+  Hamiltonian}, which is given by $U(t) = e^{-tH}$ or $U(t) =
+e^{-itH}$ in the Euclidean or Minkowski case, respectively.
+
+From string theory we saw that many quantized theories require a
+certain dimensionality which is often larger than the four spacetime
+dimensions we observe. {\bf Compactification} is one way to achieve
+the effective 4-dimensional space-time that we see. The general idea
+is to write $M = N \times K$ for some compact $K$ and $N$
+$4$-dimensional in such a way that the action $S$ is very large for
+field configurations not constant over $K$. Then the weighing $e^{-S}$
+allows us to consider an ``effective'' path integral over $N$, over
+constant modes on $K$.
+
+Luckily, mirror symmetry entails studying QFTs with $d=2$, so we focus
+mainly on low-dimensional QFTs. We begin with $d=0$, where by
+introducing fermionic fields and supersymmetry we can already discuss
+localization and deformation invariance. Then at $d=1$, which
+corresponds to quantum mechanics, we shall look at supersymmetric
+$\sg$-models, and Landau--Ginzburg theories. Finally at $d=2$ we get
+to see T-duality, and $\sg$-models on a K\"ahler manifold and their
+connections to Landay--Ginzburg theories.
+
+We shall focus more on supersymmetry (abbreviated {\bf susy}) and its
+consequences than non-susy aspects. Non-susy quantum theory is covered
+in both the QFT and string theory notes.
+
 \section{QFT with \texorpdfstring{$d=0$}{d=0}}
-First, let us discuss the fields. For a real-valued theory with $\dim M=0$, 
-we may identify functions $X:M\to\bR$ with just an element $X\in\bR$. To
-model fermions we shall ask our variables to anti-commute:
-$\psi_i\psi_j=-\psi_j\psi_i$.
+First, let us discuss the fields. For a real-valued theory with $\dim
+M=0$, we may identify functions $X:M\to\bR$ with just an element
+$X\in\bR$. To model fermions we shall ask our variables to
+anti-commute: $\psi_i\psi_j=-\psi_j\psi_i$.
 
 The path-integral, or what Hori et al. calls the \textbf{partition
 function}, is given by the expression \[Z \coloneqq \int e^{-S[X,\psi]}dX
@@ -2511,55 +2507,60 @@ applying the correct number of derivatives we can write:
 \[ \braket{F} = \FR{\di}{\di J_1}\FR{\di}{\di J_2}\cdots
 \biggr|_{J_1=J_2=0} \left(\int e^{-S+J_1X+J_2\psi}\, dXd\psi\right). \]
 The integral on the right side may be denoted by $Z[X,\psi;J_1,J_2]$.
+Then we may expand the exponential as a power series in $J_1$ and
+$J_2$, and use perturbative techniques to iteratively compute higher
+and higher-order corrections to $\braket{F}$. Each term in such an
+expansion can be encoded as a {\bf Feynman diagram}. For more on the
+path integral approach, including the machinery of Feynman diagrams,
+refer to the QFT notes.
 
-\todo{For completeness: feynman diagrams?}
-\todo{Recall: Fermionic path integral rules
-\label{fermionic-path-integral-rules}.}
+\subsection{Supersymmetry and a Toy Model}
 
-\subsection{Supersymmetry}
-
-Supersymmetry is both mathematically and physically a useful tool. From a
-mathematical point of view, ``the classical field equations have
-non-trivial odd symmetries: eg. gradient flow lines in Morse theory,
-holomorphic curves, gauge theory instantons, monopoles, Seiberg--Witten
-solutions, hyperKahler structures, Calabi-Yau metrics, metrics of G2 and
-Spin7 holonomy.'' From a physical point of view, ``[supersymmetric]
-theories offer a possible way of solving the 'hierarchy problem,' the
-mystery of the enormous ratio of the Planck mass to the 300 GeV energy
-scale of electroweak symmetry breaking. Supersymmetry also has the quality
-of uniqueness that we search for in fundamental physical theories. There is
-an infinite number of Lie groups that can be used to combine particles of
-the same spin in ordinary symmetry multiplets, but there are only eight
-kinds of supersymmetry in four spacetime dimensions, of which only one, the
-simplest, could be directly relevant to observed particles.'' \todo{Revamp
-this introduction.}
-
+Supersymmetry is both mathematically and physically a useful tool.
+From a mathematical point of view, ``the classical field equations
+have non-trivial odd symmetries: eg. gradient flow lines in Morse
+theory, holomorphic curves, gauge theory instantons, monopoles,
+Seiberg--Witten solutions, hyperKahler structures, Calabi-Yau metrics,
+metrics of G2 and Spin7 holonomy.'' From a physical point of view,
+``[supersymmetric] theories offer a possible way of solving the
+'hierarchy problem,' the mystery of the enormous ratio of the Planck
+mass to the 300 GeV energy scale of electroweak symmetry breaking.
+Supersymmetry also has the quality of uniqueness that we search for in
+fundamental physical theories. There is an infinite number of Lie
+groups that can be used to combine particles of the same spin in
+ordinary symmetry multiplets, but there are only eight kinds of
+supersymmetry in four spacetime dimensions, of which only one, the
+simplest, could be directly relevant to observed particles.''
+\todo{Revamp this introduction.}
 
 Let us consider a simple QFT with one bosonic field $X$ and two fermionic
 fields $\psi_1,\psi_2$ with an equally simple action: 
 \begin{align} S = S_0(X) - \psi_1\psi_2 S_1(X).
     \label{susy-simple-action}
 \end{align}
-Taylor expanding the path-integral, and using the fermionic path-integral
-rules (\ref{fermionic-path-integral-rules}), we get the following
-expression for the integral: \[ \int e^{-S_0(X)+\psi_1\psi_2S_1(X)}
-dXd\psi_1d\psi_2 = \int e^{-S_0}S_1(X).\]
-For the rest of the section, we are going to pick a convenient choice for
-the functions $S_0(X), S_1(X)$ so that we get a feeling for what a
-supersymmetric theories have to offer. Fix a function $h:\bR\to \bR$, and let
-\[ S_0(X) = \FR{1}{2} (\di h)^2, \qquad\qquad S_1(X) = \di^2 h.\] We use
-the notation $\di h = h'(X)$ to refer to the derivative of $h$.  Together
-with the form of the action \eqref{susy-simple-action}, we get a theory
-that is invariant under the transformations:
+Recall that in {\bf fermionic integration}, i.e. integrating over
+fermionic variables, imposing linearity and a normalization condition
+gives the rules $\int d\psi \, 1 = 0$ and $\int d\psi \, \psi = 1$.
+Taylor expanding the path-integral, and using the fermionic
+integration rules, we
+\[ \int e^{-S_0(X)+\psi_1\psi_2S_1(X)} dXd\psi_1d\psi_2 = \int e^{-S_0}S_1(X).\]
+For the rest of the section, we are going to pick a convenient choice
+for the functions $S_0(X), S_1(X)$ so that we get a feeling for what a
+supersymmetric theories have to offer. Fix a function $h\colon\bR\to
+\bR$, called the {\bf superpotential}, and let
+\[ S_0(X) = \FR{1}{2} (\di h)^2, \qquad\qquad S_1(X) = \di^2 h.\]
+We use the notation $\di h = h'(X)$ to refer to the derivative of $h$.
+Together with the form of the action \eqref{susy-simple-action}, we
+get a theory that is invariant under the transformations:
 \begin{align}
 \delta X = \epsilon^1\psi_1 + \epsilon^2\psi_2,
 \qquad \delta\psi_1 = \epsilon^2\di h,
 \qquad \delta\psi_2 =-\epsilon^1\di h.
 \label{susy-simple-variation}
 \end{align}
-Let's check this explicitly. Notice that the variational operator $\delta$
-can be treated as if it were a derivation: $\delta(AB) = (\delta A)B +
-A(\delta B)$. \todo{Proof that variation is a derivation.} Then,
+Let's check this explicitly. Notice that the variational operator
+$\delta$ can be treated as if it were a derivation: $\delta(AB) =
+(\delta A)B + A(\delta B)$. Then,
 \begin{align*}
 \delta(S) &= \delta(S_0) - \delta(\psi_1)\psi_2S_1 -
 \psi_1\delta(\psi_2)S_1 - \psi_1\psi_2\delta(S_1)\\
@@ -2587,70 +2588,88 @@ f^*(dX\wedge d\psi_1\wedge d\psi_2)
 The last two terms are $0$ because $d(\di h) = (\di^2 h)dX$ and by wedgeing
 with another $dX$ zeros out the entire term.
 
-\subsection{Localization}
-The group of supersymmetry transformations is surprisingly large. We
-continue with the model described in the previous section and in particular
-show that if $\di h$ is nowhere zero then the path integral vanishes.
-The idea is to use a supersymmetry transformation to make one of the
-fermionic fields vanish: $S(X,\psi_1,\psi_2) = S(\hat X,0,\hat \psi_2)$
-which will allow us to simplify the path-integral. Choose,
-\[ \hat X = X-\FR{\psi_1\psi_2}{\di h(X)},\qquad
-   \hat\psi_1 = \alpha(X)\psi_1,\qquad
-   \hat\psi_2 = \psi_1+\psi_2.\]
-In particular, taking $\alpha(X)=0$ this is a susy transformation with
-$\epsilon^1=\epsilon^2=-\FR{\psi_1}{\di h}$. In the new coordinates,
-$\hat\psi_1=0$ just as we were looking for. The path integral can be
-evaluated:
-\begin{align*}
-    \int e^{-S(X,\psi_1,\psi_2)}\,dXd\psi_1d\psi_2
-&= \int e^{-S(\hat X(X),0,\hat\psi_2(\psi_1+\psi_2))}\,dXd\psi_1d\psi_2\\
-&= \int e^{-S(\hat X,0,\hat\psi_2)}\,\left( \alpha - 
-(\di^2 h)(\di h)^{-2}\hat\psi_1\hat\psi_2 \right)\,
-d\hat Xd\hat \psi_1d\hat \psi_2
-\end{align*}
-The first term in the sum, $\int d\hat\psi_1 \left(\int e^{-\hat
-S}\alpha\right) = 0$ because the argument is independent of $\hat\psi_1$.
-The second term vanishes because \todo{Show that the integral vanishes
-because the argument is a total derivative.}
+\subsection{Localization and Deformation Invariance}
+The invariance of the action and partition function for this
+particular action under the susy transformations is very powerful: we
+shall show that the path integral $Z = \int e^{-S(X, \psi_1, \psi_2)}
+dX d\psi_1 d\psi_2$ depends only very weakly on the choice of $h$.
 
-This transformation only is valid away from the critical points of $h$.
-Taking the path integral as a sum over critical points and expanding 
-$h(X) = h(X_c)+\FR{\alpha_c}{2}(X-X_c)^2 + \cdots$, we get
+\begin{proposition} \label{thm:action-deformation-invariance}
+  Suppose $\rho$ is a function such that $\rho$ and $\di\rho$ vanishes
+  at infinity. Then $h \to h+\rho$ leaves the action invariant.
+\end{proposition}
+
+\begin{proof}
+  In general, let $\delta \cO$ be the susy variation of some operator
+  $\cO(X, \psi_1, \psi_2)$. We often want to compute the {\bf
+    correlation function}
+  \[ \braket{\delta \cO} \coloneqq \int dX d\psi_1 d\psi_2 \, e^{-S(X, \psi_1, \psi_2)} \delta \cO = \int dX d\psi_1 d\psi_2 \, \delta(e^{-S(X, \psi_1, \psi_2)} \cO) \]
+  where the equality follows from the susy invariance of the action
+  $S$. As long as $\cO$ does not interfere at infinity with the decay
+  of $e^{-S}$, this is zero.
+
+  In our case, take $g = \di\rho(X)\psi_1$ and consider the susy
+  transformation \ref{susy-simple-variation} with $\epsilon^1 =
+  \epsilon^2 = \epsilon$:
+  \[ \delta_\epsilon g = \di^2 \rho \delta X \psi_1 + \di \rho \delta \psi_1 = \epsilon(\di \rho \di h - \di^2\rho \psi_1 \psi_2). \]
+  Now consider the deformation of $h$ given by $h\to h+\rho$, and note
+  that the action $S = \FR{1}{2}(\di h)^2 - \di^2h \psi_1\psi_2$
+  transforms exactly as $\delta_\rho S = \di \rho \di h - \di^2\rho \psi_1 \psi_2$. It follows that
+  \[ \braket{\delta_\rho S} =\epsilon^{-1}\braket{\delta_\epsilon g}=0. \qedhere \]
+\end{proof}
+
+\begin{corollary} \label{thm:path-integral-localization}
+  Let $\cO$ be an operator invariant under the susy transformations,
+  i.e. $\delta \cO = 0$. Then the correlation function $\braket{\cO}$
+  is {\bf localized}, i.e. non-zero, only around the critical points
+  of $h$, where $\di h = 0$. In particular, this is true for the path
+  integral $Z = \braket{1}$.
+\end{corollary}
+
+\begin{proof}
+  Take $\rho = \lambda h$ and iterate the deformation $h \mapsto h +
+  \rho$, i.e. a rescaling of $h$. As $\lambda \to \infty$, the
+  weighing $e^{-S}$ exponentially suppresses contributions to $Z$
+  except in infinitesimal neighborhoods of $\di h = 0$, i.e. the
+  critical points of $h$.
+\end{proof}
+
+Hence we may take the path integral as a sum over critical points
+$X_c$. Expanding $h(X) = h(X_c)+\FR{\alpha_c}{2}(X-X_c)^2 + \cdots$,
+we get
 \begin{align*}
     Z &= \sum \int \FR{dXd\psi_1d\psi_2}{\sqrt{2\pi}}
     \exp\left(-\FR{1}{2}\alpha_c^2(X-X_c)^2 + \alpha_c\psi_1\psi_2\right)\\
     &= \sum_{X_c} \FR{1}{\sqrt{2\pi}}\int dX
-    \exp\left(-\FR{1}{2}\alpha_c^2(X-X_c)^2\right) \alpha_c\\
-&= \sum_{X_c} \alpha_c \SFR{1}{\alpha_c^2}
+    \exp\left(-\FR{1}{2}\alpha_c^2(X-X_c)^2\right) \alpha_c
+    = \sum_{X_c} \alpha_c \SFR{1}{\alpha_c^2}
 \end{align*}
-The factor of $\sqrt{2\pi}$ can be factored out by normalizing the measure
-appropriately. This normalization corresponds to defining the correlation
-functions as $\FR{Z[\lambda,0]}{Z[0,0]}$, which in our case,
-$Z[0,0]=\sqrt{2\pi}$. Therefore the path-integral becomes an integer:
-\[ Z = \sum_{X \colon h'(X)=0} \FR{h''(X)}{|h''(X)|}.\]
-\begin{remark}[Localization] The path integral is localized at loci where
-the fermionic variation under supersymmetry vanishes. 
-\end{remark}
-\begin{remark} The function $h$ in our model is called the
-\textbf{superpotential}, the critical points of which characterize the
-path-integral.
-\end{remark}
+The factor of $\sqrt{2\pi}$ can be factored out by normalizing the
+measure appropriately. This normalization corresponds to defining the
+correlation functions as $\FR{Z[\lambda,0]}{Z[0,0]}$, which in our
+case is $Z[0,0]=\sqrt{2\pi}$. Therefore the path-integral becomes an
+integer:
+\[ Z = \sum_{X \colon \di h(X)=0} \FR{\di^2 h(X)}{|\di^2 h(X)|}.\]
+In particular, if $h$ is a polynomial, then:
+\begin{enumerate}
+\item if $h$ is of odd degree, then $\di h = 0$ has an even number of
+  roots with $\di^2h$ alternating in sign, so $Z = 0$;
+\item if $h$ is of even degree, then $Z = \pm 1$ depending on whether
+  $h \to \pm \infty$ as $|X| \to \infty$.
+\end{enumerate}
 
-\subsection{Deformation Invariance}
-\begin{proposition} Suppose $\rho$ is a function such that $\rho$ and
-$\di\rho$ vanishes at infinity. Then $h\to h+\rho$ leaves the action
-invariant.
-\end{proposition}
-\begin{proof}
-Take $g = \di\rho(X)\psi_1$ and consider susy variation $\delta_\epsilon
-g$, with $\epsilon^1=\epsilon^2=\epsilon$. Now consider a deformation of
-the superpotential: $h\to h+\rho$. Then the action $S = \FR{1}{2}(\di h)^2
-- \di^2h \psi_1\psi_2$ transforms with $\epsilon\delta_\rho S =
-\delta_\epsilon g$. Therefore $\braket{\delta_\rho S} =\epsilon^{-1}
-\braket{\delta_\epsilon g}=0$.
-\end{proof}
+One of the advantages of having such a simple model in $d=0$ is that
+checking results is very easy: simply do the path integral for $Z$. We
+have
+\[ Z = \int \frac{dX d\psi_1 d\psi_2}{\sqrt{2\pi}} e^{-\frac{1}{2}(\di h)^2 + (\di^2 h) \psi_1 \psi_2} = \int \frac{dX}{\sqrt{2\pi}}  \di^2 h e^{-\frac{1}{2}(\di h)^2}. \]
+Make the change of variables $y = \di h$. Since $X \mapsto y = \di h$
+is not necessarily one-to-one, changing variables gives
+\[ Z = D \int \frac{dy}{\sqrt{2\pi}} e^{-\frac{1}{2}y^2} = D \]
+where $D$ is the degree of the map $X \mapsto y = \di h$. For
+polynomials, this precisely recovers the results from deformation
+invariance and localization.
 
-\subsection{Landau--Ginzburg}
+\subsection{Landau--Ginzburg Theory}
 After delving into the details of the previous model it is comforting to
 note that the complex analogue is what is known as the Landau--Ginzburg
 theory: $(X,\psi_1,\psi_2) \leadsto (z,\bar z, \psi_1, \psi_2, \bar\psi_1,
@@ -2659,9 +2678,9 @@ theory: $(X,\psi_1,\psi_2) \leadsto (z,\bar z, \psi_1, \psi_2, \bar\psi_1,
 S = |\di W|^2-(\di^2 W)\psi_1\psi_2 - \overline{\di^2W}\bar\psi_1\bar\psi_2.
 \label{LandauGinzburgaction}
 \end{align}
-We call the holomorphic function $W(z)$ the \textbf{superpotential} and it
-will play the role $h$ did in the previous sections. The complex susy
-transformations then take the form of:
+We call the holomorphic function $W(z)$ the \textbf{superpotential}
+and it will play the role $h$ did in the previous sections. The
+complex susy transformations then take the form of:
 \begin{align}
 \delta z &= \epsilon^1\psi_1+\epsilon^2\psi_2, \qquad
 \delta\psi_1 = \epsilon^2\overline{\di W},\qquad
@@ -2685,28 +2704,35 @@ the path-integral integrates to:
 &= \FR{|\alpha|^2}{2\pi} \sum_{z_c} \int e^{-|\alpha|^2(x^2+y^2)} \,dxdy
 = \sum_{z_c} 1 = \text{\# of critical points of $W$}
 \end{align*}
-\subsection{Holomorphicity and Correlation functions}
-%Existence of supersymmetry does not allow us to trivially compute arbitrary
-%correlation functions but it does help with some. In particular, if we have
-%an observable $\mc O$ that is invariant under one of the supersymmetry
-%transformations then perhaps we can use localization to annihilate that
-%fermionic 
 
-\todo{Prove that the Localization principle applies to holomorphic
-observables.}
-Let $f(z)$ be a holomorphic observable. Then by the localization principle,
-\begin{align*}
-    \braket{f(z)} &= \int f(z) e^{-S}\\
-    &= \int f(z)|\di^2 W|^2 e^{-\FR{1}{2}|\di W|^2}\\
-    &= \sum_{z_c} f(z_c)
-\end{align*}
+The existence of supersymmetry does not allow us to trivially compute
+arbitrary correlation functions but it does help with some. In
+particular, if we have an observable $\mc O$ that is invariant under
+one of the supersymmetry transformations then we can use localization.
+For example, let $f(z)$ be a holomorphic observable. Then
+$\bar{\delta} f = 0$, so by the localization principle
+\ref{thm:path-integral-localization},
+\[ \braket{f(z)} = \int f(z) e^{-S} = \int f(z)|\di^2 W|^2 e^{-\FR{1}{2}|\di W|^2} = \sum_{z_c} f(z_c). \]
 
-The set of all fields that vanish under $\bar\delta$ are called
-\textbf{chiral fields}. In particular because $\bar\delta$ is a derivation
-it follows that this set is closed under multiplication. If we take
-$\epsilon^1=\epsilon^2$ then $\bar\delta^2 = 0$ and so we can consider then
-cohomology ring $\FR{\ker\bar\delta}{\im\,\bar\delta}$ is often called the
-\textbf{chiral ring}.
+\begin{definition}
+  The set of all fields that vanish under $\bar\delta$ are called
+  \textbf{chiral fields}. In particular because $\bar\delta$ is a
+  derivation it follows that this set is closed under multiplication.
+  If we take $\epsilon^1=\epsilon^2$ then $\bar\delta^2 = 0$, so
+  $\bar\delta$-exact fields are automatically chiral and not very
+  interesting. Hence we can consider the cohomology ring
+  $\ker\bar\delta/\im\bar\delta$, often called the
+  \textbf{chiral ring}.
+\end{definition}
+
+\begin{example}[Chiral Ring for $d=0$ Landau--Ginzburg]
+  Since $\bar\delta(f(z)\bar\psi_1) = f(z) \di W(z)$, bosonic chiral
+  fields, i.e. holomorphic functions, are trivially chiral if they
+  have $\di W$ as a factor. The converse is true too. Hence the chiral
+  ring is $\cR \coloneqq \bC[z]/\cI$ where $\cI$ is the ideal
+  generated by $\di W$.
+\end{example}
+
 %\begin{ex}(Chiral Ring for $d=0$ Landau--Ginzburg)
 %Applying $\bar\delta$ to the generators of fields, $z,\bar z,
 %\psi_i,\bar\psi_i$, we will obtain the image
@@ -2720,96 +2746,181 @@ cohomology ring $\FR{\ker\bar\delta}{\im\,\bar\delta}$ is often called the
 %\end{ex}
 
 \section{QFT with \texorpdfstring{$d=1$}{d=1}}
+
 Let $M$ be a $1$-dimensional manifold. We know that there are only two
-diffeomorphism classes of $1$-manifolds without boundary: $\bR$ and $S^1$.
-For simplicity, the only manifold with boundary that we will consider is
-the unit interval $[0,1]$.
+diffeomorphism classes of $1$-manifolds without boundary: $\bR$ and
+$S^1$. For simplicity, the only manifold with boundary that we will
+consider is the unit interval $[0,1]$.
 
 \subsection{Quantum Mechanics}
-\begin{enumerate}
-    \item $S = \int Ldt = \int \left[\FR{1}{2}\PFR{dX}{dt}^2-V(X)\right]dt$
-    \item Hilbert space of states as $L^2(\bR,\bC)$.
-    \item $f\mapsto Z_{t_2;t_1}f$ given by $(Z_{t_2;t_1}f)(Y) = \int
-        Z(Y,t_2;X,t_1)f(X)dX$
-    \item Time evolution operator $Z_t = e^{-itH}$.
-    \item On the circle: $Z_E(\beta) = \int dX_1 Z_{E,\beta}(X_1,X_1) =
-        \Tr\exp(-\beta H)$.
-    \item Example: Harmonic oscillator
-        \begin{enumerate}
-            \item To compute partition function in two different way: operator
-                formalism $\Tr e^{-\beta H}$ and directly using
-                path-integral requires zeta function regularization.
-        \end{enumerate}
-    \item Example: Sigma model with target space: $S^1$ with radius $R$.
-        \[ S(X) = \int \FR{1}{2}\dot X^2 dt.\]
-    \item Example: Sigma model with target space: $\bR$.
-    \item Example: Sigma model with target space: $(M,g)$.
-        \[ S = \FR{1}{2}\int dt g_{ij}(X) \FR{dX^i}{dt}\FR{dX^j}{dt},
-        g_{ij} = \delta_ij + C_{ijkl}X^kX^l+\cdots.\]
-        \begin{enumerate}
-            \item Operator formalism
-            \item Ambiguity of Hamiltonian: related to the measure in the
-                path integral.
-            \item Supersymmetry imposes constraint: fixes a particular
-                Hamiltonian
-        \end{enumerate}
-    \item Complicated actions require approximations to evaluate. The
-        semi-classical approximations take the classical solution: $\delta
-        S/\delta X\bigr|_{X=X_{cl}} = 0$ and expand the action around that
-        critical point:
-        \[ S(X) = S(X_{cl}) + \FR{(\delta X)^2}{2}\FR{\delta^2 S}{\delta
-        X^2}\biggr|_{X=X_{cl}} + \mc O((\delta X)^3).\]
-        Then the partition function becomes
-        \begin{align*}
-            Z &= \int \mc DX e^{iS(X)}
-= e^{iS(X_{cl})} \int \mc D(\delta X) \exp\left(i \FR{(\delta
-X)^2}{2}\FR{\delta^2 S}{\delta X^2}\right)\\
-            &= \FR{\exp\left(iS(X_{cl})\right)}{\sqrt{\det\PFR{\delta^2
-                S(X_{cl})}{\delta X^2}}}
-        \end{align*}
-\end{enumerate}
 
-\subsection{Structure of Hilbert Space}
+For $d \ge 1$ there are two different formalisms for quantum theory:
+the {\bf operator formalism}, and the {\bf path integral formalism}.
+We used the path integral formalism for $d=0$; now it suffices to
+generalize to integrals over $\Hom(M, \bC)$ where $\dim M = 1$. The
+operator formalism arises when we consider manifolds $M$ with
+boundaries. Think of $M$ as spacetime, and boundaries as space. To
+each boundary we associate a {\bf Hilbert space of states} $\cH$. For
+$d=1$ QFT, a boundary is a point. We take $\cH = L^2(\bR, \bC)$, i.e.
+wavefunctions, from quantum mechanics.
+
+Let $Z_{t_2;t_1}$ denote the {\bf time evolution} operator taking a
+state at time $t_1$ to a state at time $t_2$. Physically we expect
+$Z_{t_3;t_2} Z_{t_2;t_1} = Z_{t_3;t_1}$. By Stone's theorem, there
+exists a self-adjoint {\bf Hamiltonian} $H$ such that $Z_{t_2;t_1} =
+e^{-i(t_2-t_1)H}$. This is usually written $U(t) \coloneqq e^{-itH}$,
+so that $U(t)$ is the operator that ``evolves for time $t$''. We
+generally consider the action and corresponding Hamiltonian
+\[ S = \int L\, dt = \int \left[\FR{1}{2}\PFR{dX}{dt}^2-V(X)\right]dt, \quad H = \FR{1}{2}p^2 + V(X). \]
+{\bf Canonical quantization} in the operator formalism involves
+promoting classical scalar-valued quantities to operator-valued
+quantities, and then imposing the commutation relation $[X, p] = i$.
+
+\begin{example} \label{ex:qm-on-circle}
+  When compactifying we are often interested in $M = S^1_\beta$, the
+  circle of circumference $\beta$. We view $M$ as $[0, \beta]$ with
+  endpoints identified. So on $M$, the Euclidean (via Wick-rotation)
+  path integral $Z_E(\beta)$ looks like
+  \[ Z_E(\beta) = \int dX_1 Z_{E,\beta}(X_1,X_1) = \Tr\exp(-\beta H), \]
+  where $Z_{E,\beta}(X, Y)$ is the Euclidean path integral on $[0,
+    \beta]$.
+\end{example}
+
+%% \begin{enumerate}
+%% \item On the circle: $$.
+%% \item Example: Harmonic oscillator
+%%   \begin{enumerate}
+%%   \item To compute partition function in two different way: operator
+%%     formalism $\Tr e^{-\beta H}$ and directly using
+%%     path-integral requires zeta function regularization.
+%%   \end{enumerate}
+%% \item Example: Sigma model with target space: $S^1$ with radius $R$.
+%%   \[ S(X) = \int \FR{1}{2}\dot X^2 dt.\]
+%% \item Example: Sigma model with target space: $\bR$.
+%% \item Example: Sigma model with target space: $(M,g)$.
+%%   \[ S = \FR{1}{2}\int dt g_{ij}(X) \FR{dX^i}{dt}\FR{dX^j}{dt},
+%%   g_{ij} = \delta_ij + C_{ijkl}X^kX^l+\cdots.\]
+%%   \begin{enumerate}
+%%   \item Operator formalism
+%%   \item Ambiguity of Hamiltonian: related to the measure in the
+%%     path integral.
+%%   \item Supersymmetry imposes constraint: fixes a particular
+%%     Hamiltonian
+%%   \end{enumerate}
+%% \item Complicated actions require approximations to evaluate. The
+%%   semi-classical approximations take the classical solution: $\delta
+%%   S/\delta X\bigr|_{X=X_{cl}} = 0$ and expand the action around that
+%%   critical point:
+%%   \[ S(X) = S(X_{cl}) + \FR{(\delta X)^2}{2}\FR{\delta^2 S}{\delta
+%%     X^2}\biggr|_{X=X_{cl}} + \mc O((\delta X)^3).\]
+%%   Then the partition function becomes
+%%   \begin{align*}
+%%     Z &= \int \mc DX e^{iS(X)}
+%%     = e^{iS(X_{cl})} \int \mc D(\delta X) \exp\left(i \FR{(\delta
+%%       X)^2}{2}\FR{\delta^2 S}{\delta X^2}\right)\\
+%%     &= \FR{\exp\left(iS(X_{cl})\right)}{\sqrt{\det\PFR{\delta^2
+%%           S(X_{cl})}{\delta X^2}}}
+%%   \end{align*}
+%% \end{enumerate}
+
+\subsection{Supersymmetric Quantum Mechanics}
+
+\begin{example} \label{ex:susy-1d-potential-theory}
+  Consider a supersymmetric theory with a single bosonic variable $x$
+  and a complex superpartner $\psi$, with Lagrangian
+  \[ L \coloneqq \FR{1}{2} \dot x^2 - \FR{1}{2} h'(x)^2 + \FR{i}{2}\left( \cnj\psi\dot\psi - \dot{\cnj\psi}\psi \right) - h''(x)\cnj\psi\psi,\]
+  where $\cnj\psi=\psi^\dagger$, and the second term $h'(x)^2$ plays
+  the role of the potential $-V(x)$. The following susy
+  transformations change the Lagrangian by a total time derivative:
+  \begin{align}
+    \delta x = \epsilon\cnj\psi-\cnj\epsilon\psi,\qquad
+    \delta \psi=\epsilon(i\dot x+h'(x)),\qquad
+    \delta\cnj\psi=\cnj\epsilon(-i\dot x+h'(x)),
+    \label{singlepotentialSUSYtransformations}
+  \end{align}
+  where $\epsilon=\epsilon_1+i\epsilon_2$ and
+  $\cnj\epsilon=\epsilon^*$ is the complex conjugate. As long as the
+  boundary variation vanishes (which will be the case on an open
+  manifold) then the action is invariant. Let $\delta_1,\delta_2$ be
+  variations as in \eqref{singlepotentialSUSYtransformations} but with
+  $\epsilon_2=0$ and $\epsilon_1=0$ respectively. Then:
+  \[ [\delta_1,\delta_2]x =2i(\epsilon_1\cnj\epsilon_2 - \epsilon_2\cnj\epsilon_1)\dot x,\qquad\qquad [\delta_1,\delta_2]\psi = 2i(\epsilon_1\cnj\epsilon_2-\epsilon_2\cnj\epsilon_1)\dot\psi.\]
+  Applying the Noether procedure with $\epsilon=\epsilon(t)$ to get:
+  $\delta L = -i\dot\epsilon Q - i\dot{\cnj\epsilon}Q^\dag$
+  where \todo{Derive this Noether charge!}
+  \[Q=\cnj\psi(i\dot x+h'(x)),\qquad\qquad Q^\dag = \psi(-i\dot x+h'(x)).\]
+  
+  We can quantize by computing conjugate variables, promoting
+  scalar-valued fields to operator-valued fields, and then imposing
+  commutation relations $[x, p] = i$ and $\{\psi, \cnj\psi\} = 1$. The
+  Hamiltonian is
+  \[ H=\FR{1}{2}p^2+\FR{1}{2}h'(x)^2+\FR{1}{2}h''(x)(\cnj\psi\psi-\psi\cnj\psi). \]
+  (Sanity check: $[H, Q] = [H, Q^\dag] = 0$, so indeed the $Q$ and
+  $Q^\dag$ are conserved charges.) Note that $\psi, \cnj\psi$ along
+  with the fermionic number operator $F \coloneqq \cnj\psi\psi$ form a
+  raising/lowering operator algebra. The state space consists of a
+  representation of the bosonic part $x, p$ and the fermionic part
+  $\psi, \cnj\psi$ of the theory. Defining $\ket{0}$ by $\psi\ket{0} =
+  0$, the fermionic states are $\ket{0}, \cnj\psi\ket{0}$. (There are
+  no more since $\psi^2 = 0$.) The bosonic representation is $L^2(\bR,
+  \bC)$, with $\hat{x}\Psi(x) \coloneqq x\Psi(x)$ and $\hat{p}\Psi(x)
+  = -i\Psi'(x)$. Hence
+  \[ \cH \coloneqq \cH^B \oplus \cH^F, \quad \cH^B \coloneqq L^2(\bR, \bC)\ket{0}, \quad \cH^F \coloneqq L^2(\bR, \bC)\cnj\psi\ket{0} \]
+  with a $\bZ/2\bZ$-grading given by $(-1)^F$. 
+\end{example}
+
 \begin{definition}
-A \textbf{supersymmetric quantum mechanical system} is $\bZ_2$-graded
-Hilbert space $\mc H$ with an even operator $H$ and two odd operators
-$Q,Q^\dag$ called supercharges satisfying: $Q^2=(Q^\dagger)^2=0$,
-$\{Q,Q^\dag\}=2H$.
+  A \textbf{supersymmetric quantum mechanical system} is
+  $\bZ/2\bZ$-graded Hilbert space $\mc H$ with an even operator $H$
+  (the {\bf Hamiltonian}) and two odd (wrt. the grading) operators
+  $Q,Q^\dag$ called {\bf supercharges} satisfying:
+  \[ Q^2=(Q^\dagger)^2=0, \quad \{Q,Q^\dag\}=2H. \]
 \end{definition}
-A consequence is $[H,Q]=[H,Q^\dag]=0$. The operator defining the $\bZ_2$
-grading is denoted $(-1)^F$. Moreover, $H = \FR{1}{2}\{Q,Q^\dagger\}\ge0$
-with equality if and only if the state is annihilated by both supercharges.
-If a state is annihlated by a charge then it is invariant under that
-symmetry, which means that ground states of a SUSY quantum mechanical
-system are automatically supersymmetric.
 
-Since $Q,\cnj Q, (-1)^F$ commute with the Hamiltonian, we first put a
-grading on the Hilbert space, by energy levels, and then grade the
-resulting subspaces by the $\bZ_2$ grading: $\mc H = \bigoplus \mc
-H_n^+\dsum \mc H_n^-$. If we define $Q_1=Q+Q^\dagger$ then \[Q_1^2=2H.\]
-For $E_n > 0$, $Q_1^2 = 2E_n$ so $Q_1$ is invertible and defines an
-isomorphism \[\mc H^+_n \cong \mc H^-_n.\] 
-This has an important consequence for adiabatic/continuous deformations.
-Degenerate energy levels may split but the dimension of positive energy
-bosonic states is the same as the fermionic states. Some of the degenerate
-ground states may split off to form positive energy states, but they again
-must come in pairs. The invariant that we should consider is the
-difference:
-\begin{align} \dim \mc H^B_0 - \dim \mc H^F_0 
-= \Tr \bigl[(-1)^Fe^{-\beta H}\bigr].\label{WittenIndex} 
-\end{align}
-This is called the \textbf{supersymmetric index} or the \textbf{Witten
-index} and is often written as $\Tr(-1)^F$. 
+A list of consequences (which we have seen in the example already)
+follows from this axiomatic definition.
+\begin{enumerate}
+\item The supercharges $Q$ and $Q^\dag$ are conserved, since
+  \[ 2[H, Q] = [\{Q, Q^\dag\}, Q] = 0. \]
+\item Let $(-1)^F$ denote the operator defining the
+  $\bZ/2\bZ$-grading. Then
+  \[ Q(-1)^F = -(-1)^FQ, \quad H(-1)^F = (-1)^FH. \]
+\item If we define $Q_1=Q+Q^\dagger$ then
+  \[ 2H = \{Q, Q^\dag\} = Q_1^2 \ge 0, \]
+  and $H\ket{\alpha} = 0$ iff $Q\ket{\alpha} = Q^\dag\ket{\alpha} =
+  0$, i.e. zero-energy states are annihilated by both $Q$ and
+  $Q^\dag$. Since $Q$ and $Q^\dag$ are charges of the susy
+  transformations, $Q\ket{\alpha} = 0$ means $\ket{\alpha}$ is susy
+  invariant, i.e. supersymmetric. So supersymmetric is equivalent to
+  zero-energy.
+\item The Hilbert space can be graded by energy levels, i.e.
+  eigen-decomposition of the Hamiltonian $H$: write
+  \[ \mc H \coloneqq \bigoplus_{n=0}^\infty \mc H_n, \quad E_0 = 0 < E_1 < E_2 < \cdots. \]
+  Since $Q, Q^\dag, (-1)^F$ commute with $H$, they preserve energy
+  levels.
+\item Each energy level $\mc H_n$ splits into bosonic and fermionic
+  parts $\mc H_n^B$ and $H_n^F$. The charges $Q, Q^\dag$ swap $\mc
+  H_n^B$ and $\mc H_n^F$. For $E_n > 0$, $Q_1^2 = 2E_n$, so $Q_1$ is
+  invertible and defines an isomorphism $\mc H_n^B \cong \mc H_n^F$.
+  (Such an isomorphism does not hold at the zero energy level.)
+\end{enumerate}
+It follows that under continuous (adiabatic) deformations of the
+theory, i.e. the spectrum of the Hamiltonian deforms continuously, the
+{\bf supersymmetric index} or {\bf Witten index}
+\[ \tr (-1)^F \coloneqq \dim \cH_0^B - \dim \cH_0^F \]
+is an invariant.
 
-To touch base with mathematics let us consider $Q$ as a coboundary operator
-of the complex: $\cdots \to \mc H^B\to \mc H^F \to \mc H^B \to \mc H^F \to
-\cdots$. This complex is naturally graded by the energy levels, and $Q$
-preserves this grading. However, the cohomology is trivial: take a
-$Q$-closed state $Q\ket{\alpha}=0$ and apply $\ket\alpha = \FR{1}{2E_n}H
-\ket\alpha = \FR{1}{2E_n}\{Q,Q^\dagger\}\ket\alpha = Q \left( \FR{1}{2E_n}
-Q^\dagger\ket\alpha \right) \in \im Q$. Therefore the cohomology group on
-the bosonic and fermionic Hilbert spaces gets a contribution only from the
-(supersymmetric) ground states:
+To touch base with mathematics let us consider $Q$ as a coboundary
+operator of the complex $\cdots \to \mc H^B\to \mc H^F \to \mc H^B \to
+\mc H^F \to \cdots$. This complex is naturally graded by the energy
+levels, and $Q$ preserves this grading. Let $H^B(Q)$ and $H^F(Q)$ be
+the two distinct cohomology groups of the complex. At excited
+energies, the cohomology is trivial: take a $Q$-closed state
+$Q\ket{\alpha}=0$ and write
+\[ \ket\alpha = \FR{1}{2E_n}H \ket\alpha = \FR{1}{2E_n}\{Q,Q^\dagger\}\ket\alpha = Q \left( \FR{1}{2E_n} Q^\dagger\ket\alpha \right) \in \im Q. \]
+Therefore the cohomology group on the bosonic and fermionic Hilbert
+spaces gets a contribution only from the (supersymmetric) ground
+states:
 \begin{align} H^B(Q) \cong \mc H^B_{(0)},\qquad H^F(Q) \cong \mc H^F_{(0)}.
 \label{groundStateCohom}
 \end{align}
@@ -2817,116 +2928,74 @@ Note this is an isomorphism not an equality as $H^\bullet(Q)$ is obtained
 by a quotient, where as $\mc H^B_{(0)}$ is an honest subgroup of the
 Hilbert space.
 
-In this form, the Witten index $\Tr(-1)^F$, \eqref{WittenIndex}, resembles
-the Euler characteristic for the complex. It is also not surprising that
-because of the appearance of the trace we may write down path integral
-expressions for $\Tr(e^{\beta H})$ and $\Tr\left[ (-1)^Fe^{-\beta H}
-\right]$. \todo{Understand the periodic boundary conditions in path
-integral for fermions.}
-\subsection{Supersymmetric Hilbert space: Example} 
-% Example: single-variable potential theory 
-
-\begin{example} Let us consider a supersymmetric theory with a single bosonic
-variable $x$ and a complex superpartner $\psi$. The Lagrangian is given by:
-\[ L = \FR{1}{2} \dot x^2 - \FR{1}{2} h'(x)^2 + \FR{i}{2}\left( \cnj\psi
-\dot\psi - \dot{\cnj\psi}\psi \right) - h''(x)\cnj\psi\psi,\]
-where $\cnj\psi=\psi^\dagger$, and the second term plays the role of the
-potential $-V(x)$. Now the following transformations change the Lagrangian
-by a total time derivative:
-\begin{align}
-    \delta x = \epsilon\cnj\psi-\cnj\epsilon\psi,\qquad
-    \delta \psi=\epsilon(i\dot x+h'(x)),\qquad
-    \delta\cnj\psi=\cnj\epsilon(-i\dot x+h'(x)),
-    \label{singlepotentialSUSYtransformations}
-\end{align}
-where $\epsilon=\epsilon_1+i\epsilon_2$ and $\cnj\epsilon=\epsilon^*$ is
-the complex conjugate. As long as the boundary variation vanishes (which
-will be the case on an open manifold) then the action is invariant. Let
-$\delta_1,\delta_2$ be variations as in \eqref{singlepotentialSUSYtransformations}
-but with $\epsilon_2=0$ and $\epsilon_1=0$ respectively. Then:
-\[[\delta_1,\delta_2]x =2i(\epsilon_1\cnj\epsilon_2 -
-\epsilon_2\cnj\epsilon_1)\dot x,\qquad\qquad [\delta_1,\delta_2]\psi
-=2i(\epsilon_1\cnj\epsilon_2-\epsilon_2\cnj\epsilon_1)\dot\psi.\]
-Applying the Noether procedure with $\epsilon=\epsilon(t)$ to get: $\delta
-L = -i\dot\epsilon Q - i\dot{\cnj\epsilon}\cnj Q$ where\todo{Derive this
-Noether charge!}
-\[Q=\cnj\psi(i\dot x+h'(x)),\qquad\qquad\cnj Q = \psi(-i\dot x+h'(x)).\]
-
-\textbf{Quantizion:} Compute conjugate variables, promote to operators,
-impose commutation relations.
-
-$H=\FR{1}{2}p^2+\FR{1}{2}h'(x)^2+\FR{1}{2}h''(x)(\cnj\psi\psi-\psi\cnj\psi)$.
-
-Check:
-\begin{enumerate}
-    \item $[H,Q]=[H,\cnj Q] = 0$, note $Q^\dagger = \cnj Q$.
-    \item Let $\mc O(x,\psi,\cnj\psi)$ be any observable (self-adjoint
-        operator). Show that $\delta \mc O = [\hat\delta,\mc O]$ where
-        $\hat\delta = \epsilon Q+\cnj\epsilon\cnj Q$.
-    \item The Hilbert space decomposes as $L^2(\bR,\bC)\ten\bC^2$ as a
-        result of the bosonic and fermionic degrees of freedom.
-\end{enumerate}
-Define the fermionic number operator, $F = \cnj\psi\psi$ which measures the
-number of fermions of a state (either 0 or 1). A more convenient operator
-that (does not annihilate the state without fermions) is given by $(-1)^F$.
-Check:
-\begin{enumerate}
-    \item $[F,Q]=Q, [F,\cnj Q]=-\cnj Q$
-    \item $\left\{ Q,(-1)^F \right\}=\left\{ \cnj Q,(-1)^F \right\}=0$
-    \item $\left\{ Q,Q \right\}=\left\{ \cnj Q,\cnj Q \right\}=0$.
-    \item $\left\{ Q,\cnj Q \right\} = 2H$
-\end{enumerate}
+\begin{example} \label{ex:susy-1d-potential-theory-ground-states}
+  Let's find the (susy) ground states of the susy potential theory in
+  \ref{ex:susy-1d-potential-theory}. In the basis $\{\ket 0,
+  \cnj\psi\ket0\}$, the supercharges are
+  \[ Q=\cnj\psi(ip+h'(x))=\begin{pmatrix}0&0\\\FR{d}{dx}+h'(x)&0\end{pmatrix},\qquad \cnj Q=\psi(-ip+h'(x))=\begin{pmatrix}0&-\FR{d}{dx}+h'(x)\\0&0\end{pmatrix}.\]
+  Therefore we look for $f_1,f_2$ so that $\Psi= f_1(x) \ket0 + f_2(x)
+  \cnj\psi\ket0$ is annihilated by $Q$ and $\cnj Q$. This leads to two
+  differential equations with exact
+  solutions:
+  \[f_1(x)=c_1e^{-h(x)},\qquad f_2(x)=c_2 e^{h(x)}.\]
+  We also want $f_1,f_2 \in L^2$ which means that they are either $0$
+  or exponentially decaying at \emph{both} $x=\pm\infty$. In one case
+  $e^{-h(x)}\ket{0}$ is the only ground state, and $\tr (-1)^F = 1 - 0
+  = 1$; in the other, $e^{h(x)}\cnj\psi\ket{0}$ is the only ground
+  state, and $\tr (-1)^F = 0 - 1 = -1$.
 \end{example}
-\subsection{Supersymmetric Ground States: Towards Morse Theory}
-As discussed before, the grounds states of a supersymmetric Hamiltonian are
-precisely the states which span the intersection of $\ker Q$ and $\ker\cnj
-Q$. In the basis $\{\ket 0, \cnj\psi\ket0\}$, the supercharges are
-\[Q=\cnj\psi(ip+h'(x))=\begin{pmatrix}0&0\\\FR{d}{dx}+h'(x)&0\end{pmatrix},\qquad
-\cnj Q=\psi(-ip+h'(x))=\begin{pmatrix}0&-\FR{d}{dx}+h'(x)\\0&0\end{pmatrix}.\]
-Therefore we look for $f_1,f_2$ so that $\Psi= f_1(x) \ket0 + f_2(x)
-\cnj\psi\ket0$ is annihilated by $Q$ and $\cnj Q$. This leads to two
-differential equations with exact solutions: \[f_1(x)=c_1e^{-h(x)},\qquad
-f_2(x)=c_2 e^{h(x)}.\] We also want $f_1,f_2 \in L^2$ which means that
-they are either $0$ or exponentially decaying at \emph{both} $x=\pm\infty$.
-Therefore we have two solutions:
-\[ e^{-h(x)}\ket 0, \text{if $h\to\infty$, as $x\to\pm\infty$,}\qquad
-e^{h(x)}\cnj\psi\ket 0, \text{if $h\to-\infty$, as $x\to\pm\infty$.}\]
 
-In the case of a harmonic oscillator, $h(x) = \FR{\om}{2}x^2$, with
-potential $V(x) = \FR{1}{2}(h'(x))^2 = \FR{\om^2x^2}{2}$. Therefore the
-ground states become:
-\[ \Psi_{\om>0} = e^{-\FR{1}{2}\om x^2}\ket 0,\qquad \Psi_{\om<0}=
-e^{-\FR{1}{2}|\om|x^2}\cnj\psi\ket 0.\]
+\begin{example} \label{ex:susy-harmonic-oscillator}
+  Taking $h(x) = (\omega/2)x^2$ in the susy potential theory
+  \ref{ex:susy-1d-potential-theory} gives the {\bf susy harmonic
+    oscillator} with potential $V(x) = \frac{1}{2}(h'(x))^2$. The
+  Hamiltonian here is $H = \frac{1}{2}p^2 + \frac{1}{2}\omega^2 x^2 +
+  \frac{1}{2}\omega [\cnj\psi, \psi]$, and by the same analysis as the
+  previous example, there is exactly one susy ground state for both
+  $\omega > 0$ (bosonic) and $\omega < 0$ (fermionic).
+\end{example}
 
+If instead of a $\bZ/2\bZ$-grading we had a $\bZ$-grading and the
+operator $Q$ had charge $1$, then $\cH = \bigoplus_{p \in \bZ} \cH^p$
+forms a complex $\cdots \xrightarrow{Q} \cH^{p-1} \xrightarrow{Q}
+\cH^p \xrightarrow{Q} \cdots$. By an analogous argument,
+\[ \cH_0^B = \bigoplus_{p \text{ even}} H^p(Q), \quad \cH_0^F = \bigoplus_{p \text{ odd}} H^p(Q), \quad H^p(Q) \coloneqq \frac{\ker Q\colon \cH^p \to \cH^{p+1}}{\im Q\colon \cH^{p-1} \to \cH^p}. \]
+The Witten index $\Tr(-1)^F$ is therefore the Euler characteristic for
+the complex:
+\[ \tr (-1)^F = \dim \cH_0^B - \dim \cH_0^F = \sum_{p \in \bZ} (-1)^p \dim H^p(Q). \]
+Because of the appearance of the trace we may write down path integral
+expressions for $\Tr(e^{\beta H})$ and $\Tr\left[ (-1)^Fe^{-\beta H}
+  \right]$. \todo{Understand the periodic boundary conditions in path
+  integral for fermions.}
 
-\subsection{Semi-classical analysis}
-We now switch to the Hamiltonian formulation, and at the same time rescale
-$h\to \lam h$ for a large $\lam \gg 1$. This goes back to the deformation
-invariance result that the action is invarinat under deformations of this
-form:
+\subsection{Perturbative Semi-Classical Analysis}
+\label{sec:1d-susy-potential-theory}
+We now switch to the Hamiltonian formulation, and at the same time
+rescale $h\to \lam h$ for a large $\lam \gg 1$ using the deformation
+invariance result \ref{thm:action-deformation-invariance}. The
+Hamiltonian is therefore
 \[H=\FR{1}{2}p^2+\FR{\lam^2}{2}(h'(x))^2+\FR{\lam}{2}h''(x)[\cnj\psi,\psi].\]
 The ground states will be localized at the minimum of $(h'(x))^2$.
-Expanding $h$ around a critical point, and at the same time rescale the
-coordinates $x-x_i = \FR{1}{\sqrt\lam}(\tilde x-\tilde x_i)$ the expansion
-becomes \[h(x) = \FR{1}{2\lam}h''(x_i)(\tilde x-\tilde
+Expanding $h$ around a critical point, and at the same time rescale
+the coordinates $x-x_i = \FR{1}{\sqrt\lam}(\tilde x-\tilde x_i)$ the
+expansion becomes \[h(x) = \FR{1}{2\lam}h''(x_i)(\tilde x-\tilde
 x_i)^2+\FR{1}{6\lam^{3/2}}h'''(x_i)(\tilde x-\tilde x_i)^3 +
-O(\lam^{-2}).\]
-The Hamiltonian the becomes:
-\[ H = \lam\left( \FR{1}{2}\tilde p^2 + \FR{1}{2}h''(x_i)^2(\tilde x-\tilde
-    x_i)^2+\FR{1}{2}h''(x_i)\left[ \cnj\psi,\psi \right]\right)
-+\lam^{1/2}(\cdots)+(\cdots)+\mc O(\lam^{-1/2}),\]
-where $\tilde p = -i\FR{d}{d\tilde x}$.
-The $\mc O(\lam)$ term is a supersymmetric harmonic oscillator with
-$\om=h''(x_i)$. The ground state around $x_i$ are:
-\begin{align*}
-\Psi_i &= e^{-\FR{\lam}{2}h''(x_i)(x-x_i)^2}\ket 0+\mc O(\lam^{-1/2}),\ \ \text{if
-$h''(x_i)>0$},\\
-\Psi_i &= e^{-\FR{\lam}{2}|h''(x_i)|(x-x_i)^2}\ket 0+\mc O(\lam^{-1/2}),\ \text{if
-$h''(x_i)<0$}
-\end{align*}
-This perturbation theory, tells us there is exactly one supersymmetric
-ground state for every critical point and so the Witten index is given by
+O(\lam^{-2}).\] The Hamiltonian then becomes:
+\[ H = \lam\left( \FR{1}{2}\tilde p^2 + \FR{1}{2}h''(x_i)^2(\tilde x-\tilde x_i)^2+\FR{1}{2}h''(x_i)\left[ \cnj\psi,\psi \right]\right)+\lam^{1/2}(\cdots)+\mc O(\lam^{-1/2}),\]
+where $\tilde p = -i\FR{d}{d\tilde x}$. The $\mc O(\lam)$ term is a
+supersymmetric harmonic oscillator (c.f.
+\ref{ex:susy-harmonic-oscillator}) with $\om=h''(x_i)$. Hence there is
+exactly one supersymmetric ground state associated to every critical
+point. For $N$ critical points $x_1, \ldots, x_N$, there are $N$
+approximate susy ground states $\Psi_1, \ldots, \Psi_N$, and so the
+Witten index is given by
 \[\Tr(-1)^F = \sum_{i=1}^N \sign(h''(x_i)).\]
+Since the Witten index is invariant under smooth deformations of the
+theory, this perturbative calculation is valid non-perturbatively.
+However, the perturbative ground states we found are not true ground
+states: we know from \ref{ex:susy-1d-potential-theory-ground-states}
+that there is at most one ground state, yet we seem to have $N$. Later
+we shall see non-perturbative corrections, known as instantons.
 
 If the target space is $\bR^n$, with $n$ bosonic and $2n$ fermionic
 variables then the Hamiltonian becomes a sum $H = \FR{1}{2}\sum_I
@@ -2942,25 +3011,22 @@ out the $\mc O(\lam)$ term to get the ground state:
 \right).\] In particular, if we denote the Morse indices of $h$ by $\mu_i$,
 the Witten index is given by $\Tr(-1)^F = \sum_{i=1}^N (-1)^{\mu_i}$.
 
-\subsection{Landau--Ginzburg, \texorpdfstring{$n=2m$}{n=2m}}
-The Landau--Ginzburg model is complex analogue of our discussion above.
-The target space will now be $\bC^m \equiv \bR^{2m}$ and we will take the
-Lagrangian to be: \[ L = \sum_{i=1}^m \left(|\dot
-    z_i|^2+i\bar \psi^i\di_t\psi^{\bar i}+i\bar\psi^{\bar
-    i}\di_t\psi^i-\FR{1}{4}|\di_iW|^2\right)
-    -\FR{1}{2}\sum_{ij}(\di_i\di_jW\psi^i\bar\psi^j+\di_{\bar i}\di_{\bar
-    j}\cnj W\psi^{\bar i}\bar\psi^{\bar j}).\]
-Suppose $W$ has $N$ nondegenerate critical points $p_1,\dots,p_N$. That is,
-$\det \di_i\di_j W(p_a)\ne 0$. Expanding $W$ around these critical points
-and rewriting in real coordinates we get:
-\begin{align*}
-    W(z) &= \sum_{k=1}^m (z^k)^2+\mc O((z^k)^3)\\
-    &= \sum_{k=1}^m\left[ (x^k)^2-(y^k)^2 \right] + \cdots
-\end{align*}
-Therefore the Morse indices for \emph{any} critical point are equal to the
-complex dimension $m$.
+\begin{example}[Landau--Ginzburg, $n = 2m$] \label{ex:1d-landau-ginzburg}
+  The Landau--Ginzburg model in $d = 1$ is the complex analogue of our
+  discussion above. The target space is now $\bC^m \equiv \bR^{2m}$
+  and we take the Lagrangian
+  \[ L = \sum_{i=1}^m \left(|\dot z_i|^2+i\bar \psi^i\di_t\psi^{\bar i}+i\bar\psi^{\bar i}\di_t\psi^i-\FR{1}{4}|\di_iW|^2\right) -\FR{1}{2}\sum_{ij}(\di_i\di_jW\psi^i\bar\psi^j+\di_{\bar i}\di_{\bar j}\cnj W\psi^{\bar i}\bar\psi^{\bar j}).\]
+  Suppose $W$ has $N$ nondegenerate critical points $p_1,\dots,p_N$.
+  That is, $\det \di_i\di_j W(p_a)\ne 0$. Expanding $W$ around these
+  critical points and rewriting in real coordinates we get
+  \[ W(z) = \sum_{k=1}^m (z^k)^2+\mc O((z^k)^3) = \sum_{k=1}^m\left[ (x^k)^2-(y^k)^2 \right] + \cdots. \]
+  Therefore the Morse indices for \emph{any} critical point are equal
+  to the complex dimension $m$, i.e. they all have $(-1)^F = (-1)^m$,
+  so they are either all bosonic or all fermionic, and therefore will
+  never be lifted to higher energies.
 
-\todo{Show that this Landau--Ginzburg model is $\mc N=2$ supersymmetric.}
+  \todo{Show that this Landau--Ginzburg model is $\mc N=2$ supersymmetric.}
+\end{example}
 \begin{comment}
 This Landau--Ginzburg model that we are considering here actually has
 two pairs of supersymmetry charges $Q_\pm$ and $\cnj Q_\pm$ that generate
@@ -2973,16 +3039,21 @@ the following transformations:
 \subsection{Sigma Models}
 % topology <---> ground states of SUSY-\sg-model
 % superpotentials on target <---- physical realization of Morse theory
-Let $(M,g)$ be a Riemannian manifold and denote by $\mc T$ the one
-dimensional manifold one which our QFT lives. The bosonic and fermionic
-variables are maps of the form
+We explore an extended example of a supersymmetric quantum theory that
+will be very important later on. The {\bf sigma model} has as a target
+manifold an oriented compact Riemannian manifold $(M, g)$. Denote by
+$\mc T$ the one dimensional manifold on which our QFT lives. The
+bosonic and fermionic {\bf fields} are maps of the form
 \begin{align}
-    \phi \colon \mc T\to M,\qquad \psi,\bar\psi\in\Gamma(\mc
-    T,\phi^*TM\ten\bC)
+    \phi \colon \mc T\to M,\qquad \psi,\bar\psi\in\Gamma(\mc T,\phi^*TM\ten\bC)
     \label{sigmamodelvariables}
 \end{align}
-The Lagrangian is given by:
-\begin{align}
+Let $D_t$ be the covariant derivative given by the Levi--Civita
+connection, and $\Gamma^I_{JK}$ its Christoffel symbols. Let
+$R_{IJKL}$ be the Riemannian curvature tensor. The {\bf Lagrangian} is
+given by:
+\begin{align} \label{sigmaModelRiemLag}
+\begin{split}
     L &= \FR{1}{2}g_{IJ}\dot\phi^I\dot\phi^J + \FR{i}{2}(\bar\psi^I
     D_t\psi^J-D_t\bar\psi^I\psi^J) - \FR{1}{2} R_{IJKL}\psi^I\bar\psi^J
     \psi^K\bar\psi^L\\
@@ -2990,65 +3061,408 @@ The Lagrangian is given by:
     \FR{i}{2}(\braket{\bar\psi,\nabla^{LC}_t\psi}
     -\braket{\nabla^{LC}_t\bar\psi,\psi})
     -\FR{1}{2}R(\psi,\bar\psi,\psi,\bar\psi),
-    \label{sigmaModelRiemLag}
+\end{split}
 \end{align}
-The supersymmetry transformations are given by:
+The {\bf susy transformations} are given by:
 \[ \delta\phi^I = \epsilon\bar\psi^I-\bar\epsilon\psi^I,\qquad
 \delta\psi^I = \epsilon(i\dot\phi^I-\Gamma^I_{JK}\bar\psi^J\psi^K),\qquad
-\delta\bar\psi^I =\bar\epsilon(-i\dot\phi^I-\Gamma^I_{JK}\bar\psi^J\psi^K)s.
+\delta\bar\psi^I =\bar\epsilon(-i\dot\phi^I-\Gamma^I_{JK}\bar\psi^J\psi^K).
 \]
-The corresponding supercharges are given by:\todo{Work out the Noether
-charge for Riemannian manifold sigma model.}
+The corresponding {\bf supercharges} are given by:\todo{Work out the
+  Noether charge for Riemannian manifold sigma model.}
 \[ Q = ig_{IJ}\bar\psi^I\dot\phi^J = i\braket{\bar\psi,\dot\psi},\qquad
-\bar Q=-ig_{IJ}\psi^I\dot\psi^J=-i\braket{\psi,\dot\psi}.\]
-There is an extra symmetry of this free Lagrangian: $(\psi,\bar\psi) \to
-(e^{-i\theta}\psi,e^{i\theta}\bar\psi)$. The corresponding Noether charge
-is \[F = g_{IJ}\bar\psi^I\psi^J = \braket{\bar\psi,\psi}.\]
-Quantizing this system, requires the conjugate momenta: \[p_I = \FR{\di
-L}{\di\dot\phi^I}=g_{IJ}\dot\phi^J,\qquad {\pi_\psi}_I =
-ig_{IJ}\bar\psi^J.\] Finally, imposing commutation relations:
+\bar Q=-ig_{IJ}\psi^I\dot\psi^J=-i\braket{\psi,\dot\psi}.\] There is
+an extra symmetry, {\bf phase invariance}, of this free Lagrangian:
+$(\psi,\bar\psi) \to (e^{-i\theta}\psi,e^{i\theta}\bar\psi)$. The
+corresponding Noether charge, sometimes called the {\bf F-charge}, is
+\[ F = g_{IJ}\bar\psi^I\psi^J = \braket{\bar\psi,\psi}.\]
+Quantizing this system requires the {\bf conjugate momenta}:
+\[p_I = \FR{\di L}{\di\dot\phi^I}=g_{IJ}\dot\phi^J,\qquad {\pi_\psi}_I = ig_{IJ}\bar\psi^J.\]
+Finally, imposing {\bf commutation relations}
 \[ [\phi^I,p_J] = i\delta^I_{\ J},\qquad \{\psi^I,\bar\psi^J\} = g^{IJ},\]
 with all other commutators vanishing. The supercharges are conveniently
-write $Q=i\bar\psi^Ip_I, \bar Q = -i\psi^Ip_I$. The ambiguitiy in the
+write $Q=i\bar\psi^Ip_I, \bar Q = -i\psi^Ip_I$. The ambiguity in the
 choice of Hamiltonian is fixed if we impose $\{Q,\bar Q\}=2H$.
 Finally, note that $[F,Q]=Q$ and $[F,\bar Q]=-\bar Q$ from which we get
 $[H,F]=0$.
 
-There exists a natural representation of the observables on the space:
-\[\mc H = \Omega(M)\ten\bC,\ \ \text{with}\ \ \braket{\omega_1,\omega_2}_{\mc
-H} = \int_M \bar\om_1 \wedge *\om_2.\]
+There exists a natural representation of the observables on the space
+\[\mc H = \Omega^*(M, \bC),\ \ \text{with}\ \ \braket{\omega_1,\omega_2}_{\mc H} = \int_M \bar\om_1 \wedge *\om_2.\]
 The observables can be assigned the following operators:
-\[\phi^I = x^I\cdot,\qquad p_I = -i\nabla_I,\qquad
-\bar\psi^I=dx^I\wedge,\qquad \psi^I = g^{IJ} \FR{\di}{\di x^J}\hook\]
-The ground state, corresponding to the intersection of all $\ker\psi^I$.
-The $F$-charge, or fermion number, is the degree of the form and so the
-natural grading on the Hilbert space \[\mc H = \bigoplus
-\Omega^p(M)\ten\bC\]
-corresponds to the fermion number grading. The supercharge $Q$ is the extrior
-derivative, $Q = i\bar\psi^Ip_I = dx^I\wedge\FR{\di}{\di x^I}=d$, and
-Hermitian conjugate is $\bar Q = Q^\dagger =d^\dagger$. Finally, we compute
-the Hamiltonian $H$ by the supersymmetry relation \[H = \FR{1}{2}\{Q,\bar
-Q\} = \FR{1}{2}(dd^\dagger+d^\dagger d) = \FR{1}{2}\Delta,\] the
-Laplace--Beltrami operator. The ground states are then just the harmonic
-forms: \[\mc H_{(0)} = \Harm(M,g) = \bigoplus_{p=0}^n \Harm^p(M,g).\]
+\begin{align} \label{eq:1d-sigma-model-identifications}
+  \phi^I = x^I\cdot,\qquad p_I = -i\nabla_I,\qquad \bar\psi^I=dx^I\wedge,\qquad \psi^I = g^{IJ} \FR{\di}{\di x^J}\hook
+\end{align}
+The ground state, corresponding to the intersection of all
+$\ker\psi^I$, is naturally identified with $1 \in \Omega^0(M)$. The
+$F$-charge, or fermion number, is the degree of the form and so the
+natural grading on the Hilbert space $\mc H = \bigoplus_p \Omega^p(M,
+\bC)$ corresponds to the fermion number grading. The supercharge $Q =
+i\bar\psi^Ip_I = dx^I\wedge\FR{\di}{\di x^I}$ is just the exterior
+derivative $d$, and its Hermitian conjugate is $\bar Q = Q^\dagger
+=d^\dagger$, which we identify with the adjoint. Finally, the
+Hamiltonian $H$ is given by
+\[H = \FR{1}{2}\{Q,\bar Q\} = \FR{1}{2}(dd^\dagger+d^\dagger d) = \FR{1}{2}\Delta,\]
+the Laplace--Beltrami operator. The ground states are then just the
+harmonic forms:
+\[\mc H_{(0)} = \Harm(M,g) = \bigoplus_{p=0}^n \Harm^p(M,g).\]
 
 Now we are starting to see the correspondence between supersymmetric
-quantum mechanics and differential geometry. In fact, Hodge theory is not
-too far away! As we showed before, the ground states can be characterized
-by cohomology (see \eqref{groundStateCohom}). Since $[F,Q]=Q$ the
-$Q$-complex may be graded by the fermion number, or in more mathematical
-language, the de Rham cohomology is graded by the degree of the forms.
-In fact, since we know the ground states correspond to the the harmonic
-forms we use the same proof as for \eqref{groundStateCohom} to show that
+quantum mechanics and differential geometry. In fact, Hodge theory is
+not too far away! As we showed before, the ground states can be
+characterized by cohomology (see \eqref{groundStateCohom}). Since
+$[F,Q]=Q$ the $Q$-complex may be graded by the fermion number, or in
+more mathematical language, the de Rham cohomology is graded by the
+degree of the forms. In fact, since we know the ground states
+correspond to the the harmonic forms, we use the same proof as for
+\eqref{groundStateCohom} to show that
 \[\mc H_{(0)}=\Harm(M,g) \cong H^\bullet(Q) = H^\bullet_{dR}(M),\]
 and even more that with respect to the fermion number grading,
-\[\Harm(M,g) \cong H^p_{dR}(M).\]
+\[\Harm^p(M,g) = H^p(Q) \cong H^p_{dR}(M).\]
 The Witten index, $\Tr(-1)^F$, counting the parity of the fermion numbers
-becomes: \[\Tr(-1)^F = \sum_{p=0}^n (-1)^p \dim H^p_{dR}(M) = \chi(M).\] 
+becomes: \[\Tr(-1)^F = \sum_{p=0}^n (-1)^p \dim H^p_{dR}(M) = \chi(M).\]
 
 \todo{Prove Gauss Bonnet using the path integral: Compute the Witten index
 $\Tr[(-1)^Fe^{-\beta H}]$ in terms of the Riemann curvature tensor and use
 the localization principle in the limit of $\beta\to0$.}
+
+Other interesting mathematics can be recovered by modifying the
+structure of the target manifold.
+\begin{enumerate}
+\item We can {\bf deform} the Lagrangian by adding a potential
+  $h\colon M \to \bR$:
+  \[ \delta L \coloneqq -\frac{1}{2} g^{IJ} \di_I h \di_J h - D_I \di_J h \cnj \psi^I \psi^J \]
+  where $D_I \di_J h \coloneqq \di_I \di_J h - \Gamma^K_{IJ} \di_K h$.
+  Then $Q$ becomes identified with $d_h\coloneqq d + dh \wedge$,
+  giving the {\bf twisted de Rham complex} $(\Omega^*, d_h)$. However
+  this complex is isomorphic to the original (untwisted) de Rham
+  complex via $e^{-h}$.
+\item We can make $M$ K\"ahler. Then there is an {\bf extended
+  supersymmetry} as in \ref{ex:1d-landau-ginzburg} giving four
+  supercharges $Q_+, Q_+^\dag, Q_-, Q_-^\dag$ such that the original
+  Riemannian supercharges satisfy $Q = i(Q_- + Q_+^\dag)$. There are
+  also two F-charges $F_A$ and $F_V$ that commute, i.e. $[F_A, F_V] =
+  0$, so $\cH = \Omega^*(M, \bC)$ decomposes with respect to both
+  charges into $\bigoplus_{p,q} \Omega^{p,q}(M)$. Then $Q_+ = -i\bdi$
+  and $Q_- = -i\di$, the Dolbeault operators, and $F_A = q+p$ and $F_V
+  = q-p$. We recover the Hodge decomposition and the Dolbeault
+  isomorphism $\cH^{p,q}(M) = H^{p,q}_{\di}(M)$.
+\end{enumerate}
+
+\subsection{Instantons}
+
+Adding a deformation $h\colon M \to \bR$ to the Riemannian manifold
+case is analogous to the introduction of a potential $h$ in the susy
+potential theory; we repeat the perturbative analysis in subsection
+\ref{sec:1d-susy-potential-theory}. When we scale $h \mapsto \lambda
+h$, the number of susy ground states is preserved (c.f.
+\ref{thm:action-deformation-invariance}), and the Hamiltonian is
+\[ H_\lambda \coloneqq \frac{1}{2} \Delta + \frac{1}{2} \lambda^2 g^{IJ} \di_J h \di_J h + \frac{1}{2} \lambda D_I \di_J h[\cnj\psi^I, \psi^J]. \]
+In general, we can do any operations that preserve the $Q$-cohomology,
+and therefore the number of susy ground states. Again, at large
+$\lambda$, low-energy states are localized around critical points
+$x_i$ of $h$. So choose coordinates $x^I$ around $x_i$ such that $h =
+h(x_i) + c_I (x^I)^2 + O((x^I)^3)$ and $c_I$ are the eigenvalues of
+the Hessian, and for simplicity, deform either $h$ or the metric
+$g_{IJ}$ so that $g_{IJ} = \delta_{IJ}$. The leading-order term in the
+Hamiltonian is
+\[ H_0(x_i) \coloneqq \sum_{I=1}^n \frac{1}{2} p_I^2 + \frac{1}{2} \lambda^2 c_I^2 (x^I)^2 + \frac{1}{2} \lambda c_I [\cnj\psi^I, \psi^I], \]
+which is $n$ independent susy harmonic oscillators. To leading order,
+the susy ground state is therefore
+\[ \Psi_i^{(0)} \coloneqq \exp\left(-\lambda |c_I| (x^I)^2\right) \prod_{J : c_J < 0} \cnj\psi^J \ket{0}. \]
+Hence $(-1)^F = (-1)^{\#\{J: c_J < 0\}}$, and the exponent is just the
+{\bf Morse index} $\mu_i$ of $h$ at $x_i$.
+
+As discussed earlier, it is not necessarily the case that each
+$\Psi_i$ is actually a susy ground state in the full theory, i.e. it
+may be that $Q \Psi_i \neq 0$. So let's look at the theory
+non-perturbatively: we want to compute the matrix elements of $Q$
+\[ \braket{\Psi_j, Q\Psi_i} = \int_M \cnj\Psi_j \wedge \star(d + dh \wedge) \Psi_i. \]
+(Here we are implicitly using the identifications in
+\ref{eq:1d-sigma-model-identifications}.) Since $\Psi_j$ is a
+$\mu_j$-form and $Q\Psi_i = (d + dh \wedge)\Psi_i$ is a
+$(\mu_i+1)$-form, the matrix element is potentially nonzero only when
+$\mu_j = \mu_i+1$. We evaluate it via path integral.
+
+\begin{proposition}
+  The desired matrix element as a path integral is
+  \[ \braket{\Psi_j, Q\Psi_i} = \lim_{t \to \infty} \braket{\Psi_j, e^{-tH}[Q, h]e^{-tH}\Psi_i} = \int_{\phi(-\infty)=x_i, \phi(+\infty)=x_j} \cD\phi \, \cD\psi\, \cD\cnj\psi \, e^{-S_E} \cnj\psi^I \di_I h|_{\tau=0} \]
+  where the Euclidean (Wick-rotated) action $S_E$ is
+  \[ S = \int_{-\infty}^\infty d\tau \, \frac{1}{2} g_{IJ} \di_\tau \phi^I \di_\tau \phi^J + \frac{\lambda^2}{2} g^{IJ} \di_Ih \di_Jh + g_{IJ}\cnj\psi^I D_\tau \psi^J + \lambda D_I \di_J h \cnj\psi^I\psi^J + \frac{1}{2} R_{IJKL} \psi^I\cnj\psi^J\psi^K\cnj\psi^L. \]
+\end{proposition}
+
+\begin{proof}
+  Not trivial at all. See pg. 224 in Hori.
+\end{proof}
+
+There is a Euclidean susy transformation $\delta_\epsilon$ on $S_E$
+and its boundary conditions $\phi(-\infty) = x_i$ and $\phi(+\infty) =
+x_j$ that preserves the integrand $[Q, h] = \cnj\psi^I\di_Ih$. By the
+same argument as for the localization principle in $d=0$ (c.f.
+\ref{thm:path-integral-localization}), the path integral receives
+contributions only from $\delta_\epsilon$-fixed points. In this
+particular case, such fixed points satisfy $\di_\tau \phi^I = \lambda
+g^{IJ} \di_J h$, and are minimizers of the (bosonic part of the)
+action $S_E$. Such minimizers are {\bf instantons}. Looking at this
+equation, we see it describes an {\bf ascending gradient flow} from
+$x_i$ to $x_j$, where $\mu_i = \mu_j+1$ (c.f.
+\ref{def:morse-theory-flow-line}).
+
+For ``generic'' $h$ (c.f. \ref{def:morse-smale}), we can do the
+calculation explicitly using localization, and get
+\[ \braket{\Psi_j, Q\Psi_i} = \sum_\gamma n_\gamma \exp(-\lambda(h(x_j) - h(x_i))) \]
+where $n_\gamma = \pm 1$ depending on the orientation of the instanton
+$\gamma$ (c.f. \ref{def:morse-theory-flow-line-orientation}). (The
+exponential can be eliminated by rescaling $\Psi_i$.) Note that $Q$
+looks suspiciously like the {\bf Morse boundary map}
+\ref{def:morse-theory-flow-line-orientation}. Since originally $Q^2 =
+0$, it is also nilpotent when acting on the perturbative ground
+states. Hence if we define the {\bf graded space of perturbative
+  ground states} $C^\mu \coloneqq \bigoplus_{\mu_i=\mu} \bC\Psi_i$, we
+get the {\bf Morse--Witten complex} $0 \to C^0 \xrightarrow{Q} C^1
+\xrightarrow{Q} \cdots \xrightarrow{Q} C^n \xrightarrow{Q} 0$, and the
+space of susy ground states is of course its cohomology. Hence we have
+proved the Morse homology theorem \ref{thm:morse-homology-iso}.
+
+\section{QFT with \texorpdfstring{$d=1+1$}{d=1+1}}
+
+A {\bf free} field theory has action quadratic in the field variables;
+recall from QFT that by adding in higher powers, we add vertices into
+Feynman diagrams, and therefore non-trivial interactions between
+fields. In $d=1+1$ (where we write $1+1$ instead of $2$ to emphasize
+that there is $1$ space dimension and $1$ time dimension), we shall
+primarily look at free theories.
+
+\subsection{Free Bosonic Scalar Field Theory}
+
+The ingredients of a free bosonic scalar field theory are given by:
+\begin{enumerate}
+\item let $\Sigma = \bR \times S^1$ be the {\bf world sheet}, where
+  $\bR$ is parametrized by the time $t$ and $S^1$ by the spatial
+  coordinate $s$ of period $2\pi$;
+\item let $x = x(t, s) \in \bR$ be the {\bf scalar field} (so that we
+  can also consider this theory as a sigma model, where $x\colon
+  \Sigma \to \bR$);
+\item the action is
+  \[ S \coloneqq \frac{1}{2\pi} \int_\Sigma L \, dt \, ds = \frac{1}{4\pi} \int_\Sigma \left((\di_t x)^2 - (\di_s x)^2\right) \, dt \, ds. \]
+\end{enumerate}
+Euler--Lagrange gives the {\bf equation of motion} $(\di_t^2 -
+\di_s^2)x = 0$, so a general solution is $x(t, s) = f(t - s) + g(t +
+s)$, i.e. a linear combination of {\bf left movers} and {\bf right
+  movers}.
+
+Noether's procedure applied to a translation $\delta x = \alpha(t, s)$
+on the target space $\bR$ gives
+\[ \delta S = \frac{1}{2\pi} \int_\Sigma \di_\mu\alpha j^\mu \, dt \, ds, \quad j^t = \di_t x, \, j^s = -\di_s x. \]
+Hence $j^\mu$ is a current and has a conservation law $\di_\mu j^\mu =
+0$, and the charge $p \coloneqq (1/2\pi) \int_{S^1} j^t \, ds$ is
+conserved; physically it is the {\bf target space momentum}.
+Similarly, Noether's procedure applied to a translation $\delta_\alpha
+x = \alpha^\mu \di_\mu x$ on the worldsheet $\Sigma$ gives the
+energy-momentum tensor, and conserved charges
+\[ H \coloneqq \frac{1}{4\pi} \int_{S^1} \left((\di_t x)^2 + (\di_s x)^2\right) \, ds, \quad P \coloneqq \frac{1}{2\pi} \int_{S^1} \di_t x \di_s x \, ds \]
+which are the {\bf Hamiltonian} and {\bf momentum} of the system
+itself.
+
+To help us find the dynamics of the system, write the Fourier
+expansion of $x(t, s)$ on $S^1$:
+\[ x(t, s) = x_0(t) + \sum_{n \neq 0} x_n(t) e^{ins}, \quad x_0(t) \in \bR, \; x_{-n}(t) = x_n(t)^*. \]
+The action therefore {\bf decouples} into
+\[ S = \int dt \left(\frac{1}{2}(\dot x_0)^2 + \sum_{n=1}^\infty (|\dot x_n|^2 - n^2 |x_n|^2)\right), \]
+i.e. infinitely many decoupled harmonic oscillators, the $n$-th one
+with potential $U = n^2|x_n|^2$, along with a real scalar $x_0$. This
+scalar $x_0$ has conjugate momentum $p_0$ and a momentum eigenstate
+$\ket{k}_0$ for each $k$ (with momentum $k^2/2$), with Hamiltonian
+$H_0 = (1/2)p_0^2$. We also know the Hamiltonians $H_n$ of the
+harmonic oscillators:
+\[ H_n = \alpha_{-n}\alpha_n + \tilde{\alpha}_{-n}\tilde{\alpha}_n + n \]
+where $\alpha_{-n}, \tilde{\alpha}_{-n}$ are {\bf raising operators}
+and $\alpha_n, \tilde{\alpha}_n$ are {\bf lowering operators}. Let
+$\ket{0}_n$ be the state annihilated by $\alpha_n$ and
+$\tilde{\alpha}_n$, so that
+\[ \ket{k} \coloneqq \ket{k}_0 \otimes \bigotimes_{n=1}^\infty \ket{0}_n \]
+is a ground state of momentum $k^2/2$ that can be excited by
+combinations of $\alpha_{-n}$ and $\tilde{\alpha}_n$. The {\bf total
+  Hamiltonian} is
+\[ H = H_0 + \sum_{n=1}^\infty H_n = \frac{1}{2}p_0^2 + \sum_{n=1}^\infty \alpha_{-n}\alpha_n + \sum_{n=1}^\infty \tilde{\alpha}_{-n}\tilde{\alpha}_n - \frac{1}{12} \]
+where we used $\sum_{n=1}^\infty n = -1/12$ via zeta regularization
+(to eliminate the conformal anomaly).
+
+In this choice of basis many expressions become nicer. The target
+space and worldsheet momentum are
+\begin{align*}
+  p &= \frac{1}{2\pi} \int_{S^1} \dot x \, ds = \dot x_0 = p_0 \\
+  P &= \sum_{n+m=0} im \dot x_n x_m = -\sum_{n=1}^\infty \alpha_{-n}\alpha_n + \sum_{n=1}^\infty \tilde\alpha_{-n}\tilde\alpha_n.
+\end{align*}
+(Note that $P$ is essentially a {\bf number operator}.) Using
+commutation relations we obtain 
+\[ x_0(t) = e^{iHt}x_0 e^{-iHt} = x_0 + tp_0, \quad \alpha_n(t) = e^{iHt} \alpha_n e^{-iHt} = e^{-int}\alpha_n. \]
+Since $x_n = (\tilde\alpha_{-n} - \alpha_n)/(in\sqrt{2})$ we get
+\[ x(t, s) = x_0 + tp_0 + \frac{i}{\sqrt{2}} \sum_{n \neq 0} \frac{1}{n} (\alpha_n e^{-in(t-s)} + \tilde\alpha_n e^{-in(t+s)}) \]
+which is the most general solution compatible with the periodicity
+$x(t, s+2\pi) = x(t,s)$.
+
+We now want to compute the partition function for this theory. In
+$d=1$, for a circle of circumference $\beta$, we wrote $Z(\beta) = \tr
+e^{-\beta H}$. Now we have a cylinder of length $2\pi\tau_2$ and
+circumference $2\pi$, but there are inequivalent ways of gluing the
+ends, e.g. first shifting one end by $2\pi\tau_1$ and then gluing.
+(This corresponds to inequivalent {\bf complex structures} on the
+torus parametrized by $\tau_2/\tau_1$.) In operator language, this
+shift corresponds to inserting the {\bf translation operator}
+$e^{-2\pi i\tau_1 P}$ into the trace:
+\[ Z(\tau_1, \tau_2) = \tr e^{-2\pi i\tau_1 P} e^{-2\pi \tau_2 H}. \]
+Write $H_R \coloneqq (1/2)(H - P)$ and $H_L \coloneqq (1/2)(H + P)$ to
+decouple the left and right movers, and write $\tau \coloneqq \tau_1 +
+i\tau_2$. Explicitly,
+\[ H_R = \frac{1}{2}(H - P) = \frac{1}{4} p_0^2 + \sum_{n=1}^\infty \alpha_{-n}\alpha_n - \frac{1}{24}. \]
+The total Hilbert space of states factors as $\cH = \cH_0 \otimes
+\bigotimes_n (\cH_n^L \otimes \cH_n^R)$, i.e. zero modes, and
+left/right-movers at level $n$, so
+\begin{align} \label{ex:2d-free-bosonic-sft-partition}
+\begin{split}
+  Z(\tau, \cnj\tau) = \tr e^{2\pi i\tau H_R} e^{-2\pi i\cnj\tau H_L}
+  &= (q\cnj q)^{-1/24} \tr_{\cH_0} (q\cnj q)^{p_0^2/4} \prod_{n=1}^\infty \tr_{\cH_n^L} \cnj q^{\tilde\alpha_{-n} \tilde\alpha_n} \tr_{\cH_n^R} q^{\alpha_{-n}\alpha_n} \\
+  &= (q\cnj q)^{-1/24} \left(V \int_{-\infty}^\infty \frac{dp}{2\pi} e^{-2\pi \tau_2(p^2/2)}\right) \prod_{n=1}^\infty \frac{1}{1 - \cnj q^n} \frac{1}{1 - q^n} \\
+  &= \frac{V}{2\pi} \frac{1}{\sqrt{\tau_2}} |\eta(\tau)|^{-2}
+\end{split}
+\end{align}
+where $\eta(\tau) \coloneqq q^{1/24} \prod_{n=1}^\infty (1 - q^n)$ is
+the {\bf Dedekind eta function}, and $V$ is a {\bf regularization
+  cutoff}. The normalization $(q\cnj q)^{-1/24} = e^{-2\pi \tau_2
+  (-1/12)}$ comes from the regularized {\bf zero-point energy}
+$\sum_{n=1}^\infty n = -1/12$. Note that by the modular invariance of
+the Dedekind eta, the partition function is diffeomorphism-invariant
+(on $T^2$, acting on $\tau$), as expected.
+  
+\subsection{Sigma Models and T-Duality}
+
+Now consider a sigma model with target space $S^1$ of radius $R$. The
+difference is that in doing the Fourier decomposition, the circle has
+discrete Fourier modes, and the target space momentum is quantized: $p
+= l/R$ for $l \in \bZ$. Also, there are topologically non-trivial
+scalar field configurations $x(s, t)$ classified by the {\bf winding
+  number} $m$ given by $x(s+2\pi) = x(s) + 2\pi mR$. There is a
+``current'' (not arising as an equation of motion) associated to the
+winding number: modify the conserved momentum current $j^\mu$ by
+\[ \begin{cases} j^t = \di_t x \\ j^s = -\di_s x \end{cases} \Rightarrow \quad \begin{cases} j^t_w = \di_s x \\ j^s_w = -\di_t x. \end{cases} \]
+Clearly $\di_\mu j^\mu_w = 0$, and the corresponding ``charge'' is
+\[ w \coloneqq \frac{1}{2\pi} \int_{S^1} j^t_w \, ds = \frac{1}{2\pi} (x(2\pi) - x(0)) = mR. \]
+
+States therefore have two quantum numbers: {\bf momentum} $l$ and {\bf
+  winding number} $m$. The {\bf Hilbert space} of states decomposes as
+$\cH = \bigoplus_{(l,m) \in \bZ\oplus \bZ} \cH_{(l,m)}$, where
+$\cH_{(l,m)}$ has $p = l/R$ and $w = mR$, with basic element
+$\ket{l,m}$ annihilated by $\alpha_n$ and $\tilde\alpha_n$ for $n >
+0$. Let $p_0$ and $w_0$ be the operators giving the momentum and
+winding number:
+\[ p_0 \ket{l,m} = \frac{l}{R} \ket{l,m}, \quad w_0 \ket{l,m} = mR \ket{l,m}. \]
+Via commutation relations, we see that $e^{i(l/R)x_0}$ shifts the
+momentum (as it does for the free scalar boson). We can also create an
+operator to shift the winding number; call it $e^{imR\hat{x}_0}$, so
+that
+\[ e^{i(l_1/R)x_0} \ket{l, m} = \ket{l + l_1, m}, \quad e^{im_1 R\hat{x}_0} \ket{l, m} = \ket{l, m + m_1}. \]
+If we separate left movers from right movers again and write new
+operators
+\[ p_R \coloneqq \frac{1}{\sqrt{2}}(p_0 - w_0), \quad p_L \coloneqq \frac{1}{\sqrt{2}}(p_0 + w_0), \]
+then again we can write down the left-movers' Hamiltonian and the
+right-movers' Hamiltonian:
+\[ H_R = \frac{1}{2}(H - P) = \frac{1}{2} p_R^2 + \sum_{n=1}^\infty \alpha_{-n}\alpha_n - \frac{1}{24}. \]
+
+\begin{proposition}
+  Let $q = e^{2\pi i\tau}$. The {\bf partition function} is
+  \[ Z(\tau, \cnj\tau; R) = |\eta(\tau)|^{-2} \sum_{(l,m) \in \bZ\oplus\bZ} q^{\frac{1}{4}(l/R - mR)^2} \cnj q^{\frac{1}{4}(l/R+mR)^2}. \]
+\end{proposition}
+
+\begin{proof}
+  The factor $|\eta(\tau)|^{-2}$ comes from the oscillator modes as in
+  the free scalar boson case. But now instead of a zero mode integral
+  over $\ket{k}$ for $k \in \bR$, we have a discrete sum over
+  $\ket{l,m}$ for $(l,m) \in \bZ\oplus\bZ$. From the expressions for
+  the left and right Hamiltonians, the zero modes are precisely
+  $(1/2)p_R^2$ and $(1/2)p_L^2$.
+\end{proof}
+
+Note that the partition function is invariant under $R \mapsto 1/R$,
+and the full spectrum is invariant after switching winding number and
+momentum via $l \leftrightarrow m$ (since the spectrum of $p_0$ goes
+up in increments of $1/R$ and $w_0$ in increments of $R$).
+
+\begin{definition}
+  There is an isomorphism, called {\bf T-duality}, of the Hilbert
+  space $\cH$ on radius $R$ with the Hilbert space $\hat\cH$ on radius
+  $1/R$ under which $\cH_{(l,m)} \mapsto \hat\cH_{(m,l)}$. This
+  corresponds to the exchange of operators $(p_R, p_L) \mapsto (-\hat
+  p_R, \hat p_L)$.
+\end{definition}
+
+This is why we called the operator associated to a shift in the
+winding number $\hat{x}_0$: in the T-dual theory, it is the zero mode
+of the coordinate $\hat{x}$, which shifts momentum. The other Fourier
+modes are mapped as $\alpha_n \mapsto -\hat\alpha_n$ and
+$\tilde\alpha_n \mapsto \hat{\tilde\alpha}_n$.
+
+\begin{remark}
+  There is a nice path integral derivation of T-duality. For
+  generality, let $\Sigma$ be a Riemann surface of genus $g$. Set
+  $\phi \coloneqq x/R$, which is $2\pi$-periodic, put local
+  coordinates $\sigma^\mu = (\sigma^1, \sigma^2)$ on $\Sigma$ and a
+  Euclidean metric $h = h_{\mu\nu}$ on $\Sigma$, so that the action is
+  \[ S_\phi = \frac{1}{4\pi} \int_\Sigma R^2 \sqrt{h} \, h^{\mu\nu} \di_\mu \phi \di_\nu \phi \, d^2\sigma. \]
+  Introduce an {\bf auxiliary field} (of one-forms) $B_\mu$ and
+  consider the action
+  \[ S' \coloneqq \frac{1}{2\pi} \int_\Sigma \frac{1}{2R^2} \sqrt{h} \, h^{\mu\nu} B_\mu B_\nu \, d^2\sigma + \frac{i}{2\pi} \int_\Sigma B \wedge d\phi. \]
+  When we plug this into the path integral $\int D\phi \, DB\,
+  e^{-S'}$, the auxiliary field $B_\mu$ acts as a Lagrange multiplier.
+  Completing the square and integrating it out, we get a factor of
+  $\delta[B - iR^2 \star d\phi]$. When we plug this back into $S'$ we
+  recover $S$ exactly, so $S$ and $S'$ are equivalent.
+
+  Now we change the order of integration: integrate out $\phi$ first
+  instead of $B$. The second term in $S'$ immediately gives
+  $\delta[dB]$, so the general form of $B$ is
+  \[ B = d\theta_0 + \sum_{i=1}^{2g} a_i \omega^i \]
+  for a symplectic cohomology basis $\omega^i$ of $H^1(\Sigma, \bR)
+  \cong \bR^{2g}$, i.e. there is an associated homology basis
+  $\gamma_i$ such that $\int_{\gamma_i} \omega_j = \delta_{ij}$. Hence
+  $J^{ij} \coloneqq \int_\Sigma \omega^i \wedge \omega^j$ is a
+  non-degenerate integral matrix with inverse an integral matrix too.
+  Integrating over $\phi$ puts constraints on the $a_i$ because
+  $d\phi$ also has an expansion in the basis $\omega^i$, but with
+  coefficients $2\pi n_i$ where $n_i \in \bZ$.
+  \[ \int_\Sigma B \wedge d\phi = 2\pi \sum_{i,j} a_i J^{ij} n_j. \]
+  Integrating over $\phi$ is a summation over $n_i$, and since $\sum_n
+  e^{ian} = 2\pi \sum_m \delta(a - 2\pi m)$, the integration sets $a_i
+  = 2\pi m_i$ for $m_i \in \bZ$. It follows that $B = d\theta$ for
+  $\theta$ a $2\pi$-periodic field.
+
+  Hence after integrating out $\phi$ in $S'$, we get
+  \[ S_\theta = \frac{1}{4\pi} \frac{1}{R^2} \sqrt{h} \, h^{\mu\nu} \di_\mu \theta \di_\nu \theta \, d^2\sigma \]
+  which is a sigma model with target $S^1$ of radius $1/R$. In
+  particular, comparing the two expressions for $B$ gives
+  \[ R d\phi = i\frac{1}{R} \star d\theta, \]
+  but $Rd\phi$ and $iR\star d\phi$ are the conserved currents in the
+  original system that measure momentum and winding number
+  respectively.
+\end{remark}
+
+\begin{remark}
+  Consider a sigma model with target $T^2 = S^1_{R_1} \times
+  S^1_{R_2}$. Replace the parameters $R_1, R_2$ with the area and
+  complex structure of the torus (supposing for simplicity that the
+  complex structure is purely imaginary):
+  \[ A \coloneqq R_1R_2, \quad \sigma \coloneqq iR_1/R_2. \]
+  Using T-duality on $R_2$, we get
+  \[ (A, \im \sigma) = (R_1R_2, R_1/R_2) \mapsto (A', \im \sigma') = (R_1/R_2, R_1R_2), \]
+  i.e. the shape (complex structure) and the size (K\"ahler structure)
+  of the target $T^2$ have been exchanged under this duality. This is
+  a hint toward mirror symmetry being a refinement of T-duality.
+\end{remark}
+
+\section{Superspace Formalism}
+
+\chapter{Gromov--Witten Theory}
+
+
 
 \todos
 
