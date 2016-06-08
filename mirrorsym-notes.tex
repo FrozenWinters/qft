@@ -48,6 +48,7 @@
 \newcommand{\cK}{\mathcal{K}}
 \newcommand{\cH}{\mathcal{H}}
 \newcommand{\cI}{\mathcal{I}}
+\newcommand{\cN}{\mathcal{N}}
 \newcommand{\cG}{\mathcal{G}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
@@ -2265,7 +2266,7 @@ Along the way we shall see more predictions of mirror symmetry.
   = 1$.
 \end{example}
 
-\begin{theorem}[{\cite[Appendix, Proposition 4]{Markushevich1987}}]
+\begin{theorem}[{\cite[Appendix: Proposition 4]{Markushevich1987}}]
   There exists a {\bf crepant resolution} of the quotient $X_\psi/G$,
   i.e. a Calabi--Yau $3$-fold $\tilde{X}_\psi$ with a map
   $\pi\colon\tilde{X}_\psi \to X_\psi/G$ which
@@ -3459,6 +3460,325 @@ $\tilde\alpha_n \mapsto \hat{\tilde\alpha}_n$.
 \end{remark}
 
 \section{Superspace Formalism}
+
+So far we have used supersymmetric Lagrangians without specifying how
+they arise. In this section we discuss how to systematically come up
+with susy theories in $d=1+1$ with two complex supercharges, generally
+denoted $Q_+, Q_-$.
+
+\subsection{Superspace and Superfields}
+
+\begin{definition}
+  The {\bf $(2,2)$-superspace} is the space with two real (commuting)
+  bosonic coordinates $x^0, x^1$ carrying a Minkowski metric and two
+  complex (anticommuting) fermionic coordinates $\theta^+, \theta^-$,
+  which transform under the Lorentz group as
+  \[ \begin{pmatrix} x^0 \\ x^1 \end{pmatrix} \mapsto \begin{pmatrix} \cosh \gamma & \sinh \gamma \\ \sinh \gamma & \cosh \gamma \end{pmatrix} \begin{pmatrix} x^0 \\ x^1 \end{pmatrix}, \quad \theta^\pm \mapsto e^{\pm \gamma/2} \theta^\pm. \]
+  A {\bf superfield} is a $\bC$-valued function $\cF(x^0, x^1,
+  \theta^+, \theta^-, \cnj\theta^+, \cnj\theta^-)$ on superspace.
+  Since $(\theta^\pm)^2 = 0$, there are at most $2^4 = 16$ non-zero
+  terms when $\cF$ is expanded in the fermionic coordinates. A
+  superfield is {\bf bosonic} if $[\theta^\alpha, \cF] = 0$ and {\bf
+    fermionic} if $\{\theta^\alpha, \cF\} = 0$.
+\end{definition}
+
+\begin{definition}
+  Let $x^\pm \coloneqq x^0 \pm x^1$ and $\di_\pm \coloneqq (1/2)(\di_0
+  \pm \di_1)$. Define {\bf supercharges} $\cal Q_\pm$ and {\bf
+    covariant derivatives} $D_\pm$ on superspace:
+  \[ {\cal Q}_\pm \coloneqq \di_{\theta^\pm} + i \cnj{\theta}^\pm \di_\pm, \quad \cnj{\cal Q}_\pm \coloneqq -\di_{\bar\theta^\pm} - i\theta^\pm \di_\pm, \]
+  \[ D_\pm \coloneqq \di_{\theta^\pm} - i\cnj\theta^\pm \di_\pm, \quad \cnj D_\pm \coloneqq -\di_{\bar\theta^\pm} + i\theta^\pm \di_\pm. \]
+  They satisfy the commutation relations
+  \[ \{{\cal Q}_\pm, \cnj{\cal Q}_\pm\} = -2i\di_\pm, \quad \{D_\pm, \cnj D_\pm\} = 2i\di_\pm, \quad \{D_\pm, {\cal Q}_\pm\} = 0. \]
+\end{definition}
+
+\begin{definition}
+  A {\bf chiral superfield} $\Phi$ is a superfield satisfying $\cnj
+  D_\pm \Phi = 0$; the complex conjugate of a chiral superfield
+  satisfies $D_\pm \cnj\Phi = 0$, and is called an {\bf anti-chiral
+    superfield}. A {\bf twisted chiral superfield} $U$ is a superfield
+  satisfying $\cnj D_+ U = D_- U = 0$; its complex conjugate is an
+  {\bf twisted anti-chiral superfield}.
+\end{definition}
+
+\begin{proposition} \label{thm:chiral-superfield-expansion}
+  Chiral superfields and twisted chiral superfields have the
+  expansions
+  \begin{align*}
+    \Phi(x^\mu, \theta^\pm, \cnj\theta^\pm) &= \phi(y^\pm) + \theta^\alpha \psi_\alpha(y^\pm) + \theta^+\theta^-F(y^\pm), \quad y^\pm \coloneqq x^\pm - i\theta^\pm \cnj\theta^\pm, \\
+    U(x^\mu, \theta^\pm, \cnj\theta^\pm) &= v(\tilde y^\pm) + \theta^+ \cnj\chi_+(\tilde y^\pm) + \cnj\theta^-(\tilde y^\pm) + \theta^+ \cnj\theta^- E(\tilde y^\pm), \quad \tilde y^\pm \coloneqq x^\pm \mp i\theta^\pm \cnj\theta^\pm.
+  \end{align*}
+\end{proposition}
+
+\begin{proof}
+  First establish that $y^\pm$ and $\tilde y^\pm$ are chiral and
+  twisted chiral respectively. Then do casework on the $16$ terms in
+  the expansion of a general superfield.
+\end{proof}
+
+\begin{definition}
+  The {\bf supersymmetry transformation} we shall consider is
+  \[ \delta \coloneqq \epsilon_+ \cal Q_- - \epsilon_- \cal Q_+ - \cnj\epsilon_+ \cnj{\cal Q}_- + \cnj\epsilon_- \cnj{\cal Q}_+. \]
+  There are two kinds of terms invariant under $\delta$ (for a proof
+  of this, see Hori, section 12.1):
+  \begin{enumerate}
+  \item {\bf D-terms} $\int d^2x \, d^4\theta \, K[\cF_i]$ where $K$
+    is an arbitrary functional of arbitrary superfields $\cF_i$ (here
+    $d^4\theta \coloneqq d\theta^+ d\theta^- d\cnj\theta^-
+    d\cnj\theta^+$);
+  \item {\bf F-terms} $\int d^2x \, d^2\theta \,
+    W[\Phi_i]|_{\cnj\theta^\pm=0}$ where $W$ is a holomorphic
+    functional of chiral superfields $\Phi_i$ (here $d^2\theta
+    \coloneqq d\theta^- d\theta^+$).
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Superfield calculus is very much like regular calculus:
+  \begin{enumerate}
+  \item (Poincar\'e lemma) $D_\pm$-closed implies $D_\pm$ exact, and
+    similarly for $\cnj D_\pm$;
+  \item ($\cnj D_+ \cnj D_-$-lemma) a chiral superfield $\Phi$ can be
+    written as $\Phi = \cnj D_+ \cnj D_- \cal E$ for some superfield
+    $\cal E$, and a twisted chiral superfield $U$ as $U = \cnj D_+ D_-
+    \cal V$ for some superfield $\cal V$;
+  \item $\cnj D_+ \cnj D_- {\cal F} = 0$ implies $\cal F = \cal G_+ +
+    \cal G_-$ for $\cnj D_+ {\cal G}_+ = \cnj D_- {\cal G}_- = 0$, and
+    similarly for $D_+D_-, \cnj D_+ D_-, D_+ \cnj D_-$;
+  \item $\cnj D_+ \cnj D_- \cF = D_+ D_- \cF = 0$ implies $\cF = U_1 +
+    \cnj U_2$ for some twisted chiral superfields $U_i$;
+  \item $\cnj D_+ D_- \cF = D_+ \cnj D_- \cF = 0$ implies $\cF =
+    \Phi_1 + \cnj \Phi_2$ for some chiral superfields $\Phi_i$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition} \label{def:r-rotations}
+  The vector and axial {\bf R-rotations} of a superfield are given by
+  operators
+  \[ e^{i\alpha F_V}\colon \cF(x^\mu, \theta^\pm, \cnj\theta^\pm) \mapsto e^{i\alpha q_V} \cF(x^\mu, e^{-i\alpha} \theta^\pm, e^{i\alpha} \cnj\theta^\pm), \]
+  \[ e^{i\alpha F_A}\colon \cF(x^\mu, \theta^\pm, \cnj\theta^\pm) \mapsto e^{i\alpha q_A} \cF(x^\mu, e^{\mp i\alpha} \theta^\pm, e^{\pm i\alpha} \cnj\theta^\pm). \]
+  The numbers $q_V$ and $q_A$ are the vector and axial {\bf
+    R-charges}.
+\end{definition}
+
+\begin{example} \label{ex:susy-chiral-superfield-theory}
+  Let $\Phi$ be a chiral superfield. Using the expansion
+  \ref{thm:chiral-superfield-expansion} we can compute the D-term
+  \[ S_{\text{kin}} \coloneqq \int d^2 x \, d^4\theta \, \cnj\Phi\Phi = \int d^2x \left(|\di_0\phi|^2 - |\di_1\phi|^2 + i\cnj\psi_-(\di_0 + \di_1)\psi_- + i\cnj\psi_+(\di_0 - \di_1)\psi_+ + |F|^2\right), \]
+  which is the susy action for a complex scalar field $\phi$ and two
+  {\bf Dirac fermion fields} $\psi_\pm, \cnj \psi_\pm$. The field $F$
+  has no kinetic term: it is an {\bf auxiliary field}. The F-term for
+  the functional $W$, called the {\bf superpotential}, is
+  \[ S_W \coloneqq \int d^2x \, d^2\theta \, W(\Phi) + \text{c.c.} = \int d^2x \left(W'[\phi]F - W''[\phi]\psi_+\psi_- + \text{c.c.}\right). \]
+  Adding the D-term and the F-term, we get the action for the scalar
+  $\phi$ and the Dirac fermion $\psi_\pm, \cnj \psi_\pm$, with a
+  potential $|W'[\phi]|^2$ for $\phi$ and the {\bf Yukawa interaction}
+  (or fermion mass term) $W''[\phi]\psi_+ \psi_-$. There is a
+  remaining term $|F + \cnj W'[\cnj \phi]|^2$, which when integrated
+  out gives a $\delta[F + \cnj W'[\cnj \phi]]$ term, i.e. setting $F =
+  -\cnj W'[\cnj \phi]$. Explicitly, the supersymmetry looks like
+  \[ \delta\phi = \epsilon_+ \psi_- - \epsilon_- \psi_+, \quad \delta \psi_\pm = \pm 2i\cnj \epsilon_\mp \di_\pm \phi + \epsilon_\pm F, \quad \delta F = -2i\cnj\epsilon_+ \di_- \psi_+ - 2i\cnj\epsilon_- \di_+ \psi_-. \]
+  Hence this theory of a single chiral superfield is precisely the
+  $d=2$ generalization of the 1d susy potential theory
+  \ref{ex:susy-1d-potential-theory}. We can check that the {\bf
+    supercharges} $Q_\pm, \cnj Q_\pm$ are
+  \[ Q_\pm = \int dx^1 \, G^0_\pm, \quad G^0_\pm \coloneqq 2\di_\pm\cnj\phi \psi_\pm \mp i\cnj\psi_\mp \cnj W'[\cnj \phi], \]
+  and that they transform as {\bf spinors}, i.e. $Q_\pm \mapsto e^{\mp
+    \gamma/2} Q_\pm$.
+
+  In addition to the supersymmetry, if we assign axial R-charge $0$
+  for $\Phi$, there is obviously an axial R-symmetry
+  \[ \Phi(x^\pm, \theta^\pm, \cnj\theta^\pm) \mapsto \Phi(x^\pm, e^{\mp i\alpha} \theta^\pm, e^{\pm i\alpha} \cnj\theta^\pm) \]
+  since both $\theta^4$ (in the D-term) and $\theta^2$ (in the F-term)
+  are invariant under such a phase change. Things transform as
+  \[ \phi \mapsto \phi, \quad \psi_\pm \mapsto e^{\mp i\alpha} \psi_\pm, \quad Q_\pm \mapsto e^{\mp i\alpha} Q_\pm, \]
+  and conserved charge $F_A = \int dx^1 \, J^0_A$, where the current
+  $J$ is
+  \[ J^0_A = \cnj\psi_+ \psi_+ - \cnj\psi_- \psi_-, \quad J^1_A = -\cnj\psi_+ \psi_+ - \cnj\psi_- \psi_-. \]
+  Similarly, we can look at vector R-rotation. Clearly the D-term is
+  invariant under an arbitrary choice of vector R-charge, but
+  $\theta^2$ has vector R-charge $-2$, so the F-term is invariant iff
+  the vector R-charge of $\Phi$ can be assigned so that $W[\phi]$ is
+  charge $2$. In the special case that $W[\phi] = c\Phi^k$, this is
+  obviously possible: assign vector R-charge $2/k$ to $\Phi$, so that
+  \[ \phi \mapsto e^{(2/k)i\alpha}\phi, \quad \psi_\pm \mapsto e^{((2/k)-1)i\alpha} \psi_\pm, \quad Q_\pm \mapsto e^{-i\alpha} Q_\pm, \]
+  with conserved charge $F_V = \int dx^0 \, J^0_V$ where the current
+  is
+  \[ J^0_V = \frac{2i}{k}(\di_0 \cnj\phi \phi - \cnj\phi \di_0\phi) - \left(\frac{2}{k}-1\right)(\cnj\psi_+ \psi_+ + \cnj\psi_- \psi_-), \quad J^1_V = \frac{2i}{k}(-\di_1 \cnj\phi \phi + \cnj\phi \di_1\phi) + \left(\frac{2}{k}-1\right)(\cnj\psi_+ \psi_+ - \cnj\psi_- \psi_-). \]
+\end{example}
+
+\subsection{\texorpdfstring{${\cal N} = (2,2)$}{N = (2,2)} Supersymmetric QFTs}
+
+\begin{definition}
+  Suppose we have a susy field theory with two complex supercharges
+  $Q_\pm, \cnj Q_\pm$. The theory must be Poincar\'e invariant, so we
+  have Noether charges for time translations $\di_0$, spatial
+  translations $\di_1$, and Lorentz rotations $x^0\di_1 + x^1\di_0$,
+  corresponding to $H, P, M$, the Hamiltonian, momentum, and angular
+  momentum, respectively. If the action is also invariant under vector
+  and axial R-rotations, then there are also Noether charges $F_V,
+  F_A$. Assuming no anomalies when quantizing, we get the relations
+  \begin{align}
+  \begin{gathered} \label{eq:n22-susy-relations}
+    Q_+^2 = Q_-^2 = \cnj Q_+^2 = \cnj Q_-^2 = 0, \\
+    \{Q_\pm, \cnj Q_\pm\} = H \pm P, \\
+    \{\cnj Q_+, \cnj Q_-\} = Z, \quad \{Q_+, Q_-\} = Z^*, \\
+    \{Q_-, \cnj Q_+\} = \tilde Z, \quad \{Q_+, \cnj Q_-\} = \tilde Z^*, \\
+    [iM, Q_\pm] = \mp Q_\pm, \quad [iM, \cnj Q_\pm] = \mp \cnj Q_\pm, \\
+    [iF_V, Q_\pm] = -iQ_\pm, \quad [iF_V, \cnj Q_\pm] = i\cnj Q_\pm, \\
+    [iF_A, Q_\pm] = \mp iQ_\pm, \quad [iF_A, \cnj Q_\pm] = \pm i\cnj Q_\pm.
+  \end{gathered}
+  \end{align}
+  where $Z, \tilde Z$ are {\bf central charges} and must commute with
+  all the operators in the theory. For example, $Z = 0$ if $F_V$ is
+  conserved, and $\tilde Z = 0$ if $F_A$ is conserved. These relations
+  define the {\bf $\cN = (2,2)$ supersymmetry Lie algebra}.
+  Representations of this algebra are called {\bf supermultiplets}.
+  Examples follow.
+\end{definition}
+
+\begin{example} \label{ex:chiral-multiplet}
+  The {\bf chiral multiplet} $(\phi, \psi_\pm, F)$ consists of the
+  components of a chiral superfield and is an example of a
+  supermultiplet. Its {\bf lowest component} $\phi$ is a scalar, and
+  satisfies
+  \[ [\cnj Q_\pm, \phi] = \cnj{\cal Q} {\cal F}|_{\theta^\pm=\cnj\theta^\pm=0} = (\cnj D_\pm + 2i\theta^\pm \di_\pm) {\cal F}|_{\theta^\pm=\cnj\theta^\pm=0} = 0. \]
+  Conversely, given an operator $\phi$ such that $[\cnj Q_\pm, \phi] =
+  0$, we can construct a chiral multiplet $(\phi, \psi_\pm, F)$ by
+  \[ \psi_\pm \coloneqq [iQ_\pm, \phi], \quad F \coloneqq \{Q_+, [Q_-, \phi]\}. \]
+  In other words, a chiral multiplet is defined by $\phi$ satisfying
+  $[\cnj Q_\pm, \phi] = 0$. We can do a similar procedure for {\bf
+    twisted chiral multiplets} $(v, \cnj\chi_+, \chi_-, \tilde F)$,
+  and get that they are characterized by
+  \[ [\cnj Q_+, v] = [Q_-, v] = 0, \quad \cnj \chi_+ \coloneqq [iQ_+, v], \quad \chi_- \coloneqq -[i\cnj Q_-, v], \quad \tilde F \coloneqq -\{Q_+, [\cnj Q_-, v]\}. \]
+\end{example}
+
+\begin{definition}
+  There is an order-$2$ automorphism of the $\cN=(2,2)$ susy algebra
+  given by
+  \begin{equation} \label{eq:n22-susy-mirror-map}
+    Q_- \longleftrightarrow \cnj Q_-, \quad F_V \longleftrightarrow F_A, \quad Z \longleftrightarrow \tilde Z
+  \end{equation}
+  with all other generators fixed. Two $\cN=(2,2)$ susy QFTs are {\bf
+    mirror} to each other if they are equivalent as QFTs where the
+  Hilbert state space isomorphism maps the generators of the
+  $\cN=(2,2)$ susy algebra according to \ref{eq:n22-susy-mirror-map}.
+  Hence, for example, a chiral multiplet of one theory is mapped to a
+  twisted chiral multiplet of the mirror (c.f. the defining equations
+  of chiral and twisted chiral multiplets in
+  \ref{ex:chiral-multiplet}). (There are, of course, other
+  automorphisms, e.g. swap $Q_+$ with $Q_-$, but they are not
+  physically interesting.)
+\end{definition}
+
+\subsection{Non-linear Sigma Models and Landau--Ginzburg Models}
+
+\begin{definition}
+  Consider $n$ chiral multiplets $\Phi^1, \ldots, \Phi^n$ on the
+  worldsheet $\Sigma$. We can interpret this as a theory $\Sigma \to
+  M$ for an $n$-fold $M$ (after appropriate gluing). Replace the
+  D-term $\cnj\Phi\Phi$ of the chiral superfield theory with a general
+  real function $K(\Phi^i, \cnj\Phi^i)$, and write
+  \begin{align} \label{eq:nlsm-lagrangian}
+    \begin{split}
+      {\cal L}_{\text{kin}} \coloneqq \int d^4\theta \, K(\Phi^i, \cnj\Phi^i)
+      &= -g_{i\cnj j} \di^\mu \phi^i \di_\mu \cnj\phi^{\cnj j} + ig_{i\cnj j} \cnj \psi^{\cnj j}_-(D_0 + D_1)\psi_-^i + ig_{i\cnj j} \cnj \psi^{\cnj j}_+(D_0 - D_1)\psi_+^i \\
+      &\qquad + R_{i\cnj j k \cnj l} \psi_+^i \psi_-^k \cnj\psi_-^{\cnj j} \cnj\psi_+^{\cnj l} + g_{i\cnj j}(F^i - \Gamma^i_{jk} \psi_+^j \psi_-^k)(\cnj F^{\cnj j} - \Gamma^{\cnj j}_{\cnj k \cnj l} \cnj\psi_-^{\cnj k} \cnj\psi_+^{\cnj j}).
+    \end{split}
+  \end{align}
+  To ensure non-degeneracy, assume that $g_{i\cnj j} \coloneqq \di_i
+  \di_j K(\Phi^i, \cnj\Phi^i)$ is positive definite. Since it
+  satisfies condition 1 of \ref{thm:kahler-defs}, it determines a
+  K\"ahler metric $g$ on $M$ with Christoffel symbols $\Gamma^i_{jk}$.
+  (Note that this is really a local construction, but using the
+  invariance of the action under coordinate change and shifts of
+  K\"ahler potential $K(\Phi^i, \cnj\Phi^i) \mapsto K(\Phi^i,
+  \cnj\Phi^i) + f(\Phi^i) + \cnj f(\cnj \Phi^i)$, the gluing process
+  is valid.) This is called a {\bf supersymmetric non-linear sigma
+    model}, with fields
+  \[ \phi\colon \Sigma \to M, \quad \psi_\pm \in \Gamma(\Sigma, \phi^*TM^{1,0} \otimes S_\pm), \quad \cnj\psi_\pm \in \Gamma(\Sigma, \phi^*TM^{0,1} \otimes S_\pm) \]
+  where $S_\pm$ is the spinor bundle.
+
+  We can add an F-term ${\cal L}_W \coloneqq \frac{1}{2} \int
+  d^2\theta \, W(\Phi^i) + \text{c.c.}$ for the superpotential
+  $W(\Phi^i)$, which we view as a holomorphic function on $M$. We can
+  repeat the process in \ref{ex:susy-chiral-superfield-theory} to get
+  the explicit form of the Lagrangian density ${\cal L} = {\cal
+    L}_{\text{kin}} + {\cal L}_W$. The components $F^i, \cnj F^{\cnj
+    i}$ of the chiral multiplet are again auxiliary fields, and are
+  integrated out to give deltas setting $F^i = \Gamma^i_{jk}\psi_+^j
+  \psi_-^k - \frac{1}{2} g^{i\cnj l} \di_{\cnj l}\cnj W$. By
+  construction, the theory is ${\cal N} = (2,2)$ supersymmetric, with
+  supercharges $Q_\pm, \cnj Q_\pm$.
+\end{definition}
+
+\begin{proposition}
+  Let $U(1)_V$ and $U(1)_A$ denote the vector and axial R-rotations
+  \ref{def:r-rotations} of the classical non-linear sigma model with
+  superpotential $W$. Then $U(1)_A$ is always a symmetry, but $U(1)_V$
+  is only if $W$ is {\bf quasi-homogeneous}, i.e.
+  $W(\lambda^{q^i}\Phi^i) = \lambda^2 W(\Phi^i)$ for some $q^i$.
+\end{proposition}
+
+\begin{proof}
+  See the discussion at the end of
+  \ref{ex:susy-chiral-superfield-theory}.
+\end{proof}
+
+\begin{definition}
+  From the proof of \ref{thm:action-deformation-invariance}, we see
+  that a classical symmetry $\delta S = 0$ gives a symmetry of the
+  resulting quantized theory $\braket{\delta \cO} = \int \cD X \,
+  e^{iS} \cO = 0$ iff the measure $\cD X$ is also invariant under
+  $\delta$. When it is not, i.e. $\delta \cD X \neq 0$, the symmetry
+  $\delta$ is {\bf anomalous}.
+\end{definition}
+
+\begin{proposition}
+  Let $U(1)_V$ and $U(1)_A$ denote the vector and axial R-rotations
+  \ref{def:r-rotations} of the quantized non-linear sigma model
+  without superpotential, i.e. $W = 0$. Then $U(1)_V$ is never
+  anomalous, but $U(1)_A$ is if $c_1(M) \neq 0$, in which case the
+  $U(1)_A$ symmetry is broken, but its $\bZ/2k\bZ$ subgroup generated
+  by $e^{2\pi i/2k}$ remains a symmetry, where $k = \int_\Sigma
+  \phi^*c_1(T^{1,0}M)$.
+\end{proposition}
+
+\begin{proof}
+  Note that the vector and axial R-rotations act on the Dirac fermions
+  $\psi_\pm^i$ only, so it suffices to look only at the fermions, and
+  only one pair $\psi_\pm$ instead of $n$ of them. From the general
+  form \ref{eq:nlsm-lagrangian}, the fermionic part of the action in
+  this special case is just
+  \[ S = \int d^2z (i\cnj\psi_+ D_z \psi_+ + i\cnj \psi_- D_{\cnj z} \psi_-) \]
+  where $D_z, D_{\cnj z}$ is the covariant derivative (wrt the
+  Levi--Civita connection on $\phi^*TM^{1,0}$, where the spinor $\psi$
+  lives).
+
+  A standard procedure now is to look at the spectral decomposition of
+  $D_{\bz}^\dag D_{\bz}$ and $D_z^\dag D_z$. The Atiyah--Singer index
+  theorem tells us that
+  \[ \dim \ker D_{\bz} - \dim \ker D_z = \int_\Sigma \phi^*c_1(T^{1,0}M) = k, \]
+  so there are $k$ more zero modes of $D_{\bz}^\dag D_{\bz}$ than
+  $D_z^\dag D_z$. (If $k < 0$, flip the roles of $D_{\bz}$ and $D_z$.)
+  Let $\varphi_\pm^n, \cnj\varphi_\pm^n$ be the nonzero modes with
+  eigenvalues $\lambda_n$, and $\varphi_-^{0\alpha},
+  \cnj\varphi_+^{0\alpha}$ be the zero modes. Then
+  \begin{align}
+    \begin{gathered}
+      \cnj\psi_- = \sum_{n=1}^\infty b_n \cnj\varphi_-^n, \quad \psi_- = \sum_{\alpha=1}^k c_{0\alpha} \varphi_-^{0\alpha} + \sum_{n=1}^\infty c_n \varphi_-^n \\
+      \psi_+ = \sum_{n=1}^\infty \tilde b_n \varphi_+^n, \quad \cnj\psi_- = \sum_{\alpha=1}^k \tilde c_{0\alpha} \cnj\varphi_+^{0\alpha} + \sum_{n=1}^\infty \tilde c_n \cnj\varphi_+^n \\
+      \cD \psi \cD \cnj\psi e^{-S} = \prod_{\alpha=1}^k dc_{0\alpha} d\tilde c_{0\alpha} \prod_{n=1}^\infty db_n dc_n d\tilde b_n d\tilde c_n \exp\left(-\sum_{n=1}^\infty \lambda_n (b_n c_n + \tilde c_n \tilde b_n)\right).
+    \end{gathered}
+  \end{align}
+  (We did the same kind of procedure much more explicitly in section
+  4.1.2 of the string theory notes, where we computed the
+  Faddeev--Popov determinant.) Now we see that $db_n dc_n d\tilde b_n
+  d\tilde c_n$ is both $U(1)_V$ and $U(1)_A$ invariant, but
+  $dc_{0\alpha} d\tilde c_{0\alpha}$ has vector charge $0$ and axial
+  charge $2$, breaking the $U(1)_A$ symmetry unless $k = 0$. In total
+  we get an anomalous axial charge of $2k$.
+\end{proof}
 
 \chapter{Gromov--Witten Theory}
 
