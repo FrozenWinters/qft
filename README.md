@@ -41,7 +41,7 @@ progresses. For now, the plan is:
     usages, e.g. using it to prove the generalized Gauss--Bonnet
     formula.
 * Week 3 (Friday May 20th): **canceled** due to [GAP](http://www.fields.utoronto.ca/activities/15-16/gap).
-* Week 4 (Tuesday May 24rd): Mathematical Preliminaries IV:
+* Week 4 (Tuesday May 24rd): Mathematical Preliminaries IV;
   sections 1.1.3 and 1.2.5 in notes.
   - We introduce equivariant cohomology, which is a cohomology theory
     that captures the group action on a space, and the localization
@@ -52,8 +52,41 @@ progresses. For now, the plan is:
     have many other applications in mathematical physics whenever
     there is a gauge group.
 * Week 4 (Friday May 27th): **canceled**
-* Week 5 (Tuesday May 31st): **canceled**
-* Week 5 (Friday June 3rd): Physics Preliminaries II; section 2.3 in
+* Week 5 (Tuesday May 31st): Mathematical Preliminaries V;
+  sections 1.3.1 to 1.3.3 in notes.
+  - I'll use an hour or so to review Kahler and Calabi--Yau geometry.
+    In particular we need to become really cozy with Hodge diamonds,
+    especially for Calabi--Yau 3-folds. Then we'll look at the overall
+    structure of the Calabi--Yau moduli space and take a small peek at
+    mirror symmetry.
+* Week 5 (Friday June 3rd): **canceled**
+* Week 6 (Tuesday June 7th): Physical Preliminaries II; section 2.2 in
   notes.
-* Week 5 (Tuesday June 7th): Deformations of Calabi--Yau manifolds;
-  section 1.3 in notes.
+  - I'll briefly review what Anton did last time (i.e. structure of
+    supersymmetric quantum mechanical theories) and continue with the
+    d=1 case. Mainly for d=1 we'll see our first sigma model. From it,
+    using perturbative techniques, we'll "derive" Hodge theory. Then
+    we"ll see what instantons are and how they give non-perturbative
+    corrections to the perturbative techniques (which are locally
+    correct but not globally correct), and using them we"ll "derive"
+    Morse theory.
+* Week 6 (Friday June 10th): Physical Preliminaries III; section 2.3
+  in notes.
+  - We covered the d=2 free scalar boson, and compactified the target
+    to obtain the sigma model on the circle. By computing the
+    partition function of the latter theory, we saw T-duality.
+* Week 7 (Tuesday June 14th): Physical Preliminaries IV; section 2.4
+  in notes.
+  - I'll cover the superspace formalism, in particular the theory of a
+    single chiral superfield, which will reduce in d=0 and d=1 to the
+    Landau--Ginzburg theories and sigma models we have seen. This
+    formalism allows us to directly construct a huge family of d=2
+    supersymmetric theories and investigate their symmetries (and
+    symmetry breaking). We'll write down the general form of d=2
+    nonlinear sigma models, and d=2 Landau--Ginzburg models, and see
+    some hints of the LG/CY correspondence between these two classes
+    of theories.
+* Week 7 (Friday June 17th): Calabi-Yau moduli and Mirror Symmetry for
+  the Quintic; sections 1.3.4 and 1.3.5 in notes.
+* Week 8 (Tuesday June 21st): Introduction to Gromov-Witten theory I;
+  section 3.1 in notes.
