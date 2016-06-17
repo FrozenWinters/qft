@@ -98,6 +98,8 @@
 \DeclareMathOperator{\Def}{Def}
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\vdim}{vdim}
+\DeclareMathOperator{\Spec}{Spec}
+\newcommand{\vir}{\mathrm{vir}}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
 \newcommand{\dR}{\mathrm{dR}}
@@ -1180,7 +1182,7 @@ with various other objects.
   $\chi(\bP^n) = n+1$.
 \end{example}
 
-\begin{example}
+\begin{example} \label{ex:genus-degree-formula}
   Recall that the {\bf degree} of a curve in $\bP^2$ is just the
   degree of the defining homogeneous polynomial. (For a more general
   definition of the degree of a variety, see \cite[Section
@@ -1871,7 +1873,7 @@ induced connection on the canonical bundle $K_X \coloneqq
 \end{proof}
 
 \begin{proposition}[{\cite[Proposition 17.4]{Moroianu2007}}] \label{thm:chern-curvature-is-ricci}
-  Let $X$ be a K\"ahler manifold. Then $c_1(X) = (1/2\pi)[\tr \rho]$.
+  Let $X$ be a K\"ahler manifold. Then $c_1(X) = (1/2\pi)[\rho]$.
 \end{proposition}
 
 \begin{proof}[Proof sketch]
@@ -1881,7 +1883,7 @@ induced connection on the canonical bundle $K_X \coloneqq
   Riemannian curvature tensor of the Levi--Civita connection on $X$.
   Then a straightforward calculation shows $F_\nabla(X,Y) = R(X,Y)$ on
   $TX$. Writing $\nabla^K$ for the induced connection on $K_X$, we
-  have $F_{\nabla^K} = \tr F_\nabla = \tr R$. But then using
+  have $F_{\nabla^K} = -\tr F_\nabla = -\tr R$. But then using
   \ref{thm:ricci-form-closed},
   \[ i\rho(X, Y) = i\Ric(JX, Y) = \frac{i}{2} \tr_{\bR}(R(X, Y) \circ J) = \frac{i}{2}(2i \tr_{\bC}(R(X, Y))) = -\tr_{\bC}(R(X, Y)) = F_{\nabla^K}(X, Y). \qedhere \]
 \end{proof}
@@ -2341,7 +2343,7 @@ periods.
   $P$ as a local coordinate normal to $P=0$, we can write $dx_4 =
   (\di_P x_4) dP$. Since $\int_{\gamma_P} dP/P = 2\pi i$, in $\bP^4$
   we have
-  \[ \int_{\gamma_P} \frac{\Xi}{P} = \sum_{k=0}^3 (-1)^k x_k (\di_P x_4) dx_0 \wedge \cdots \wedge \widehat{dx_k} \wedge \cdots \wedge dx_4. \]
+  \[ \int_{\gamma_P} \frac{\Xi}{P} = 2\pi i\sum_{k=0}^3 (-1)^k x_k (\di_P x_4) dx_0 \wedge \cdots \wedge \widehat{dx_k} \wedge \cdots \wedge dx_3. \]
   In affine coordinates, we can set $x_0 = 1$ and take $x_1, x_2, x_3$
   to be coordinates on $P = 0$. Note that $x_4$ is fully determined by
   $P=0$. For $P = f_\psi$, we get $\Omega$ for the mirror quintic.
@@ -2439,7 +2441,7 @@ The equality of the B-model and A-model correlation functions is
 expressed by
 \begin{align*}
   5 + \sum_{d=1}^\infty n_d d^3 \frac{q^d}{1 - q^d}
-  &= \frac{5}{(1 + 5^5z) y_0(z)^2} \left(\frac{q}{z} \frac{dz}{q}\right)^3 \\
+  &= \frac{5}{(1 + 5^5z) y_0(z)^2} \left(\frac{q}{z} \frac{dz}{dq}\right)^3 \\
   &= 5 + 2875 \frac{q}{1-q} + 609250 \cdot 2^3 \frac{q^2}{1 - q^2} + 317206375 \cdot 3^3 \frac{q^3}{1 - q^3} + \cdots.
 \end{align*}
 The enumerative prediction $n_3 = 317206375$ (and of course the higher
@@ -3614,8 +3616,8 @@ denoted $Q_+, Q_-$.
   since both $\theta^4$ (in the D-term) and $\theta^2$ (in the F-term)
   are invariant under such a phase change. Things transform as
   \[ \phi \mapsto \phi, \quad \psi_\pm \mapsto e^{\mp i\alpha} \psi_\pm, \quad Q_\pm \mapsto e^{\mp i\alpha} Q_\pm, \]
-  and conserved charge $F_A = \int dx^1 \, J^0_A$, where the current
-  $J$ is
+  and we have the conserved charge $F_A = \int dx^1 \, J^0_A$, where
+  the current $J$ is
   \[ J^0_A = \cnj\psi_+ \psi_+ - \cnj\psi_- \psi_-, \quad J^1_A = -\cnj\psi_+ \psi_+ - \cnj\psi_- \psi_-. \]
   Similarly, we can look at vector R-rotation. Clearly the D-term is
   invariant under an arbitrary choice of vector R-charge, but
@@ -3718,7 +3720,7 @@ denoted $Q_+, Q_-$.
   \cnj\Phi^i) + f(\Phi^i) + \cnj f(\cnj \Phi^i)$, the gluing process
   is valid.) This is called a {\bf supersymmetric non-linear sigma
     model}, with fields
-  \[ \phi\colon \Sigma \to M, \quad \psi_\pm \in \Gamma(\Sigma, \phi^*TM^{1,0} \otimes S_\pm), \quad \cnj\psi_\pm \in \Gamma(\Sigma, \phi^*TM^{0,1} \otimes S_\pm) \]
+  \[ \phi\colon \Sigma \to M, \quad \psi_\pm \in \Gamma(\Sigma, \phi^*T^{1,0}M \otimes S_\pm), \quad \cnj\psi_\pm \in \Gamma(\Sigma, \phi^*T^{0,1}M \otimes S_\pm) \]
   where $S_\pm$ is the spinor bundle.
 
   We can add an F-term ${\cal L}_W \coloneqq \frac{1}{2} \int
@@ -3878,12 +3880,12 @@ holds for our $d=1+1$ non-linear sigma model.
 
 \section{Setting}
 
-The main object of study in Gromov--Witten theory is the moduli spaces
-$\cnj\cM_{g,n}(X, \beta)$ of stable maps. It is the result of starting
-with the moduli space of Riemann surfaces $\cM_g$ and enriching the
-problem by adding more data. In particular, since $\cM_g$ is not
-compact, we shall compactify it by adding nodal curves, which is where
-we begin.
+The main objects of study in Gromov--Witten theory are the moduli
+spaces $\cnj\cM_{g,n}(X, \beta)$ of stable maps. They are the result
+of starting with the moduli space of Riemann surfaces $\cM_g$ and
+enriching the problem by adding more data. In particular, since
+$\cM_g$ is not compact, we shall compactify it by adding nodal curves,
+which is where we begin.
 
 \subsection{Nodal Curves}
 
@@ -4196,7 +4198,7 @@ with $n$ marked points in Teichm\"uller theory.
 Throughout this subsection, $X$ is a non-singular projective variety.
 We generally use $\Sigma$ to denote a pointed nodal curve.
 
-\begin{definition}
+\begin{definition} \label{def:stable-map}
   Two morphisms $f\colon \Sigma \to X$ and $f'\colon \Sigma' \to X$
   from pointed nodal curves $(\Sigma, p_1, \ldots, p_n)$ and
   $(\Sigma', p_1', \ldots, p_n')$ to $X$ are {\bf isomorphic} when
@@ -4230,9 +4232,18 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
   parameterizing lines in $\bP^m$.
 \end{example}
 
-\begin{example}
-  Fix $d > 1$ and $g > 0$ and consider $\cnj\cM_{g,0}(\bP^1, d)$.
-  \todo{Work through example of points with too high of a dimension.}
+\begin{example} \label{ex:stable-maps-impure-dimension}
+  Consider $\cnj\cM_{1,0}(\bP^2, 3)$. It has one component consisting
+  generically of non-singular cubic curves in $\bP^2$. The dimension
+  of rational cubics in $\bP^2$ is $8$, but there is one more degree
+  of freedom corresponding to the moduli of the contracted genus $1$
+  component, so this component is of dimension $9$. However there is
+  another component consisting generically of reducible curves with a
+  genus zero component and a genus one component, and now there is an
+  extra degree of freedom corresponding to the point of attachment
+  between the two components, so this component is of dimension $10$.
+  This example shows that $\cnj\cM_{g,n}(X, \beta)$ in general has
+  {\bf impure dimension}.
 \end{example}
 
 \begin{definition}
@@ -4285,7 +4296,7 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
   terms for pointed nodal curves in general.)
 \end{definition}
 
-\begin{proposition}
+\begin{proposition} \label{thm:virtual-dimension-stable-maps}
   If $\Ob(\Sigma, p_1, \ldots, p_n, f) = 0$, then the dimension of
   $\cnj\cM_{0,n}(X, \beta)$ at a generic point, called the {\bf
     expected dimension} or {\bf virtual dimension}, is
@@ -4332,9 +4343,147 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
 
 \section{Gromov--Witten Invariants}
 
-\subsection{Cohomology Classes on Moduli Space}
+\subsection{Enumerative Geometry via Stable Maps}
+
+\begin{definition}
+  Let $N_d$ denote the number of {\bf rational plane curves of degree
+    $d$} that pass through $3d-1$ given points in general position.
+  (For us, rational is equivalent to genus zero.)
+\end{definition}
+
+\begin{example}
+  Clearly through any two distinct points on the plane there is a
+  unique line, so $N_1 = 1$. It is also well-known that five generic
+  points on the plane suffice to uniquely specify a conic, so $N_2 =
+  1$. Classically, it was also known that $N_3 = 12$.
+\end{example}
+
+\begin{remark}
+  Why $3d-1$ points? From \ref{ex:genus-degree-formula}, we get that
+  the genus for a nodal plane curve of degree $d$ is $g =
+  \binom{d-1}{2} - \delta$ where $\delta$ is the number of nodes.
+  Hence to get rational curves, we require $\delta = \binom{d-1}{2}$
+  nodes. The space of irreducible degree $d$ curves is
+  $\bP\Gamma(\cO_{\bP^2}(d))$, which has dimension $\binom{d+2}{2}-1 =
+  d(d+3)/2$, but each node is a codimension $1$ condition, so the
+  space of rational plane curves of degree $d$ is dimension $d(d+3)/2
+  - \binom{d-1}{2} = 3d-1$, and to get a finite number of curves we
+  must specify $3d-1$ more conditions.
+\end{remark}
+
+\begin{remark}
+  We would like to work with $\cnj\cM_{0,n}(\bP^2,d)$, i.e. stable
+  maps with $n$ marked points, instead of rational plane curves
+  passing through $n$ points in $\bP^2$. There are some subtleties
+  that need to be addressed, e.g. it could be that a rational plane
+  curve $f$ passes through a point $p \in \bP^2$ twice, and so there
+  is more than one way to mark the original curve in order to obtain
+  $f$. Thankfully it turns out these subtleties never occur and are
+  not issues; a proof of this statement is in \cite[Section
+    3.5]{Kock2007}. From this perspective, it is clear we need to
+  specify $3d-1$ points to get a finite number of curves: $\dim
+  \cnj\cM_{0,0}(\bP^2, d) = 3d + 2 - 3 = 3d-1$ by
+  \ref{thm:virtual-dimension-stable-maps}.
+\end{remark}
+
+\begin{theorem}[Kontsevich]
+  The following recursive relation holds:
+  \[ N_d = \sum_{\substack{d_A + d_B = d\\d_A, d_B > 0}} N_{d_A} N_{d_B} \left(d_A^2 d_B^2 \binom{3d-4}{3d_A-2} - d_A^3 d_B \binom{3d-4}{3d_A-1}\right). \]
+\end{theorem}
+
+\begin{proof}
+  Let $n = 3d$, and consider $\cnj\cM_{0,n}(\bP^2, d)$ with marked
+  points $\{p_1, \ldots, p_{n-2}, \ell_1, \ell_2\}$. Let $P_1, \ldots,
+  P_{n-2}$ be general points and $L_1, L_2$ be general lines in
+  $\bP^2$. Define
+  \[ Y \coloneqq \ev_1^{-1}(P_1) \cap \cdots \cap \ev_{n-2}^{-1}(P_{n-2}) \cap \ev_{n-1}^{-1}(L_1) \cap \ev_n^{-1}(L_2) \subset \cnj\cM_{0,n}(\bP^2, d), \]
+  By the Kleiman--Bertini transversality theorem \cite[Theorem
+    3.4.2]{Kock2007}, we can always choose the $P_i$ and $L_1, L_2$
+  such that $Y$ is a curve intersecting the boundary of
+  $\cnj\cM_{0,n}(\bP^2, d)$ transversally. Hence by analogy with (or
+  pullback from) \ref{eq:M0n-divisor-relations},
+  \[ Y \cap \sum_{\substack{\ell_1,\ell_2 \in A,\\p_1,p_2 \in B,\\d_A+d_B=d}} D(A,d_A|B,d_B) \sim Y \cap \sum_{\substack{\ell_1,p_1 \in A,\\\ell_2,p_2 \in B,\\d_A+d_B=d}} D(A,d_A|B,d_B). \]
+  We shall do some casework to count the number of points on both
+  sides. Equating the resulting expressions will give Kontsevich's
+  recursion.
+  \begin{enumerate}
+  \item Suppose $d_A = 0$. Degree $0$ maps are constant, but the
+    stability criteria \ref{def:stable-map} then requires at least
+    three special points on the component $\Sigma_A$. There is a node
+    branch on $\Sigma_A$ already, so we need to put at least two
+    marked points on $\Sigma_A$. But maps in $Y$ take distinct marked
+    points to distinct points on $\bP^2$, so the only way $Y \cap
+    D(A,0|B,d)$ is non-empty is for $A = \{\ell_1, \ell_2\}$, with the
+    component $\Sigma_A$ mapping to the point $L_1 \cap L_2$. The
+    remaining $3d-2$ markings on $\Sigma_B$ must therefore be mapped
+    to the $3d-2$ points $p_1, \ldots, p_{n-2}$, so
+    \[ \#(Y \cap D(\{\ell_1,\ell_2\},0|\{p_1, \ldots, p_{n-2}\},d)) = N_d. \]
+    Terms of this form can only occur on the lhs, where $\ell_1,
+    \ell_2 \in A$. So terms with $d_B = 0$ are zero.
+  \item Consider the lhs and suppose $1 \le d_A \le d-1$. Note that
+    the degree $d_A$ curve $\Sigma_A$ can only be required to pass
+    through at most $3d_A-1$ points, and similarly for the degree
+    $d_B$ curve $\Sigma_B$. But $\Sigma_A \cup \Sigma_B$ must pass
+    through the $n-2 = (3d_1-1) + (3d_2-1)$ points $P_1, \ldots,
+    P_{n-2}$, so we must have $|A| = 3d_A-1 + 2$ and $|B| = 3d_B-1$.
+    (The extra $2$ points on $\Sigma_A$ are $\ell_1, \ell_2$, which
+    are only required to map to the lines $L_1, L_2$.) Since
+    \[ \#\{\ell_1, \ell_2 \in A, \, p_1, p_2 \in B, \, |A| = 3d_A+1\} = \binom{3d-4}{3d_A-1}, \]
+    it suffices now to count the number of points in $Y \cap
+    D(A,d_A|B,d_B)$ for a fixed set $A$.
+    \begin{enumerate}
+    \item There are $N_{d_A}$ and $N_{d_B}$ choices for the images
+      $f(\Sigma_A)$ and $f(\Sigma_B)$ respectively.
+    \item The mark $\ell_1$ must map to a point on $f(\Sigma_A) \cap
+      L_1$, which by B\'ezout's theorem contains $d_A$ points, and
+      similarly for $\ell_2$.
+    \item Analogously, there are $d_Ad_B$ choices for the image of the
+      intersection point $\Sigma_A \cap \Sigma_B$, which must lie in
+      $f(\Sigma_A) \cap f(\Sigma_B)$.
+    \end{enumerate}
+  \item The analogous argument for the rhs gives that $|A| = 3d_A$ are
+    the only non-zero terms. There are $\binom{3d-4}{3d_A-2}$ such
+    partitions, and for each partition there are
+    $N_{d_A}N_{d_B}d_A^2d_B^2$ points in $Y \cap D(A,d_A|B,d_B)$.
+  \end{enumerate}
+  Equating the total for the lhs and the total for the rhs, we get
+  \[ N_d + \sum_{\substack{d_A+d_B=d\\d_A,d_B>0}} N_{d_A} N_{d_B} d_A^3 d_B \binom{3d-4}{3d_A-1} = \sum_{\substack{d_A+d_B=d\\d_A,d_B>0}} N_{d_A}N_{d_B} d_A^2 d_B^2 \binom{3d-4}{3d_A-2}. \qedhere \]
+\end{proof}
 
 \subsection{Gromov--Witten and Descendant Invariants}
+
+There is a different way to interpret the numbers $N_d$ which
+indicates the correct way to generalize them:
+\[ N_d = \int_{\cnj\cM_{0,3d-1}(\bP^2, d)} \ev_1^*(P) \cup \ev_2^*(P) \cup \cdots \cup \ev_{3d-1}^*(P) \]
+where $P$ is Poincar\'e dual to the point class. Then we can ask the
+obvious question: what if we replace the point class with some other
+homology classes, and do this for an arbitrary $\cnj\cM_{g,n}(X,
+\beta)$?
+
+The problem is that from \ref{ex:stable-maps-impure-dimension} we know
+$\cnj\cM_{g,n}(X, \beta)$ has impure dimension in general, so we need
+to be very careful about what $\int_{\cnj\cM_{g,n}(X, \beta)}$ means.
+Instead of trying to define the integral, we shall instead find a {\bf
+  virtual fundamental class} $[\cnj\cM_{g,n}(X, \beta)]^{\vir}$ in the
+expected dimension $H_{2\vdim}(X, \bQ)$, pairing with which gives the
+desired integral. Of course, if the fundamental class
+$[\cnj\cM_{g,n}(X, \beta)]$ is well-defined, then we also want
+$[\cnj\cM_{g,n}(X, \beta)]^{\vir} = [\cnj\cM_{g,n}(X, \beta)]$.
+
+{\bf Note}: the technical details of the construction of the virtual
+fundamental class follow, but are not necessary at all later on as
+long as we understand it in a few special cases. We will do the
+construction for schemes instead of Deligne--Mumford stacks in
+general; for a DM stack it suffices to work on its atlas.
+
+\begin{definition}
+  Let $X$ be a scheme and $S = \bigoplus_{i \ge 0} S^i$ be a graded
+  quasi-coherent sheaf of $\cO_X$-algebras with $\cO_X \cong S^0$ and
+  $S$ generated by $S^1$ (as an $\cO_X$-algebra). The affine
+  $X$-scheme $C \coloneqq \Spec(S^\bullet)$ is a {\bf cone over $X$}.
+  It is fairly straightforward to show the fiber product of cones is
+  still a cone.
+\end{definition}
 
 \subsection{The Quantum Cohomology Ring}
 

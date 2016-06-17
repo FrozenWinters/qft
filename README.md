@@ -10,8 +10,7 @@
 
 Unless otherwise announced on this page, the seminar will run twice a
 week:
-* (**until May 16th**) Mondays 2:30pm - 4:00pm in M3 2134,
-* (**starting May 24th**) Tuesdays 12:30pm - 2:00pm in M3 3103.
+* Tuesdays 12:30pm - 2:00pm in M3 3103.
 * Fridays 12:00pm - 1:30pm in M3 2134.
 
 Details about upcoming talks will be added incrementally as time
