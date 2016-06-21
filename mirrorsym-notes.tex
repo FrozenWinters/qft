@@ -48,13 +48,17 @@
 \newcommand{\circcolon}{\mathbin{\raise 0.75ex\hbox{\oalign{$\scriptscriptstyle\mathrm{o}$\cr$\scriptscriptstyle\mathrm{o}$}}}}
 \newcommand{\CANO}[1]{\,\circcolon\mathrel{#1}\circcolon\,}
 
+\newcommand{\bA}{\mathbb{A}}
 \newcommand{\bC}{\mathbb{C}}
 \newcommand{\bT}{\mathbb{T}}
 \newcommand{\bQ}{\mathbb{Q}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bL}{\mathbb{L}}
+\newcommand{\cC}{\mathcal{C}}
 \newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
 \newcommand{\cF}{\mathcal{F}}
 \newcommand{\cK}{\mathcal{K}}
 \newcommand{\cH}{\mathcal{H}}
@@ -65,6 +69,7 @@
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cR}{\mathcal{R}}
 \newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\Morse}{\mathrm{Morse}}
 \DeclareMathOperator{\id}{id}
@@ -99,6 +104,7 @@
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\vdim}{vdim}
 \DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Bl}{Bl}
 \newcommand{\vir}{\mathrm{vir}}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
@@ -112,7 +118,6 @@
 \newcommand{\bdi}{\bar{\di}}
 \newcommand{\rep}[1]{\mathbf{#1}}
 \DeclarePairedDelimiter{\inner}{\langle}{\rangle}
-
 
 \newcommand{\mc}{\mathcal}
 \newcommand{\ms}{\mathscr}
@@ -2404,10 +2409,6 @@ periods.
   \Theta \Omega = \int \Omega \wedge \Theta\Theta\Omega = 0$.
 \end{proof}
 
-(The reason why $\Theta$ is the Gauss--Manin connection on the Hodge
-bundle is not trivial. Later on we shall discuss it more rigorously in
-terms of the mirror map.)
-
 If we look for a holomorphic solution $y_0(z) = \sum_{n=0}^\infty c_n
 z^n$ of the Picard--Fuchs equation, then we get the recursion
 \[ n^4 c_n = -5(5(n-1)+4) \cdots (5(n-1)+1) c_{n-1} \]
@@ -3203,7 +3204,7 @@ may be that $Q \Psi_i \neq 0$. So let's look at the theory
 non-perturbatively: we want to compute the matrix elements of $Q$
 \[ \braket{\Psi_j, Q\Psi_i} = \int_M \cnj\Psi_j \wedge \star(d + dh \wedge) \Psi_i. \]
 (Here we are implicitly using the identifications in
-\ref{eq:1d-sigma-model-identifications}.) Since $\Psi_j$ is a
+\eqref{eq:1d-sigma-model-identifications}.) Since $\Psi_j$ is a
 $\mu_j$-form and $Q\Psi_i = (d + dh \wedge)\Psi_i$ is a
 $(\mu_i+1)$-form, the matrix element is potentially nonzero only when
 $\mu_j = \mu_i+1$. We evaluate it via path integral.
@@ -3686,7 +3687,7 @@ denoted $Q_+, Q_-$.
   with all other generators fixed. Two $\cN=(2,2)$ susy QFTs are {\bf
     mirror} to each other if they are equivalent as QFTs where the
   Hilbert state space isomorphism maps the generators of the
-  $\cN=(2,2)$ susy algebra according to \ref{eq:n22-susy-mirror-map}.
+  $\cN=(2,2)$ susy algebra according to \eqref{eq:n22-susy-mirror-map}.
   Hence, for example, a chiral multiplet of one theory is mapped to a
   twisted chiral multiplet of the mirror (c.f. the defining equations
   of chiral and twisted chiral multiplets in
@@ -3772,7 +3773,7 @@ denoted $Q_+, Q_-$.
   Note that the vector and axial R-rotations act on the Dirac fermions
   $\psi_\pm^i$ only, so it suffices to look only at the fermions, and
   only one pair $\psi_\pm$ instead of $n$ of them. From the general
-  form \ref{eq:nlsm-lagrangian}, the fermionic part of the action in
+  form \eqref{eq:nlsm-lagrangian}, the fermionic part of the action in
   this special case is just
   \[ S = \int d^2z (i\cnj\psi_+ D_z \psi_+ + i\cnj \psi_- D_{\cnj z} \psi_-) \]
   where $D_z, D_{\cnj z}$ is the covariant derivative (wrt the
@@ -3809,7 +3810,7 @@ S^1$ and impose periodic (as opposed to anti-periodic) boundary
 conditions for all fields. To find the susy ground states of the
 non-linear sigma model, we use a clever trick. If we let $Q \coloneqq
 \cnj Q_+ + Q_-$, then using the susy algebra relations
-\ref{eq:n22-susy-relations}, we get $\{Q, \cnj Q\} = 2H$ and $Q^2 =
+\eqref{eq:n22-susy-relations}, we get $\{Q, \cnj Q\} = 2H$ and $Q^2 =
 \cnj Q^2 = 0$, precisely the relations \ref{def:susy-qm-system}
 defining a supersymmetric QM system. The insight is that
 \begin{align*}
@@ -3821,7 +3822,7 @@ if there exists a functional $h[\phi(x^1)]$ satisfying
   \frac{\delta h}{\delta \phi^i} = -ig_{i\cnj j} \di_1 \cnj\phi^{\cnj j} - \frac{1}{2} \di_i W, \quad \frac{\delta h}{\delta \cnj \phi^{\cnj j}} = ig_{i\cnj j} \di_1 \phi^i - \frac{1}{2} \di_{\cnj j} W,
 \end{equation}
 and that $Q$ in this form is exactly the supercharge
-\ref{eq:1d-deformed-sigma-model-supercharge} for a $d=1$ SQM deformed
+\eqref{eq:1d-deformed-sigma-model-supercharge} for a $d=1$ SQM deformed
 by a potential $h$, with target space $LM \coloneqq \{\phi\colon S^1
 \to M\}$, i.e. the {\bf loop space} of $M$. Hence if we can find such
 a functional $h$, every result we had in section \ref{sec:1d-qft}
@@ -3846,7 +3847,7 @@ holds for our $d=1+1$ non-linear sigma model.
   where the last equality uses that $\hat\phi|_{\tau=0} = \phi_0$, so
   $\delta\hat\phi|_{\tau=0} = 0$. Hence the variation of the first
   term in $h$ produces the first terms in
-  \ref{eq:loopspace-sqm-potential-variation}. The variation of the
+  \eqref{eq:loopspace-sqm-potential-variation}. The variation of the
   second term $\int_{S^1} dx^1 \, \Re(W[\phi^i])$ of $h$ clearly
   produces the desired second terms.
 \end{proof}
@@ -3864,7 +3865,7 @@ holds for our $d=1+1$ non-linear sigma model.
   \[ \frac{\delta h}{\delta \phi^i} = -ig_{i\cnj j} \di_i \cnj\phi^{\cnj j} = 0, \quad \frac{\delta h}{\delta \cnj\phi^{\cnj j}} = -ig_{i\cnj j} \di_i \cnj\phi^i = 0. \]
   Clearly these are the trivial loops $\phi\colon S^1 \to \{\pt\} \in
   M$, so the set of critical points is isomorphic to $M$ itself. Now
-  apply equation \ref{eq:1d-critical-point-susy-ground-state} to see
+  apply equation \eqref{eq:1d-critical-point-susy-ground-state} to see
   that perturbative ground states are harmonic forms on $M$. (For
   details, see page 303 in Hori.)
 
@@ -4306,7 +4307,7 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
 \begin{proof}
   Since we are dealing with stable maps, the first term in the
   deformation long exact sequence
-  \ref{eq:deformation-long-exact-sequence} vanishes. By hypothesis,
+  \eqref{eq:deformation-long-exact-sequence} vanishes. By hypothesis,
   the last term also vanishes. So
   \begin{align*}
     \dim \cnj\cM_{0,n}(X, \beta)
@@ -4320,9 +4321,10 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
   p_1, \ldots, p_n) = 3g - 3 + n$. Adding the two, we are done.
 \end{proof}
 
-\begin{definition}
+\begin{definition} \label{def:convex-space}
   The target space $X$ is {\bf convex} if $h^1(\Sigma, f^*TX) = 0$ for
-  every genus $0$ stable map $f\colon \Sigma \to X$. 
+  every genus $0$ stable map $f\colon \Sigma \to X$. Consequently,
+  convex spaces have $\cnj\cM_{g,n}(X, \beta)$ of expected dimension.
 \end{definition}
 
 \begin{proposition}
@@ -4401,7 +4403,7 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
     3.4.2]{Kock2007}, we can always choose the $P_i$ and $L_1, L_2$
   such that $Y$ is a curve intersecting the boundary of
   $\cnj\cM_{0,n}(\bP^2, d)$ transversally. Hence by analogy with (or
-  pullback from) \ref{eq:M0n-divisor-relations},
+  pullback from) \eqref{eq:M0n-divisor-relations},
   \[ Y \cap \sum_{\substack{\ell_1,\ell_2 \in A,\\p_1,p_2 \in B,\\d_A+d_B=d}} D(A,d_A|B,d_B) \sim Y \cap \sum_{\substack{\ell_1,p_1 \in A,\\\ell_2,p_2 \in B,\\d_A+d_B=d}} D(A,d_A|B,d_B). \]
   We shall do some casework to count the number of points on both
   sides. Equating the resulting expressions will give Kontsevich's
@@ -4457,7 +4459,7 @@ indicates the correct way to generalize them:
 \[ N_d = \int_{\cnj\cM_{0,3d-1}(\bP^2, d)} \ev_1^*(P) \cup \ev_2^*(P) \cup \cdots \cup \ev_{3d-1}^*(P) \]
 where $P$ is Poincar\'e dual to the point class. Then we can ask the
 obvious question: what if we replace the point class with some other
-homology classes, and do this for an arbitrary $\cnj\cM_{g,n}(X,
+cohomology classes, and do this for an arbitrary $\cnj\cM_{g,n}(X,
 \beta)$?
 
 The problem is that from \ref{ex:stable-maps-impure-dimension} we know
@@ -4465,25 +4467,305 @@ $\cnj\cM_{g,n}(X, \beta)$ has impure dimension in general, so we need
 to be very careful about what $\int_{\cnj\cM_{g,n}(X, \beta)}$ means.
 Instead of trying to define the integral, we shall instead find a {\bf
   virtual fundamental class} $[\cnj\cM_{g,n}(X, \beta)]^{\vir}$ in the
-expected dimension $H_{2\vdim}(X, \bQ)$, pairing with which gives the
-desired integral. Of course, if the fundamental class
-$[\cnj\cM_{g,n}(X, \beta)]$ is well-defined, then we also want
-$[\cnj\cM_{g,n}(X, \beta)]^{\vir} = [\cnj\cM_{g,n}(X, \beta)]$.
-
-{\bf Note}: the technical details of the construction of the virtual
-fundamental class follow, but are not necessary at all later on as
-long as we understand it in a few special cases. We will do the
-construction for schemes instead of Deligne--Mumford stacks in
-general; for a DM stack it suffices to work on its atlas.
+expected dimension of $H_*(\cnj\cM_{g,n}(X, \beta), \bQ)$, pairing
+with which gives the desired integral. Of course, if the fundamental
+class $[\cnj\cM_{g,n}(X, \beta)]$ is well-defined, then we also want
+$[\cnj\cM_{g,n}(X, \beta)]^{\vir} = [\cnj\cM_{g,n}(X, \beta)]$. For
+now, we assume that such a virtual fundamental class exists. We shall
+outline its construction in the next subsection.
 
 \begin{definition}
-  Let $X$ be a scheme and $S = \bigoplus_{i \ge 0} S^i$ be a graded
-  quasi-coherent sheaf of $\cO_X$-algebras with $\cO_X \cong S^0$ and
-  $S$ generated by $S^1$ (as an $\cO_X$-algebra). The affine
-  $X$-scheme $C \coloneqq \Spec(S^\bullet)$ is a {\bf cone over $X$}.
-  It is fairly straightforward to show the fiber product of cones is
-  still a cone.
+  At each point $(\Sigma, p_1, \ldots, p_n, f)$ of $\cnj\cM_{g,n}(X,
+  \beta)$, the cotangent space to $\Sigma$ at $p_i$ is a
+  one-dimensional $\bC$-vector space. These spaces patch together to
+  give the {\bf $i$-th tautological line bundle} $\bL_i$ over
+  $\cnj\cM_{g,n}(X, \beta)$. Formally, if $\omega_\pi$ is the relative
+  dualizing sheaf of the forgetful morphism $\pi\colon
+  \cnj\cM_{g,n+1}(X, \beta) \to \cnj\cM_{g,n}(X, \beta)$ and
+  $\sigma_i$ is the section corresponding to the mark $p_i$, then the
+  $i$-th tautological line bundle is just $\bL_i \coloneqq
+  \sigma_i^*\omega_\pi$.
 \end{definition}
+
+\begin{definition}
+  Define the {\bf $\psi$-classes} $\psi_i \coloneqq
+  c_1(\sigma_i^*\omega_\pi)$. Let $[\cnj\cM_{g,n}(X, \beta)]^{\vir}$
+  be the virtual fundamental class. Given classes $\gamma_1, \ldots,
+  \gamma_n \in H^*(X)$, the corresponding {\bf (gravitational)
+    descendant invariant} is
+  \[ \braket{\tau_{a_1}(\gamma_1) \cdots \tau_{a_n}(\gamma_n)}^X_{g,\beta} \coloneqq \int_{[\cnj\cM_{g,n}(X, \beta)]^{\vir}} \ev_1^*(\gamma_1) \cup \psi_1^{a_1} \cup \cdots \cup \ev_n^*(\gamma_n) \cup \psi_n^{a_n}. \]
+  When all the $a_i$ are zero, we call $\braket{\gamma_1 \cdots
+    \gamma_n}^X_{g,\beta} \coloneqq \braket{\tau_0(\gamma_1) \cdots
+    \tau_0(\gamma_n)}^X_{g,\beta}$ the {\bf Gromov--Witten invariant}
+  corresponding to $\gamma_1, \ldots, \gamma_n$.
+\end{definition}
+
+{\bf Notation}: from this point onward, we work in the Chow ring
+$A^*(\cnj\cM_{g,n}(X, \beta))$ (for various $n$) unless otherwise
+indicated. Since elements of $A^i$ are codimension-$i$ cycles, we will
+not distinguish between boundary divisors
+$D(g_1,A,\beta_1|g_2,B,\beta_2)$ and their images in the Chow ring.
+
+\begin{lemma}[Comparison lemma for convex $X$]
+  The $\psi$-classes do not commute with forgetful morphisms
+  $\pi\colon \cnj\cM_{g,n+1}(X, \beta) \to \cnj\cM_{g,n}(X, \beta)$,
+  but satisfy
+  \begin{equation} \label{eq:comparison-lemma}
+    \psi_i - \pi^*\psi_i = D_{i,n+1} \coloneqq D(\{i,n+1\},0|\{1, \ldots, \hat{i}, \ldots, n\},\beta) \in A^1(\cnj\cM_{g,n+1}(X, \beta)).
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  We prove this for $X = \{\pt\}$; the general case uses the same idea
+  but requires more technical analysis. (To avoid technicalities with
+  the virtual fundamental class, we required $X$ to be convex, c.f.
+  \ref{def:convex-space}.) On $\cnj\cM_{g,n+1} \setminus D_{i,n+1}$,
+  there is no problem (with respect to $\bL_i$) with forgetting the
+  marked point $p_{n+1}$; the resulting components are stable. So
+  $\pi^*\bL_i = \bL_i$ except on $D_{i,n+1}$, i.e. $\bL_i \cong
+  \pi^*\bL_i \otimes \cO(rD_{i,n+1})$ for some $r \in \bZ$. But
+  pulling back along $\sigma_i\colon \cnj\cM_{g,n} \to
+  \cnj\cM_{g,n+1}$ shows that
+  \[ \cO = \sigma_i^*\bL_i = \sigma_i^*\pi^*\bL_i \otimes \sigma_i^*\cO(D_{i,n+1})^{\otimes r} = \bL_i \otimes (\bL_i^*)^{\otimes r}. \]
+  Hence $r = 1$. Taking cohomology, we are done.
+\end{proof}
+
+\begin{corollary}
+  In the Chow ring $A^*(\cnj\cM_{g,n+1}(X, \beta))$, 
+  \begin{equation} \label{eq:boundary-divisor-products}
+    D_{i,n+1} \cdot D_{j,n+1} = \begin{cases} -\pi^*\psi_i \cdot D_{i,n+1} & i = j \\ 0 & i \neq j. \end{cases}
+  \end{equation}
+  It follows by induction that
+  \begin{equation} \label{eq:psi-class-powers}
+    \psi_i^a = \pi^*\psi_i^a + \pi^*\psi_i^{a-1}D_{i,n+1}.
+  \end{equation}
+\end{corollary}
+
+\begin{proof}
+  First note that $\sigma_i^*\psi_i = 0$, since the $i$-th marked
+  point on the section $\sigma_i$ is on a genus zero component with
+  three marks, on which $\psi_i = 0$. But $\sigma_i^*$ is equivalent
+  to intersecting with $D_{i,n+1}$ and then pushing down, so
+  $\pi_*(\psi_i \cap D_{i,n+1}) = 0$. Since $\pi|_{D_{i,n+1}}$ is an
+  isomorphism, we get that $\psi_i \cdot D_{i,n+1} = 0$ in
+  $A^*(\cnj\cM_{g,n+1}(X, \beta)$.
+
+  Now it suffices to apply the comparison lemma
+  \eqref{eq:comparison-lemma}:
+  \[ -\pi^*\psi_i \cdot D_{i,n+1} = (-\psi_i + D_{i,n+1}) \cdot D_{i,n+1} = D_{i,n+1}^2. \]
+  For $i \neq j$, note that $D_{i,n+1}$ and $D_{j,n+1}$ are disjoint,
+  and therefore $D_{i,n+1} \cdot D_{j,n+1} = 0$.
+\end{proof}
+
+The comparison lemma is a very useful tool, since it lets us relate
+descendant invariants of $\cnj\cM_{g,n+1}(X, \beta)$ with those of
+$\cnj\cM_{g,n}(X, \beta)$.
+
+\begin{proposition}
+  The descendant invariants satisfy the {\bf string}, {\bf
+    dilaton}, and {\bf divisor equations}:
+  \begin{gather}
+    \label{eq:descendant-string-equation}
+    \inner{\tau_0(1) \prod_i \tau_{a_i}(\gamma_i)}^X_{g,\beta} = \sum_{j=1}^n \inner{\tau_{a_j-1}(\gamma_j) \prod_{i\neq j} \tau_{a_i}(\gamma_i)}^X_{g,\beta}, \\
+    \label{eq:descendant-dilaton-equation}
+    \inner{\tau_1(1) \prod_i \tau_{a_i}(\gamma_i)}^X_{g,\beta} = (2g-2+n)\inner{\prod_i \tau_{a_i}(\gamma_i)}^X_{g,\beta}, \\
+    \label{eq:descendant-divisor-equation}
+    \inner{\gamma \prod_i \tau_{a_i}(\gamma_i)}^X_{g,\beta} = (\int_\beta \gamma) \inner{\prod_i \tau_{a_i}(\gamma_i)}^X_{g,\beta} + \sum_{i=1}^n \inner{\tau_{a_i-1}(\gamma_i \cup \gamma) \prod_{j\neq i} \tau_{a_j}(\gamma_j)}^X_{g,\beta}, \quad \gamma \in H^2(X).
+  \end{gather}
+  In these equations, any term containing $\tau_k(\gamma)$ where $k <
+  0$ is taken to be zero.
+\end{proposition}
+
+\begin{proof}
+  Since the evaluation maps $\ev_i$ for $i = 1, \ldots, n$ are
+  unaffected by the forgetful map $\cnj\cM_{g,n+1}(X, \beta) \to
+  \cnj\cM_{g,n}(X, \beta)$, it suffices to prove these identities for
+  $\cnj\cM_{g,n+1} \to \cnj\cM_{g,n}$ and the $\psi$-classes.
+
+  The main tool is the comparison lemma. We prove the string equation
+  for convex $X$ as an example. Applying \eqref{eq:psi-class-powers}
+  followed by \eqref{eq:boundary-divisor-products},
+  \begin{align*}
+    \inner{\tau_0 \prod_{i=1}^n \tau_{a_i}}_g
+    &\coloneqq \int_{\cnj\cM_{g,n+1}} \prod_{i=1}^n \psi_i^{a_i} = \int_{\cnj\cM_{g,n+1}} \prod_{i=1}^n (\pi^*\psi_i^{a_i} + \pi^*\psi_i^{a_i-1} \cdot D_{i,n+1}) \\
+    &= \int_{\cnj\cM_{g,n+1}} \pi^*\left(\prod_{i=1}^n \psi_i^{a_i}\right) + \sum_{j=1}^n \pi^*\left(\psi_j^{a_j-1} \prod_{i \neq j} \psi_i^{a_i}\right) \cdot D_{j,n+1}.
+  \end{align*}
+  The first term integrates to zero: its dimension is too high for
+  $\cnj\cM_{g,n}$. The second term is precisely the rhs of the string
+  equation, after pushing everything down to $\cnj\cM_{g,n}$ from
+  $\cnj\cM_{g,n+1}$.
+
+  The dilaton and divisor equations come from similar applications of
+  the comparison lemma.
+\end{proof}
+
+\subsection{The Virtual Fundamental Class}
+
+The construction of the virtual fundamental class is technical and
+relies on the deformation theory of stacks; for details, see
+\cite{Behrend1997}. We outline the construction and focus on a few
+relevant special cases only.
+
+\begin{definition}
+  Let $E$ be a rank $r$ vector bundle on a non-singular scheme $X$ of
+  dimension $n$. The zero section $Z \coloneqq Z(s) \subset X$ of a
+  section $s \in \Gamma(E)$ is in general very badly behaved, and of
+  impure dimension. The procedure here if we want to integrate over
+  $Z$ is well-known: if $I$ is the ideal sheaf of $Z \to X$, define
+  the {\bf normal cone}
+  \[ C_{Z/X} \coloneqq \Spec\left(\bigoplus_{k=0}^\infty I^k/I^{k+1}\right), \]
+  which we should think of as an analogue of the normal bundle. (Note
+  that the normal cone is distinct from the {\bf normal sheaf}
+  $\Spec(\Sym(I/I^2))$.)
+\end{definition}
+
+\begin{definition}
+  In general, for $X$ a scheme, a {\bf cone} on $X$ is the affine
+  $X$-scheme $\Spec S$, where $S = \bigoplus_{i=0}^\infty S^i$ be a
+  graded sheaf of $\cO_X$-algebras generated by $S^1$ as an
+  $\cO_X$-algebra, with $S^0 \cong \cO_X$.
+\end{definition}
+
+\begin{lemma} \label{thm:normal-cone-pure-dimension}
+  Let $X \to Y$ be a closed embedding of schemes with ideal sheaf $I$.
+  If $Y$ has pure dimension $k$, then so does $C_{X/Y}$.
+\end{lemma}
+
+\begin{proof}
+  Compose the embedding $X \to Y$ with $Y \to Y \times \bA^1$ at $0
+  \in \bA^1$. The blowup $\Bl_X(Y \times \bA^1)$ has pure dimension
+  $k$. In it is the exceptional divisor is $P(C_{X/Y} \oplus 1)$,
+  which also has pure dimension $k$. But $C_{X/Y}$ is an open
+  subscheme of $P(C_{X/Y} \oplus 1)$, and therefore must also have
+  pure dimension $k$.
+\end{proof}
+
+\begin{definition} \label{def:zero-locus-fundamental-class}
+  By the lemma, the normal cone $C_{Z/X}$ for the zero section $Z$
+  defines a cycle class $[C_{Z/X}] \in A_n(E|_Z)$. Hence $s^*[C_{Z/X}]
+  \in A_{n-r}(Z)$ is a suitable {\bf fundamental class}. The following
+  lemma shows that this is really just a refinement of the Euler class
+  of $E$.
+\end{definition}
+
+\begin{lemma}[{\cite[Chapter 4]{Fulton1998}}] \label{thm:pushforward-of-fundamental-class}
+  If $i\colon Z \to X$ is the inclusion, then $i_*(s^*[C_{Z/X}]) \in
+  A_{n-r}(X)$ is the Euler class $c_r(E) \cap [X]$ of $E$.
+\end{lemma}
+
+This construction fails in general for $\cnj\cM_{g,n}(X, \beta)$
+because of obstruction-theoretic reasons: we have $\Ob(\Sigma, p_1,
+\ldots, p_n, f) \neq 0$ in general; c.f.
+\eqref{eq:deformation-long-exact-sequence}. The appropriate
+construction for this general case is much more technical; only the
+special cases \ref{ex:virtual-fundamental-class-unobstructed},
+\ref{ex:virtual-fundamental-class-nonsingular}, and
+\ref{ex:virtual-fundamental-class-hypersurface} will be relevant to
+us.
+
+\begin{definition}
+  Let $X$ be a Deligne--Mumford stack. (It suffices to think about
+  this construction on its atlas $U \to M$, where $U$ is just a
+  scheme.) An {\bf obstruction theory} on $X$ is a complex of sheaves
+  $\cE^\bullet$ on $X$ and a morphism $\phi\colon \cE^\bullet \to
+  L_X^\bullet$ in the derived category to the cotangent complex
+  $L_X^\bullet$, such that $h^0(\phi)$ is an isomorphism and
+  $h^{-1}(\phi)$ is surjective. We view $h^0(L_X^\bullet)$ as
+  controlling deformations, and $h^{-1}(L_X^\bullet)$ as controlling
+  obstructions.
+\end{definition}
+
+\begin{definition}
+  Define the stack quotient $h^1/h^0(\cE^\bullet) \coloneqq \ker(\cE^1
+  \to \cE^2)/\coker(\cE^{-1} \to \cE^0)$. An obstruction theory
+  $\cE^\bullet$ is {\bf perfect} if $h^1/h^0((\cE^\bullet)^\vee)$ is
+  smooth over $X$, where the dual is taken in the derived category.
+\end{definition}
+
+\begin{definition}
+  Take the atlas $U \to X$ of the Deligne--Mumford stack $X$ and embed
+  $U$ in a smooth scheme $W$, with $I$ the ideal sheaf of the
+  embedding. The differential $d\colon I \to \Omega^1_W$ induces a map
+  \[ \bigoplus_k I^k/I^{k+1} \to \bigoplus_k \Sym^k(\Omega^1_W/I\Omega^1_W). \]
+  Applying $\Spec$ we get a map $T_W|_U \to C_{U/W}$. The {\bf
+    intrinsic normal cone} $\cC_U$ is the stack quotient of
+  $\cC_{U/W}$ by $T_W|_U$, and these glue to give a global intrinsic
+  normal cone $\cC_X$. Similarly we can get an {\bf intrinsic normal
+    sheaf} $\cN_X$.
+\end{definition}
+
+\begin{proposition}[{\cite[pp. 66--69]{Behrend1997}}]
+  $h^1/h^0((L_X^\bullet)^\vee) \cong \cN_X$.
+\end{proposition}
+
+\begin{definition} \label{def:virtual-fundamental-class}
+  Let $\cE^\bullet$ be a perfect obstruction theory on $X$. By the
+  proposition, $\cN_X$ embeds in $h^1/h^0((\cE^\bullet)^\vee)$, and
+  therefore so does $\cC_X$. Let $E^{-1}$ be the vector bundle
+  associated to $\cE^{-1}$, i.e. $\cO(E^{-1}) = \cE^{-1}$, and take
+  its fiber product $C \coloneqq (E^{-1})^*
+  \times_{h^1/h^0((\cE^\bullet)^\vee)} \cC_X$, which is just a cone.
+  The {\bf virtual fundamental class} of $X$ is then $[X]^{\vir}
+  \coloneqq C \cap Z((E^{-1})^*)$.
+\end{definition}
+
+\begin{example}
+  Let $Z \subset X$ be the zero locus of a section $s \in \Gamma(E)$
+  again. Let $\cE^\bullet = [\cO(E^*)|_Z \to (\Omega^1_X)|_Z]$,
+  which is a perfect obstruction theory because $Y$ is smooth. Then
+  $h^1/h^0((\cE^\bullet)^\vee)$ is just the stack quotient of $E|_Z$
+  by $TX|_Z$. The cone $C$ is precisely the normal cone
+  $C_{Z/X}$. Hence the virtual fundamental class is $s^*[C_{Z/X}]$,
+  the same as in \ref{def:zero-locus-fundamental-class}.
+\end{example}
+
+\begin{example} \label{ex:virtual-fundamental-class-unobstructed}
+  Consider $\cnj\cM_{g,n}(X, \beta)$ in the {\bf unobstructed} case,
+  when $\Ob(\Sigma, p_1, \ldots, p_n, f) = 0$ for every $f$ in the
+  moduli space. Then any perfect obstruction theory on
+  $\cnj\cM_{g,n}(X, \beta)$ is trivial, i.e. $h^1(\cE^\bullet) = 0$.
+  The resulting virtual fundamental class is just the usual
+  fundamental class $[\cnj\cM_{g,n}(X, \beta)]$. Examples of this
+  unobstructed case include: $g = 0$ and $X$ is convex (c.f.
+  \ref{def:convex-space}); $g = 0$ and $\beta = 0$;
+\end{example}
+
+\begin{example} \label{ex:virtual-fundamental-class-nonsingular}
+  Consider $\cnj\cM_{g,n}(X, \beta)$ in the {\bf non-singular} case,
+  when the moduli space is smooth. Then define the canonical
+  obstruction bundle $\Ob$ with fiber $\Ob(\Sigma, p_1, \ldots, p_n,
+  f)$ at the point $(\Sigma, p_1, \ldots, p_n, f)$. Since the moduli
+  space is nonsingular, each fiber has the same dimension and $\Ob$ is
+  indeed a vector bundle. The perfect obstruction theory $\cE^\bullet$
+  on $\cnj\cM_{g,n}(X, \beta)$ has $h^0(\cE^\bullet) = \Ob$, which is
+  locally free. Then by \cite[Proposition 5.6]{Behrend1997}, the
+  virtual fundamental class is $e(\Ob) \cap [\cnj\cM_{g,n}(X,
+    \beta)]$.
+\end{example}
+
+\begin{example} \label{ex:virtual-fundamental-class-hypersurface}
+  Consider $\cnj\cM_{g,n}(X, \beta)$ when $g = 0$ and $X$ is a degree
+  $l$ hypersurface in $\bP^m$. Write $\cnj\cM_{0,n}(X, d)$ to stand
+  for the union of $\cnj\cM_{0,n}(X, \beta)$ for all $\beta$ that push
+  forward to the class $xd$ in $\bP^m$. The natural map $i\colon
+  \cnj\cM_{0,n}(X, d) \to \cnj\cM_{0,n}(\bP^m, d)$ is an embedding:
+  let $\cV_d$ be the rank $dl+1$ vector bundle on
+  $\cnj\cM_{0,n}(\bP^m, d)$ whose fiber over a stable map $f$ is
+  $\Gamma(\Sigma, f^*\cO_{\bP^m}(l))$, so that the section $s$
+  defining $X$ defines a section $\tilde{s}$ of $\cV_d$ such that
+  $\cnj\cM_{0,n}(X, d)$ is the zero locus of $\tilde{s}$.
+
+  This is precisely the situation of
+  \ref{def:zero-locus-fundamental-class} with $Z(\tilde{s}) =
+  \cnj\cM_{0,n}(X, d)$ and $X = \cnj\cM_{0,n}(\bP^m, d)$. The normal
+  cone construction gives $\tilde{s}^*[C_{Z/X}]$. It takes some work
+  to check that this is the virtual fundamental class in the sense of
+  \ref{def:virtual-fundamental-class}; we omit this check. For our
+  calculational purposes, we only need the class
+  \[ i_*([\cnj\cM_{0,n}(X, d)]^{\vir}) = i_*(\tilde{s}^*[C_{Z/X}]) = e(\cV_d) \cap [\cnj\cM_{0,n}(\bP^4, d)], \]
+  where the last equality used
+  \ref{thm:pushforward-of-fundamental-class}. 
+\end{example}
 
 \subsection{The Quantum Cohomology Ring}
 

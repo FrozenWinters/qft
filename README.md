@@ -85,7 +85,8 @@ progresses. For now, the plan is:
     nonlinear sigma models, and d=2 Landau--Ginzburg models, and see
     some hints of the LG/CY correspondence between these two classes
     of theories.
-* Week 7 (Friday June 17th): Calabi-Yau moduli and Mirror Symmetry for
+* Week 7 (Friday June 17th): **canceled** due to convocation.
+* Week 8 (Tuesday June 21st): Calabi-Yau moduli and Mirror Symmetry for
   the Quintic; sections 1.3.4 and 1.3.5 in notes.
-* Week 8 (Tuesday June 21st): Introduction to Gromov-Witten theory I;
+* Week 8 (Friday June 24th): Introduction to Gromov-Witten theory I;
   section 3.1 in notes.
