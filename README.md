@@ -88,5 +88,26 @@ progresses. For now, the plan is:
 * Week 7 (Friday June 17th): **canceled** due to convocation.
 * Week 8 (Tuesday June 21st): Calabi-Yau moduli and Mirror Symmetry for
   the Quintic; sections 1.3.4 and 1.3.5 in notes.
+  - We'll see the story of mirror symmetry in the simplest case: the
+    quintic hypersurface in P^4. We'll first have to sketch the
+    overall structure of the Calabi-Yau moduli space, in particular
+    how it locally decomposes as a sum of complex moduli and Kahler
+    moduli. Then we'll define some relevant Hodge-theoretic structures
+    on the space of complex moduli. The quintic hypersurface will
+    provide nice concrete examples of these structures. (We don't have
+    the machinery yet to look at the Kahler moduli; that will have to
+    wait until we define Gromov-Witten invariants.) Finally, we'll see
+    what mirror symmetry has to say about these structures. One of
+    them, the Yukawa coupling, has a very interesting connection to
+    Gromov-Witten invariants, especially the ones counting rational
+    curves in the Calabi-Yau manifold.
 * Week 8 (Friday June 24th): Introduction to Gromov-Witten theory I;
-  section 3.1 in notes.
+  sections 3.1 and 3.2 in notes.
+  - We'll start on the long journey of exploring the Kahler moduli
+    space (i.e. the "A-model variation of Hodge structure"). The first
+    step is to learn Gromov-Witten theory. The first step in that is
+    to define generalizations of the moduli space of marked Riemann
+    surfaces, and define, on these spaces, rational numbers called
+    Gromov-Witten invariants. These numbers, as we'll see later on,
+    roughly count the number of rational curves in a space.
+* Week 9 (Tuesday June 28th): Toric Geometry II
