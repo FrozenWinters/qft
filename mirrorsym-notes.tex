@@ -105,6 +105,7 @@
 \DeclareMathOperator{\vdim}{vdim}
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\val}{val}
 \newcommand{\vir}{\mathrm{vir}}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
@@ -626,7 +627,7 @@ not-free action of $G$ on $X$, find a homotopy equivalent space
 $\tilde{X}$ on which $G$ acts freely, and then look at
 $H^*(\tilde{X}/G)$. Here is an easy way to get such a space.
 
-\begin{definition}
+\begin{definition} \label{def:homotopy-quotient}
   Let $E$ be a $G$-bundle over $X$ (which has a $G$-action). Define
   the product
   \[ E \times_G X = E \times X / \sim, \quad (eg, x) \sim (e, gx) \quad \forall e \in E, x \in X, g \in G. \]
@@ -1432,7 +1433,9 @@ consequences.
   $H^k(X)$, and the pullback $\iota^*\colon H^k(X) \to H^k(V)$ then
   gives $\iota^*\Phi(NV) = e(NV)$ (cf. the definition
   \ref{def:euler-class} of the Euler class). Hence
-  \[ \iota^* \iota_* 1 = e(NV). \]
+  \begin{equation} \label{eq:gysin-operation}
+    \iota^* \iota_* 1 = e(NV).
+  \end{equation}
   The composition $\iota^*\iota_*$ is called the {\bf Gysin operation}.
 \end{example}
 
@@ -1444,7 +1447,7 @@ H^*_G(\{\pt\})$. In ordinary cohomology we cannot invert $e(NV)$, but
 in equivariant cohomology we can. However we first need to define
 characteristic classes in equivariant cohomology.
 
-\begin{definition}
+\begin{definition} \label{def:equivariant-characteristic-classes}
   A vector bundle $\pi\colon E \to X$ is {\bf equivariant} under the
   $G$-action on $X$ if the action $G \times X \to X$ lifts to $G
   \times E \to E$ in a way such that $\pi$ is equivariant. An
@@ -1475,20 +1478,23 @@ algebraic torus acting on $X$. Recall from \ref{ex:eqcoh-torus} that
 in this case we can view equivariant cohomology classes as represented
 by $H^*_{\bT} = \bQ[x_0, \ldots, x_m]$-valued forms.
 
-\begin{theorem}[Atiyah--Bott, \cite{Atiyah1984}]
+\begin{theorem}[Atiyah--Bott, \cite{Atiyah1984}] \label{thm:atiyah-bott-localization}
   Let $\bT$ be a torus acting on $X$, and split the locus of fixed
-  points $F$ into connected components $F_i$. The equivariant Euler
-  classes $e_{\bT}(NF_i) \in H^*(F_i) \otimes H^*_{\bT}$ are
-  invertible in the localized ring $H^*(F_i) \otimes_{\bQ}
+  points $F$ into connected components $F_i$. There is an isomorphism
+  $H^*_{\bT}(X) \otimes \Frac(H^*_{\bT}) \cong \bigoplus_i
+  H^*_{\bT}(F_i) \otimes \Frac(H^*_{\bT})$. The equivariant Euler
+  classes $e_{\bT}(NF_i) \in H^*_{\bT}(F_i) \otimes H^*_{\bT}$ are
+  invertible in the localized ring $H^*_{\bT}(F_i) \otimes
   \Frac(H^*_{\bT})$.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-  Terms of positive degree in $H^*(F_i)$ are nilpotent, so an element
-  in $H^*(F_i)$ is invertible if its $H^0$ component is nonzero. So
-  $e(NF_i)$ is invertible if its component in $H^0(F_i) \otimes
-  H^*_{\bT}$ is a non-zero polynomial. Some work shows this is always
-  the case; see page 9 in the cited paper.
+  Note that $H^*_{\bT}(F_i) = H^*(F_i) \otimes H^*_{\bT}$ by
+  \ref{ex:eqcoh-free}. Terms of positive degree in $H^*(F_i)$ are
+  nilpotent, so an element in $H^*(F_i)$ is invertible if its $H^0$
+  component is nonzero. So $e(NF_i)$ is invertible if its component in
+  $H^0(F_i) \otimes H^*_{\bT}$ is a non-zero polynomial. Some work
+  shows this is always the case; see page 9 in the cited paper.
 \end{proof}
 
 View $X_{\bT}$ as a bundle over $B\bT$ with fiber $X$. Then the
@@ -1497,12 +1503,14 @@ $\pi^X_*\colon H^*_{\bT}(X) \to H^*_{\bT}$ which is precisely
 integration over the fibers. To disambiguate, we write integration
 over the fibers as $\int_{X_{\bT}/B\bT}$ and integration over $X$ as
   $\int_X$. The relation between the two is given by
-\[ \begin{CD}
-  X @>\iota>> X_{\bT} \\
-  @VVV  @V\pi VV \\
-  p @>\iota_p>> B\bT
-\end{CD} \qquad\qquad
-\iota^*_p\int_{X_{\bT}/B\bT} \tilde{\alpha} = \int_X \iota^*\tilde{\alpha} = \int_X \alpha. \]
+\begin{equation} \label{eq:equivariant-vs-ordinary-cohomology}
+  \begin{CD}
+    X @>\iota>> X_{\bT} \\
+    @VVV  @V\pi VV \\
+    p @>\iota_p>> B\bT
+  \end{CD} \qquad\qquad
+  \iota^*_p\int_{X_{\bT}/B\bT} \tilde{\alpha} = \int_X \iota^*\tilde{\alpha} = \int_X \alpha.
+\end{equation}
 Here $\iota^*_p\colon H^*_{\bT} \cong \bQ[x_0, \ldots, x_m] \to
 H^*(\{\pt\}) = \bQ$ is essentially the evaluation at zero map.
 
@@ -3943,10 +3951,12 @@ which is where we begin.
   Suppose the node branches of a normalization $\nu\colon \tilde\Sigma
   \to \Sigma$ are $b_1, \ldots, b_{2k}$. Then there is a {\bf
     normalization short exact sequence}
-  \[ 0 \to \cO_\Sigma \to \nu_*\cO_{\tilde\Sigma} \to \bigoplus_i \cO_{b_i} \to 0. \]
+  \begin{equation} \label{eq:normalization-exact-sequence}
+    0 \to \cO_\Sigma \to \nu_*\cO_{\tilde\Sigma} \to \bigoplus_i \cO_{b_i} \to 0.
+  \end{equation}
 \end{proposition}
 
-\begin{definition}
+\begin{definition} \label{def:dual-graph-nodal-curve}
   The {\bf dual graph} of a nodal curve $\Sigma$ has vertices
   corresponding to the components of $\Sigma$ (and are labeled with
   their genera), and edges corresponding to nodes.
@@ -4305,9 +4315,9 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
 
 \begin{proposition} \label{thm:virtual-dimension-stable-maps}
   If $\Ob(\Sigma, p_1, \ldots, p_n, f) = 0$, then the dimension of
-  $\cnj\cM_{0,n}(X, \beta)$ at a generic point, called the {\bf
+  $\cnj\cM_{g,n}(X, \beta)$ at a generic point, called the {\bf
     expected dimension} or {\bf virtual dimension}, is
-  \[ \vdim \cnj\cM_{g,n}(X, \beta) \coloneqq \int_\beta c_1(TX) + \dim X + n - 3. \]
+  \[ \vdim \cnj\cM_{g,n}(X, \beta) \coloneqq \int_\beta c_1(TX) + (\dim X - 3)(1 - g) + n. \]
 \end{proposition}
 
 \begin{proof}
@@ -4343,7 +4353,7 @@ We generally use $\Sigma$ to denote a pointed nodal curve.
   functor.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary} \label{thm:projective-spaces-are-convex}
  All algebraic homogeneous spaces are convex; in particular,
  projective spaces are convex. They therefore have $\cnj\cM_{0,n}(X,
  \beta)$ of the expected dimension.
@@ -5065,7 +5075,7 @@ physically it is the genus-$0$ free energy.)
   splitting axiom \ref{thm:gromov-witten-splitting-axiom}. (We also
   commuted the $\gamma^{n_2}$ around.) If we repeat this process for
   the rhs, we get the term
-  \[ \int_{D(i,l|j,k)} \frac{1}{n!} \inner{\gamma^n T_iT_jT_kT_l} q^\beta. \]
+  \[ \int_{D(i,l|j,k)} \frac{1}{n!} \inner{\gamma^n T_iT_jT_kT_l}_\beta^X q^\beta. \]
   By the $\cnj\cM_{0,n}(X, \beta)$ divisor relations
   \eqref{eq:M0n-divisor-relations}, these terms are equal.
 \end{proof}
@@ -5136,6 +5146,471 @@ physically it is the genus-$0$ free energy.)
     = &\sum_{d_1+d_2=d} N_{d_1} N_{d_2} d_1^2 d_2^2 \frac{1}{(3d_1-2)!} \frac{1}{(3d_2-2)!} t_2^{3d-4} q^d.
   \end{align*}
 \end{example}
+
+\begin{definition}
+  Let $F\colon H^*(X, \bC) \to \bC$ be an even formal power series in
+  the supercommutative variables $t_0, \ldots, t_m$, e.g. the
+  Gromov--Witten potential $\Phi$. Let $A_{ijk} \coloneqq \di_i \di_j
+  \di_k A$, and define the product $*$ and {\bf Dubrovin connection}
+  $\nabla_i^\lambda$ by
+  \[ T_i * T_j \coloneqq A^k_{ij} T_k, \quad \nabla_i^\lambda(\di_j) \coloneqq \lambda A^k_{ij} \di_k, \quad \lambda \in \bC^*. \]
+\end{definition}
+
+\begin{proposition}
+  The Dubrovin connection $\nabla^\lambda$ is torsion-free (in the
+  supermanifold sense) and the product $*$ is supercommutative.
+  Furthermore
+  \begin{enumerate}
+  \item $\nabla^\lambda$ is flat $\iff$ $F$ satisfies the WDVV
+    equation $\iff$ $*$ is associative, and
+  \item $T_0$ is the identity for $*$ $\iff$ $A_{0ij} = g_{ij}$ $\iff$
+    $\nabla_0^\lambda(\di_i) = \lambda \di_i$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  An exercise in symbol-pushing.
+\end{proof}
+
+\begin{corollary}
+  If $F$ satisfies the WDVV equation and $A_{0ij} = g_{ij}$, then
+  $H^*(X, \bC)$ is a Frobenius algebra under $*$ with $T_0$ as
+  identity.
+\end{corollary}
+
+\begin{remark}
+  The Dubrovin connection is, of course, defined on $TM$ with $M =
+  H^*(X, \bC)$. But identifying $\di_i$ with $T_i$, we get a
+  connection on the trivial bundle $H^*(X, \bC) \times M$, with
+  $\nabla_i^\lambda(T_j) = \lambda T_i * T_j$, i.e. the connection is
+  given by quantum multiplication.
+\end{remark}
+
+\begin{definition}
+  A supermanifold with a metric $g$ and an even potential function $F$
+  satisfying the WDVV equation is a {\bf Frobenius manifold}; this is
+  the globalization of a Frobenius algebra. On Frobenius manifolds it
+  is possible to define analogues of Gromov--Witten classes and
+  invariants using $F$, which in general are called {\bf cohomological
+    field theories} and their {\bf correlation functions}
+  \cite{Manin1999}.
+\end{definition}
+
+\section{Localization}
+
+\subsection{Localization on Projective Space}
+
+To understand the equivariant cohomology ring $H^*_G(X)$, we must be
+able to describe the homotopy quotient $X_G \coloneqq X \times_G EG$.
+For this, we need some new terminology.
+
+\begin{definition}
+  Let $G$ be a group. If $M(G)$ is the {\bf character group} of $G$,
+  then to $\rho \in M(G)$ is associated a $1$-dimensional vector space
+  $\bC_\rho$ with $G$-action given by $\rho$. Write $L_\rho \coloneqq
+  (\bC_\rho)_G$ for the homotopy quotient (see
+  \ref{def:homotopy-quotient}), which is a line bundle over $BG$. The
+  map
+  \[ \psi\colon M(G) \to H^2(BG), \quad \rho \mapsto -c_1(L_\rho) \]
+  is an isomorphism, which induces a ring isomorphism $\Sym(M(G))
+  \cong H^*(BG)$. We call $\psi(\rho)$ the {\bf weight} of $\rho$. In
+  the case $G = (\bC^*)^n$, the weights of the characters $\rho_i(t_1,
+  \ldots, t_n) \coloneqq t_i$ are denoted $\lambda_i$, and we have an
+  isomorphism $H^*(BG) \cong \bC[\lambda_1, \ldots, \lambda_n]$ (cf.
+  \ref{ex:eqcoh-torus}). In this case, we denote $L_{\rho_i}$ by
+  $\cO(-\lambda_i)$, so that $\lambda_i = c_1(\cO(\lambda_i))$.
+\end{definition}
+
+\begin{example}
+  Let $\bT \coloneqq (\bC^*)^r$ act on $\bC^r$ by coordinate-wise
+  multiplication. For each $\rho_i \in M(G)$, we have the
+  one-dimensional vector space $\bC_{\rho_i}$, which can all be put
+  together into a bundle $E \coloneqq \bigoplus_{i=1}^r \bC_{\rho_i}$
+  over a point $X$. The pullback of this bundle to $B\bT$ is $E_{\bT}
+  = \bigoplus_{i=1}^r \cO(-\lambda_i)$. The weights are therefore
+  $-\lambda_i = c_1(\cO(-\lambda_i))$. Hence
+  \begin{equation} \label{eq:chern-classes-universal-subbundle}
+    c_k^{\bT}(E) = c_k(E_{\bT}) = \sigma_k(-\lambda_1, \ldots, -\lambda_r) \in H^*_{\bT} = \bC[\lambda_1, \ldots, \lambda_r],
+  \end{equation}
+  where $\sigma_k$ is the $k$-th elementary symmetric polynomial.
+  (Recall that $c_k^{\bT}$ is our notation for the equivariant Chern
+  class; see \ref{def:equivariant-characteristic-classes}.)
+\end{example}
+
+We want to compute $H^*_{\bT}(\bP^r) = H^*(\bP^r_{\bT})$, so we must
+determine what the bundle $\bP^r_{\bT} \to B\bT$ looks like. But this
+is simple: using the notation of the previous example,
+\[ \bP^r_{\bT} = \bP^r \times_{\bT} E\bT = \bP(E_{\bT}) = \bP\bigoplus_{i=0}^r \cO(-\lambda_i) \]
+where $\bP$ denotes projectivization. So it suffices to find the
+ordinary cohomology of this bundle.
+
+\begin{theorem}[Cohomology of projective bundle, {\cite[Example 8.3.4]{Fulton1998}}]
+  Let $\pi\colon E \to X$ be a rank $r$ vector bundle. Then
+  \[ H^*(\bP(E)) \cong H^*(X)[p]/(p^r + c_1(E)p^{r-1} + \cdots + c_r(E)). \]
+  Here $p$ corresponds to $c_1(\cO_E(1)) \in H^2(E)$.
+\end{theorem}
+
+\begin{corollary}
+  The $\bT$-equivariant cohomology of $\bP^r$ is
+  \begin{equation} \label{eq:equivariant-cohomology-projective-space}
+    H^*_{\bT}(\bP^r) = \bC[p, \lambda_0, \ldots, \lambda_r]/\prod_{j=0}^r (p - \lambda_j).
+  \end{equation}
+\end{corollary}
+
+\begin{proof}
+  Apply the theorem to the bundle $E_{\bT} \coloneqq \bigoplus_{i=0}^r
+  \cO(-\lambda_i) \to B\bT$ and use the formula
+  \eqref{eq:chern-classes-universal-subbundle} for the Chern classes
+  $c_k(E_{\bT})$ to get that
+  \begin{align*}
+    H^*(\bP^r_{\bT})
+    &= H^*(B\bT)[p]/(p^r + \sigma_1(-\lambda_0, \ldots, -\lambda_r)p^{r-1} + \cdots + \sigma_r(-\lambda_0, \ldots, -\lambda_r)) \\
+    &= H^*(B\bT)[p]/\prod_{j=0}^r (p-\lambda_i). \qedhere
+  \end{align*}
+\end{proof}
+
+Note that if in \eqref{eq:equivariant-cohomology-projective-space} we
+put $\lambda_j = 0$, i.e. apply the forgetful map $i_{\pt}^*\colon
+H^*_{\bT} \to H^*(\{\pt\})$ of
+\eqref{eq:equivariant-vs-ordinary-cohomology}, then we recover the
+ordinary cohomology $H^*(\bP^r)$. We call $p$ the {\bf equivariant
+  hyperplane class} since $i_{\bP^r}^*p = H$, the ordinary hyperplane
+class.
+
+\begin{definition}
+  Let $q_0, \ldots, q_r$ be the fixed points of the $\bT$-action on
+  $\bP^r$, and let $i_j\colon \{q_j\} \to \bP^r$, which induces a map
+  $B\bT \to \bP^r_{\bT}$ which we also call $i_j$. Note that $q_j$ has
+  weight $-\lambda_j$. Let $N_j$ denote the normal bundle at $q_j$.
+\end{definition}
+
+\begin{proposition}
+  Let $\phi_j \coloneqq \prod_{i \neq j} (p - \lambda_i)$. The
+  isomorphism $H_{\bT}^*(\bP^r) \otimes \Frac(H_{\bT}^*) \cong
+  \bigoplus_j H_{\bT}^*(\{q_j\}) \otimes \Frac(H_{\bT}^*)$ of
+  \ref{thm:atiyah-bott-localization} is given by
+  \[ p \mapsto \left(\frac{\lambda_j}{\prod_{i \neq j} (\lambda_j - \lambda_i)}\right)_{j=0}^r, \quad (\alpha_j)_{j=0}^r \mapsto \sum_{j=0}^r \alpha_j \phi_j. \]
+\end{proposition}
+
+\begin{proof}
+  Using \eqref{eq:gysin-operation}, the forward and backward maps in
+  the isomorphism are given by
+  \[ \alpha \mapsto (i_j^*\alpha / e(N_j))_{j=0}^r, \quad (\alpha_j)_{j=0}^r \mapsto \sum_{j=0}^r (i_j)_*\alpha, \]
+  but since we can view any element of $H_{\bT}^*(\bP^r)$ as a
+  polynomial $F(p)$ in $p$ with coefficients in $H_{\bT}^* =
+  \bC[\lambda_0, \ldots, \lambda_r]$, it suffices to compute these
+  maps for $p$, by computing the quantities $i_j^*p, (i_j)_*p,
+  e(N_j)$.
+
+  Since $q_j$ has weight $-\lambda_j$, we have $(q_j)_{\bT} =
+  \bP(\cO(-\lambda_j))$ by the definition of $\cO(-\lambda_j)$. Hence
+  $\cO_{\bP^r_{\bT}}(1)$ restricts to $\cO(\lambda_j)$ at $q_j$, and
+  it follows that $i_j^*(p) = \lambda_j$. Hence
+  \[ i_k^*(\phi_j) = \begin{cases} \prod_{i \neq j} (\lambda_j - \lambda_i) = e(N_j) & k = j \\ 0 & k \neq j. \end{cases} \]
+  Here $e(N_j)$ is the Euler class of $N_j$, which is the top Chern
+  class by \ref{thm:euler-chern}, which is the product of the weights
+  $\{\lambda_i - \lambda_j : i \neq j\}$ of the $\bT$-action on $N_j =
+  T_{q_j}\bP^r = \Hom(\bC q_j, \bC^{r+1}/\bC q_j)$ (by decomposing
+  $\bC^{r+1} = \bigoplus_{i=0}^r \bC q_i$). But then by the
+  localization formula \ref{thm:equiv-localization},
+  \[ \phi_j = \sum_{k=0}^r (i_k)_*\left(\frac{i_k^*(\phi_j)}{\prod_{i \neq k} (\lambda_k - \lambda_i)}\right) = (i_j)_*\left(\frac{i_j^*(\phi_j)}{\prod_{i \neq j} (\lambda_j - \lambda_i)}\right) = (i_j)_*(1). \]
+  Hence the projection formula gives $(i_j)_*(i_j^*(\alpha) \cup 1) =
+  \alpha \cup (i_j)_*(1) = \alpha \cup \phi_j$, from which the inverse
+  map follows.
+\end{proof}
+
+\begin{corollary}
+  Let $F(p) \in H_{\bT}^*(\bP^r) \otimes \Frac(H_{\bT}^*)$ be an
+  arbitrary element, written as a polynomial in $p$ with coefficients
+  in $\bC(\lambda_0, \ldots, \lambda_r)$. Then the localization
+  formula is
+  \[ F(p) = \sum_{j=0}^r (i_j)_* \left(\frac{i_j^*F(p)}{e(N_j)}\right) = \sum_{j=0}^r F(\lambda_j) \frac{\prod_{k \neq j} (p - \lambda_k)}{\prod_{k \neq j} (\lambda_j - \lambda_k)}. \]
+\end{corollary}
+
+\subsection{Localization on \texorpdfstring{$\cnj{\cM}_{0,n}(\bP^r, d)$}{M\_\{0,n\}(P\^{}r,d)}}
+
+The $\bT$-action on $\bP^r$ induces a $\bT$-action on
+$\cnj\cM_{0,n}(\bP^r, d)$. If $f\colon (\Sigma, p_1, \ldots, p_n) \to
+\bP^r$ is a stable map fixed by this $\bT$-action, then the image
+$f(\Sigma)$ must be $\bT$-invariant, and the image of every special
+point and contracted component must be one of the $\bT$-fixed points
+$q_0, \ldots, q_r$ of $\bP^r$. The only $\bT$-invariant curves are the
+coordinate lines joining $q_i$ and $q_j$, so every non-contracted
+component must be a (multiple) cover of a coordinate line. We can
+encode all this information in a combinatorial object.
+
+\begin{definition}
+  The {\bf graph} of a $\bT$-invariant stable map $(\Sigma, p_1,
+  \ldots, p_n, f)$ consists of the following data:
+  \begin{enumerate}
+  \item a vertex $v$ for every connected component $C_v$ of
+    $f^{-1}(\{q_0, \ldots, q_r\})$, labeled with the number $i_v$ such
+    that $f(C_v) = q_{i_v}$ (for $g \neq 0$, we also have the usual
+    labeling by genus);
+  \item a set $S_v$ for each vertex $v$ consisting of the $i$ such
+    that $p_i \in C_v$;
+  \item an edge $e$ for every non-contracted component $C_e \subset
+    \Sigma$, labeled with the degree $d_e$ of the map $f|_{C_e}$ from
+    $C_e$ to a coordinate line $\ell_e$.
+  \end{enumerate}
+  The {\bf valency} $\val(v)$ of a vertex $v$ is the number of edges
+  incident to it. Let $n(v) \coloneqq |S_v| + \val(v)$, which is the
+  number of special points on $C_v$.
+\end{definition}
+
+Note that these graphs are different from the dual graphs of
+\ref{def:dual-graph-nodal-curve}. However, many of the results for
+dual graphs have analogues. For example, we can define $\cnj\cM_\Gamma
+\subset \cnj\cM_{0,n}(\bP^r, d)$, the substack of stable maps with
+graph $\Gamma$, and show that
+\[ \psi_\Gamma\colon \prod_{\text{vertices } v} \cnj\cM_{0,n(v)} \to \cnj\cM_\Gamma \]
+is a finite morphism, and we must quotient out by an automorphism
+group $A_\Gamma$ to recover $\cnj\cM_\Gamma$ (in the sense of stacks).
+The group $A_\Gamma$ arises from the exact sequence
+\[ 0 \to \prod_{\text{edges } e} \bZ/d_e\bZ \to A_\Gamma \to \Aut(\Gamma) \to 0 \]
+where $\prod_e \bZ/d_e\bZ$ is the deck transformations of the degree
+$d_e$ covers, and $\Aut(\Gamma)$ acts on these deck transformations.
+(So $A_\Gamma$ is the semidirect product.)
+
+\begin{example}
+  Consider the $\bT$-action on $\cnj\cM_{0,0}(\bP^1, 2)$. Since each
+  edge must have positive degree, there can be at most two edges in a
+  fixed graph. Hence the possible graphs are:
+  \[ \begin{tikzpicture}
+      \coordinate[vertex,label=below:$0$] (v1);
+      \coordinate[vertex,right of=v1,label=below:$1$] (v2);
+      \coordinate[vertex,right of=v2,label=below:$0$] (v3);
+      \begin{scope}
+        \draw (v1) -- node[label=$1$]{} (v2);
+        \draw (v2) -- node[label=$1$]{} (v3);
+      \end{scope}
+    \end{tikzpicture} \qquad
+    \begin{tikzpicture}
+      \coordinate[vertex,label=below:$1$] (v1);
+      \coordinate[vertex,right of=v1,label=below:$0$] (v2);
+      \coordinate[vertex,right of=v2,label=below:$1$] (v3);
+      \begin{scope}
+        \draw (v1) -- node[label=$1$]{} (v2);
+        \draw (v2) -- node[label=$1$]{} (v3);
+      \end{scope}
+    \end{tikzpicture} \qquad
+    \begin{tikzpicture}
+      \coordinate[vertex,label=below:$0$] (v1);
+      \coordinate[vertex,right of=v1,label=below:$1$] (v2);
+      \begin{scope}
+        \draw (v1) -- node[label=$2$]{} (v2);
+      \end{scope}
+    \end{tikzpicture} \]
+  The first two graphs correspond to $\Sigma = \Sigma_1 \cup \Sigma_2$
+  where $f|_{\Sigma_i}$ is an isomorphism $\Sigma_i \cong \bP^1$: each
+  edge of degree $1$ is an uncontracted component, and by stability
+  there cannot be any contracted components. In the first graph,
+  $f(\Sigma_1 \cap \Sigma_2) = q_1$, and in the second, $f(\Sigma_1
+  \cap \Sigma_2) = q_0$. Finally, the third graph is irreducible and
+  isomorphic to $\bP^1$; choosing coordinates, we can write $f(z_0,
+  z_1) = (z_0^2, z_1^2)$.
+\end{example}
+
+\begin{definition} \label{def:flag-of-fixed-graph}
+  A {\bf flag} $F$ of a fixed graph is an incident edge-vertex pair
+  $(v, e)$. Put $i(F) \coloneqq v$, and let $j(F)$ denote the other
+  vertex of the edge $e$. Define
+  \[ \omega_F \coloneqq \frac{\lambda_{i(F)} - \lambda_{j(F)}}{d_e} \in H^2_{\bT}, \]
+  which is the weight of the $\bT$-action on the tangent space of the
+  component $C_e$ at the preimage $p_F$ of $q_{i_v}$. Let $e_F$ be the
+  first Chern class of the line bundle on $\cnj\cM_\Gamma$ whose fiber
+  is the cotangent space to the component associated to $v$ at $p_F$.
+  The flags associated to a fixed vertex $v$ are often denoted
+  $F_1(v), \ldots, F_k(v)$.
+\end{definition}
+
+\begin{theorem}[{\cite[Section 3.3]{Kontsevich1995}}] \label{thm:euler-class-fixed-graph}
+  The equivariant Euler class of the normal bundle $N_\Gamma$ is given
+  by
+  \[ e(N_\Gamma) = e_\Gamma^F e_\Gamma^v e_\Gamma^e \]
+  where the contributions from flags, vertices, and edges are
+  \begin{align*}
+    e_\Gamma^F &\coloneqq \prod_{n(i(F)) \ge 3} (\omega_F - e_F) \Big/ \prod_{j \neq i(F)} (\lambda_{i(F)} - \lambda_j) \\
+    e_\Gamma^v &\coloneqq \prod_v \prod_{j \neq i_v} (\lambda_{i_v} - \lambda_j) \prod_{\substack{\val(v) = 2\\S_v = \emptyset}} (\omega_{F_1(v)} + \omega_{F_2(v)}) \Big/ \prod_{\substack{\val(v) = 1\\S_v = \emptyset}} \omega_{F(v)} \\
+    e_\Gamma^e &\coloneqq \prod_e \frac{(-1)^{d_e} (d_e!)^2 (\lambda_i - \lambda_j)^{2d_e}}{d_e^{2d_e}} \prod_{\substack{a+b=d_e\\k \neq i,j}} \left(\frac{a\lambda_i + b\lambda_j}{d_e} - \lambda_k\right).
+  \end{align*}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+  We perform these calculations on $\cnj\cM_\Gamma$ rather than
+  $\cnj\cM_\Gamma/A_\Gamma$; when applying localization we therefore
+  must divide by $|A_\Gamma|$. The deformation long exact sequence
+  \eqref{eq:deformation-long-exact-sequence} terminates early because
+  $\bP^r$ is convex by \ref{thm:projective-spaces-are-convex}:
+  \[ 0 \to \Aut(\Sigma, p_1, \ldots, p_n) \to \Def(f) \to \Def(\Sigma, p_1, \ldots, p_n, f) \to \Def(\Sigma, p_1, \ldots, p_n) \to 0. \]
+  Consider the pullback of this sequence to $\cnj\cM_\Gamma$. For $V$
+  a vector bundle, write $V^{\text{fix}}$ for its fixed (weight zero)
+  part, and $V^{\text{mov}}$ for its {\bf moving} (weight nonzero)
+  part. Then $\Def(\Sigma, p_1, \ldots, p_n, f)$ is the pullback of
+  $T\cnj\cM_{0,n}(\bP^r, d)$, and contains $\Def(\Sigma, p_1, \ldots,
+  p_n, f)^{\text{fix}}$, the tangent bundle of $\cnj\cM_\Gamma$, and
+  $\Def(\Sigma, p_1, \ldots, p_n, f)^{\text{mov}}$, the normal bundle
+  $N_\Gamma$. Hence the deformation exact sequence gives
+  \[ e(N_\Gamma) = e(\Def(\Sigma, p_1, \ldots, p_n, f)^{\text{mov}}) = \frac{e((\Def f)^{\text{mov}}) e((\Def(\Sigma, p_1, \ldots, p_n))^{\text{mov}})}{e((\Aut(\Sigma, p_1, \ldots, p_n))^{\text{mov}})}. \]
+  So it suffices to determine the contributions of each term. We give
+  a rough outline of the arguments.
+  \begin{enumerate}
+  \item ($\Aut(\Sigma, p_1, \ldots, p_n)$) The $\bT$-action on the
+    infinitesimal automorphisms of $(\Sigma, p_1, \ldots, p_n)$ fixes
+    the automorphisms of non-contracted components with at least two
+    special points. So consider vertices $v$ of valency $1$, where
+    there are non-fixed automorphisms corresponding to moving the
+    point mapping to $q_{i_v}$; clearly the space of such
+    automorphisms is $T_{p_F}\Sigma$ where $F = F(v)$ is the unique
+    flag incident to $v$ (cf. \ref{def:flag-of-fixed-graph}). By
+    definition, the weight corresponding to $v$ is $\omega_{F(v)}$.
+  \item ($\Def(\Sigma, p_1, \ldots, p_n)$) There are two cases here
+    for weight non-zero elements: deformations that move nodes
+    connecting contracted components to non-contracted components, and
+    nodes connecting two non-contracted components. In the first case,
+    we are looking at flags $F$ with $n(i(F)) \ge 3$, and the tangent
+    space to the non-contracted curve is weight $\omega_F$ while that
+    of the contracted curve is weight $-e_F$, so each such $F$
+    contributes $(\omega_F - e_F)$. In the second case, we are looking
+    at vertices of valency $2$ with no markings, which contribute
+    $(\omega_{F_1(v)} + \omega_{F_2(v)})$.
+  \item ($\Def(f) = H^0(\Sigma, f^*T\bP^r)$) Take the normalization
+    exact sequence \eqref{eq:normalization-exact-sequence}
+    \[ 0 \to \cO_\Sigma \to \bigoplus_{\text{vertices } v} \cO_{\Sigma_v} \oplus \bigoplus_{\text{edges } e} \cO_{\Sigma_e} \to \bigoplus_{\text{flags } F} \cO_{i(F)} \to 0, \]
+    tensor with $f^*(T\bP^r)$, and take cohomology to get
+    \[ 0 \to H^0(\Sigma, f^*T\bP^r) \to \bigoplus_{\text{vertices } v} H^0(\Sigma_v, f^*T\bP^r) \oplus \bigoplus_{\text{edges } e} H^0(\Sigma_e, f^*T\bP^r) \to \bigoplus_{\text{flags } F} T_{p_{i(F)}} \bP^r \to 0. \]
+    (Convexity ends this sequence.) Hence we have an expression for
+    $H^0(\Sigma, f^*T\bP^r)$ in the representation-theoretic (or
+    K-theoretic) sense, and it suffices to figure out the
+    contributions from each of the terms. This is a lot more work, and
+    results in $e_\Gamma^e$.
+  \end{enumerate}
+  The denominator of $e_\Gamma^F$ cancels with the first term of the
+  numerator of $e_\Gamma^v$, and we have accounted for the rest of the
+  terms.
+\end{proof}
+
+\begin{remark}
+  More generally, the same kind of argument applies to
+  $\cnj\cM_{g,n}(\bP^r, d)$, but now each fixed locus has a ``virtual
+  normal bundle'' and there is a ``virtual localization formula''
+  which leads to an even more complicated expression for
+  $e(N_\Gamma^{\vir})$.
+\end{remark}
+
+\begin{remark}
+  At this point we must be careful about how localization works for
+  (smooth) stacks, since we are viewing $\cnj\cM_{0,n}(\bP^r, d)$ as
+  the orbifold underlying the smooth stack. Everything still makes
+  sense, but we must divide out by the automorphisms at each fixed
+  point locus:
+  \begin{equation} \label{eq:stacky-localization}
+    \int_X \alpha = \sum_j \int_{F_j} \left(\frac{i_j^*(\alpha)}{a_j e(N_j)}\right)
+  \end{equation}
+  where $a_j$ is the order of the group $H$ occurring in a local chart
+  at the generic point of $F_j$.
+\end{remark}
+
+\subsection{The Aspinwall--Morrison Formula}
+
+One final aspect of Gromov--Witten theory we must understand is the
+existence of {\bf multiple covers}. Given an irreducible rational
+curve $f\colon \bP^1 \to X$ of degree $d$, we can always pre-compose
+with an arbitrary degree $k$ map $g\colon \bP^1 \to \bP^1$ to get a
+``new'' curve $f \circ g\colon \bP^1 \to X$ of degree $kd$,
+contributing spurious positive-dimensional components to
+$\cnj\cM_{0,n}(X, d)$. We focus on $X$ a Calabi--Yau $3$-fold.
+
+\begin{definition}
+  An embedding $\Sigma \to X$ where $X$ is a Calabi--Yau $3$-fold is
+  {\bf rigid} if it has normal bundle $NC = \cO_{\bP^1}(-1) \oplus
+  \cO_{\bP^1}(-1)$.
+\end{definition}
+
+\begin{example}
+  The degree $1$ (genus $0$) Gromov--Witten invariant of $X$ is the
+  number of rigid lines, which is known to be $2875$. Hence the degree
+  $2$ invariant receives contributions from double covers of these
+  $2875$ lines, i.e. even generically, $\cnj\cM_{0,0}(X, 2)$ has
+  $2875$ components isomorphic to $\cnj\cM_{0,0}(\bP^1, 2)$.
+\end{example}
+
+\begin{theorem}[Aspinwall--Morrison formula]
+  Let $\Sigma \subseteq X$ be a rigidly embedded smooth rational curve
+  of class $\beta$ in the Calabi--Yau $3$-fold $X$. Then the
+  contribution of degree $d$ multiple covers of $\bP^1$ to the class
+  $\beta d$ Gromov--Witten invariant of $X$ is $1/d^3$.
+\end{theorem}
+
+\begin{proof}
+  Identify $\Sigma \cong \bP^1$. We work in $\cnj\cM_{0,0}(\bP^1, d)$,
+  which consists of degree $d$ multiple covers of $\bP^1$. The
+  contribution we want is the restriction of $[\cnj\cM_{0,0}(X,
+    d[C])]^{\vir}$ to $\cnj\cM_{0,0}(\bP^1, d)$. Since
+  $\cnj\cM_{0,0}(\bP^1, d)$ is non-singular, by
+  \ref{ex:virtual-fundamental-class-nonsingular}, this contribution is
+  exactly $e(\Ob)$, where $\Ob$ is the obstruction bundle, with fibers
+  $H^1(\Sigma, f^*TX)$. Hence we must compute
+  $\int_{\cnj\cM_{0,0}(\bP^1, d)} e(\Ob)$. From the long exact
+  sequence of $0 \to f^*T\Sigma \to f^*TX \to f^*N\Sigma \to 0$ and
+  the vanishing of $H^1(\Sigma, f^*T\bP^1)$, we get
+  \[ H^1(\Sigma, f^*TX) = H^1(\Sigma, f^*N\Sigma) = H^1(\Sigma, f^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))). \]
+  To compute the integral, we use localization; however, we change the
+  torus action on $\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)$ to simplify
+  the calculation. Restrict the torus to $\bT' \coloneqq \bC^* \times
+  \{1\} \subset \bT = (\bC^*)^2$ and let $\hbar$ denote the
+  restriction of $\lambda_0$ to $\bT'$. Put the $\bT'$-action
+  \[ t \cdot (l(x_0, x_1), m(x_0, x_1)) \coloneqq (l(tx_0, x_1), m(x_0, t^{-1}x_1)), \quad l, m \in \cO_{\bP^1}(-1) \]
+  on $\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)$. Clearly the fixed point
+  loci in $\cnj\cM_{0,0}(\bP^1, d)$ of $\bT'$ is the same as that of
+  $\bT$. The claim is that if a fixed graph $\Gamma$ has more than one
+  edge, then its contribution is $0$. If there is more than one edge,
+  there must be at least one node. Let $f\colon \Sigma \to \bP^1$ be a
+  generic point of $\cnj\cM_\Gamma$, and let $\{b_i\}$ be the node
+  branches. Tensoring the normalization exact sequence
+  \eqref{eq:normalization-exact-sequence} with $f^*(\cO_{\bP^1}(-1)
+  \oplus \cO_{\bP^1}(-1))$ gives
+  \[ 0 \to f^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)) \to \bigoplus_i (f|_{\Sigma_i})^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)) \to \bigoplus_i (f|_{b_i})^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)) \to 0, \]
+  which gives a long exact sequence of cohomology beginning with
+  \[ 0 \to \bigoplus_i H^0(b_i, (f|_{b_i})^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))) \to H^1(\Sigma, f^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)) \to \cdots. \]
+  If $f(b_i) = q_1$, then $T'$ acts trivially on the first
+  $(f|_{b_i})^*\cO_{\bP^1}(-1)$ factor in the $H^0$ term. Similarly,
+  if $f(b_i) = q_0$, then $T'$ acts trivially on the second factor.
+  Hence there are vanishing $\bT'$-weights in $\bigoplus_i H^0$, and
+  therefore in $H^1$. Since the Euler class is the product of weights,
+  $\Gamma$ has contribution zero. It therefore suffices to look at
+  \[ \Gamma =
+    \begin{tikzpicture}
+      \coordinate[vertex,label=below:$0$] (v1);
+      \coordinate[vertex,right of=v1,label=below:$1$] (v2);
+      \begin{scope}
+        \draw (v1) -- node[label=$d$]{} (v2);
+      \end{scope}
+    \end{tikzpicture}, \quad
+    A_\Gamma = \bZ/d\bZ, \quad f(z_0, z_1) = (z_0^d, z_1^d). \]
+  It remains to find the weights of $i^*e(\Ob)$ and $e(N_\Gamma)$. The
+  latter is easy: by \ref{thm:euler-class-fixed-graph},
+  \begin{align*}
+    e_\Gamma^F &= 1/((\hbar - 0)(0 - \hbar)) = -\hbar^{-2} \\
+    e_\Gamma^v &= (\hbar - 0)(0 - \hbar) / ((\hbar/d - 0) (0 - \hbar/d)) = d^2 \\
+    e_\Gamma^e &= \frac{(-1)^d (d!)^2 (\hbar - 0)^{2d}}{d^{2d}} = \frac{(-1)^d (d!)^2 \hbar^{2d}}{d^{2d}}.
+  \end{align*}
+  Hence $e(N_\Gamma) = (-1)^{d-1}(d!)^2 \hbar^{2d-2}/d^{2d-2}$. To
+  compute $e(\Ob)$, take the usual cover $\{U_0, U_1\}$ for $\bP^1$,
+  so that a basis for $H^1$ is given by the \v Cech cocycles
+  $(z_0^{-k} z_1^{d-k}, 0)$ and $(0, z_0^{-k} z_1^{d-k})$ for $1 \le k
+  \le d-1$. By the definition of the $\bT'$-action, $x_0, x_1 \in
+  H^0(\bP^1, \cO_{\bP^1}(-1))$ have weights $\hbar$ and $0$, so since
+  $x_i = z_i^d$ via $f$, we know $z_0, z_1$ have weights $\hbar/d$ and
+  $0$. The $1$-cocycles therefore have weights $-k\hbar/d$ and
+  $(d-k)\hbar/d$, and the Euler class is $(-1)^{d-1} ((d-1)!)^2
+  (\hbar/d)^{2d-2}$. Hence
+  \[ \int_{\cnj\cM_{0,0}(\bP^1, d)} e(\Ob) = \frac{1}{d}\frac{(-1)^{d-1} ((d-1)!)^2 \hbar^{2d-2}/d^{2d-2}}{(-1)^{d-1} (d!)^2 \hbar^{2d-2}/d^{2d-2}} = \frac{1}{d^3}, \]
+  where the extra $1/d$ comes from the automorphism group $A_\Gamma =
+  \bZ/d\bZ$ (see \eqref{eq:stacky-localization}).
+\end{proof}
+
+\section{Quantum Differential Equations}
 
 
 

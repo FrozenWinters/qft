@@ -3,8 +3,8 @@
 * Fall 2015: we covered the basics of QFT. See qft-notes.tex.
 * Winter 2016: we covered the basics of string theory and
   supersymmetry. See stringy-notes.tex.
-* Summer 2016: we will cover the basics of mirror symmetry, both
-  homological and SYZ. See mirrorsym-notes.tex.
+* Summer 2016: we will cover the basics of mirror symmetry. See
+  mirrorsym-notes.tex.
 
 # Summer 2016 Schedule
 
@@ -102,7 +102,7 @@ progresses. For now, the plan is:
     Gromov-Witten invariants, especially the ones counting rational
     curves in the Calabi-Yau manifold.
 * Week 8 (Friday June 24th): Introduction to Gromov-Witten theory I;
-  sections 3.1 and 3.2 in notes.
+  section 3.1 in notes.
   - We'll start on the long journey of exploring the Kahler moduli
     space (i.e. the "A-model variation of Hodge structure"). The first
     step is to learn Gromov-Witten theory. The first step in that is
@@ -111,3 +111,37 @@ progresses. For now, the plan is:
     Gromov-Witten invariants. These numbers, as we'll see later on,
     roughly count the number of rational curves in a space.
 * Week 9 (Tuesday June 28th): Toric Geometry II
+* Week 10 (Tuesday July 5th): Introduction to Gromov-Witten theory II;
+  section 3.2 in notes.
+  - We'll see the connection between enumerative geometry and the
+    moduli space of stable maps via Kontsevich's recursion for the
+    number of degree d rational maps passing through 3d-1 generic
+    points. In particular we'll define Gromov-Witten (GW) invariants
+    and more general numbers called gravitational descendant
+    invariants. These arise naturally when considering differential
+    equations involving GW invariants. We will also touch on the
+    technical issue of defining the virtual fundamental class for the
+    moduli space of stable maps, in order to have a good notion of
+    what it means to integrate over it.
+* Week 10 (Friday July 8th): Introduction to Gromov-Witten theory III;
+  section 3.3 in notes.
+  - Gromov-Witten invariants can be nicely encoded in a structure
+    called a quantum cohomology ring; these come in two flavors, the
+    small and the big. These are the ordinary cohomology rings, but
+    with a deformed "quantum product". Enumerative data, including
+    rational curve counts, is encoded in the small quantum product,
+    while the associativity of the big quantum product (known as the
+    WDVV equation) encodes relations such as Kontsevich's recursion.
+    Finally, we briefly look at the Dubrovin formalism, in preparation
+    for Givental's approach to the proof of mirror symmetry.
+* Week 11 (Friday July 12th): Introduction to Gromov-Witten theory IV;
+  section 3.4 in notes.
+  - To calculate Gromov-Witten invariants, it is convenient to move to
+    equivariant cohomology and use localization, because the fixed
+    point loci of the moduli space of stable maps (in genus 0) is
+    purely combinatorial and can be encoded as graphs. We first
+    re-familiarize ourselves with localization by applying it to
+    projective space. Then we do the moduli space of stable maps. Then
+    we apply this newly gained machinery to the problem of multiple
+    covers: how do degree k covers of degree d stable maps contribute
+    to the Gromov-Witten invariant of degree kd?
