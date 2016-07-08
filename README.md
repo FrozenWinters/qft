@@ -111,6 +111,7 @@ progresses. For now, the plan is:
     Gromov-Witten invariants. These numbers, as we'll see later on,
     roughly count the number of rational curves in a space.
 * Week 9 (Tuesday June 28th): Toric Geometry II
+* Week 9 (Friday July 1st): **canceled** (Canada Day)
 * Week 10 (Tuesday July 5th): Introduction to Gromov-Witten theory II;
   section 3.2 in notes.
   - We'll see the connection between enumerative geometry and the
@@ -134,7 +135,7 @@ progresses. For now, the plan is:
     WDVV equation) encodes relations such as Kontsevich's recursion.
     Finally, we briefly look at the Dubrovin formalism, in preparation
     for Givental's approach to the proof of mirror symmetry.
-* Week 11 (Friday July 12th): Introduction to Gromov-Witten theory IV;
+* Week 11 (Tuesday July 12th): Introduction to Gromov-Witten theory IV;
   section 3.4 in notes.
   - To calculate Gromov-Witten invariants, it is convenient to move to
     equivariant cohomology and use localization, because the fixed

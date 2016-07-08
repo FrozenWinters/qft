@@ -4537,7 +4537,8 @@ outline its construction in the next subsection.
   \ldots, p_{n_1}, q_1, \ldots, q_{n_2})$ of genus $g$ by identifying
   $p_{n_1+1}$ with $q_{n_2+1}$. This is a map
   \[ \varphi\colon \cnj\cM_{g_1,n_1+1} \times \cnj\cM_{g_2,n_2+1} \to \cnj\cM_{g,n}. \]
-  Then we have the identity
+  If we let $\{T_i\}$ be a homogeneous basis for $H^*(X, \bQ)$, then
+  we have the identity
   \[ \varphi^*I_{g,n,\beta}(\gamma_1, \ldots, \gamma_n) = \sum_{\beta=\beta_1+\beta_2} I_{g_1,n_1+1,\beta_1}(\gamma_1, \ldots, \gamma_{n_1}, T^i) \otimes I_{g_2,n_2+1,\beta_2}(T_i, \gamma_{n_1+1}, \ldots, \gamma_n). \]
 \end{lemma}
 
@@ -4937,10 +4938,10 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
 \begin{proof}[Proof sketch]
   Note that the fundamental class $\xi \coloneqq
   [\cnj\cM_{0,3}(X,\beta)]$ is of the expected dimension, so
-  $\ev_*(\xi) \in H_{2d}(X^3)$ is the homology class of an algebraic
+  $\ev_*(\xi) \in H_{2n}(X)$ is the homology class of an algebraic
   cycle. It follows that $\inner{abc}_\beta^X = \int_{\ev_*(\xi)} a
-  \cup b \cup c = 0$ unless $a \cup b \cup c$ has type $(d,d)$, i.e.
-  $c \in H^{d-p-r,d-q-s}(X)$. We are done by
+  \cup b \cup c = 0$ unless $a \cup b \cup c$ has type $(n,n)$, i.e.
+  $c \in H^{n-p-r,n-q-s}(X)$. We are done by
   \ref{thm:small-quantum-ring-is-frobenius-algebra}.
 \end{proof}
 
@@ -4970,7 +4971,7 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
   $\inner{\gamma_1\gamma_2\gamma_3}_\beta^X$. By
   \ref{thm:gromov-witten-degree-axiom}, for this to be non-zero we
   require $\deg \gamma_1 + \deg \gamma_2 + \deg \gamma_3 = 6$. Suppose
-  that not $\deg \gamma_1 < 2$, i.e. $\gamma_1 = 1$ must be the
+  that $\deg \gamma_1 < 2$, i.e. $\gamma_1 = 1$ must be the
   fundamental class of $X$. Applying the string equation
   \eqref{eq:descendant-string-equation}, we get
   $\inner{1\gamma_2\gamma_3}_\beta^X = 0$. Hence to get a non-zero
@@ -5013,7 +5014,7 @@ a supercommutative ring.
   $t_i$ supercommute, i.e. $t_it_j = (-1)^{\deg i \deg j} t_jt_i$, so
   that $\bC[t_0, \ldots, t_m]$ is the tensor of a polynomial ring (the
   even variables) with an exterior algebra (the odd variables). Note
-  that if we define $\di_i (t_i^k t^J) = kt_i^{k-!} t_J$ where $i
+  that if we define $\di_i (t_i^k t^J) = kt_i^{k-1} t^J$ where $i
   \notin J$, then the second partials $\di_i \di_j = (-1)^{\deg i \deg
     j} \di_j \di_i$ also supercommute.
 \end{definition}
@@ -5023,9 +5024,9 @@ a supercommutative ring.
   variety $X$. Let $\gamma \coloneqq \sum_{i=0}^m t_i T_i$ (where the
   $t_i$ are the supercoordinates of the previous definition). The
   (genus $0$) {\bf Gromov--Witten potential} is the formal sum
-  \[ \Phi(\gamma) \coloneqq \sum_{\substack{n \ge 0\\\beta \in H_2(X,\bZ)}} \frac{1}{n!} \inner{\gamma^n}_\beta q^\beta \coloneqq \sum_{\substack{n_0,\ldots,n_m \ge 0\\\beta \in H_2(X,\bZ)}} \epsilon(n) \inner{T_0^{n_0}\cdots T_m^{n_m}}_\beta^X \frac{t_0^{n_0}}{n_0!} \cdots \frac{t_m^{n_m}}{n_m!} q^\beta \]
-  where the sign factor $\epsilon(n) = \pm 1$ is defined by
-  \[ (t_0T_0)^{n_0} \cdots (t_mT_m)^{n_m} = \epsilon(n) T_0^{n_0} \cdots T_m^{n_m} t_0^{n_0} \cdots t_m^{n_m}. \]
+  \[ \Phi(\gamma) \coloneqq \sum_{\substack{\vec n \ge 0\\\beta \in H_2(X,\bZ)}} \frac{1}{{\vec n}!} \inner{\gamma^{\vec n}}_\beta q^\beta \coloneqq \sum_{\substack{n_0,\ldots,n_m \ge 0\\\beta \in H_2(X,\bZ)}} \epsilon(\vec n) \inner{T_0^{n_0}\cdots T_m^{n_m}}_\beta^X \frac{t_0^{n_0}}{n_0!} \cdots \frac{t_m^{n_m}}{n_m!} q^\beta \]
+  where the sign factor $\epsilon(\vec n) = \pm 1$ is defined by
+  \[ (t_0T_0)^{n_0} \cdots (t_mT_m)^{n_m} = \epsilon(\vec n) T_0^{n_0} \cdots T_m^{n_m} t_0^{n_0} \cdots t_m^{n_m}. \]
   The coefficient ring is now $\cR[\![t_0, \ldots, t_m]\!]$ (cf. the
   coefficient ring in \ref{def:small-quantum-product}).
 \end{definition}
@@ -5043,14 +5044,14 @@ physically it is the genus-$0$ free energy.)
 
 \begin{lemma} \label{thm:di3-of-gromov-witten-potential}
   The coefficient of $T^k$ in $T_i * T_j$ satisfies
-  \[ \di_i \di_j \di_k \Phi = \sum_{n, \beta} \frac{1}{n!} \inner{T_iT_jT_k\gamma^n}_\beta^X q^\beta. \]
+  \[ \di_i \di_j \di_k \Phi = \sum_{\vec n, \beta} \frac{1}{\vec n!} \inner{T_iT_jT_k\gamma^{\vec n}}_\beta^X q^\beta. \]
 \end{lemma}
 
 \begin{proof}[Proof sketch]
-  Let $n=(n_0,\ldots,n_m)$ be such that $n' = n - e_i - e_j - e_k \ge
-  0$. Comparing degrees (of the $t_i$) on both sides, it suffices to
-  show the equality
-  \[ \di_i \di_j \di_k \epsilon(n) \inner{T^n}_\beta^X \frac{t^n}{n!} = \epsilon(n') \inner{T_iT_jT_k T^{n'}} \frac{t^{n'}}{n'!} \]
+  Let $\vec n=(n_0,\ldots,n_m)$ be such that $\vec n' = \vec n - e_i -
+  e_j - e_k \ge 0$. Comparing degrees (of the $t_i$) on both sides, it
+  suffices to show the equality
+  \[ \di_i \di_j \di_k \epsilon(\vec n) \inner{T^{\vec n}}_\beta^X \frac{t^{\vec n}}{\vec n!} = \epsilon(\vec n') \inner{T_iT_jT_k T^{\vec n'}} \frac{t^{\vec n'}}{\vec n'!} \]
   of coefficients. This is just a formal manipulation of power series;
   see \cite[lemma 8.2.3]{Cox1999}. The only tricky part is making sure
   the signs match up, which is done by casework on the signs of $t_i,
@@ -5068,14 +5069,14 @@ physically it is the genus-$0$ free energy.)
   \ref{thm:kontsevich-recursion} of Kontsevich's recursion. Using
   \ref{thm:di3-of-gromov-witten-potential}, the lhs of the WDVV
   equation is
-  \[ \sum_{n_1,n_2,\beta_1,\beta_2} \frac{1}{n_1! n_2!} \inner{T_iT_jT_a \gamma^{n_1}}_{\beta_1}^X \inner{T^aT_kT_l\gamma^{n_2}}_{\beta_2}^X q^{\beta_1+\beta_2}. \]
-  For fixed $n$ and $\beta$, the relevant term in this sum is
-  \[ \sum_{\substack{n_1+n+2=n\\\beta_1+\beta_2=\beta}} \frac{1}{n_1! n_2!} \inner{\gamma^{n_1}T_iT_jT_a} \inner{T^a\gamma^{n_2}T_kT_l} q^\beta = \int_{D(i,j|k,l)} \frac{1}{n!} \inner{\gamma^n T_iT_jT_kT_l} q^\beta \]
+  \[ \sum_{\vec n_1,\vec n_2,\beta_1,\beta_2} \frac{1}{\vec n_1! \vec n_2!} \inner{T_iT_jT_a \gamma^{\vec n_1}}_{\beta_1}^X \inner{T^aT_kT_l\gamma^{\vec n_2}}_{\beta_2}^X q^{\beta_1+\beta_2}. \]
+  For fixed $\vec n$ and $\beta$, the relevant term in this sum is
+  \[ \sum_{\substack{\vec n_1+\vec n_2=\vec n\\\beta_1+\beta_2=\beta}} \frac{1}{\vec n_1! \vec n_2!} \inner{\gamma^{\vec n_1}T_iT_jT_a} \inner{T^a\gamma^{\vec n_2}T_kT_l} q^\beta = \int_{D(i,j|k,l)} \frac{1}{\vec n!} I_{0,n+4,\beta}(\gamma^{\vec n},T_i,T_j,T_k,T_l) q^\beta \]
   where the equality follows from repeated application of the
   splitting axiom \ref{thm:gromov-witten-splitting-axiom}. (We also
   commuted the $\gamma^{n_2}$ around.) If we repeat this process for
   the rhs, we get the term
-  \[ \int_{D(i,l|j,k)} \frac{1}{n!} \inner{\gamma^n T_iT_jT_kT_l}_\beta^X q^\beta. \]
+  \[ \int_{D(i,l|j,k)} \frac{1}{\vec n!} I_{0,n+4,\beta}(\gamma^{\vec n}, T_i,T_j,T_k,T_l) q^\beta. \]
   By the $\cnj\cM_{0,n}(X, \beta)$ divisor relations
   \eqref{eq:M0n-divisor-relations}, these terms are equal.
 \end{proof}
@@ -5088,7 +5089,7 @@ physically it is the genus-$0$ free energy.)
 \begin{proof}
   Supercommutativity is straightforward, and that $T_0 = 1$ is the
   identity follows from
-  \[ \di_0 \di_j \di_k \Phi = \sum_{n,\beta} \frac{1}{n!} \inner{T_0T_jT_k\gamma^n}_\beta^X q^\beta = \inner{T_0T_jT_k}_0^X = \int_X T_j \cup T_k = g_{jk}, \]
+  \[ \di_0 \di_j \di_k \Phi = \sum_{\vec n,\beta} \frac{1}{\vec n!} \inner{T_0T_jT_k\gamma^{\vec n}}_\beta^X q^\beta = \inner{T_0T_jT_k}_0^X = \int_X T_j \cup T_k = g_{jk}, \]
   where the second equality follows from the degree axiom
   \ref{thm:gromov-witten-degree-axiom}, and the third from the point
   mapping axiom \ref{thm:gromov-witten-point-mapping-axiom}.
@@ -5107,8 +5108,8 @@ physically it is the genus-$0$ free energy.)
 
 \begin{remark}
   Here is a useful mnemonic for determining when Gromov--Witten
-  invariants vanish. For a fixed $n$, a non-zero term in $\Phi$ is of
-  the form $\inner{T_0^{n_0}\cdots T_m^{n_m}}_\beta^X (t^n/n!)
+  invariants vanish. For a fixed $\vec n$, a non-zero term in $\Phi$ is of
+  the form $\inner{T_0^{n_0}\cdots T_m^{n_m}}_\beta^X (t^{\vec n}/\vec n!)
   q^\beta$. By the degree axiom \ref{thm:gromov-witten-degree-axiom},
   \[ \sum_{i=1}^m n_i(\deg T_i - 2) + 2\int_\beta \omega_X = \left(2\dim X - 2\int_\beta \omega_X + 2(3 \cdot 0 - 3 + n)\right) - 2n + 2\int_\beta \omega_X = 2 \dim X - 6. \]
   Hence $\Phi$ is homogeneous of degree $2\dim X - 6$ if we formally
