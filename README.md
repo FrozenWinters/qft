@@ -135,7 +135,12 @@ progresses. For now, the plan is:
     WDVV equation) encodes relations such as Kontsevich's recursion.
     Finally, we briefly look at the Dubrovin formalism, in preparation
     for Givental's approach to the proof of mirror symmetry.
-* Week 11 (Tuesday July 12th): Introduction to Gromov-Witten theory IV;
+* Week 11 (Tuesday July 12th): Introduction to Gromov-Witten theory III;
+  section 3.3 in notes.
+  - Discussion of superspaces and supermanifolds.
+* Week 11 (Friday July 15th): **canceled**
+* Week 12: **canceled**
+* Week 13 (Tuesday July 26th): Introduction to Gromov-Witten theory IV;
   section 3.4 in notes.
   - To calculate Gromov-Witten invariants, it is convenient to move to
     equivariant cohomology and use localization, because the fixed
@@ -146,3 +151,13 @@ progresses. For now, the plan is:
     we apply this newly gained machinery to the problem of multiple
     covers: how do degree k covers of degree d stable maps contribute
     to the Gromov-Witten invariant of degree kd?
+* Week 13 (Friday Aug 2nd): Complex and Kahler Moduli; section 4.1 in
+  notes.
+  - We'll define, in general, variations of Hodge structure both on
+    complex and Kahler moduli; we have seen special cases of this for
+    the quintic threefold. In particular we'll be able to write down
+    the mirror map, relating a neighborhood of a large radius limit
+    point in Kahler moduli with a maximally unipotent boundary point
+    in complex moduli. If time permits we'll see (finally!) what it
+    means for two Calabi--Yau threefolds to be mirror to each other.
+* Week 14: **canceled**

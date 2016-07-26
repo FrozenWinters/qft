@@ -29,6 +29,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -68,8 +69,11 @@
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cR}{\mathcal{R}}
+\newcommand{\cT}{\mathcal{T}}
 \newcommand{\cU}{\mathcal{U}}
 \newcommand{\cV}{\mathcal{V}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cKM}{\mathcal{KM}}
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\Morse}{\mathrm{Morse}}
 \DeclareMathOperator{\id}{id}
@@ -106,6 +110,8 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Bl}{Bl}
 \DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\PD}{PD}
 \newcommand{\vir}{\mathrm{vir}}
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\chH}{\check{H}}
@@ -2128,7 +2134,7 @@ we only care about $\Omega$ up to scalar multiples. So we view $(z^0,
 $a, b, c$ to index coordinates on the moduli space, and $i, j, k$ to
 index coordinates on each $X_z$.)
 
-\begin{definition}
+\begin{definition} \label{def:hodge-bundle}
   The {\bf Hodge bundle} $\cH$ is the bundle over $\cM_X$ with fiber
   $H^3(X_z; \bC)$ at the point $z \in \cM_X$. On $\cH$, the
   intersection pairing $(\theta, \eta) = i\int_{X_z} \theta \wedge
@@ -2190,7 +2196,7 @@ index coordinates on each $X_z$.)
   Then $w_c = z^a \di_c w_a = \di_c(z^a w_a) - w_c$.
 \end{proof}
 
-\begin{definition}
+\begin{definition} \label{def:gauss-manin-prepotential}
   Define the {\bf prepotential} $\cG \coloneqq z^aw_a$. Since $2w_c =
   \di_c\cG$, summing with $z^c$ on both sides gives $z^c \di_c \cG =
   2\cG$, so $\cG$ is homogeneous of degree $2$ in the $z^a$. The
@@ -2311,7 +2317,7 @@ Along the way we shall see more predictions of mirror symmetry.
   \end{enumerate}
 \end{theorem}
 
-\begin{definition}
+\begin{definition} \label{def:mirror-quintic}
   For any fifth root of unity $\lambda$, there is a natural
   isomorphism between $\tilde{X}_{\psi}$ and $\tilde{X}_{\lambda\psi}$
   induced by $[x_0 : x_1 : \cdots : x_4] \mapsto [\lambda^{-1}x_0 :
@@ -2362,7 +2368,7 @@ periods.
   $P=0$. For $P = f_\psi$, we get $\Omega$ for the mirror quintic.
 \end{definition}
 
-\begin{proposition}[Picard--Fuchs equation]
+\begin{proposition}[Picard--Fuchs equation] \label{thm:picard-fuchs-equation}
   Let $z \coloneqq 1/(5\psi)^5$ and $\Theta \coloneqq z\di_z$. The
   periods $\Omega_i$ of $\Omega$ satisfy the {\bf Picard--Fuchs
     equation}
@@ -2430,7 +2436,9 @@ We can also solve the DE for the Yukawa coupling to get $Y = 5/(1 +
 5^5z)$. Note that the constant $5$ is not determined by the DE and is
 obtained through other methods. The normalized Yukawa coupling (cf.
 \ref{def:yukawa-coupling}) is therefore
-\[ Y = \frac{5}{(1 + 5^5x) y_0(x)^2}. \]
+\begin{equation} \label{eq:quintic-threefold-normalized-yukawa-coupling}
+  Y = \frac{5}{(1 + 5^5x) y_0(x)^2}.
+\end{equation}
 This is called the {\bf B-model correlation function} by physicists.
 
 Mirror symmetry predicts an equality of the B-model correlation
@@ -4503,7 +4511,7 @@ outline its construction in the next subsection.
   \sigma_i^*\omega_\pi$.
 \end{definition}
 
-\begin{definition}
+\begin{definition} \label{def:gravitational-descendant-invariants}
   Define the {\bf $\psi$-classes} $\psi_i \coloneqq
   c_1(\sigma_i^*\omega_\pi)$. Let $[\cnj\cM_{g,n}(X, \beta)]^{\vir}$
   be the virtual fundamental class. Given classes $\gamma_1, \ldots,
@@ -4574,9 +4582,10 @@ outline its construction in the next subsection.
 
 {\bf Notation}: from this point onward, we work in the Chow ring
 $A^*(\cnj\cM_{g,n}(X, \beta))$ (for various $n$) unless otherwise
-indicated. Since elements of $A^i$ are codimension-$i$ cycles, we will
-not distinguish between boundary divisors
-$D(g_1,A,\beta_1|g_2,B,\beta_2)$ and their images in the Chow ring.
+indicated. Since elements of $A^i$ are codimension-$i$ cycles up to
+ratioanl equivalence, we will not distinguish between boundary
+divisors $D(g_1,A,\beta_1|g_2,B,\beta_2)$ and their equivalence
+classes in the Chow group $A^1$.
 
 \begin{lemma}[Comparison lemma for convex $X$]
   The $\psi$-classes do not commute with forgetful morphisms
@@ -4909,7 +4918,7 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
   \[ g(a * b, c) = g(a, b*c) \; \bigg(= \sum_\beta \inner{abc}_\beta^X q^\beta\bigg). \]
 \end{proposition}
 
-\begin{definition}
+\begin{definition} \label{def:a-model-correlation-function}
   The {\bf three-point function} or {\bf A-model correlation function}
   is given by
   \[ \inner{a,b,c} \coloneqq \sum_{\beta \in H_2(X,\bZ)} \inner{abc}_\beta^X q^\beta = \int_X a * b * c. \]
@@ -4929,7 +4938,7 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
   = \deg T_i$.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition} \label{thm:small-quantum-product-is-hodge-compatible}
   Let $X$ be a Calabi--Yau $n$-fold. If $a \in H^{p,q}(X)$ and $b \in
   H^{r,s}(X)$, then $a*b \in H^{p+r,q+s}(X)$. Hence $\bigoplus_{p=0}^n
   H^{p,p}(X)$ is a subring of $H^*(X, \bC)$.
@@ -4945,7 +4954,7 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
   \ref{thm:small-quantum-ring-is-frobenius-algebra}.
 \end{proof}
 
-\begin{example}[Small quantum cohomology of $\bP^m$]
+\begin{example}[Small quantum cohomology of $\bP^m$] \label{ex:small-quantum-cohomology-of-projective-space}
   Let $x \in H^2(\bP^m, \bC)$ be the hyperplane class, so that $\{x^0,
   \ldots, x^m\}$ is a basis for $H^*(X, \bC)$ with cup product. Let
   $\beta = xd$. We want to find $x^i * x^j$. By
@@ -4966,7 +4975,7 @@ following (which is the $\beta = 0$ term in $T_i * T_j$):
   becomes the cup product.
 \end{example}
 
-\begin{example}[Small quantum cohomology of a smooth Calabi--Yau $3$-fold]
+\begin{example}[Small quantum cohomology of a smooth Calabi--Yau $3$-fold] \label{ex:small-quantum-cohomology-calabi-yau-threefold}
   Let $X$ be a smooth Calabi--Yau $3$-fold and consider
   $\inner{\gamma_1\gamma_2\gamma_3}_\beta^X$. By
   \ref{thm:gromov-witten-degree-axiom}, for this to be non-zero we
@@ -5036,7 +5045,7 @@ a supercommutative ring.
 tree-level Gromov--Witten invariants $\inner{I_{0,n,\beta}}$. So
 physically it is the genus-$0$ free energy.)
 
-\begin{definition}
+\begin{definition} \label{def:big-quantum-product}
   Let $\Phi$ be the Gromov--Witten potential. Define the {\bf big
     quantum product} on $H^*(X, \bC)$ by
   \[ T_i * T_j \coloneqq (\di_i \di_j \di_k \Phi) T^k. \]
@@ -5148,7 +5157,7 @@ physically it is the genus-$0$ free energy.)
   \end{align*}
 \end{example}
 
-\begin{definition}
+\begin{definition} \label{def:dubrovin-connection}
   Let $F\colon H^*(X, \bC) \to \bC$ be an even formal power series in
   the supercommutative variables $t_0, \ldots, t_m$, e.g. the
   Gromov--Witten potential $\Phi$. Let $A_{ijk} \coloneqq \di_i \di_j
@@ -5157,7 +5166,7 @@ physically it is the genus-$0$ free energy.)
   \[ T_i * T_j \coloneqq A^k_{ij} T_k, \quad \nabla_i^\lambda(\di_j) \coloneqq \lambda A^k_{ij} \di_k, \quad \lambda \in \bC^*. \]
 \end{definition}
 
-\begin{proposition}
+\begin{proposition} \label{thm:dubrovin-connection-is-flat}
   The Dubrovin connection $\nabla^\lambda$ is torsion-free (in the
   supermanifold sense) and the product $*$ is supercommutative.
   Furthermore
@@ -5508,8 +5517,8 @@ $d_e$ covers, and $\Aut(\Gamma)$ acts on these deck transformations.
   \begin{equation} \label{eq:stacky-localization}
     \int_X \alpha = \sum_j \int_{F_j} \left(\frac{i_j^*(\alpha)}{a_j e(N_j)}\right)
   \end{equation}
-  where $a_j$ is the order of the group $H$ occurring in a local chart
-  at the generic point of $F_j$.
+  where $a_j$ is the order of the group occurring in a local chart at
+  the generic point of $F_j$.
 \end{remark}
 
 \subsection{The Aspinwall--Morrison Formula}
@@ -5524,8 +5533,8 @@ $\cnj\cM_{0,n}(X, d)$. We focus on $X$ a Calabi--Yau $3$-fold.
 
 \begin{definition}
   An embedding $\Sigma \to X$ where $X$ is a Calabi--Yau $3$-fold is
-  {\bf rigid} if it has normal bundle $NC = \cO_{\bP^1}(-1) \oplus
-  \cO_{\bP^1}(-1)$.
+  {\bf rigid} if it has normal bundle $N\Sigma = \cO_{\bP^1}(-1)
+  \oplus \cO_{\bP^1}(-1)$.
 \end{definition}
 
 \begin{example}
@@ -5539,20 +5548,20 @@ $\cnj\cM_{0,n}(X, d)$. We focus on $X$ a Calabi--Yau $3$-fold.
 \begin{theorem}[Aspinwall--Morrison formula]
   Let $\Sigma \subseteq X$ be a rigidly embedded smooth rational curve
   of class $\beta$ in the Calabi--Yau $3$-fold $X$. Then the
-  contribution of degree $d$ multiple covers of $\bP^1$ to the class
-  $\beta d$ Gromov--Witten invariant of $X$ is $1/d^3$.
+  contribution of degree $d$ multiple covers of $\Sigma \cong \bP^1$
+  to Gromov--Witten invariant $\inner{I_{0,0,d[\Sigma]}}$ of $X$ is
+  $1/d^3$.
 \end{theorem}
 
 \begin{proof}
-  Identify $\Sigma \cong \bP^1$. We work in $\cnj\cM_{0,0}(\bP^1, d)$,
-  which consists of degree $d$ multiple covers of $\bP^1$. The
-  contribution we want is the restriction of $[\cnj\cM_{0,0}(X,
-    d[C])]^{\vir}$ to $\cnj\cM_{0,0}(\bP^1, d)$. Since
-  $\cnj\cM_{0,0}(\bP^1, d)$ is non-singular, by
-  \ref{ex:virtual-fundamental-class-nonsingular}, this contribution is
-  exactly $e(\Ob)$, where $\Ob$ is the obstruction bundle, with fibers
-  $H^1(\Sigma, f^*TX)$. Hence we must compute
-  $\int_{\cnj\cM_{0,0}(\bP^1, d)} e(\Ob)$. From the long exact
+  We work in $\cnj\cM_{0,0}(\bP^1, d)$, which consists of degree $d$
+  multiple covers of $\Sigma \cong \bP^1$. The contribution we want is
+  the restriction of $[\cnj\cM_{0,0}(X, d[\Sigma])]^{\vir}$ to
+  $\cnj\cM_{0,0}(\bP^1, d)$. Since $\cnj\cM_{0,0}(\bP^1, d)$ is
+  non-singular, by \ref{ex:virtual-fundamental-class-nonsingular},
+  this contribution is exactly $e(\Ob)$, where $\Ob$ is the
+  obstruction bundle, with fibers $H^1(\Sigma, f^*TX)$. Hence we must
+  compute $\int_{\cnj\cM_{0,0}(\bP^1, d)} e(\Ob)$. From the long exact
   sequence of $0 \to f^*T\Sigma \to f^*TX \to f^*N\Sigma \to 0$ and
   the vanishing of $H^1(\Sigma, f^*T\bP^1)$, we get
   \[ H^1(\Sigma, f^*TX) = H^1(\Sigma, f^*N\Sigma) = H^1(\Sigma, f^*(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))). \]
@@ -5611,7 +5620,938 @@ $\cnj\cM_{0,n}(X, d)$. We focus on $X$ a Calabi--Yau $3$-fold.
   \bZ/d\bZ$ (see \eqref{eq:stacky-localization}).
 \end{proof}
 
-\section{Quantum Differential Equations}
+\chapter{Mirror Symmetry}
+
+Using all the machinery from Gromov--Witten theory that we have
+developed so far, we can give a mathematically precise statement of
+mirror symmetry in special cases.
+
+\section{Complex and K\"ahler Moduli}
+
+The first step to a mathematically rigorous statement of mirror
+symmetry is to understand more fully the complex and K\"ahler moduli.
+
+\subsection{Hodge Theory and Complex Moduli}
+
+\begin{definition}
+  When the Hodge decomposition exists, $H^k(X; \bC) \cong
+  \bigoplus_{p+q=k} H^{p,q}(X)$ (where $H^{p,q}(X) =
+  \cnj{H^{q,p}(X)}$) along with the integer lattice from $H^k(X; \bZ)$
+  form a {\bf Hodge structure of weight $k$}. Equivalently, we can
+  specify the {\bf Hodge filtration} $F^p(X) \coloneqq \bigoplus_{a
+    \ge p} H^{a,k-a}(X)$, which satisfies $H^{p,q}(X) = F^p(X) \cap
+  \cnj{F^q(X)}$. The pairing $Q(\alpha, \beta) = (-1)^{\binom{k}{2}}
+  \int_X \omega^{n-k} \wedge \alpha \wedge \beta$ on $H^k(X; \bC)$
+  gives a {\bf polarized Hodge structure}.
+\end{definition}
+
+\begin{definition}
+  Let $\pi\colon \cX \to S$ a flat morphism of relative dimension $n$
+  with $S$ smooth, and put $X_t \coloneqq \pi^{-1}(t)$ for $t \in S$.
+  Then $H^k(X_t; \bC)$ fit together into a locally free sheaf $\cF^0
+  \coloneqq R^k\pi_*\bC \otimes \cO_S$, and $F^p(X_t)$ a locally free
+  subsheaf $\cF^p$. The {\bf Gauss--Manin connection} $\nabla$ is a
+  flat connection on $\cF^0$. Set $\cH \coloneqq \cF^0$, which has the
+  locally constant subsheaf $\cH_{\bC} \coloneqq R^k\pi_*\bC$, which
+  has the subsheaf of integer cohomology $\cH_{\bZ} \coloneqq
+  R^k\pi_*\bZ$. The tuple $(\cH, \nabla, \cH_{\bZ}, \cF^\bullet)$ is a
+  {\bf variation of Hodge structure}.
+\end{definition}
+
+\begin{remark}
+  For our purposes, $k = \dim(X_t)$, i.e. we care only about the
+  middle cohomology (cf. \ref{def:hodge-bundle}).
+\end{remark}
+
+\begin{definition} \label{def:picard-fuchs-equations}
+  Let $p \in S$ and $z_1, \ldots, z_r$ be local analytic coordinates.
+  Let $\cD \coloneqq \bC\{z_1, \ldots, z_r\}[\di_1, \ldots, \di_r]$
+  where $\bC\{z_1, \ldots, z_r\}$ is the ring of convergent power
+  series. Then the Gauss--Manin connection $\nabla$ gives an
+  $\cO_S$-homomorphism $\phi(X_1\cdots X_t) \coloneqq \nabla_{X_1}
+  \cdots \nabla_{X_t} \Omega(t)$ for a fixed local section of $\cF^0$,
+  i.e. $\cF^0$ has a $\cD$-module structure. The kernel $\ker \phi$ is
+  the {\bf Picard--Fuchs ideal}, and the equations $D \cdot y = 0$ for
+  $D \in I$ are the {\bf Picard--Fuchs equations} (cf.
+  \ref{thm:picard-fuchs-equation}). It is easy to show that periods of
+  $\Omega(t)$ are solutions.
+\end{definition}
+
+\begin{definition}
+  Let $\pi\colon \cX \to S$ be a smooth family with a completion
+  $\tilde\pi\colon \tilde \cX \to \tilde S$ where $\tilde S$ is a
+  smooth compactification with {\bf boundary divisor} $D = \bigcup_i
+  D_i \coloneqq \tilde S \setminus S$. The extension $\tilde \nabla$
+  of the Gauss--Manin connection $\nabla$ may pick up singularities
+  (regular singular points). If $\gamma_j$ is a loop around the
+  boundary divisor $D_j$, let $\cT_j\colon H^n(X_t; \bC) \to H^n(X_t;
+  \bC)$ denote the {\bf monodromy transformation} (which, up to
+  conjugation, only depends on $\gamma_j$) given by lifting a
+  cohomology class $\eta = \eta(0) \in H^n(X_t; \bC)$ to a
+  $\nabla$-flat section $\eta(u) \in H^n(X_{\gamma_j(u)}; \bC)$ and
+  setting $\cT_j(\eta) \coloneqq \eta(1)$.
+\end{definition}
+
+\begin{theorem}[Monodromy theorem] \cite[Theorems I', II']{Landman1973}
+  For some integer $m \ge 0$, we have $(\cT_j^m - I)^{n+1} = 0$, i.e.
+  $\cT_j$ is {\bf quasi-unipotent}.
+\end{theorem}
+
+From now on, suppose that the monodromy is unipotent and we are at $p
+\in \tilde S$ with local coordinates $z_1, \ldots, z_r$ such that $D =
+\di \tilde S$ is given by $z_1 \cdots z_r = 0$ and $p$ is at $z=0$.
+Let $N_j \coloneqq \log \cT_j$. The idea is to extend the relevant
+Hodge theoretic structures from $S$ to $\tilde S$.
+
+\begin{theorem}[Nilpotent orbit theorem]
+  The bundles $\cF^p$ over $S$ extend canonically to $\tilde \cF^p$
+  over $\tilde S$, giving the {\bf limiting Hodge filtration}
+  $\cF^\bullet_{\text{lim}}$. This extension is given by
+  \[ s \in \cF^0 \mapsto \exp\bigg(-\frac{1}{2\pi i} \sum_j \log(z_j) N_j\bigg)s \in \tilde \cF^0. \]
+  Furthermore, $\nabla_{z_j \di_j} = -\frac{1}{2\pi i} N_j$, and
+  induces a linear map $F^p_{\text{lim}}/F^{p+1}_{\text{lim}} \to
+  F^{p-1}_{\text{lim}}/F^p_{\text{lim}}$.
+\end{theorem}
+
+\begin{definition}
+  Let $N \coloneqq \sum_j a_j N_j$ for $a_j > 0$, acting on $H^n(X_t;
+  \bC)$. The {\bf monodromy weight filtration} $W_\bullet$ is given by
+  \[ W_0 \coloneqq \im N^n, \quad W_1 \coloneqq \im N^{n-1} \cap \ker N, \quad W_2 \coloneqq \im N^{n-2} \cap \ker N + \im N^{n-1} \cap \ker N^2, \quad \ldots, \]
+  such that $N(W_k) \subset W_{k-2}$ and $N^k$ induces an isomorphism
+  $W_{n+k}/W_{n+k-1} \cong W_{n-k}/W_{n-k-1}$. In addition,
+  $F^\bullet_{\text{lim}}$ induces a weight $k$ Hodge structure on
+  $W_k/W_{k-1}$. The pair $(W_\bullet, F^\bullet_{\text{lim}})$ is a
+  {\bf mixed Hodge structure}.
+\end{definition}
+
+\begin{definition}
+  Fix a Calabi--Yau $3$-fold $X$ with $1$-dimensional complex moduli
+  space $S$. Let $p \in \di \tilde S$ have {\bf maximally unipotent
+    monodromy}, i.e. $\cT\colon H^3(X; \bC) \to H^3(X; \bC)$ satisfies
+  $(\cT - I)^3 \neq 0$. Since $h^{2,1}(X) = 1$, we have $h^3(X) = 4$,
+  so let $g_0, \ldots, g_3$ be a basis for $H^3(X; \bC)$ such that
+  \[ \cT = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 1 \end{pmatrix}. \]
+  Let $\gamma_i$ be the homology class dual to $g_i$, and $y_j
+  \coloneqq \int_{\gamma_j} \Omega$ be the {\bf periods} of a local
+  basis $\Omega$ of $\tilde \cF^3$.
+\end{definition}
+
+\begin{corollary}
+  Any $g \in H^3(X; \bC)$ extends to a multiple-valued flat section
+  $g(z) \in \tilde\cF^0$, and the section $\exp(\frac{-\log z}{2\pi i}
+  N) g(z)$ is single-valued and analytic at $z = 0$. In particular,
+  $g_0(z)$ and therefore $y_0$ is single-valued and analytic at $z =
+  0$.
+\end{corollary}
+
+\begin{proof}
+  Note that $\cT(g_0) = g_0$ by the choice of basis $\{g_i\}$, so
+  $N(g_0) = 0$. It follows that $\exp(\frac{-\log z}{2\pi i} N) g_0(z)
+  = g_0(z)$. But $y_0 = \inner{g_0(z), \Omega(z)}$. (We can also get
+  the asymptotics $y_i \sim c(\frac{\log z}{2\pi i})^i$ as $z \to 0$
+  using that $\cT(g_i) = g_i + g_{i-1}$.)
+\end{proof}
+
+\begin{proposition}
+  Let $z$ be the local coordinate at a boundary point of the
+  $1$-dimensional complex moduli space $S$, and write $\delta =
+  z\di_z$. If $\Omega$ is a local section of $\cF^0$ with
+  Picard--Fuchs equation
+  \[ \delta^4 y + f_1(z) \delta^3 y + f_2(z) \delta^2 y + f_3(z) \delta y + f_4(z) y = 0, \]
+  (whose {\bf indicial equation} just has $\delta$ replaced with a
+  variable $\lambda$) then the monodromy $\cT$ is:
+  \begin{enumerate}
+  \item unipotent iff the roots of the indicial equation are all
+    integers;
+  \item maximally unipotent iff the indicial equation is $(\lambda -
+    l)^4 = 0$ for some $l \in \bZ$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition} \label{def:maximally-unipotent-boundary-point}
+  Let $X$ be a $d$-dimensional Calabi--Yau, and $S$ the complex moduli
+  space of $X$. Again let $\tilde S$ be a compactification and $D$ the
+  boundary divisor. The point $p \coloneqq D_1 \cap \cdots \cap D_r$
+  is a {\bf maximally unipotent boundary point} if:
+  \begin{enumerate}
+  \item the monodromies $\cT_j$ are all unipotent;
+  \item if $N_j \coloneqq \log \cT_j$, the monodromy weight filtration
+    $W_\bullet$ determined by $N \coloneqq \sum_i a_i N_i$ has $\dim
+    W_0 = \dim W_1 = 1$ (i.e. unique holomorphic solution to
+    Picard--Fuchs at $p$) and $\dim W_2 = 1 + r$ (i.e. $r$ other
+    independent solutions with logarithmic singularities at $p$);
+  \item if $g_0, \ldots, g_r$ is a basis of $W_2$ such that $g_0$
+    spans $W_0$, then the matrix $(m_{ij})$ given by $N_i(g_j) =
+    m_{ij}g_0$ is invertible.
+  \end{enumerate}
+  The last condition allows us to change to the basis $g_k' \coloneqq
+  \sum_j g_j m^{jk}$, where $N_j(g_k') = \delta_{jk} g_0$, so that
+  locally, $y_k = y_0 \frac{\log z_k}{2\pi i} + \text{holomorphic}$.
+\end{definition}
+
+\subsection{K\"ahler Moduli and the Mirror Map}
+
+In this subsection we shall define the K\"ahler moduli space and, in
+it, the analogues of maximally unipotent boundary points, called large
+radius limit points. For this purpose we will also need to compactify
+parts of the K\"ahler moduli space.
+
+\begin{definition}
+  Let $X$ be a projective orbifold with $h^{2,0}(X) = 0$. The {\bf
+    K\"ahler cone} is the subset $K(X) \subset H^2(X; \bR) =
+  H^{1,1}(X; \bR)$ of all K\"ahler classes. The {\bf complexified
+    K\"ahler space} is
+  \[ K_{\bC}(X) \coloneqq \{\omega \in H^2(X; \bC) : \im \omega \in K(X)\}/\im H^2(X; \bZ). \]
+  The {\bf complexified K\"ahler moduli space} is
+  $\cKM(X) \coloneqq K_{\bC}(X)/\Aut(X)$.
+\end{definition}
+
+\begin{definition} \label{def:large-radius-limit-point}
+  Fix a maximal dimension simplicial cone $\sigma$ in $H^2(X; \bR)$
+  with interior $\Int \sigma$ lying in $K(X)$. Define
+  \[ D_\sigma \coloneqq (H^2(X; \bR) + i\Int \sigma)/\im H^2(X; \bZ) \subset K_{\bC}(X). \]
+  Suppose $\sigma$ is generated by a basis $T_1, \ldots,T_r$ of
+  $H^2(X; \bZ)$ mod torsion, i.e. $\Int \sigma = \{\sum_i t_iT_i : t_i
+  > 0\}$, which gives an isomorphism between $D_\sigma$ and the open
+  $r$-simplex $(\Delta^*)^r$ via
+  \[ t_1T_1 + \cdots + t_rT_r \mapsto (q_1, \ldots, q_r) \coloneqq (e^{2\pi i t_1}, \ldots, e^{2\pi i t_r}). \]
+  Compactifying, $\tilde D_\sigma \cong \Delta^r$, the closed
+  $r$-simplex. The distinguished boundary point $0 \in \Delta^r$ is a
+  {\bf large radius limit point} since an $\omega \in H^2(X; \bR) +
+  i\Int \sigma$ with large imaginary part has image close to $0$. Each
+  large radius limit point therefore has canonical {\bf coordinates}
+  $(q_1, \ldots, q_r)$ as defined above.
+\end{definition}
+
+Now it is time to write down the local isomorphism, called the {\bf
+  mirror map}, linking the coordinates of a large radius limit point
+in $\cnj\cKM(X^\circ)$ with the coordinates of a maximally unipotent
+boundary point in $\cnj\cM(X)$. For the remainder of this subsection,
+$X$ is a Calabi--Yau $d$-fold.
+
+\begin{definition} \label{def:mirror-coordinates}
+  Fix a maximally unipotent boundary point $p$ in $\cnj\cM(X)$. From
+  \ref{def:maximally-unipotent-boundary-point}, let $g_0, \ldots, g_r$
+  be a basis for $W_2 \subset H^d(X)$, and $m_{ij}$ be the matrix
+  given by $N_i(g_j) = m_{ij}g_0$. Define holomorphic {\bf mirror
+    coordinates}
+  \[ \frac{1}{2\pi i} \log q_k \coloneqq \frac{1}{\inner{g_0, \Omega}} \sum_{j=1}^r \inner{g_j, \Omega} m^{jk} \]
+  in a neighborhood of the maximally unipotent boundary point $p$.
+\end{definition}
+
+\begin{remark}
+  By the definition \ref{def:picard-fuchs-equations} of the
+  Picard--Fuchs equations, the periods $y_i \coloneqq \int_{\gamma_i}
+  \Omega = \inner{g_i, \Omega}$ are solutions, and in particular $y_0$
+  is the unique (up to a constant) solution holomorphic at $p$. If we
+  write $y_k \coloneqq \sum_{j=1}^r \inner{g_j, \Omega} m^{jk}$, then
+  $y_k$ is also a solution to the Picard--Fuchs equations. Then
+  \[ y_k = y_0 (\log(z_k)/2\pi i) + \tilde{y}_k \implies q_k = z_k \exp(2\pi i \tilde y_k/y_0), \]
+  where $\tilde y_k$ is holomorphic at $p$.
+\end{remark}
+
+\begin{definition}
+  Let $X^\circ$ be the mirror of $X$. Choose a subdivision $\Sigma_+$
+  of the cone $K_+$, which gives a smooth partial compactification
+  $\cnj\cKM(X^\circ)$. Each cone $\sigma \in \Sigma_+$ gives a large
+  radius limit point. Taking $p$ to be a maximally unipotent boundary
+  point in $\cnj\cM(X)$, the {\bf mirror map} in the canonical
+  coordinates of \ref{def:large-radius-limit-point} is given by
+  \[ M\colon \cnj\cM(X) \to \cnj\cKM(X^\circ), \quad p \mapsto (q_1(p), \ldots, q_r(p)) \in \cnj\cKM(X^\circ). \]
+  Hence the mirror map is specified by two pieces of data:
+  \begin{enumerate}
+  \item the mirror coordinates $q_1, \ldots, q_r$, and
+  \item the choice of generators $T_1, \ldots, T_r \in H^2(X^\circ)$
+    for the cone $\sigma$, which gives the canonical coordinates
+    around the large radius limit point.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  For the mirror map $M$ to actually be a local isomorphism, we must
+  \begin{enumerate}
+  \item choose the classes $g_0, \ldots, g_r$ of $W_2$ correctly so
+    that the coordinates $q_i$ are well-defined, and
+  \item pick the large radius limit point and maximally unipotent
+    boundary point in ``compatible'' compactifications of their moduli
+    spaces.
+  \end{enumerate}
+  We shall now see what ``correctly'' means for the first point.
+\end{remark}
+
+\begin{conjecture}[Integrality conjecture] \label{def:integrality-conjecture}
+  Pick a {\bf $\bZ$-basis} for the monodromy weight filtration, i.e. a
+  choice $g_0 \in W_0 \cap H^d(X; \bZ)$ and $g_1, \ldots, g_r \in W_2
+  \cap H^d(X; \bZ)$ such that they span as a $\bZ$-basis. Then the
+  integer matrix $(m_{ij})$ defined by $N_i(g_j) = m_{ij} g_0$ is
+  invertible.
+\end{conjecture}
+
+\begin{corollary}
+  Pick two $\bZ$-bases $g_0, \ldots, g_r$ and $g_0', \ldots, g_r'$
+  related by $g_j' = \sum_{k=0}^r c_{jk} g_k$. Then the respective
+  mirror coordinates $q_k'$ and $q_k$ are actually equal.
+\end{corollary}
+
+\begin{proof}
+  Via such a change of coordinates, we have
+  \[ q_k' = \exp(2\pi i c^{k0}/c_{00}) q_k, \quad c^{k0} \coloneqq \sum_{j=1}^r c_{j0} (m')^{jk}. \]
+  But $c_{00} = \pm 1$, and $c^{k0} \in \bZ$. Hence $q_k' = q_k$.
+\end{proof}
+
+We will always assume the integrality conjecture from now on, because
+it gives us a unique choice of mirror coordinates $q_1, \ldots, q_k$.
+The conjecture has been verified for the quintic threefold
+\cite{Morrison1993}.
+
+\begin{proposition} \cite[Proposition 5.6.1]{Cox1999} \label{thm:picard-fuchs-equation-in-monodromy-coordinates}
+  Suppose $X$ is a Calabi--Yau $3$-fold and we are at a maximally
+  unipotent boundary point satisfying the integrality conjecture. Let
+  $q$ denote the mirror coordinate and $\delta \coloneqq 2\pi i q
+  \di_q$. Then there exist coordinates $e_0, e_1, e_2, e_3$ such that
+  $\nabla_\delta$, the Gauss--Manin connection, and the Picard--Fuchs
+  equation are
+  \[ \nabla_\delta = \begin{pmatrix} 0 & 0 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & Y & 0 & 0 \\ 0 & 0 & 1 & 0 \end{pmatrix}, \quad \nabla_\delta^2 \left(\frac{\nabla_\delta^2 \Omega}{Y}\right) = 0, \quad Y \coloneqq -\int_X \Omega \wedge \nabla_\delta^3\Omega. \]
+\end{proposition}
+
+\subsection{A-Model Variation of Hodge Structure}
+
+Throughout this section, $X$ is a Calabi--Yau $d$-fold for $d \ge 3$
+unless otherwise stated. Let $T_0 = 1, T_1, \ldots, T_m$ be a basis of
+$H^*(X; \bQ)$, and $T_1, \ldots, T_r$ span $H^2(X; \bQ)$.
+
+\begin{lemma}
+  If $\delta \coloneqq \sum_{i=1}^r t_i T_i$ and $\epsilon \coloneqq
+  t_0T_0 + \sum_{i=r+1}^m t_i T_i$, then
+  \[ T_i *_{\text{big}} T_j = \sum_{\vec n = 0}^\infty \sum_\beta \frac{1}{\vec n!} \inner{I_{0,n+3,\beta}}(T_i, T_j, T_k, \epsilon^{\vec n}) e^{\int_\beta \delta} q^\beta T^k. \]
+  Hence $T_i *_{\text{small}} T_j = T_i *_{\text{big}} T_j|_{\delta =
+    \epsilon = 0}$.
+\end{lemma}
+
+\begin{definition} \label{def:restricted-big-quantum-product}
+  We would like to study the K\"ahler moduli space, which is
+  restricted to $H^2(X)$, i.e. $t_0 = t_{r+1} = \cdots = t_m = 0$.
+  Hence define the {\bf restricted big quantum product} $T_i *
+  T_j|_{\epsilon = 0}$. If we set $\omega = 0$ and let $\vec q^\beta
+  \coloneqq e^{\int_\beta \delta} = \prod_{i=1}^r q_i^{\int_\beta
+    T_i}$, then
+  \[ T_i * T_j|_{\epsilon = 0} = \sum_\beta \inner{I_{0,3,\beta}}(T_i,T_j,T_k) \vec q^{\beta} T^k, \]
+  which agrees with $*_{\text{small}}$ under a homomorphism of
+  coefficient rings sending $\vec q^\beta$ to $q^\beta$.
+  Alternatively, they agree as formal power series in the $t_i$ by
+  setting $\omega = (1/2\pi i) \sum_{i=1}^r t_i T_i$.
+\end{definition}
+
+\begin{definition}
+  Let $\cH \coloneqq H^*(X; \bC) \times K_{\bC}(X)$, which is the
+  analogue of the Hodge bundle over complex moduli. The {\bf A-model
+    connection} $\nabla$ on $\cH$ is given by
+  \[ \nabla_{t_i}(T_j) \coloneqq \frac{1}{2\pi i} (T_i *_{\text{small}} T_j). \]
+  From the preceding remark and the fact that the Dubrovin connection
+  (associated to the Gromov--Witten potential) is flat (cf.
+  \ref{thm:dubrovin-connection-is-flat}), we know $\nabla$ is flat.
+\end{definition}
+
+\begin{proposition}
+  Using the notation of \ref{def:large-radius-limit-point}, the
+  A-model connection has regular singular points along $\Delta^r
+  \setminus D_\sigma$. Let $\cT_j$ be the monodromy determined by a
+  loop around the origin in the $j$-th factor of $(\Delta^*)^r$. Then
+  $\cT_j$ is unipotent, and up to conjugacy, $N_j \coloneqq \log
+  \cT_j$ is determined by cup product with $-T_j$.
+\end{proposition}
+
+\begin{definition}
+  Using this proposition we can show that the canonical extension
+  $\tilde\cH$ to $\Delta^r$ can be naturally identified with the
+  trivial bundle $H^*(X; \bC) \times \Delta^r$. We can use this to
+  obtain an integral structure on $\cH$. A $\nabla$-flat section $s$
+  is {\bf integral} if $\tilde s \coloneqq \exp(-2\pi i\sum_j t_j
+  N_j)s$ is an integral class in $H^*(X; \bC)$ at the point $p \in
+  \Delta^r$. Let $\cH_{\bZ}$ denote the locally constant sheaf of such
+  sections; tensoring with $\bR$ gives $\cH_{\bR}$.
+\end{definition}
+
+\begin{corollary}
+  The monodromy weight filtration of $\nabla$ at $0 \in \Delta^r$ is
+  given by $W_i = \bigoplus_{j \ge 2d-i} H^j(X; \bC)$.
+\end{corollary}
+
+\begin{proof}
+  Recall that $W_\bullet$ is determined by $N \coloneqq \sum_{j=1}^r
+  a_j N_j$, i.e. cupping with the K\"ahler class $\omega =
+  \sum_{j=1}^r a_j T_j$. Now use that $- \cup \omega^k$ is an
+  isomorphism by hard Lefschetz.
+\end{proof}
+
+\begin{corollary}
+  The A-model connection has maximally unipotent monodromy at $0 \in
+  \Delta^r$.
+\end{corollary}
+
+\begin{proof}
+  It suffices to check conditions 2 and 3 in
+  \ref{def:maximally-unipotent-boundary-point}. Since $H^1(X; \bC) =
+  0$, the previous corollary shows $\dim W_0 = \dim W_1 = h^{2d}(X) =
+  1$. If $g_0 \in H^{2d}(X; \bC)$ is dual to a point and $g_i \in
+  H^{2d-2}(X; \bC)$ is dual to $T_i$, then at the fiber over $0 \in
+  \Delta^r$,
+  \[ N_i(g_j) = -T_i \cup g_j = -g_0 \int_X T_i \cup g_j = -g_0 \delta_{ij}, \]
+  and clearly $(\delta_{ij})$ is invertible.
+\end{proof}
+
+\begin{definition}
+  Now we turn the A-model connection into a variation of Hodge
+  structure. Let $X$ be a Calabi--Yau $d$-fold for $d \ge 3$, and set
+  $F^p \coloneqq \bigoplus_{a\le d-p} H^{a,b}(X)$, giving a decreasing
+  {\bf filtration} $H^*(X; \bC) = F^0 \supset F^1 \supset \cdots$.
+  Define the subbundles $\cF^p \coloneqq F^p \times K_{\bC}(X) \subset
+  \cH$ which give a filtration of $\cH$. Also define the {\bf
+    intersection form}
+  \[ S(\alpha, \beta) \coloneqq (-1)^{k(k+1)/2} \int_X \alpha \cup \beta, \quad \alpha \in H^k(X; \bC), \; \beta \in H^l(X; \bC), \]
+\end{definition}
+
+\begin{theorem} \cite[Theorem 8.5.11]{Cox1999}
+  Let $X$ be a Calabi--Yau $d$-fold for $d \ge 3$. Then in a
+  neighborhood $U$ of $0 \in \Delta^r$, $(\cH, \nabla, \cH_{\bZ},
+  \cF^\bullet)$ is a variation of Hodge structure over $U \cap
+  (\Delta^*)^r$ of weight $d$ polarized by $S$.
+\end{theorem}
+
+\begin{definition}
+  We call $(\cH, \nabla, \cH_{\bZ}, \cF^\bullet)$ the {\bf A-variation
+    of Hodge structure}. Let $\cH^{\text{middle}} \subset \cH$ denote
+  the subbundle with fibers $\bigoplus_{p=0}^d H^{p,p}(X)$, the middle
+  part of the Hodge decomposition of $H^*(X; \bC)$. By
+  \ref{thm:small-quantum-product-is-hodge-compatible}, $\nabla$
+  preserves $\cH^{\text{middle}}$, so let $\nabla^{\text{middle}}
+  \coloneqq \nabla|_{\cH^{\text{middle}}}$. The remaining structures
+  also restrict, to give the {\bf middle A-variation of Hodge
+    structure} $(\cH^{\text{middle}}, \nabla^{\text{middle}},
+  \cH_{\bZ}^{\text{middle}}, \cF^\bullet)$. The pairing $S$ restricts
+  to $\cH^{\text{middle}}$, polarizing the middle A-variation.
+\end{definition}
+
+\section{Mathematical Mirror Pairs}
+
+\subsection{Calabi--Yau 3-Folds}
+
+Let's sum up the setting. We have two smooth Calabi--Yau $3$-folds $X$
+and $X^\circ$, with $\cnj\cM(X)$ and $\cnj\cKM(X^\circ)$ being
+suitably compatible compactifications of the complex moduli space
+$\cM(X)$ and the K\"ahler moduli space $\cKM(X^\circ)$ respectively.
+More precisely, we have
+\begin{enumerate}
+\item a maximally unipotent boundary point $p_0 \in \cnj\cM(X)$,
+\item a large radius limit point $q_0 \in \cnj\cKM(X^\circ)$, and
+\item a mirror map mapping a neighborhood of $p_0$ to a neighborhood
+  of $q_0$.
+\end{enumerate}
+(We assume $X$ satisfies the integrality conjecture
+\ref{def:integrality-conjecture}, so that the mirror map is specified
+uniquely.) There are two variations of Hodge structure:
+\begin{enumerate}
+\item on $\cM(X)$ we have the Gauss--Manin connection
+  $\nabla^{\text{GM}}$ and the Hodge filtration on the bundle $\cH^X$
+  given by $H^3(V; \bC)$;
+\item on $\cKM(X^\circ)$ we have the A-model connection
+  $\nabla^{\text{middle}}$ and the Hodge filtration on the bundle
+  $\cH^{X^\circ}$ given by $H^{\text{middle}}(X^\circ) \coloneqq
+  \bigoplus_{p=0}^3 H^{p,p}(X^\circ)$.
+\end{enumerate}
+Their integral structures are denoted $\cH^X_{\bZ}$ and
+$\cH^{X^\circ}_{\bZ}$ respectively. Furthermore, these variations of
+Hodge structure are polarized:
+\begin{enumerate}
+\item since every class $\alpha \in H^3(X; \bC)$ is primitive,
+  $Q(\alpha, \beta) \coloneqq -\int_X \alpha \cup \beta$ polarizes
+  $(\cH^X, \nabla^{\text{GM}}, \cH^X_{\bZ}, \cF^\bullet)$;
+\item on $\bigoplus_{p=0}^3 H^{p,p}(X)$, the form $S(\alpha, \beta)
+  \coloneqq (-1)^p \int_X \alpha \cup \beta$ for $\alpha \in
+  H^{p,p}(X)$ and $\beta \in H^{3-p,3-p}(X)$ polarizes
+  $(\cH^{X^\circ}, \nabla^{\text{middle}}, \cH^{X^\circ}_{\bZ},
+  \cF^\bullet)$.
+\end{enumerate}
+Finally, there are two distinguished sections for each Hodge bundle.
+\begin{enumerate}
+\item On $X$, the bundle $\cH^X$ has the section $g_0$, which is an
+  integral generator of $W_0$ and is unique up to sign. Normalize the
+  section $\Omega$ of $\cF^3$ by the factor $y_0 \coloneqq \inner{g_0,
+    \Omega}$ to get another distinguished section $\Omega/y_0$. Note
+  that $Q(\Omega/y_0, g_0) = 1$ by construction.
+\item On $X^\circ$, the bundle $\cH^{X^\circ}$ has the section $[\pt]
+  \in H^{3,3}(X^\circ; \bZ)$, which an integral generator of $W_0$.
+  The other distinguished section is $1 = T_0 \in H^0(X, \bC)$, which
+  generates $\cF^3$ and satisfies $S(1, [\pt]) = 1$.
+\end{enumerate}
+
+\begin{definition}
+  In the setting presented above, $(X, X^\circ)$ is a {\bf
+    (Hodge-theoretic) mirror pair} if the mirror map lifts to an
+  isomorphism of $\cH^X$ and $\cH^{X^\circ}$ in neighborhoods of $p_0$
+  and $q_0$. This isomorphism should preserve the polarized variations
+  of Hodge structure and send the sections $\Omega/y_0$ and $g_0$ to
+  the sections $1$ and $[\pt]$ respectively.
+\end{definition}
+
+It turns out mirror pairs have an equivalent characterization in terms
+of correlation functions, and this characterization is what we want to
+work with. Recall that the Yukawa couplings, i.e. {\bf B-model
+  correlation functions}, are given by
+\[ Y_{ijk} = -\int_X \tilde\Omega \wedge \nabla_i \nabla_j \nabla_k \tilde\Omega = Q(\tilde\Omega, \nabla_i \nabla_j \nabla_k \tilde\Omega) \]
+where $\tilde\Omega \coloneqq \Omega/y_0$ is normalized (see
+\ref{def:yukawa-coupling}). Similarly, the {\bf A-model correlation
+  functions} are given by
+\[ \inner{T_i, T_j, T_k} = \int_{X^\circ} T_i *_{\text{small}} T_j *_{\text{small}} T_k = S(1, \nabla_i \nabla_j \nabla_k 1). \]
+
+\begin{theorem} \label{thm:mirror-pair-correlation-functions}
+  Suppose $X$ satisfies the integrality conjecture. Then $(X,
+  X^\circ)$ is a mirror pair iff, via the mirror map, $Y_{ijk} =
+  \inner{T_i, T_j, T_k}$ for all $i,j,k$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+  One direction is trivial: if there is a local isomorphism of moduli
+  spaces with $\tilde\Omega \mapsto 1$, $\nabla^{\text{GM}} \mapsto
+  \nabla^{\text{middle}}$, and $Q \mapsto S$, then clearly the
+  equality of correlation functions follows. Conversely, pick the
+  basis $e_0 = \tilde\Omega, e_1, \ldots, e_r$ for $\cH^X$ and the
+  basis $T_0 = 1, T_1, \ldots, T_r$ for $\cH^{X^\circ}$. Then clearly
+  $e_i \mapsto T_i$ is a bundle isomorphism. It remains to check that
+  this isomorphism preserves the Hodge structures. This is not hard,
+  because Yukawa couplings fully determine the Gauss--Manin connection
+  (cf. \ref{thm:picard-fuchs-equation-in-monodromy-coordinates}), and
+  the A-model correlation functions fully determine the A-model
+  connection (cf. \ref{def:dubrovin-connection}). A similar argument
+  works for the polarizations and integral structures at $0 \in
+  \Delta^r$.
+\end{proof}
+
+\begin{corollary}
+  Let $\Phi^{GM}$ denote the (complex moduli) prepotential from
+  \ref{def:gauss-manin-prepotential}, and $\Phi^{GW}$ the
+  Gromov--Witten potential. If $X$ satisfies the integrality
+  conjecture, then $(X, X^\circ)$ is a mirror pair iff $\Phi^{GM} =
+  \Phi^{GW}$ up to quadratic terms in the coordinates $t_i$.
+\end{corollary}
+
+\begin{proof}
+  Note that $Y_{ijk} = \di_i \di_j \di_k \Phi^{GM}$
+  (\ref{def:yukawa-coupling}) and by the definition of the big quantum
+  product, $\inner{T_i,T_j,T_k} = \di_i \di_j \di_k \Phi^{GW}$ (cf.
+  \ref{def:big-quantum-product}). Hence, under the mirror map, we can
+  directly compare potentials.
+\end{proof}
+
+\begin{example}[Quintic threefold]
+  Set $X^\circ$ to be the quintic threefold and $X$ to be the
+  quintic mirror of \ref{def:mirror-quintic}. Then according to
+  \ref{thm:mirror-pair-correlation-functions}, mirror symmetry for
+  $(X, X^\circ)$ is equivalent to the equality
+  \[ 5 + \sum_{d=1}^\infty n_d d^3 \frac{q^d}{1 - q^d} = \frac{5}{(1 + 5^5z) y_0(z)^2} \left(\frac{q}{z} \frac{dz}{dq}\right)^3. \]
+  Indeed, the left hand side is the correlation function
+  $\inner{H,H,H}$ (cf.
+  \eqref{eq:calabi-yau-threefold-three-point-function}) of the quintic
+  threefold, and the right hand side is the normalized Yukawa coupling
+  (cf. \eqref{eq:quintic-threefold-normalized-yukawa-coupling})
+  expressed in the mirror map coordinate $q \coloneqq \exp(2\pi i
+  \inner{g_1, \tilde\Omega})$. To see this, write $\delta \coloneqq q
+  \di_q = (q/z) (dz/dq) z \di_z$, so that the normalized
+  Yukawa coupling becomes
+  \[ Y = -\int_{X^\circ} \tilde\Omega \wedge \nabla_\delta \nabla_\delta \nabla_\delta \tilde\Omega = \left(\frac{q}{z} \frac{dz}{dq}\right)^3 \int_{X^\circ} \tilde\Omega \wedge \nabla_{z\di_z} \nabla_{z \di_z} \nabla_{z \di_z} \tilde\Omega = \left(\frac{q}{z} \frac{dz}{dq}\right)^3 \frac{5}{(1 + 5^5z) y_0(z)^2}. \]
+  These are the only correlation functions because $h^{1,1}(X^\circ) =
+  h^{2,1}(X) = 1$.
+\end{example}
+
+\subsection{Toric 3-Folds}
+
+\todo{Construct Batyrev dual}
+
+\begin{conjecture}[Mirror conjecture for Toric $3$-folds]
+  Fix a reflexive polytope $\Delta$ of dimension $d = 3$ and let
+  $\Sigma$ and $\Sigma^\circ$ be maximal projective subdivisions of
+  the normal fans of $\Delta$ and $\Delta^\circ$ respectively. Then
+  the minimal Calabi--Yau toric hypersurface $V \subset X_\Sigma$ and
+  its Batyrev dual $V^\circ \subset X_{\Sigma^\circ}$ form a mirror
+  pair.
+\end{conjecture}
+
+\section{Givental's Mirror Theorem}
+
+In \cite{Givental1996}, Givental states and proves a mirror theorem
+for nef complete intersections in $\bP^n$. We follow \cite[Section
+  11.2]{Cox1999}, which outlines a slightly different version of
+Givental's proof.
+
+\subsection{The Givental Connection and Flat Sections}
+
+We need explicit expressions for flat sections of the A-model
+connection. As usual, $X$ is a smooth projective variety, and let $T_0
+= 1, T_1, \ldots, T_m$ be a homogeneous basis of $M \coloneqq H^*(X;
+\bC)$ such that $T_1, \ldots, T_r$ span $H^2(X; \bQ)$.
+
+\begin{definition}
+  Let $X$ be a smooth projective variety and $*$ the big quantum
+  product. Identify $\di_{t_i}$ with $T_i$ so that $T_pM \cong M$, and
+  the Dubrovin connections $\nabla^\lambda$ are defined on the trivial
+  bundle $H^*(X; \bC) \times M$. The {\bf Givental connection} on $TM$
+  (formally) is given by
+  \[ \nabla^g_i(a^j T_j) \coloneqq \hbar (\di_i a^j) T_j - a^j T_j * T_i \]
+  where $\hbar$ is a formal parameter (later to be identified with a
+  generator of $H^2_{\bC^*}$).
+\end{definition}
+
+\begin{remark}
+  Formally, $\nabla^g = \hbar \nabla^{-\hbar^{-1}}$, so $\nabla^g$ is
+  also flat, and flat sections exist.
+\end{remark}
+
+\begin{definition}
+  Recall that $\gamma \coloneqq \sum_i t_i T_i$ and the $\psi$-classes
+  of gravitational descendant invariants (see
+  \ref{def:gravitational-descendant-invariants}). For each $a = 0,
+  \ldots, m$, define the formal section
+  \[ s_a \coloneqq T_a + \!\!\!\!\!\sum_{\substack{n \ge 0, \beta\\(n,\beta)\neq(0,0)}} \!\!\frac{1}{n!} \inner{T_a \cdot \frac{T_b}{\hbar - \psi_1} \cdot \gamma^n}_\beta T^b = T_a + \!\!\!\!\!\sum_{\substack{n \ge 0, \beta\\(n,\beta)\neq(0,0)}} \!\!\sum_{k \ge 0} \frac{\hbar^{-k-1}}{n!} \inner{T_a \cdot \tau_k(T_b) \cdot \gamma^n}_\beta T^b. \]
+\end{definition}
+
+\begin{proposition}
+  The sections $s_a$ form a basis for $\nabla^g$-flat sections, i.e.
+  they satisfy the {\bf quantum differential equation}
+  \[ \nabla^g s_a = \hbar \di_i s_a - T_i * s_a = 0. \]
+\end{proposition}
+
+\begin{proof}
+  The proof relies on the following {\bf topological recursion}
+  relation:
+  \[ \inner{\tau_{a_1}(\gamma_1)\tau_{a_2}(\gamma_2)\tau_{a_3}(\gamma_3)\prod_{i \in S} \tau_{d_i}(\eta_i)}_\beta = \sum_{\substack{\beta_1+\beta_2=\beta\\S_1 \sqcup S_2 = S}} \inner{\tau_{a_1-1}(\gamma_1) \prod_{i \in S_1} \tau_{d_i}(\eta_i) T_r}_{\beta_1} \inner{T^r \tau_{a_2}(\gamma_2)\tau_{a_3}(\gamma_3) \prod_{i \in S_2} \tau_{d_i}(\eta_i)}_{\beta_2} \]
+  which follows from applying an analogue of the splitting lemma to
+  the fact that for $\pi\colon \cnj\cM_{0,n}(X,\beta) \to \cM_{0,3}$,
+  we have $\pi^*\bL_1 - \bL_1 = \sum_\Gamma D_\Gamma$ where the sum is
+  over all boundary divisors separating $\{1\}$ from $\{2,3\}$. Then
+  some symbol-pushing gives the quantum DE.
+\end{proof}
+
+\begin{remark}
+  Since $T_0$ is the identity for $*$, we have $\hbar \di_0 s_a =
+  s_a$, i.e. only a multiplicative factor $e^{t_0/\hbar}$ in $s_a$
+  depends on $t_0$. So we often ignore $t_0$.
+\end{remark}
+
+\begin{remark}
+  The topological recursion relation given in the above proof also
+  shows that the genus $0$ descendant invariants are fully determined
+  by genus $0$ Gromov--Witten invariants: just keep applying the
+  relation until all the $\tau_{a_i}$ vanish.
+\end{remark}
+
+\begin{proposition}
+  Let $T_1, \ldots, T_r$ be a basis for $H^2(X; \bQ)$, and $\delta
+  \coloneqq \sum_{i=1}^r t_i T_i$. If we pass to small quantum
+  cohomology via \ref{def:restricted-big-quantum-product}, then given
+  $T \in H^*(X; \bC)$,
+  \begin{equation} \label{eq:a-model-connection-flat-section}
+    s(T) \coloneqq e^{\delta/\hbar} \cup T + \sum_{\beta \neq 0} \sum_{j=0}^m q^\beta \inner{\frac{e^{\delta/\hbar} \cup T}{\hbar - \psi_1} \cdot T_j}_\beta T^j
+  \end{equation}
+  is a flat (formal) section for the A-model connection $\nabla$.
+\end{proposition}
+
+\begin{proof}
+  First restrict $s_a$ to $H^0(X; \bC) \oplus H^2(X; \bC)$, so that by
+  \ref{def:restricted-big-quantum-product}, we can replace
+  $*_{\text{big}}$ with $*_{\text{small}}$ under the homomorphism
+  $\vec q^\beta \mapsto q^\beta$ of coefficient rings. Then do some
+  symbol-pushing.
+\end{proof}
+
+\subsection{Givental's J Function}
+
+Throughout this subsection we restrict $\nabla^g$ to act on the
+trivial bundle $H^*(X; \bC) \times M$ over $M = H^0(X; \bC) \oplus
+H^2(X; \bC)$, with basis $t_0, t_1, \ldots, t_r$.
+
+\begin{definition}
+  Let $s_a$ denote the $\nabla^g$-flat sections and $\inner{\cdot,
+    \cdot}$ the usual intersection pairing. Define Givental's {\bf J
+    function} $J \coloneqq \inner{s_j, 1}T^j$.
+\end{definition}
+
+\begin{theorem}
+  Let $P(\hbar \di_t, e^t, \hbar)$ be a formal power series in the
+  quantities $\hbar \di_0, \ldots, \hbar \di_r, e^{t_0}, \ldots,
+  e^{t_r}, \hbar$, and let $P(T,q,0)$ denote the formal power series
+  in $H^*(X; \cR)$ with coefficient ring $\cR \coloneqq \bC[[q_1,
+      \ldots, q_r]]$ given by the substitutions $\hbar \di_j \mapsto
+  T_j$ and $e^{t_j} \mapsto q_j$ and $\hbar \mapsto 0$. Then
+  \[ P(\hbar \di_t, e^t, \hbar)J = 0 \implies P(T, q, 0) = 0 \text{ in small quantum cohomology}. \]
+\end{theorem}
+
+\begin{proof}
+  Let $\tilde\nabla^g$ be the {\bf dual Givental connection}
+  $\tilde\nabla^g_i(a^jT_j) \coloneqq \hbar (\di_i a^j)T_j + a^j T_i *
+  T_j$. Since $T_0, \ldots, T_m$ are linearly independent, $PJ =
+  P\inner{s_j, 1}T^j = 0$ implies $P\inner{s_j, 1} = 0$ for all $j$.
+  Using the identities
+  \[ \hbar \di_i \inner{G, H} = \inner{\nabla^g_i G, H} + \inner{G, \tilde\nabla^g_i H}, \quad \tilde\nabla^g_{i_1} \cdots \tilde\nabla^g_{i_k}1 = T_{i_1} * \cdots * T_{i_k} + \hbar A(T, q, \hbar) \]
+  where $A$ is some formal series we don't care about, we get
+  \[ 0 = P\inner{s_j, 1} = \inner{s_j, P(T,q,0)} + \hbar\inner{s_j, B(T, q, \hbar)} \]
+  where $B$ is another formal series we don't care about, because upon
+  setting $\hbar \mapsto 0$, the fact that the $s_j$ form a basis
+  gives $P(T,q,0) = 0$.
+\end{proof}
+
+\begin{definition}
+  A {\bf quantum differential operator} is a differential operator
+  $P(\hbar \di_t, e^t, \hbar)$ satisfying the conditions of the
+  preceding theorem.
+\end{definition}
+
+Givental's J function is not only important in studying quantum
+differential operators, but also plays a crucial role in Givental's
+proof of mirror symmetry for complete intersections in $\bP^n$. Hence
+we need a more explicit expression for it.
+
+\begin{lemma}
+  Let $\delta \coloneqq \sum_{i=1}^r t_iT_i$ and $\vec q^\beta
+  \coloneqq e^{\int_\beta \delta}$ as per
+  \ref{def:restricted-big-quantum-product}. Let $\PD$ denote
+  Poincar\'e duality. Then
+  \begin{equation} \label{eq:givental-j-function}
+  \begin{aligned}
+    J &= e^{(t_0 + \delta)/\hbar} \bigg(1 + \sum_{\beta \neq 0} \vec q^\beta \inner{\frac{T_a}{\hbar - \psi_1}\cdot 1}_\beta T^a\bigg) \\
+    &= e^{(t_0 + \delta)/\hbar} \bigg(1 + \sum_{\beta \neq 0} \vec q^\beta \PD^{-1}(\ev_1)_*\left(\frac{1}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(X,\beta)]^{\vir}\right)\bigg)
+  \end{aligned}
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  Plugging the expression \eqref{eq:a-model-connection-flat-section}
+  for $s_a$ into the definition of $J$ and simplifying, we get
+  \[ J = e^{t_0/\hbar}\bigg(e^{\delta/\hbar} + \sum_{\beta \neq 0} \vec q^\beta\inner{\frac{e^{\delta/\hbar} \cup T_a}{\hbar - \psi_1}\cdot 1}_\beta T^a\bigg). \]
+  But $J$ is basis independent, so we can replace $\{T_a\}$ with any
+  other basis, which does not even need to be homogeneous, e.g.
+  $\{e^{-\delta/\hbar} \cup T_a\}$. This basis has dual basis
+  $\{e^{\delta/\hbar} \cup T^a\}$, and substituting it in gives the
+  first expression for $J$. The second expression follows from
+  \[ \inner{\frac{T_a}{\hbar - \psi_1} \cdot 1}_\beta = \int_{[\cnj\cM_{0,2}(X,\beta)]^{\vir}} \frac{\ev_1^*(T_a)}{\hbar - \psi_1} = \int_X T_a \cup \PD^{-1}\bigg((\ev_1)_*\left(\frac{1}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(X,\beta)]^{\vir}\right)\bigg). \qedhere \]
+\end{proof}
+
+\begin{example}
+  Let $X$ be a Calabi--Yau $3$-fold. Applying the degree axiom
+  \ref{thm:gromov-witten-degree-axiom} to the equation
+  \ref{eq:givental-j-function} for $J$,
+  \begin{equation} \label{eq:givental-j-function-calabi-yau-threefold}
+    J = e^{(t_0 + \delta)/\hbar} \bigg(1 + \sum_{\beta \neq 0} \vec q^\beta\bigg(\hbar^{-2}\sum_{a=1}^r \inner{\tau_1(T_a) \cdot 1}_\beta T^a + \hbar^{-3} \inner{\tau_2(1) \cdot 1}_\beta T^0\bigg)\bigg).
+  \end{equation}
+  By the string equation \eqref{eq:descendant-string-equation} and
+  that $\sum_{a=1}^r (\int_\beta T_a) T^a$ is Poincar\'e dual to
+  $\beta$, we abuse notation and write
+  \[ J = e^{(t_0 + \delta)/\hbar} \bigg(1 + \hbar^{-2} \sum_{\beta \neq 0} N_\beta \vec q^\beta \beta - 2\hbar^{-3} \sum_{\beta \neq 0} N_\beta \vec q^\beta \pt\bigg) \]
+  where $N_\beta \coloneqq \inner{I_{0,0,\beta}}$ are the
+  Gromov--Witten invariants defining the instanton numbers (see
+  \ref{ex:small-quantum-cohomology-calabi-yau-threefold}). Hence if we
+  have an independent method of computing $J$, we get the $N_\beta$
+  for free.
+\end{example}
+
+\begin{proposition} \cite[Proposition 10.3.4]{Cox1999} \label{thm:givental-j-function-calabi-yau-threefold}
+  If $X$ is a Calabi--Yau $3$-fold, $\di_{t_i} \di_{t_j} J =
+  \hbar^{-2} e^{(t_0+\delta)/\hbar} T_i * T_j$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+  First compute the Gromov--Witten potential $\Phi = (1/6)\int_X
+  \delta^3 + \sum_{\beta \neq 0} N_\beta q^\beta$ for $X$. Then
+  rewrite \eqref{eq:givental-j-function-calabi-yau-threefold} in terms
+  of $\Phi$. Then differentiate, noting that $(\di_i \di_j \di_a \Phi)
+  T^a = T_i * T_j$.
+\end{proof}
+
+\begin{definition}
+  In preparation for Givental's mirror theorem for complete
+  intersections in $\bP^n$, we consider a smooth complete intersection
+  $X \subset \bP^n$ of $\ell$ hypersurfaces of degree $a_1, \ldots,
+  a_\ell$, and write $\cV \coloneqq \bigoplus_{i=1}^\ell
+  \cO_{\bP^n}(a_i)$ so that $X$ is the zero locus of some section of
+  $\cV$. Let $H \in H^2(\bP^n)$ be the hyperplane class, and define
+  the cohomology-valued formal function
+  \begin{equation} \label{eq:givental-i-function}
+    I_{\cV} = I_{\cV}(t_0, t_1, \hbar^{-1}) \coloneqq e^{(t_0 + t_1H)/\hbar} e(\cV) \sum_{d=0}^\infty e^{t_1d} \frac{\prod_{i=1}^\ell \prod_{m=1}^{a_i d} (a_i H + m\hbar)}{\prod_{m=1}^d (H + m\hbar)^{n+1}}.
+  \end{equation}
+  If $X = \bP^n$ so that $\cV$ is trivial, we write $I_{\bP^n}$.
+\end{definition}
+
+\begin{remark}
+  This function $I_{\cV}$ may seem rather arbitrary. Indeed, this is
+  because we are missing some background on hypergeometric DEs. The
+  upcoming example \ref{ex:mirror-theorem-quintic-threefold} explains
+  how $I_{\cV}$ is encoding precisely a basis of solutions for the
+  Picard--Fuchs equations for the periods of $X$.
+\end{remark}
+
+\begin{definition}
+  Let $J_X$ denote Givental's J function for $X$, to avoid confusion
+  with the J function $J_{\cV}$ for $\cV$ which we shall define now
+  (continuing with the notation of the previous definition). Let
+  $\pi_{k+1}\colon \cnj\cM_{0,k+1}(\bP^n, d) \to \cnj\cM_{0,k}(\bP^n,
+  d)$ forget the $(k+1)$-th marked point. Then there is a bundle
+  $\cV_{d,k} \coloneqq (\pi_{k+1})_*\ev_{k+1}^*(\cV)$ with fiber
+  $H^0(\Sigma, f^*(\cV))$ at $f\colon \Sigma \to \bP^n$ in
+  $\cnj\cM_{0,k}(X, \beta)$. Using it, define another bundle
+  $\cV_{d,k,i}'$ by the short exact sequence
+  \begin{equation} \label{eq:exact-sequence-Vdki}
+    0 \to \cV_{d,k,i}' \to \cV_{d,k} \to \ev_i^*(\cV) \to 0,
+  \end{equation}
+  i.e. consisting of sections of $\cV_{d,k}$ vanishing at the $i$-th
+  marked point. Now by analogy with \eqref{eq:givental-j-function},
+  define
+  \begin{equation} \label{eq:givental-j-function-complete-intersection}
+    J_{\cV} \coloneqq e^{(t_0 + t_1H)/\hbar} e(\cV) \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,k,1}')}{\hbar - \psi_1}\right)\right).
+  \end{equation}
+\end{definition}
+
+\begin{remark}
+  When $\cV = 0$, i.e. $X = \bP^n$ (which is convex), we have $e(\cV)
+  = 1$ and therefore that
+  \[ J_{\cV} = e^{(t_0 + t_1H)/\hbar} \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{1}{\hbar - \psi_1}\right)\right) = J_{\bP^n}. \]
+\end{remark}
+
+\begin{lemma} \label{thm:hbar-expansion-of-j-function}
+  $J_{\cV} = e^{(t_0 + t_1H)/\hbar} e(\cV) (1 + o(\hbar^{-1}))$.
+\end{lemma}
+
+\begin{proof}
+  From the short exact sequence \eqref{eq:exact-sequence-Vdki}
+  defining $\cV'_{d,k,i}$ and the projection formula, we know that
+  $e(\cV) \cup (\ev_1)_!(e(\cV'_{d,2,1})) = (\ev_1)_!(e(\cV_{d,2}))$.
+  The claim is that the coefficient of $\hbar^{-1}$ in
+  \ref{eq:givental-j-function-complete-intersection} contains this
+  quantity as a factor, and it is zero. This is because $\ev_1$
+  factors through $\pi_2\colon \cnj\cM_{0,2}(\bP^n, d) \to
+  \cnj\cM_{0,1}(\bP^n, d)$ and $\cV_{d,2} = \pi_2^*(\cV_{d,1})$, so
+  \[ (\pi_2)_!(e(\cV_{d,2})) = (\pi_2)_! \pi_2^*(e(\cV_{d,1})) = 0 \]
+  since the fibers of $\pi_2$ have positive dimension.
+\end{proof}
+
+\subsection{Mirror Theorem Statement}
+
+Let $X \subset \bP^n$ be a smooth complete intersection of $\ell$
+hypersurfaces of degrees $a_1, \ldots, a_\ell$, and put $\cV \coloneqq
+\bigoplus_{i=1}^\ell \cO_{\bP^n}(a_i)$ so that $X$ is the zero set of
+some global section of $\cV$. In addition, assume $\sum_{i=1}^\ell a_i
+\le n+1$ (equivalently, the anticanonical class of $X$ is nef). We
+shall spend this subsection on understanding the following theorem,
+whose proof comes in the next subsection.
+
+\begin{theorem}[Mirror theorem]
+  In this setting, the formal cohomology-valued functions $I_{\cV}$
+  and $J_{\cV}$ coincide after a change of variables
+  \[ t_0 \mapsto t_0 + f(e^{t_1})\hbar + h(e^{t_1}), \quad t_1 \mapsto t_1 + g(e^{t_1}) \]
+  where $f, g, h$ are homogeneous power series.
+\end{theorem}
+
+\begin{remark}
+  The power series $f, g, h$ are uniquely determined and can be
+  calculated by applying the given change of variables to the
+  expression \ref{thm:hbar-expansion-of-j-function} for $J_{\cV}$ to
+  get
+  \[ I_{\cV} = e^f e(\cV)(1 + h \hbar^{-1} 1 + (t_1 + g) \hbar^{-1} H + o(\hbar^{-1})), \]
+  so by removing the factor $e(\cV)$, we can read off that $e^f$ is
+  the coefficient of $1$, $e^f h$ is the coefficient of $\hbar^{-1}
+  1$, and $e^f (t_1 + g)$ is the coefficient of $\hbar^{-1} H$.
+\end{remark}
+
+\begin{corollary}
+  For $X \subset \bP^n$ a hypersurface of degree $d < n$, we have $f =
+  g = h = 0$, i.e. $J_{\cV} = I_{\cV}$.
+\end{corollary}
+
+\begin{proof}
+  This is $\ell = 1$ and $a_1 = d$ in the definition
+  \eqref{eq:givental-i-function} of $I_{\cV}$. By degree
+  considerations, $d < n$ gives $I_{\cV} = e^{(t_0 + t_1H)/\hbar}
+  e(\cV)(1 + o(h^{-1}))$. Hence by the remark, $e^f = 1$, $e^f h = 0$,
+  and $e^f(t_1 + g) = t_1$.
+\end{proof}
+
+\begin{proposition} \label{thm:relation-between-givental-j-functions}
+  Let $i\colon X \to \bP^n$ be the complete intersection having $\cV =
+  \bigoplus_{i=1}^\ell \cO_{\bP^n}(a_i)$ and assume $\dim X \ge 3$.
+  Then $J_{\cV} = i_*(J_X)$
+\end{proposition}
+
+\begin{proof}
+  The assumption $\dim X \ge 3$ gives $H^2(\bP^n) \cong H^2(X)$ by the
+  Lefschetz hyperplane theorem \ref{thm:lefschetz-hyperplane}, so that
+  $J_{\cV}$ and $J_X$ are formal functions of $t_0$ and $t_1$. The
+  inclusion $i$ induces a compatible inclusion $j\colon
+  \cnj\cM_{0,2}(X, d) \to \cnj\cM_{0,2}(\bP^n, d)$, and by the normal
+  cone construction \ref{ex:virtual-fundamental-class-hypersurface},
+  we know
+  \[ j_*([\cnj\cM_{0,2}(X, d)]^{\vir}) = e(\cV_{d,2}) \cap [\cnj\cM_{0,2}(\bP^n, d)]. \]
+  Now we compute $i_*(J_X)$. Using that $j^*\psi_1 = \psi_1$, the
+  projection formula for $j$ therefore gives
+  \[ j_*\left(\frac{1}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(X, d)]^{\vir}\right) = \frac{e(\cV_{d,2})}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(\bP^n, d)]. \]
+  Plugging this into the second expression for $J_X$ in
+  \eqref{eq:givental-j-function}, we get
+  \[ i_*(J_X) = e^{(t_0 + t_1H)/\hbar}\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,2})}{\hbar - \psi_1}\right)\bigg) = e^{(t_0 + t_1H)/\hbar}e(\cV)\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,2,1}')}{\hbar - \psi_1}\right)\bigg) \]
+  where the second equality used that $e(\cV_{d,2}) = e(\cV_{d,2,1}')
+  \cup \ev_1^*(\cV)$. But now the right hand side is just $J_{\cV}$.
+\end{proof}
+
+\begin{example} \label{ex:mirror-theorem-quintic-threefold}
+  It is not clear how this mirror theorem relates to mirror pairs, so
+  let's see it explicitly for the quintic threefold $X \subset \bP^4$
+  with $\cV = \cO_{\bP^4}(5)$, so that $e(\cV) = 5H$ (by
+  \ref{ex:chern-hypersurface}). Let $t_0 = 0$ and $\hbar = 1$ and
+  write
+  \begin{equation} \label{eq:givental-i-function-quintic-threefold}
+    I_{\cV}(t_0, t_1) = e^{(t_0 + t_1H)/\hbar} 5H \sum_{d=0}^\infty e^{t_1d} \frac{\prod_{m=1}^{5d} (5H + m\hbar)}{\prod_{m=1}^d (H + m\hbar)^5} = 5H\left(y_0(t_1) + y_1(t_1)\frac{H}{\hbar} + y_2(t_1)\frac{H^2}{\hbar^2} + y_3(t_1)\frac{H^3}{\hbar^3}\right).
+  \end{equation}
+  It is a general fact that $y_0, y_1, y_2, y_3$ are a basis of
+  solutions to the Picard--Fuchs equation of the quintic mirror
+  \cite[Page 16]{Givental1995} \cite[Example 6.3.4.1]{Cox1999}; this
+  is why we defined $I_{\cV}$ to be what it is. We read off $f, g, h$
+  from $I_{\cV}$ for the mirror theorem:
+  \[ f = \log y_0, \quad h = 0, \quad g = \frac{y_1}{y_0} - t_1. \]
+  Note that $t_1 \mapsto t_1 + g = y_1/y_0$ is precisely the mirror
+  map by \ref{def:mirror-coordinates} since $q \coloneqq e^{t_1}$ from
+  \ref{def:large-radius-limit-point}. So let $s \coloneqq y_1/y_0$.
+  The mirror theorem then gives
+  \[ J_{\cV}(t_0 + \log(y_0)\hbar, y_1/y_0) = y_0 J_{\cV}(t_0, s) = I_{\cV}(t_0, t_1). \]
+  The claim is that we can recover the normalized Yukawa coupling $Y$
+  from the rhs, and the three-point function $\inner{H,H,H}$ from the
+  lhs. First set $t_0 = 0$ and $\hbar = 1$.
+  \begin{enumerate}
+  \item By \ref{thm:picard-fuchs-equation-in-monodromy-coordinates},
+    the normalized Picard--Fuchs equation is $\di_s^2((\di_s^2 f)/Y) =
+    0$ where $Y$ is the normalized Yukawa coupling. Clearly a basis of
+    solutions is given by $f_0 = 1$, $f_1 = s$, $f_2'' = Y$, and
+    $f_3'' = Ys$ (here the derivative is with respect to $s$). But we
+    also have normalized solutions $y_0/y_0, y_1/y_0, y_2/y_0,
+    y_3/y_0$. Note that
+    \[ y_2/y_0 = a + bs + cf_2 + df_3 \implies (y_2/y_0)'' = cf_2'' + df_3'' = cY + dYs. \]
+    By matching the low-order coefficients $(y_2/y_0)'' = 1 + 575q +
+    \cdots$ and $Y = 5 + 2875q + \cdots$ we see that $c = 1/5$ and $d
+    = 0$. Similar reasoning for $(y_3/y_0)''$ shows that
+    \[ 5 \frac{d^2}{ds^2} \frac{y_2}{y_0} = Y, \quad 5 \frac{d^2}{ds^2} \frac{y_3}{y_0} = Ys. \]
+    It follows by explicitly differentiating
+    \eqref{eq:givental-i-function-quintic-threefold} that
+    $(I_{\cV}/y_0)'' = Y(H^3 + sH^4)$.
+  \item From \ref{thm:givental-j-function-calabi-yau-threefold} we
+    know that $J_X'' = e^{sH} H * H$. But $H * H = \inner{H,H,H}C$
+    where $C$ is the dual to $H$ under the intersection pairing, i.e.
+    the class of a line. Since $i_*(C) = H^3 \in H^6(\bP^4)$, by
+    \ref{thm:relation-between-givental-j-functions}
+    \[ J_{\cV}'' = i_*(J_X)'' = e^{sH} \inner{H,H,H} H^3 = \inner{H,H,H}(H^3 + sH^4). \]
+  \end{enumerate}
+  Since $J_{\cV} = I_{\cV}/y_0$ by the mirror map, clearly $J_{\cV}''
+  = (I_{\cV}/y_0)''$. Hence $Y = \inner{H,H,H}$, which by
+  \ref{thm:mirror-pair-correlation-functions} is precisely the
+  statement that the quintic threefold and the quintic mirror form a
+  mirror pair.
+\end{example}
+
+\subsection{Mirror Theorem Proof}
 
 
 
