@@ -68,6 +68,7 @@
 \newcommand{\cG}{\mathcal{G}}
 \newcommand{\cM}{\mathcal{M}}
 \newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
 \newcommand{\cR}{\mathcal{R}}
 \newcommand{\cT}{\mathcal{T}}
 \newcommand{\cU}{\mathcal{U}}
@@ -5294,7 +5295,7 @@ class.
   weight $-\lambda_j$. Let $N_j$ denote the normal bundle at $q_j$.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition} \label{thm:localization-on-projective-space}
   Let $\phi_j \coloneqq \prod_{i \neq j} (p - \lambda_i)$. The
   isomorphism $H_{\bT}^*(\bP^r) \otimes \Frac(H_{\bT}^*) \cong
   \bigoplus_j H_{\bT}^*(\{q_j\}) \otimes \Frac(H_{\bT}^*)$ of
@@ -5349,7 +5350,7 @@ coordinate lines joining $q_i$ and $q_j$, so every non-contracted
 component must be a (multiple) cover of a coordinate line. We can
 encode all this information in a combinatorial object.
 
-\begin{definition}
+\begin{definition} \label{def:graph-of-fixed-loci}
   The {\bf graph} of a $\bT$-invariant stable map $(\Sigma, p_1,
   \ldots, p_n, f)$ consists of the following data:
   \begin{enumerate}
@@ -5373,7 +5374,9 @@ Note that these graphs are different from the dual graphs of
 dual graphs have analogues. For example, we can define $\cnj\cM_\Gamma
 \subset \cnj\cM_{0,n}(\bP^r, d)$, the substack of stable maps with
 graph $\Gamma$, and show that
-\[ \psi_\Gamma\colon \prod_{\text{vertices } v} \cnj\cM_{0,n(v)} \to \cnj\cM_\Gamma \]
+\begin{equation} \label{eq:product-form-of-MGamma}
+  \psi_\Gamma\colon \prod_{\text{vertices } v} \cnj\cM_{0,n(v)} \to \cnj\cM_\Gamma
+\end{equation}
 is a finite morphism, and we must quotient out by an automorphism
 group $A_\Gamma$ to recover $\cnj\cM_\Gamma$ (in the sense of stacks).
 The group $A_\Gamma$ arises from the exact sequence
@@ -5545,7 +5548,7 @@ $\cnj\cM_{0,n}(X, d)$. We focus on $X$ a Calabi--Yau $3$-fold.
   $2875$ components isomorphic to $\cnj\cM_{0,0}(\bP^1, 2)$.
 \end{example}
 
-\begin{theorem}[Aspinwall--Morrison formula]
+\begin{theorem}[Aspinwall--Morrison formula] \label{thm:aspinwall-morrison-formula}
   Let $\Sigma \subseteq X$ be a rigidly embedded smooth rational curve
   of class $\beta$ in the Calabi--Yau $3$-fold $X$. Then the
   contribution of degree $d$ multiple covers of $\Sigma \cong \bP^1$
@@ -6388,7 +6391,7 @@ we need a more explicit expression for it.
   Picard--Fuchs equations for the periods of $X$.
 \end{remark}
 
-\begin{definition}
+\begin{definition} \label{def:givental-j-function}
   Let $J_X$ denote Givental's J function for $X$, to avoid confusion
   with the J function $J_{\cV}$ for $\cV$ which we shall define now
   (continuing with the notation of the previous definition). Let
@@ -6405,14 +6408,14 @@ we need a more explicit expression for it.
   marked point. Now by analogy with \eqref{eq:givental-j-function},
   define
   \begin{equation} \label{eq:givental-j-function-complete-intersection}
-    J_{\cV} \coloneqq e^{(t_0 + t_1H)/\hbar} e(\cV) \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,k,1}')}{\hbar - \psi_1}\right)\right).
+    J_{\cV} \coloneqq e^{(t_0 + t_1H)/\hbar} e(\cV) \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_*\left(\frac{e(\cV_{d,k,1}')}{\hbar - \psi_1}\right)\right).
   \end{equation}
 \end{definition}
 
 \begin{remark}
   When $\cV = 0$, i.e. $X = \bP^n$ (which is convex), we have $e(\cV)
   = 1$ and therefore that
-  \[ J_{\cV} = e^{(t_0 + t_1H)/\hbar} \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{1}{\hbar - \psi_1}\right)\right) = J_{\bP^n}. \]
+  \[ J_{\cV} = e^{(t_0 + t_1H)/\hbar} \left(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_*\left(\frac{1}{\hbar - \psi_1}\right)\right) = J_{\bP^n}. \]
 \end{remark}
 
 \begin{lemma} \label{thm:hbar-expansion-of-j-function}
@@ -6422,13 +6425,13 @@ we need a more explicit expression for it.
 \begin{proof}
   From the short exact sequence \eqref{eq:exact-sequence-Vdki}
   defining $\cV'_{d,k,i}$ and the projection formula, we know that
-  $e(\cV) \cup (\ev_1)_!(e(\cV'_{d,2,1})) = (\ev_1)_!(e(\cV_{d,2}))$.
+  $e(\cV) \cup (\ev_1)_*(e(\cV'_{d,2,1})) = (\ev_1)_*(e(\cV_{d,2}))$.
   The claim is that the coefficient of $\hbar^{-1}$ in
   \ref{eq:givental-j-function-complete-intersection} contains this
   quantity as a factor, and it is zero. This is because $\ev_1$
   factors through $\pi_2\colon \cnj\cM_{0,2}(\bP^n, d) \to
   \cnj\cM_{0,1}(\bP^n, d)$ and $\cV_{d,2} = \pi_2^*(\cV_{d,1})$, so
-  \[ (\pi_2)_!(e(\cV_{d,2})) = (\pi_2)_! \pi_2^*(e(\cV_{d,1})) = 0 \]
+  \[ (\pi_2)_*(e(\cV_{d,2})) = (\pi_2)_* \pi_2^*(e(\cV_{d,1})) = 0 \]
   since the fibers of $\pi_2$ have positive dimension.
 \end{proof}
 
@@ -6442,7 +6445,7 @@ some global section of $\cV$. In addition, assume $\sum_{i=1}^\ell a_i
 shall spend this subsection on understanding the following theorem,
 whose proof comes in the next subsection.
 
-\begin{theorem}[Mirror theorem]
+\begin{theorem}[Mirror theorem] \cite[Theorem 9.1]{Givental1996} \cite[Theorem 11.2.2]{Cox1999} \label{thm:givental-mirror-theorem}
   In this setting, the formal cohomology-valued functions $I_{\cV}$
   and $J_{\cV}$ coincide after a change of variables
   \[ t_0 \mapsto t_0 + f(e^{t_1})\hbar + h(e^{t_1}), \quad t_1 \mapsto t_1 + g(e^{t_1}) \]
@@ -6493,7 +6496,7 @@ whose proof comes in the next subsection.
   \[ j_*\left(\frac{1}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(X, d)]^{\vir}\right) = \frac{e(\cV_{d,2})}{\hbar - \psi_1} \cap [\cnj\cM_{0,2}(\bP^n, d)]. \]
   Plugging this into the second expression for $J_X$ in
   \eqref{eq:givental-j-function}, we get
-  \[ i_*(J_X) = e^{(t_0 + t_1H)/\hbar}\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,2})}{\hbar - \psi_1}\right)\bigg) = e^{(t_0 + t_1H)/\hbar}e(\cV)\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_!\left(\frac{e(\cV_{d,2,1}')}{\hbar - \psi_1}\right)\bigg) \]
+  \[ i_*(J_X) = e^{(t_0 + t_1H)/\hbar}\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_*\left(\frac{e(\cV_{d,2})}{\hbar - \psi_1}\right)\bigg) = e^{(t_0 + t_1H)/\hbar}e(\cV)\bigg(1 + \sum_{d=1}^\infty e^{t_1d} (\ev_1)_*\left(\frac{e(\cV_{d,2,1}')}{\hbar - \psi_1}\right)\bigg) \]
   where the second equality used that $e(\cV_{d,2}) = e(\cV_{d,2,1}')
   \cup \ev_1^*(\cV)$. But now the right hand side is just $J_{\cV}$.
 \end{proof}
@@ -6553,7 +6556,244 @@ whose proof comes in the next subsection.
 
 \subsection{Mirror Theorem Proof}
 
+To prove the mirror theorem \ref{thm:givental-mirror-theorem}, we will
+use equivariant methods, so put the natural $\bT$-action on $\cV =
+\bigoplus_{i=1}^\ell \cO_{\bP^n}(a_i)$ and define the equivariant
+version of $J_{\cV}$ by
+\[ J_{\bT} \coloneqq e^{(t_0 + t_1p)/\hbar} S_\cV, \quad S_{\cV}(q, \hbar) \coloneqq e_{\bT}(\cV) \tilde S_{\cV}, \quad \tilde S_{\cV}(q, \hbar) \coloneqq 1 + \sum_{d=1}^\infty q^d (\ev_1)_*\left(\frac{e_{\bT}(\cV_{d,2,1}')}{\hbar - (\psi_1)_\bT}\right) \]
+where $p$ is the equivariant hyperplane class, and $q \coloneqq
+e^{t_1}$. To study $\tilde S_{\cV}$ we decompose it into the pieces
+\[ Z_{i,\cV} \coloneqq i_{q_i}^*(\tilde S_{\cV}) = \int_{\bP^n_{\bT}} \tilde S_{\cV} \cup \phi_i \]
+(using the notation of \ref{thm:localization-on-projective-space}). By
+the projection formula for $\ev_1$ followed by localization on
+$\cnj\cM_{0,2}(\bP^n, d)$ (using the notation of
+\ref{def:graph-of-fixed-loci} and \eqref{eq:stacky-localization}),
+\begin{equation} \label{eq:equivariant-component-j-function}
+\begin{aligned}
+  Z_{i,\cV}
+  &= 1 + \sum_{d=1}^\infty q^d \int_{\cnj\cM_{0,2}(\bP^n, d)_{\bT}} \frac{e_{\bT}(\cV_{d,2,1}') \ev_1^*(\phi_i)}{\hbar - (\psi_1)_{\bT}} \\
+  &= 1 + \sum_{d=1}^\infty q^d \sum_{\substack{\Gamma \text{s.t.}\\\ev_1(\cnj\cM_\Gamma)=q_i}} \int_{(\cnj\cM_\Gamma)_{\bT}} \frac{i_\Gamma^* e_{\bT}(\cV_{d,2,1}') \prod_{k \neq i} (\lambda_i - \lambda_k)}{a_\Gamma (\hbar - (\psi_1)_{\Gamma}) e_{\bT}(N_\Gamma)}
+\end{aligned}
+\end{equation}
+where $(\psi_1)_\Gamma \coloneqq (c_1)_{\bT}(i_\Gamma^* \bL_1)$
+denotes the restriction of $c_{\bT}$ to $\cnj\cM_\Gamma$.
 
+\begin{lemma}[Regularity] \label{thm:givental-regularity-lemma}
+  The $Z_{i,\cV}$ are elements of the ring $\bQ(\lambda_i,
+  \hbar)[[q]]$. The coefficient of each $q^d$ is a rational function
+  of $\lambda_i, \hbar$ and is regular at all values $\hbar =
+  (\lambda_i - \lambda_j)/k$ where $i \neq j$ and $k \ge 1$.
+\end{lemma}
+
+\begin{proof}
+  Let $(\Sigma, p_1, p_2, f) \in \cnj\cM_\Gamma$. Say that $\Gamma$ is
+  type A (resp. type B) if the component $\Sigma' \subset \Sigma$
+  containing $p_1$ is mapped by $f$ onto a curve (resp. a point). We
+  analyze the two cases.
+  \begin{enumerate}
+  \item (Type A) $\Sigma'$ is mapped, with degree $d'$, to the line
+    $L$ connecting $q_i$ to $q_j$. At $q_i \in L \cong \bP^1$, the
+    cotangent space $T_{q_i}^*\bP^1$ has weight $\lambda_i -
+    \lambda_j$, so the $\bT$-action on $T_{p_1}^*\Sigma'$ has weight
+    $(\lambda_j - \lambda_i)/d'$ (cf. \ref{def:flag-of-fixed-graph}),
+    which is precisely $(\psi_1)_\Gamma$. Substituting this back into
+    \eqref{eq:equivariant-component-j-function}, each coefficient is
+    clearly has the desired properties.
+  \item (Type B) The claim here is that $(\psi_1)_\Gamma^d = 0$, so
+    the finitely many remaining terms in the coefficient of $q^d$ form
+    a rational function with the desired properties. To show this, let
+    $v$ be the vertex of $\Gamma$ corresponding to $\Sigma'$. Then
+    $n(v) \le d+2$ since there are $2$ marked points and at most $d$
+    edges incident to $v$ (otherwise since each edge contributes a
+    positive degree, the total degree would be more than $d$). But
+    \eqref{eq:product-form-of-MGamma} shows that $\cnj\cM_{0,n(v)}$ is
+    a factor in $\cnj\cM_\Gamma$. Since $\dim \cnj\cM_{0,n(v)} = n(v)
+    - 3 \le d - 1$ and $(c_1)_{\bT}(\bL_1) = c_1(\bL_1) \otimes 1$
+    (since $\bT$ acts trivially on $\bL_1$), by degree considerations
+    $c_1(\bL_1)^d = 0$. Hence $(\psi_1)_\Gamma^d$, which is induced
+    from $c_1(\bL_1)$, is also zero. \qedhere
+  \end{enumerate}
+\end{proof}
+
+The regularity lemma and its proof tels us two things. First, it makes
+sense to substitute $\hbar = (\lambda_j - \lambda_i)/d'$ into
+$Z_{i,\cV}$. Second, the sum over $\Gamma$ in $Z_{i,\cV}$ can be
+restricted to only $\Gamma$ of type A (at the cost of additional terms
+polynomial in $\hbar^{-1}$). This is because
+\[ \frac{1}{\hbar - (\psi_1)_\Gamma} = \left(\frac{(\psi_1)_\Gamma}{\hbar}\right)^d \frac{1}{\hbar - (\psi_1)_\Gamma} + \sum_{k=0}^{d-1} (\psi_1)_\Gamma^k \hbar^{-k-1}, \]
+which gives a factor $(\psi_1)_\Gamma^d$ in the integrand when plugged
+back into \eqref{eq:equivariant-component-j-function}, and from the
+proof we know $(\psi_1)_\Gamma^d = 0$ for type B graphs.
+
+\begin{lemma}[Recursion] \cite[Lemmas 11.2.11, 11.2.9]{Cox1999} \label{thm:givental-recursion-lemma}
+  For integers $i \neq j$ and $0 \le i, j \le n$, define
+  \[ C_{i,j}^{\cV}(d) \coloneqq \frac{\prod_{k=1}^\ell \prod_{m=1}^{a_k d} (a_k \lambda_i + m(\lambda_j - \lambda_i)/d)}{d! \prod_{(k,m)\neq (j,d),k \neq i} (\lambda_i - \lambda_k + m(\lambda_j - \lambda_i)/d)} \]
+  where in the denominator $m$ ranges from $1$ to $d$. Then we have
+  the recursion
+  \begin{equation} \label{eq:equivariant-component-j-function-recursion}
+    Z_{i,\cV}(q, \hbar) = R_i + \sum_{j \neq i} \sum_{d=1}^\infty \left(\frac{q}{\hbar}\right)^d \frac{C_{i,j}^{\cV}(d)}{\lambda_i - \lambda_j + \hbar d} Z_{j,\cV}\left(\frac{q}{\hbar} \frac{\lambda_j - \lambda_i}{d}, \frac{\lambda_j - \lambda_i}{d}\right)
+  \end{equation}
+  where $R_i \in \cR_{\bT}[\hbar^{-1}][[q]]$, with $R_i = 1$ if $\cV =
+  0$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+  Let $\Gamma$ be a type A graph. For $(\Sigma, p_1, p_2, f) \in
+  \cnj\cM_\Gamma$ with $f(p_1) = q_i$, let $j \neq i$ be such that
+  $f|_{\Sigma'}$ is a degree $d'$ cover of the line connecting $q_i$
+  to $q_j$, so that $\Sigma = \Sigma' \cup \Sigma''$ with $q_j = f(p)$
+  where $p \coloneqq \Sigma' \cap \Sigma''$. Then $(\Sigma'', p, p_2,
+  f|_{\Sigma''})$ is another point in $\cnj\cM_{0,2}(\bP^n, d'')$, and
+  the claim is that
+  \[ a_\Gamma = d' a_{\Gamma''}, \quad (\psi_1)_\Gamma = \frac{\lambda_j - \lambda_i}{d'}, \quad e_{\bT}(N_\Gamma) = e_{\bT}(N_{\Gamma''}) \left(\frac{\lambda_j - \lambda_i}{d'} - (\psi_1)_{\Gamma''}\right) \!\prod_{\substack{m=0,k=0\\(m,k)\neq(0,i)}}^{d'-1,n} \!\!\!\!\bigg(m\left(\frac{\lambda_j-\lambda_i}{d'}\right) + \lambda_i - \lambda_k\bigg). \]
+  The first two are clear; the third arises from a short weight
+  calculation. Substituting back into
+  \eqref{eq:equivariant-component-j-function} and some symbol-pushing
+  gives the desired result.
+\end{proof}
+
+\begin{remark}
+  It may not be obvious that
+  \eqref{eq:equivariant-component-j-function-recursion} is a recursion
+  until we write $Z_{i,\cV}(q, \hbar) = \sum_{d=0}^\infty
+  Z_{i,d,\cV}(\hbar) q^d$. Plugging back into
+  \eqref{eq:equivariant-component-j-function-recursion} we see that
+  $Z_{i,d,\cV}$ is determined by $Z_{j,d',\cV}$ for $d' < d$, along
+  with the $R_i$. When $\cV = 0$, we have $R_i = 1$, so that the
+  $Z_{i,\cV}$ are uniquely specified by the recursion
+  \eqref{eq:equivariant-component-j-function-recursion}.
+\end{remark}
+
+\begin{corollary} \label{thm:givental-mirror-theorem-projective-space}
+  The mirror theorem holds for $\cV = 0$, i.e. $X = \bP^n$.
+\end{corollary}
+
+\begin{proof}[Proof sketch]
+  The idea is to write the equivariant version of $I_{\bP^n}$
+  \[ I_{\bT} \coloneqq e^{(t_0 + t_1p)/\hbar} S', \quad S'(q, \hbar) \coloneqq \sum_{d=0}^\infty q^d \frac{1}{\prod_{j=0}^n \prod_{m=1}^d (p - \lambda_j + m\hbar)} \]
+  and set $Z_i' \coloneqq \int_{\bP^n_{\bT}} S' \cup \phi_i$. Then we
+  tediously verify that the $Z_i'$ lie in $\bQ(\lambda, \hbar)[[q]]$
+  and satisfy the regularity condition
+  \ref{thm:givental-regularity-lemma} as well as the recursion
+  \eqref{eq:equivariant-component-j-function-recursion}. But since the
+  recursion uniquely specifies $Z_{i,\cV}$, it follows that $Z_i' =
+  Z_{i,0}$. Hence for $\cV = 0$,
+  \[ J_{\bT} = e^{(t_0 + t_1p)/\hbar} \sum_{i=0}^n Z_{i,0} \cup \phi^i = e^{(t_0 + t_1p)/\hbar} \sum_{i=0}^n Z_i' \cup \phi^i = I_{\bT}. \qedhere \]
+\end{proof}
+
+In the general case $\cV \neq 0$, this argument fails because the
+$R_i$ can be non-trivial polynomials in $\hbar^{-1}$, so the recursion
+\eqref{eq:equivariant-component-j-function-recursion} does not
+uniquely specify $Z_{i,\cV}$ anymore. The key to resolving this
+problem lies in the following two lemmas.
+
+\begin{lemma}[Polynomiality] \cite[Lemma 11.2.12]{Cox1999} \label{thm:givental-polynomiality-lemma}
+  Let $z$ be a formal variable. Then
+  \[ W(z, \hbar) \coloneqq \sum_{i=0}^n \frac{\lambda_i \sum_j a_j}{\prod_{j \neq i} (\lambda_i - \lambda_j)} e^{\lambda_i z} Z_{i,\cV}(qe^{z\hbar},\hbar)Z_{i,\cV}(q,-\hbar) \]
+  is in $H^*_{\bT}[\hbar][[q,z]]$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+  We first explain where $W(z, \hbar)$ comes from. Consider
+  $\cnj\cM_{0,2}(\bP^1 \times \bP^n, (1,d))$ (stable maps of degree
+  $1$ on the first factor and $d$ on the second), and define
+  \[ L_d \coloneqq \ev_1^{-1}(\{0\} \times \bP^n) \cap \ev_2^{-1}(\{\infty\} \times \bP^n) \]
+  with inclusion map $i_{L_d}$ into $M_d$. View $M_d \coloneqq
+  \cnj\cM_{0,0}(\bP^1 \times \bP^n, (1,d))$ as the space of
+  parametrized degree $d$ stable maps; the $\bP^1$ factor is the
+  parametrization. There is a map
+  \[ \varphi\colon M_d \to N_d \coloneqq \bP(H^0(\bP^1, \cO_{\bP^1}(d))^{n+1}) \]
+  sending a parametrized degree $d$ map $\bP^1 \to \bP^n$ to the
+  $(n+1)$ homogeneous forms defining it. This map $\varphi$ is
+  $G$-equivariant for a suitable action of $G \coloneqq \bC^* \times
+  \bT$ on $M_d$. Using $\varphi$, the forgetful map $\pi$ induces a
+  map
+  \[ \mu\colon L_d \xrightarrow{i_{L_d}} \cnj\cM_{0,2}(\bP^1 \times \bP^n, (1,d)) \xrightarrow{\pi} \cnj\cM_{0,0}(\bP^1 \times \bP^n, (1,d)) \to N_d. \]
+  Also, via the projection $\bP^1 \times \bP^n \to \bP^n$, we get
+  another map
+  \[ \tilde\pi\colon L_d \xrightarrow{\pi \circ i_{L_d}} M_d \to \cnj\cM_{0,0}(\bP^n, d) \]
+  using which we can define $\tilde\chi_d^{\cV} \coloneqq
+  e_G(\tilde\pi^*\cV_{d,0})$ (where $\cV_{d,0}$ is the bundle from
+  \ref{def:givental-j-function}). Then it suffices to establish the
+  identity
+  \[ \sum_{d=0}^\infty q^d \int_{(L_d)_G} \exp(\mu^*(\kappa)z) \tilde\chi_d^{\cV} = W(z, \hbar) \]
+  where $\kappa \in H_G^*(N_d)$ is the equivariant hyperplane class,
+  since both $\mu^*(\kappa), e_G(\cV_d) \in H_G^*(M_d)$ are clearly
+  polynomial in $\hbar$ and $\lambda_i$. The computation is done via
+  localization, similar to the computation of the Aspinwall--Morrison
+  formula \ref{thm:aspinwall-morrison-formula}.
+\end{proof}
+
+\begin{definition}
+  A collection $\{Z_i\}_{i=0}^n$ with $Z_i = Z_i(q,\hbar) \in
+  \bQ(\lambda_j)[[\hbar^{-1},q]]$ and $Z_i(0, \hbar) = 1$ is of {\bf
+    class $\cP$} if, with $Z_i$ in place of $Z_{i,\cV}$, the
+  regularity, recursion, and polynomiality conditions
+  (\ref{thm:givental-regularity-lemma},
+  \ref{thm:givental-recursion-lemma}, and
+  \ref{thm:givental-polynomiality-lemma} respectively) are still
+  satisfied.
+\end{definition}
+
+\begin{lemma}[Uniqueness] \cite[Lemma 11.2.14]{Cox1999} \label{thm:givental-uniqueness-lemma}
+  If $\{Z_i\}_{i=0}^n$ and $\{Z_i'\}_{i=0}^n$ are both class $\cP$,
+  then
+  \[ Z_i \equiv Z_i' \bmod{\hbar^{-2}} \;\; \forall i \implies Z_i = Z_i' \;\; \forall i. \]
+\end{lemma}
+
+\begin{proof}
+  Write $Z_i = \sum_d Z_{i,d} q^d$ and similarly for $Z_i'$. By
+  hypothesis, $Z_{i,0} = Z_{i,0}' = 1$, so inductively, suppose
+  $Z_{i,d} = Z_{i,d}'$ for all $d < d_0$ and $i$. Being of class $\cP$
+  (specifically the regularity lemma) enables us to expand in terms of
+  $\hbar^{-1}$
+  \[ D_i(\hbar) \coloneqq Z_{i,d_0}' - Z_{i,d_0} = h^{-2r_i}(A_i h^{-1} + B_i + O(\hbar)), \quad A_i, B_i \in \bC(\lambda_j), \, r_i \ge 0. \]
+  Since $Z_i \equiv Z_i' \bmod{\hbar^{-2}}$, it suffices to show we
+  can take $r_i = 0$ for all $i$. We will show that $r_i \ge 1$
+  implies $A_i = B_i = 0$. This is where the polynomiality condition
+  comes in: let $W$ and $W'$ be the functions of
+  \ref{thm:givental-polynomiality-lemma} defined using $\{Z_i\}$ and
+  $\{Z_i'\}$ respectively. Then the coefficient of $q^{d_0}$ in $W' -
+  W$ (after substituting the above expression for $D_i$) is
+  \[ \sum_{i=0}^n \frac{\lambda_i \sum_j a_j}{\prod_{j \neq i} (\lambda_j - \lambda_i)} e^{\lambda_i z}\hbar^{-2r_i} (A_i d_0 z + 2 B_i + O(\hbar)). \]
+  But $W$ and $W'$ are polynomials in $\hbar$. Hence
+  $\hbar^{-2r_i}(A_id_0z + 2B_i)$ is a polynomial in $\hbar$, i.e. if
+  $r_i \ge 1$, we must have $A_i = B_i = 0$.
+\end{proof}
+
+This uniqueness lemma and the notion of being of class $\cP$ replaces
+the (much stronger) uniqueness result implicit in the recursion lemma
+\ref{thm:givental-recursion-lemma}, and now we are ready to prove
+Givental's mirror theorem in full generality.
+
+\begin{proof}[Proof of \ref{thm:givental-mirror-theorem}]
+  As for the simple $\cV = 0$ case in
+  \ref{thm:givental-mirror-theorem-projective-space}, we write down
+  the equivariant version of $I_{\cV}$:
+  \[ I_{\bT} \coloneqq e^{(t_0 + t_1p)/\hbar} e_{\bT}(\cV) \tilde S_{\cV}', \quad \tilde S_{\cV}'(q, \hbar) \coloneqq 1 + \sum_{d=1}^\infty q^d \frac{\prod_{j=1}^\ell \prod_{m=1}^{a_j d} (a_jp + m\hbar)}{\prod_{j=0}^n \prod_{m=1}^d (p - \lambda_j + m\hbar)} \]
+  and set $Z_{i,\cV}' \coloneqq \int_{\bP_{\bT}^n} \tilde S_{\cV}'
+  \cup \phi_i$. Then we tediously verify that $\{Z_{i,\cV}'\}_{i=0}^n$
+  is of class $\cP$. Now we want to compare $Z_{i,\cV}$ and
+  $Z_{i,\cV}'$. Let $J_{\bT}''$ be $J_{\bT}$ after the substitution in
+  the mirror theorem. The asymptotic
+  \ref{thm:hbar-expansion-of-j-function} holds in the equivariant case
+  too, so that after the substitution,
+  \[ J_{\bT}'' = e^{(t_0 + t_1p)/\hbar} e_{\bT}(\cV)(e^{f(q)} + e^{f(q)}h(q) \hbar^{-1} + e^{f(q)}g(q)p\hbar^{-1} + o(\hbar^{-1})). \]
+  Hence there is a unique choice of $f, g, h$ such that $I_{\bT}
+  \equiv J_{\bT}'' \bmod{\hbar^{-2}}$. To lift this to an actual
+  equality, note that if we write
+  \[ J_{\bT}'' = e^{(t_0 + t_1p)/\hbar} e_{\bT}(\cV) \tilde S_{\cV}'' \]
+  and set $Z_{i,\cV}'' \coloneqq \int_{\bP_{\bT}^n} \tilde S_{\cV}''
+  \cup \phi_i$ then $I_{\bT} = J_{\bT}''$ is equivalent to $Z_{i,\cV}'
+  = Z_{i,\cV}''$ for all $i$. But comparing $J_{\bT}''$ with $J_{\bT}$
+  shows that
+  \[ Z_{i,\cV}''(q, \hbar) = e^{f(q) + h(q)/\hbar + g(q)\lambda_i/\hbar} Z_{i,\cV}(qe^{g(q)}, \hbar), \]
+  which by \cite[Lemma 10]{Pandharipande1998} is of class $\cP$ if
+  $\{Z_{i,\cV}\}_{i=0}^n$ is (which it is). Since $Z_{i,\cV}' \equiv
+  Z_{i,\cV}'' \bmod{\hbar^{-2}}$, by the uniqueness lemma
+  \ref{thm:givental-uniqueness-lemma} we conclude $Z_{i,\cV}' =
+  Z_{i,\cV}''$ for all $i$.
+\end{proof}
 
 \todos
 
